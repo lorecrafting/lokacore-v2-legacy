@@ -28,6 +28,8 @@ Turn this packet from draft into an implementation contract.
 - decision register;
 - known deferred questions;
 - implementation ticket dependency graph.
+- specification cutover manifest naming the accepted normative file set + commit hash and the post-R0 amendment authority;
+- a compact implementation-facing architecture/invariant index derived from the accepted packet.
 
 ### Gate R0
 
@@ -43,6 +45,7 @@ No unresolved contradiction about:
 - scripting boundary;
 - mobile Story session/GameView boundary and the fact that Realm transport is intentionally deferred;
 - cartridge versioning.
+- specification source-of-truth/cutover rules once the fresh implementation repository exists.
 
 ## R1 — Disposable portable-kernel feasibility spike
 
@@ -51,6 +54,29 @@ No unresolved contradiction about:
 Prove the hardest new architectural decision before investing in the rebuild.
 
 R1 SHOULD live in a disposable spike repository/workspace, not as compatibility code inside Lokacore and not as the foundation of the production v3 repository. Keep only evidence, benchmarks, fixtures, and code worth deliberately re-implementing after the decision.
+
+### Acceptance envelope is frozen before the spike
+
+R1 is a decision experiment, so its success criteria MUST be recorded **before** implementation results are known.
+
+Create a versioned R1 acceptance-envelope artifact that fixes at least:
+
+- representative tiny, medium, and deliberately stressful portable-state sizes;
+- representative command mixes and decision/output sizes;
+- supported development and minimum physical-device classes for iOS/Android;
+- serialization/FFI bytes copied or retained per decision strategy;
+- command latency targets/limits (including p50/p95/p99 where meaningful);
+- maximum acceptable normal-NIF scheduler occupancy/latency impact if Rustler is tested;
+- snapshot/save round-trip size and latency envelopes;
+- memory-growth/leak expectations over long command runs;
+- crash/fault containment and recovery expectations for native failures;
+- Expo/EAS build, local debugging, symbolication/crash-reporting, upgrade, and CI maintenance criteria;
+- third-party binding/toolchain dependency risk that would count as unacceptable operational fragility;
+- the comparison procedure against the dual-implementation fallback.
+
+The exact numeric thresholds are an R1 planning artifact rather than permanent architecture prose, but they must be committed/reviewed before the benchmark implementation is tuned. Do not redefine "acceptable" after seeing the result merely to preserve a favored technology choice.
+
+R1 evidence reports both the measured result and the pre-registered threshold.
 
 ### Working hypothesis
 
@@ -155,7 +181,9 @@ docs/
 - generated-schema drift check;
 - ADR directory;
 - AGENTS/task routing docs;
-- minimal release/dev tooling.
+- minimal release/dev tooling;
+- import the exact R0-accepted normative specification/ADRs into the fresh repository as implementation authority;
+- physically separate normative implementation docs from historical archaeology/review/research evidence so agents do not treat every old Lokacore document as peer authority.
 
 ### Gate R2
 
@@ -169,51 +197,72 @@ Empty-system CI is green on:
 
 If R1 rejects Rust/native bindings, R2 MUST NOT keep Rust-specific gates merely because they appeared in the original hypothesis.
 
+After this cutover, future architecture amendments happen in the fresh implementation repository through its spec/ADR process. The Lokacore v3 packet remains provenance/reference evidence and MUST NOT become a second independently evolving normative specification.
+
 ## R3 — Contract/schema foundation
 
 ### Objective
 
-Make machine-readable contracts exist before features.
+Make the irreducible machine-readable contracts exist before features **without prematurely freezing every higher-level feature schema before real implementation/content evidence exists**.
 
-### Build
+R3 has two layers.
 
-- DefinitionRef schema;
-- cartridge manifest schema;
-- deployment schema;
-- campaign/continuity manifest schema;
-- capability registry + exact capability-lock format;
+### R3A — Constitutional contracts
+
+These are foundational enough that later features must build on them rather than reinterpret them:
+
+- DefinitionRef and runtime-identity contracts;
+- cartridge/deployment/campaign manifest schemas and version envelopes;
+- capability registry + exact capability-lock format + semantic residency reporting;
+- StateScope/AudiencePolicy plus distinct logical-world and mutation-authority placement identities;
 - Action/ActionInvocation registry/schema;
-- ActionRecipe/ComposedAction schema;
 - portable semantic Command registry;
-- StateDelta schema/algebra;
-- DomainEvent registry;
-- Effect registry;
-- policy AST;
-- TargetSpec / deterministic TargetResolution result schema;
-- typed relation/provenance shapes;
-- InspectableDetail/description-variant schema;
-- Connection/Barrier schema;
-- ReactionRule schema;
-- SpawnBundle/PopulationPlan registry shape;
-- commerce-provider/policy registry shape;
-- WorldEventPlan schema;
-- FactSpec / scoped narrative-state schema;
-- NarrationSpec + SceneDefinition/SceneInstance/SceneSpace schema;
-- InstancePlan schema including instancing closure/import/export policy;
-- consequence-operator registry shape;
-- portable GameView schema;
+- StateDelta algebra, including canonical mutation-target identity, preconditions, proposal-overlay semantics, deterministic ordering, conflict/composition rules, and canonical serialization;
+- DomainEvent registry plus proposed-before-commit versus committed-observable semantics;
+- Effect registry and durability/idempotency classifications;
+- core policy AST/versioning;
+- deterministic TargetResolution result contract (`none | unique | ambiguous`) even if richer selector vocabulary arrives later;
+- typed relation/provenance foundation;
+- FactSpec / scoped narrative-state foundation;
+- portable GameView envelope/freshness contract;
 - portable-rules ABI/serialization contract selected by R1;
-- canonical serialization/hash rules;
+- canonical serialization/hash/IdSource/RNG/numeric rules;
 - diagnostic/error registry.
+
+### R3B — Versioned feature envelopes
+
+R3 also reserves machine-readable kind/version/reference/registration envelopes for later composition systems so R4–R6 do not invent incompatible shapes. However, exact production field vocabularies SHOULD be finalized in the phase that first implements/exercises the feature.
+
+Initial envelopes include:
+
+- ActionRecipe/ComposedAction;
+- InspectableDetail/description variants;
+- Connection/Barrier;
+- ReactionRule;
+- consequence-operator registry;
+- NarrationSpec;
+- SceneDefinition/SceneInstance/SceneSpace;
+- InstancePlan including explicit closure/import/export policy;
+- SpawnBundle/PopulationPlan;
+- commerce provider/policy composition;
+- Service/Capacity/ServiceJob composition envelope;
+- WorldEventPlan.
+
+R5 freezes the v1 ActionRecipe/InspectableDetail/Connection/Barrier and other foundation-world shapes before portable world rules depend on them. R7 freezes the v1 narrative/Scene/InstancePlan/consequence shapes before R9C/R10 depend on them. R8 freezes the v1 living-world/population/commerce/service/world-event shapes before the conformance and product cartridges depend on them.
+
+This does **not** permit runtime ambiguity. A feature may not ship/use an unstable anonymous map merely because its detailed schema was deferred. It means the final versioned schema is frozen when implementation evidence exists, instead of guessing every field at R3 and carrying accidental compatibility forever.
 
 ### Gate R3
 
-From the portable/content registries, tooling can generate/check:
+From the constitutional registries and currently frozen feature schemas, tooling can generate/check:
 
 - Elixir portable/domain types and validators;
 - TypeScript ActionInvocation/GameView/content types used by Story Mode, plus authority-internal semantic Command types only where the local authority adapter needs them;
 - capability/schema docs and help excerpts;
-- canonical test fixtures.
+- canonical test fixtures;
+- a machine-readable capability/residency matrix.
+
+The R3 fixture suite proves StateDelta conflict/composition behavior and that proposed DomainEvents cannot escape before a failed commit.
 
 No handwritten duplicate portable command/event/GameView catalogs.
 
@@ -442,13 +491,56 @@ mutation-sensitivity gates. The Lab can account for quest/scene/area coverage, e
 declared bounded branches, export an exact evidence bundle, and reproduce a model-proposed
 adversarial scenario deterministically without treating the model output itself as pass/fail evidence.
 
+## R9C — Synthetic V3 Conformance Cartridge
+
+### Objective
+
+Create a small permanent **architecture/conformance cartridge** whose job is to stress the engine and Lab, not to be a commercially coherent story.
+
+This separates two different optimization targets:
+
+- the conformance cartridge is intentionally adversarial, compact, and mechanically broad;
+- R10 is intentionally player-facing, coherent, and allowed to use only the mechanics its fiction needs.
+
+### Build
+
+The conformance cartridge SHOULD exercise the currently implemented portable foundation broadly enough to cover representative interactions such as:
+
+- deterministic text/touch target ambiguity and resolution;
+- containment/inventory transfer and retry/crash boundaries;
+- coherent bidirectional Barrier state;
+- scoped Facts + ReactionRule chains;
+- branching Quest outcomes and exactly-once typed consequences;
+- SceneSequence crash/reconnect/choice semantics;
+- SceneSpace overlay plus minimal InstancePlan entry/export/teardown;
+- at least one portable LokaScript budget/containment case;
+- Behavior intent conflict/arbitration;
+- SpawnBundle + provenance-safe PopulationPlan;
+- merchant/Commerce conservation;
+- ServiceJob queue/escrow/time completion where implemented;
+- WorldEventPlan phase/reaction composition;
+- logical-time/RNG boundary cases;
+- intentionally injectable defects for invariant/mutation-sensitivity checks.
+
+It does not need polished prose, art, catalog metadata, monetization, or a natural narrative reason for every mechanic. Synthetic rooms/entities may exist solely to prove contracts.
+
+Each covered semantic surface SHOULD have small deterministic scenarios and, where useful, a known-bad mutation/fault fixture demonstrating that the intended gate catches the defect.
+
+### Gate R9C
+
+The synthetic cartridge passes its applicable `offline_private` semantic/conformance certification, the currently available R1-selected portable/mobile/host-adapter conformance fixtures, crash/retry cases, and coverage accounting. R9C does not require the production Realm authority that is introduced at R14; once R14 exists, the same cartridge becomes a standing offline-versus-BEAM differential fixture.
+
+A future engine/capability change that breaks a previously proved foundational interaction should fail this cartridge quickly enough to serve as a permanent architecture regression corpus.
+
+The conformance cartridge is **not** evidence that the product is fun, understandable, or commercially shippable. That is R10/R12 work.
+
 ## R10 — First real offline cartridge
 
 **Sequencing rule:** prove authoring requirements with a real cartridge before completing the generalized Builder API. Minimal scripts/CLI helpers are allowed, but do not let tooling delay product proof.
 
 ### Objective
 
-Prove product.
+Prove the **player-facing product and authoring model**, complementing rather than duplicating the synthetic R9C conformance cartridge.
 
 Target scope:
 
@@ -457,34 +549,35 @@ Target scope:
 - 10–20 items;
 - 2–4 connected quests forming a coherent story thread;
 - at least one multi-stage/branching quest with typed durable world consequences;
-- at least one quest-launched SceneSequence rendered as a text cutscene;
-- at least one dream/vision or private narrative scene with explicitly exported consequences;
-- at least one scripted world-event/reaction sequence driven by typed facts/events;
-- at least one quest-gated area/access change;
-- at least one NPC role/schedule/dialogue reaction to quest outcome;
-- at least one ambient/environmental reaction to shared fact state;
-- schedules;
-- InspectableDetails and deterministic text target ambiguity/disambiguation;
-- coherent locked/openable bidirectional barrier;
-- SpawnBundle + PopulationPlan;
-- merchant with hours/stock/price or admission variation;
-- at least one ReactionRule and conflicting Behavior arbitration fixture;
-- environmental change;
-- simple skill/check;
-- optional simple combat;
-- multiple endings/consequences.
+- at least one durable narrative SceneSequence where it improves the story;
+- at least one quest/world outcome that changes later dialogue, behavior, access, ambience, schedule, or another visible world response through typed facts/consequences;
+- schedules/living-world behavior sufficient for the setting to feel inhabited;
+- InspectableDetails and ordinary text/touch interaction;
+- environmental/world-state variation;
+- simple skill/check and optional simple combat where fiction supports them;
+- multiple endings or materially different durable consequences.
+
+The real cartridge MAY use dreams/InstancePlan, WorldEventPlan, PopulationPlan, merchant/Commerce, ServiceJob, complex Behavior arbitration, or other available primitives when they serve the design. It is no longer required to include every architecture feature merely to prove that feature exists; R9C owns broad synthetic coverage.
 
 ### Important
 
 Hand-author substantial portions first. Do not immediately ask the factory to mass-generate.
 
-The first cartridge exists to stress contracts. It MUST prove that quests and living-world systems interact through typed facts/consequences rather than cartridge-specific mutation scripts.
+R10 exists to answer questions R9C cannot:
+
+- are the primitives pleasant enough to author a coherent game?
+- does the composition grammar encourage understandable world design rather than ceremony?
+- which operations are repetitive/error-prone enough to deserve Builder verbs?
+- which nominally elegant primitive boundaries repeatedly confuse skilled authors/agents?
+- does the resulting world feel like a living narrative game rather than a technology demo?
+
+The cartridge MUST still prove that quests and living-world systems interact through typed facts/consequences rather than cartridge-specific hidden mutation scripts.
 
 ### Gate R10
 
-Full `offline_private` certification plus a **developer-harness physical-device smoke** using the minimal Expo/native integration established by R1/R2/R6. Polished non-developer product-shell acceptance belongs to R12.
+Full applicable `offline_private` certification plus a **developer-harness physical-device smoke** using the minimal Expo/native integration established by R1/R2/R6. Polished non-developer product-shell acceptance belongs to R12.
 
-The cartridge should be authored primarily through source files/compiler/Lab at this stage. Record every repetitive or error-prone authoring operation as evidence for the Builder API rather than prematurely generalizing it.
+The cartridge should be authored primarily through source files/compiler/Lab at this stage. Record every repetitive, confusing, or error-prone authoring operation as evidence for the Builder API rather than prematurely generalizing it.
 
 ## R11 — Builder API v1 and script-surface generalization
 
@@ -510,11 +603,11 @@ Let humans/agents author without raw repo semantics.
 - explainability operations for target resolution, behavior, population, prices, scenes, quest progress, and world-event phase;
 - machine-readable role/surface metadata sufficient for an orchestrator to distinguish L3–L6 builders, read-only reviewers and engine-capability escalation;
 - typed MISSING_CAPABILITY / CapabilityProposal result path;
-- expand LokaScript bindings/recipes only from concrete R10 authoring needs and accepted reusable capability gaps.
+- expand LokaScript bindings/recipes only from concrete R9C conformance gaps, R10 authoring needs, and accepted reusable capability gaps.
 
 ### Gate R11
 
-Astra/another agent can recreate or extend representative first-cartridge content using only Builder API tools and fix intentionally injected validation failures without shell/Git editing.
+Astra/another agent can recreate or extend representative R10 product content using only Builder API tools, can manipulate the relevant R9C conformance fixtures through typed Lab/Builder surfaces, and can fix intentionally injected validation failures without shell/Git editing.
 
 ## R12 — Loka app: production Story Mode
 
@@ -775,7 +868,9 @@ R8 living world
  |
 R9 lab
  |
-R10 first cartridge
+R9C conformance cartridge
+ |
+R10 first product cartridge
  |\
  | R11 builder
  |

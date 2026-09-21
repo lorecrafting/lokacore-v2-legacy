@@ -706,6 +706,30 @@ This is intentionally broad. What builders cannot do is introduce:
 - unregistered effect types;
 - untyped cross-system state mutation.
 
+### Progressive disclosure and intent-first composition
+
+The composition grammar is intentionally rich, but ordinary authors/agents SHOULD NOT need to choose among every low-level primitive before stating what they want.
+
+The Builder SHOULD accept intent-oriented requests/operations and resolve them toward the **smallest typed composition shape** that preserves the mechanic's invariants. It may recommend or expand into ActionRecipe, ReactionRule, Behavior, StateMachine, SceneSequence, ServiceJob, PopulationPlan, Quest, WorldEventPlan, or another registered construct, but the user/model should not need to memorize the entire primitive taxonomy merely to create ordinary content.
+
+Representative explain/assist operations may include:
+
+~~~text
+composition.suggest
+composition.explain_choice
+composition.alternatives
+capability.explain_gap
+~~~
+
+For example, "a monk rings the bell at sunset" should normally lead the Builder through schedule/Behavior + Action/Reaction/Narration semantics, not force the author to select an abstraction from a long menu first.
+
+Progressive disclosure has two rules:
+
+- higher-level intent helpers MUST expand to the same canonical Builder operations and schemas; they are not a second mutation API;
+- if several composition shapes are materially different in persistence, authority, multiplayer scope, or retry semantics, the Builder surfaces the decision instead of guessing.
+
+R10 authoring telemetry/notes SHOULD record places where skilled humans or agents repeatedly choose the wrong construct. R11 uses that evidence to improve intent-level operations, documentation, and composition guidance; theoretical elegance is not enough if the primitive boundary is consistently hard to use correctly.
+
 ### Semantic Builder verbs
 
 In addition to precise content CRUD, Builder v1 SHOULD grow intent-level operations from demonstrated R10 authoring pain.

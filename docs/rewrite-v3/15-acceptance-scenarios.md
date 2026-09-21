@@ -876,6 +876,34 @@ No offline gameplay path mutates durable local save outside LocalInstanceAuthori
 
 No published cartridge uses raw `Code.eval_string` or arbitrary downloaded executable code.
 
+### ARCH-09 — Proposed event cannot escape failed commit
+
+A command decision produces a DomainEvent and downstream quest/reaction proposal, then the authoritative persistence commit is forced to fail. No PubSub/client/external-authority observer receives that DomainEvent as committed; no projection reports success; retry executes from the last committed state.
+
+### ARCH-10 — StateDelta conflict is explicit
+
+Two deterministic evaluators propose incompatible writes to the same canonical authoritative target in one decision without a registered composition rule. The decision fails with a typed conflict instead of resolving by source order, map order, process scheduling, or implicit last-writer-wins.
+
+A separately registered composable case produces the same canonical result on every supported host.
+
+### ARCH-11 — Logical world identity is not authority placement
+
+A Realm state record retains the same logical world/Realm context while authority placement moves from one ZoneShard/AuthorityDomain to another. Routing/fencing metadata changes; semantic StateScope, logical identity, and mutation idempotency identity do not silently change.
+
+A schema/API that requires `instance_id == current_shard_id` fails the architecture test.
+
+### ARCH-12 — Capability residency is inspectable
+
+For every registered capability used by the conformance cartridge, tooling can report portability, semantic implementation residency, host adapter(s), and required conformance fixtures.
+
+A portable capability implemented only in one host-specific path without the required parity implementation/evidence is rejected.
+
+### ARCH-13 — Post-cutover specification authority is singular
+
+After R2 imports the R0-accepted specification into the fresh v3 repository, a stale Lokacore architecture document disagrees with a reviewed implementation-repository ADR.
+
+Implementation tooling/issues/PRs resolve the implementation-repository contract as normative and treat Lokacore only as provenance/reference. No automated context loader presents both as peer sources of truth.
+
 ## R. Definition of a regression
 
 Any bug affecting state correctness should result in:
@@ -1696,3 +1724,24 @@ authoring principal attempts to submit the semantic review under a new model/ses
 
 Independence validation rejects it from durable candidate/principal lineage; a separate
 review assignment must inspect the frozen candidate.
+
+### CERT-17 — Unknown gate applicability fails conservative
+
+A frozen candidate contains a semantic surface whose certification-registry applicability
+cannot be resolved because of an unknown/dynamic dependency.
+
+Certification does not silently classify the relevant gate as unnecessary. It widens the
+required evidence set or blocks for explicit certification-policy disposition. Candidate
+metadata cannot mark its own hard gate inapplicable.
+
+### CERT-18 — Conformance breadth is not product certification
+
+The synthetic R9C conformance cartridge passes broad architecture/invariant coverage.
+
+A separate R10 Story cartridge does not inherit release approval from R9C, and R10 is not
+forced to include an unused merchant, dream, ServiceJob, PopulationPlan, or other mechanic
+merely because R9C exercises it.
+
+R10 certification selects the mandatory gates implied by its own frozen semantic surface,
+profile, and release level while shared engine invariants remain covered by the regression
+corpus.

@@ -1,7 +1,7 @@
 # Loka v3 Rebuild Specification Packet
 
-**Status:** Draft 0.3 — spec-integrity audit candidate; still awaiting independent adversarial review/acceptance; not implementation authorization  
-**Date:** 2026-09-19  
+**Status:** Draft 0.4 — post-audit tightening candidate; still awaiting independent adversarial review/acceptance; not implementation authorization  
+**Date:** 2026-09-20  
 **Source system:** `lorecrafting/lokacore`  
 **Strategic parent:** `docs/product/CARTRIDGE-ROADMAP.md`  
 **Purpose:** define a clean-room rebuild of Loka as one mobile product with two strictly separated authority modes—offline-first **Story Mode** and BEAM-authoritative **Realm Mode**—while preserving portable cartridge semantics where reuse is valuable and removing transitional Lokacore architecture.
@@ -175,7 +175,7 @@ The online authority/orchestration layer SHOULD remain idiomatic Elixir/OTP. Rul
 
 ## 6. Working top-level decisions
 
-| Topic | Draft v0.3 decision |
+| Topic | Draft v0.4 decision |
 |---|---|
 | Online language/runtime | Elixir on BEAM/OTP |
 | Portable offline rules | One deterministic portable semantic contract; a shared Rust kernel is the working hypothesis pending R1, with dual-implementation golden conformance as the fallback |
@@ -322,3 +322,46 @@ If implementation proves a contract wrong:
 4. then update code.
 
 This prevents the specification from silently becoming fiction as happened with historical builder and event documentation.
+
+## 12. R0 cutover and implementation-facing specification organization
+
+Lokacore is the place where the v3 architecture is being designed and reviewed. It is **not** intended to remain a second normative architecture repository after the clean implementation starts.
+
+R0 MUST record:
+
+- the exact accepted v3 commit hash;
+- the exact normative file set;
+- accepted/provisional/deferred ADR state;
+- unresolved evidence gates;
+- a compact architecture/invariant index;
+- the cutover rule for later amendments.
+
+R2 then imports the accepted normative contracts into the fresh v3 implementation repository.
+
+After that cutover:
+
+- the fresh repository is the implementation-era source of truth for architecture/spec amendments;
+- Lokacore and this packet remain provenance, archaeology, and review evidence;
+- a change MUST NOT be made independently in both places and reconciled later;
+- an implementation agent must never choose between a newer implementation-repo contract and stale Lokacore prose.
+
+The fresh repository SHOULD physically separate concise normative material from explanatory evidence. A representative organization is:
+
+~~~text
+docs/
+  spec/
+    ARCHITECTURE.md          # compact constitutional overview/invariant map
+    normative/               # authority, semantics, content, narrative, builder, certification
+  decisions/                 # accepted ADRs
+  gates/                     # implementation milestones + acceptance scenarios
+  reference/
+    lokacore-archaeology/
+    external-research/
+    review-history/
+~~~
+
+The exact directory names MAY change, but the authority distinction may not.
+
+The compact implementation-facing architecture should link each important invariant to its machine-readable schema/registry and its governing acceptance/certification checks. The long review record, Evennia/classic-MUD studies, historical architecture, and external research remain valuable evidence, but they do not become peer sources of truth merely because they are detailed.
+
+This organization is intended to make the architecture **harder to misimplement**, not to discard the rationale that produced it.

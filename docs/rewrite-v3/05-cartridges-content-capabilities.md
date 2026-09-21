@@ -236,6 +236,30 @@ If one immutable cartridge release declares both `offline_private` and an online
 
 Server-only does **not** mean side-effectful arbitrary Elixir. Server-only gameplay capabilities MUST participate in the same command/event/delta/effect decision contract as portable capabilities. They return proposed state deltas/events/effects to the online decision coordinator and MUST NOT write Repo/PubSub/external services directly from rule evaluation.
 
+### Capability semantic residency matrix
+
+Portability classification answers **where a cartridge is allowed to run**. The implementation must also keep an explicit architecture-level residency map answering **where each semantic evaluator and host responsibility lives**.
+
+At minimum, the generated/checked residency view distinguishes:
+
+| Residency class | Owns | Must not own |
+|---|---|---|
+| portable semantic foundation | canonical deterministic value types, delta/event/error semantics, time/RNG/ID rules | persistence, network, sessions, shard ownership |
+| portable capability implementation | capability rules that must behave identically in Story and Realm hosts | host authority, database commits, transport |
+| Realm-only semantic capability | pure server-only rule evaluators that join DecisionCoordinator | direct Repo/PubSub/external writes |
+| authority-host coordination | serialization, receipts, transactions, persistence, scheduling orchestration, fencing, handoff | cartridge-specific hidden game semantics |
+| client presentation | rendering/input/accessibility/haptics and other non-authoritative presentation | gameplay legality or authoritative mutation |
+| authoring/certification | compiler, Builder, Lab, evidence production | ordinary released gameplay authority |
+
+This matrix exists to prevent two opposite failures:
+
+1. **kernel creep** — moving BEAM-native sessions, persistence, orchestration, commerce platform work, or shard coordination into the portable implementation merely to reduce language count;
+2. **semantic drift** — leaving an offline-required gameplay rule in host-specific code without a portable implementation/conformance obligation.
+
+For every registered capability version, tooling SHOULD be able to report its portability, semantic implementation residency, host adapters, and conformance fixtures. If R1 selects Rust, the portable implementation SHOULD remain modular by capability/package rather than becoming one monolithic native game server hidden behind FFI. If R1 selects dual implementations, the same residency map identifies every semantic contract that requires golden cross-host parity.
+
+Host services such as PostgreSQL commit coordination or Phoenix sessions are not made into gameplay capabilities merely to appear in this matrix.
+
 ## 7. Capability discovery API
 
 Builder tools support:

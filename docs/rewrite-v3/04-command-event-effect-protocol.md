@@ -17,7 +17,7 @@ Example:
   "actor_id": "uuid",
   "target_ids": ["uuid"],
   "input": {},
-  "view_revision": "view-token-9201"
+  "view_freshness_token": "view-token-9201"
 }
 ```
 
@@ -72,7 +72,7 @@ StateDelta is produced by pure decision logic and becomes authoritative only aft
 
 ### Domain Event
 
-A fact produced by a successful game decision.
+A typed fact emitted by deterministic decision evaluation and made externally true only when the enclosing authoritative commit succeeds.
 
 Examples:
 
@@ -134,14 +134,14 @@ Authority always revalidates because the GameView can be stale.
     "actor_id": "uuid",
     "target_ids": [],
     "input": {"direction": "north"},
-    "view_revision": "view-token-9201"
+    "view_freshness_token": "view-token-9201"
   }
 }
 ```
 
 The gateway supplies authenticated account/session identity; the client cannot claim arbitrary actor authority. The server verifies the invocation actor is controllable by that session and re-resolves the action against current state. The logical idempotency scope is derived from trusted Story/Realm lineage and controlled-actor context, not from an untrusted client-selected routing/owner identifier.
 
-`invocation_id` is the client-visible stable retry identity used to derive/recover semantic Command idempotency. `client_seq` is a transport/order diagnostic and MUST NOT become mutation identity; it may restart after reconnect according to protocol rules. `view_revision` is an opaque view-freshness token, not a promise that the client knows the authority's database revision.
+`invocation_id` is the client-visible stable retry identity used to derive/recover semantic Command idempotency. `client_seq` is a transport/order diagnostic and MUST NOT become mutation identity; it may restart after reconnect according to protocol rules. `view_freshness_token` is an opaque view-freshness token, not a promise that the client knows the authority's database revision.
 
 The server then creates or recovers the internal Command ID/idempotency identity. The invocation ID is retained for client retry/correlation.
 
@@ -211,6 +211,35 @@ or:
 ```
 
 Expected gameplay failure is data, not exception control flow.
+
+### 5.1 Proposal-state semantics and StateDelta composition
+
+Decision output is **provisional** until the authority commit succeeds.
+
+During one decision, the coordinator may feed proposed DomainEvents into other deterministic reducers so quests, reactions, scenes, and capabilities can compose in one atomic semantic action. Those values are still **proposed facts**, not externally observable committed facts.
+
+Before commit succeeds:
+
+- proposed DomainEvents MAY drive deterministic in-decision reducers;
+- proposed DomainEvents MUST NOT be published to Phoenix PubSub, client transports, external workers, analytics, or another authority as though they already happened;
+- ephemeral presentation derived from the proposal MUST NOT escape in a form the client can treat as authoritative success;
+- a rejected decision or failed persistence commit discards its StateDelta, proposed DomainEvents, Effects, RNG/logical-time advancement, and projection hints.
+
+After commit succeeds, the same accepted event values become committed DomainEvents and may be traced, projected, and fanned out according to their registered policy. Cross-authority/external work still leaves through typed Effects/outbox semantics rather than direct event publication during evaluation.
+
+StateDelta composition is a first-class deterministic contract, not "merge some maps":
+
+- every delta operation is a registered typed operation with a canonical mutation target/identity;
+- operations declare the state they read/write strongly enough for deterministic conflict detection and diagnostics;
+- evaluators see a deterministic **proposal overlay** containing earlier accepted delta operations from the same decision;
+- operation ordering is registry/semantic order, never source-file order, map iteration order, process scheduling, or arrival timing;
+- two writes to the same authoritative target require a registered composition rule or the decision fails with a typed conflict;
+- implicit last-writer-wins is forbidden for authoritative state;
+- create/delete/transfer/containment operations define explicit preconditions and failure behavior;
+- generated runtime identities use the deterministic IdSource contract;
+- final invariant validation runs over the composed proposal before persistence.
+
+R3 freezes the generic delta algebra, target identity, conflict/composition rules, and canonical serialization. Individual capabilities may add versioned delta operators later, but they cannot invent a second mutation path.
 
 ## 6. Online hybrid decision coordination
 
@@ -480,7 +509,7 @@ On join/resync, server sends an authoritative semantic GameView snapshot.
 
 Subsequent projection messages carry a monotonically ordered **projection sequence** for that client/subscription stream. If the client detects a projection-sequence gap or the server requests resync, it discards/reconciles local view state from a fresh snapshot.
 
-A projected view/action may also carry an opaque **view freshness token** (historically named `view_revision`) used when submitting ActionInvocations. The authority re-resolves current legality and may use the token to diagnose/reject stale interaction.
+A projected view/action may also carry an opaque **view freshness token** (`view_freshness_token` in the current schema) used when submitting ActionInvocations. The authority re-resolves current legality and may use the token to diagnose/reject stale interaction.
 
 Do **not** require the projection sequence or view token to equal the WorldInstance/ZoneShard database revision. In a shared zone, unrelated authoritative mutations may occur without changing one player's projection, and one authoritative mutation may yield several projection messages.
 

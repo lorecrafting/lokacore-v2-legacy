@@ -544,6 +544,8 @@ It does not imply a process/table placement strategy. A shared Realm may route p
 
 The exact placement/routing strategy for long-lived cross-zone player/party state must be resolved and certified before multi-zone Realm milestones depend on it.
 
+Logical world/context identity and current mutation-owner placement identity MUST be nominally distinct in schemas/APIs. A logical `instance_id`/Realm identity may not silently double as the current ZoneShard/authority-domain/fencing identity once ownership can move.
+
 ## ADR-047 — Projection sequencing is not authority revisioning
 
 **Status:** Accepted
@@ -677,3 +679,45 @@ Client-visible mutation idempotency is keyed by a stable logical gameplay lineag
 If a command commits and ownership moves before its acknowledgement is observed, a retry after handoff MUST discover/replay the original receipt rather than execute under a fresh destination-owner namespace.
 
 R20 chooses the concrete durable mechanism—realm-level receipt index, receipt migration, forwarding/tombstones, or an equivalently strong design—but may not weaken this semantic invariant.
+
+## ADR-059 — Decision output is provisional until authoritative commit
+
+**Status:** Accepted
+
+StateDelta, generated DomainEvents, Effects, RNG/logical-time advancement, and projection hints produced during decision evaluation are proposals until the owning authority successfully commits them.
+
+Proposed DomainEvents may drive deterministic in-decision reducers, but they MUST NOT escape through PubSub, client transport, external workers, or another authority as committed facts before persistence succeeds.
+
+StateDelta composition uses registered typed operations, deterministic proposal-overlay ordering, canonical mutation targets, and explicit conflict/composition rules. Implicit authoritative last-writer-wins behavior is rejected.
+
+A rejected decision or failed commit discards the entire proposal.
+
+## ADR-060 — Capability semantic residency is explicit
+
+**Status:** Accepted
+
+Capability portability and implementation residency are tracked explicitly enough to show where semantic evaluators execute and which host adapters/conformance fixtures cover them.
+
+The residency view distinguishes portable semantics, Realm-only pure semantic evaluators, authority-host coordination, client presentation, and authoring/certification responsibilities.
+
+This prevents portable-kernel creep into BEAM-native orchestration and prevents offline-required rules from hiding in host-specific implementations without parity evidence.
+
+## ADR-061 — Conformance cartridge and first product cartridge have different jobs
+
+**Status:** Accepted
+
+Before the first commercial-quality Story cartridge, v3 maintains a small synthetic conformance cartridge designed to exercise broad architectural interactions, deterministic regressions, fault cases, and invariant sensitivity.
+
+The first real Story cartridge is optimized for a coherent player experience and authoring evidence. It is not required to include every available primitive solely to exercise architecture.
+
+R11 Builder generalization uses evidence from both: synthetic breadth from the conformance cartridge and real authoring/usability pain from the product cartridge.
+
+## ADR-062 — Accepted v3 specification cuts over to one implementation-era authority
+
+**Status:** Accepted
+
+R0 records the exact accepted normative specification commit/file set. R2 imports that accepted contract into the fresh v3 implementation repository.
+
+After cutover, implementation-era architecture amendments occur in the fresh repository through reviewed spec/ADR changes. Lokacore remains a read-only archaeology/reference corpus and MUST NOT evolve as a second normative specification.
+
+Normative implementation docs should be physically separated from historical review/research/reference material so humans and agents cannot mistake evidence for peer architectural authority.
