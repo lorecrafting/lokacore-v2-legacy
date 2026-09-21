@@ -1287,7 +1287,7 @@ The permanent architecture does not guess numeric thresholds; R1 freezes them be
 
 **Risk:** guessed fields become compatibility commitments before evidence exists.
 
-**Correction:** R3 now distinguishes constitutional contracts (identity, command/delta/event/effect, determinism, scope, manifests, registry, GameView, etc.) from versioned feature envelopes. Narrative/instance schemas freeze with R7; living-world/population/commerce/world-event schemas freeze with R8 before downstream artifacts depend on them.
+**Correction:** R3 now distinguishes constitutional contracts (identity, command/delta/event/effect, determinism, scope, manifests, registry, GameView, etc.) from versioned feature envelopes. Foundation-world composition schemas freeze as R5 implements them; narrative/instance schemas freeze with R7; living-world/population/commerce/service/world-event schemas freeze with R8 before downstream artifacts depend on them.
 
 This preserves early machine-readable structure without treating every brainstormed field as permanent API.
 
