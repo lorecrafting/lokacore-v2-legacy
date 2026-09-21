@@ -72,7 +72,7 @@ StateDelta is produced by pure decision logic and becomes authoritative only aft
 
 ### Domain Event
 
-A typed fact proposed by a successful game decision and made externally true only when the enclosing authoritative commit succeeds.
+A typed fact emitted by deterministic decision evaluation and made externally true only when the enclosing authoritative commit succeeds.
 
 Examples:
 
@@ -509,7 +509,7 @@ On join/resync, server sends an authoritative semantic GameView snapshot.
 
 Subsequent projection messages carry a monotonically ordered **projection sequence** for that client/subscription stream. If the client detects a projection-sequence gap or the server requests resync, it discards/reconciles local view state from a fresh snapshot.
 
-A projected view/action may also carry an opaque **view freshness token** (historically named `view_freshness_token`) used when submitting ActionInvocations. The authority re-resolves current legality and may use the token to diagnose/reject stale interaction.
+A projected view/action may also carry an opaque **view freshness token** (`view_freshness_token` in the current schema) used when submitting ActionInvocations. The authority re-resolves current legality and may use the token to diagnose/reject stale interaction.
 
 Do **not** require the projection sequence or view token to equal the WorldInstance/ZoneShard database revision. In a shared zone, unrelated authoritative mutations may occur without changing one player's projection, and one authoritative mutation may yield several projection messages.
 
