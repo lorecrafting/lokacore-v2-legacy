@@ -52,6 +52,29 @@ Prove the hardest new architectural decision before investing in the rebuild.
 
 R1 SHOULD live in a disposable spike repository/workspace, not as compatibility code inside Lokacore and not as the foundation of the production v3 repository. Keep only evidence, benchmarks, fixtures, and code worth deliberately re-implementing after the decision.
 
+### Acceptance envelope is frozen before the spike
+
+R1 is a decision experiment, so its success criteria MUST be recorded **before** implementation results are known.
+
+Create a versioned R1 acceptance-envelope artifact that fixes at least:
+
+- representative tiny, medium, and deliberately stressful portable-state sizes;
+- representative command mixes and decision/output sizes;
+- supported development and minimum physical-device classes for iOS/Android;
+- serialization/FFI bytes copied or retained per decision strategy;
+- command latency targets/limits (including p50/p95/p99 where meaningful);
+- maximum acceptable normal-NIF scheduler occupancy/latency impact if Rustler is tested;
+- snapshot/save round-trip size and latency envelopes;
+- memory-growth/leak expectations over long command runs;
+- crash/fault containment and recovery expectations for native failures;
+- Expo/EAS build, local debugging, symbolication/crash-reporting, upgrade, and CI maintenance criteria;
+- third-party binding/toolchain dependency risk that would count as unacceptable operational fragility;
+- the comparison procedure against the dual-implementation fallback.
+
+The exact numeric thresholds are an R1 planning artifact rather than permanent architecture prose, but they must be committed/reviewed before the benchmark implementation is tuned. Do not redefine "acceptable" after seeing the result merely to preserve a favored technology choice.
+
+R1 evidence reports both the measured result and the pre-registered threshold.
+
 ### Working hypothesis
 
 One Rust deterministic kernel can run behind:
@@ -173,47 +196,65 @@ If R1 rejects Rust/native bindings, R2 MUST NOT keep Rust-specific gates merely 
 
 ### Objective
 
-Make machine-readable contracts exist before features.
+Make the irreducible machine-readable contracts exist before features **without prematurely freezing every higher-level feature schema before real implementation/content evidence exists**.
 
-### Build
+R3 has two layers.
 
-- DefinitionRef schema;
-- cartridge manifest schema;
-- deployment schema;
-- campaign/continuity manifest schema;
-- capability registry + exact capability-lock format;
+### R3A — Constitutional contracts
+
+These are foundational enough that later features must build on them rather than reinterpret them:
+
+- DefinitionRef and runtime-identity contracts;
+- cartridge/deployment/campaign manifest envelopes;
+- capability registry + exact capability-lock format + semantic residency reporting;
+- StateScope/AudiencePolicy plus distinct logical-world and mutation-authority placement identities;
 - Action/ActionInvocation registry/schema;
-- ActionRecipe/ComposedAction schema;
 - portable semantic Command registry;
-- StateDelta schema/algebra;
-- DomainEvent registry;
-- Effect registry;
-- policy AST;
-- TargetSpec / deterministic TargetResolution result schema;
-- typed relation/provenance shapes;
-- InspectableDetail/description-variant schema;
-- Connection/Barrier schema;
-- ReactionRule schema;
-- SpawnBundle/PopulationPlan registry shape;
-- commerce-provider/policy registry shape;
-- WorldEventPlan schema;
-- FactSpec / scoped narrative-state schema;
-- NarrationSpec + SceneDefinition/SceneInstance/SceneSpace schema;
-- InstancePlan schema including instancing closure/import/export policy;
-- consequence-operator registry shape;
-- portable GameView schema;
+- StateDelta algebra, including canonical mutation-target identity, preconditions, proposal-overlay semantics, deterministic ordering, conflict/composition rules, and canonical serialization;
+- DomainEvent registry plus proposed-before-commit versus committed-observable semantics;
+- Effect registry and durability/idempotency classifications;
+- core policy AST/versioning;
+- deterministic TargetResolution result contract (`none | unique | ambiguous`) even if richer selector vocabulary arrives later;
+- typed relation/provenance foundation;
+- FactSpec / scoped narrative-state foundation;
+- portable GameView envelope/freshness contract;
 - portable-rules ABI/serialization contract selected by R1;
-- canonical serialization/hash rules;
+- canonical serialization/hash/IdSource/RNG/numeric rules;
 - diagnostic/error registry.
+
+### R3B — Versioned feature envelopes
+
+R3 also reserves machine-readable kind/version/reference/registration envelopes for later composition systems so R4–R6 do not invent incompatible shapes. However, exact production field vocabularies SHOULD be finalized in the phase that first implements/exercises the feature.
+
+Initial envelopes include:
+
+- ActionRecipe/ComposedAction;
+- InspectableDetail/description variants;
+- Connection/Barrier;
+- ReactionRule;
+- consequence-operator registry;
+- NarrationSpec;
+- SceneDefinition/SceneInstance/SceneSpace;
+- InstancePlan including explicit closure/import/export policy;
+- SpawnBundle/PopulationPlan;
+- commerce provider/policy composition;
+- WorldEventPlan.
+
+R7 freezes the v1 narrative/Scene/InstancePlan/consequence shapes before they become R10 dependencies. R8 freezes the v1 living-world/population/commerce/service/world-event shapes before the conformance and product cartridges depend on them.
+
+This does **not** permit runtime ambiguity. A feature may not ship/use an unstable anonymous map merely because its detailed schema was deferred. It means the final versioned schema is frozen when implementation evidence exists, instead of guessing every field at R3 and carrying accidental compatibility forever.
 
 ### Gate R3
 
-From the portable/content registries, tooling can generate/check:
+From the constitutional registries and currently frozen feature schemas, tooling can generate/check:
 
 - Elixir portable/domain types and validators;
 - TypeScript ActionInvocation/GameView/content types used by Story Mode, plus authority-internal semantic Command types only where the local authority adapter needs them;
 - capability/schema docs and help excerpts;
-- canonical test fixtures.
+- canonical test fixtures;
+- a machine-readable capability/residency matrix.
+
+The R3 fixture suite proves StateDelta conflict/composition behavior and that proposed DomainEvents cannot escape before a failed commit.
 
 No handwritten duplicate portable command/event/GameView catalogs.
 
