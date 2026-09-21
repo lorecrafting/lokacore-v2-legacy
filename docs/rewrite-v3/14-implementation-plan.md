@@ -212,7 +212,7 @@ R3 has two layers.
 These are foundational enough that later features must build on them rather than reinterpret them:
 
 - DefinitionRef and runtime-identity contracts;
-- cartridge/deployment/campaign manifest envelopes;
+- cartridge/deployment/campaign manifest schemas and version envelopes;
 - capability registry + exact capability-lock format + semantic residency reporting;
 - StateScope/AudiencePolicy plus distinct logical-world and mutation-authority placement identities;
 - Action/ActionInvocation registry/schema;
@@ -248,7 +248,7 @@ Initial envelopes include:
 - Service/Capacity/ServiceJob composition envelope;
 - WorldEventPlan.
 
-R7 freezes the v1 narrative/Scene/InstancePlan/consequence shapes before R9C/R10 depend on them. R8 freezes the v1 living-world/population/commerce/service/world-event shapes before the conformance and product cartridges depend on them.
+R5 freezes the v1 ActionRecipe/InspectableDetail/Connection/Barrier and other foundation-world shapes before portable world rules depend on them. R7 freezes the v1 narrative/Scene/InstancePlan/consequence shapes before R9C/R10 depend on them. R8 freezes the v1 living-world/population/commerce/service/world-event shapes before the conformance and product cartridges depend on them.
 
 This does **not** permit runtime ambiguity. A feature may not ship/use an unstable anonymous map merely because its detailed schema was deferred. It means the final versioned schema is frozen when implementation evidence exists, instead of guessing every field at R3 and carrying accidental compatibility forever.
 
