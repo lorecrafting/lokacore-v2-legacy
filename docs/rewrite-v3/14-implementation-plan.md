@@ -28,6 +28,8 @@ Turn this packet from draft into an implementation contract.
 - decision register;
 - known deferred questions;
 - implementation ticket dependency graph.
+- specification cutover manifest naming the accepted normative file set + commit hash and the post-R0 amendment authority;
+- a compact implementation-facing architecture/invariant index derived from the accepted packet.
 
 ### Gate R0
 
@@ -43,6 +45,7 @@ No unresolved contradiction about:
 - scripting boundary;
 - mobile Story session/GameView boundary and the fact that Realm transport is intentionally deferred;
 - cartridge versioning.
+- specification source-of-truth/cutover rules once the fresh implementation repository exists.
 
 ## R1 — Disposable portable-kernel feasibility spike
 
@@ -179,6 +182,8 @@ docs/
 - ADR directory;
 - AGENTS/task routing docs;
 - minimal release/dev tooling.
+- import the exact R0-accepted normative specification/ADRs into the fresh repository as implementation authority;
+- physically separate normative implementation docs from historical archaeology/review/research evidence so agents do not treat every old Lokacore document as peer authority.
 
 ### Gate R2
 
@@ -191,6 +196,8 @@ Empty-system CI is green on:
 - mobile portability/binding smoke appropriate to that choice.
 
 If R1 rejects Rust/native bindings, R2 MUST NOT keep Rust-specific gates merely because they appeared in the original hypothesis.
+
+After this cutover, future architecture amendments happen in the fresh implementation repository through its spec/ADR process. The Lokacore v3 packet remains provenance/reference evidence and MUST NOT become a second independently evolving normative specification.
 
 ## R3 — Contract/schema foundation
 
@@ -860,7 +867,9 @@ R8 living world
  |
 R9 lab
  |
-R10 first cartridge
+R9C conformance cartridge
+ |
+R10 first product cartridge
  |\
  | R11 builder
  |
