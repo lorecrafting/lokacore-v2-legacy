@@ -876,6 +876,28 @@ No offline gameplay path mutates durable local save outside LocalInstanceAuthori
 
 No published cartridge uses raw `Code.eval_string` or arbitrary downloaded executable code.
 
+### ARCH-09 — Proposed event cannot escape failed commit
+
+A command decision produces a DomainEvent and downstream quest/reaction proposal, then the authoritative persistence commit is forced to fail. No PubSub/client/external-authority observer receives that DomainEvent as committed; no projection reports success; retry executes from the last committed state.
+
+### ARCH-10 — StateDelta conflict is explicit
+
+Two deterministic evaluators propose incompatible writes to the same canonical authoritative target in one decision without a registered composition rule. The decision fails with a typed conflict instead of resolving by source order, map order, process scheduling, or implicit last-writer-wins.
+
+A separately registered composable case produces the same canonical result on every supported host.
+
+### ARCH-11 — Logical world identity is not authority placement
+
+A Realm state record retains the same logical world/Realm context while authority placement moves from one ZoneShard/AuthorityDomain to another. Routing/fencing metadata changes; semantic StateScope, logical identity, and mutation idempotency identity do not silently change.
+
+A schema/API that requires `instance_id == current_shard_id` fails the architecture test.
+
+### ARCH-12 — Capability residency is inspectable
+
+For every registered capability used by the conformance cartridge, tooling can report portability, semantic implementation residency, host adapter(s), and required conformance fixtures.
+
+A portable capability implemented only in one host-specific path without the required parity implementation/evidence is rejected.
+
 ## R. Definition of a regression
 
 Any bug affecting state correctness should result in:
