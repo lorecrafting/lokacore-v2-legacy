@@ -1235,3 +1235,112 @@ The deliberate evidence gates remain deliberate:
 This review is still part of the repository's specification process, not independent
 third-party approval. With these corrections applied, the PR is internally ready to leave
 draft status and proceed to human merge/acceptance.
+
+## 31. Fresh post-closure architecture audit
+
+A fresh whole-packet audit was run after the Draft 0.3 closure review. The review compared the v3 contracts against both the merged packet and concrete current-Lokacore failure surfaces rather than assuming the previous review conclusion was sufficient.
+
+### 31.1 Result: no new foundational rewrite is justified
+
+The audit found no reason to replace the clean-sheet/Story+Realm/portable-semantics/BEAM-authority architecture.
+
+Concrete current-Lokacore code reinforces the rebuild rationale: entity processes retain dirty mutable state with periodic persistence while action/framework code also performs direct multi-step writes; gameplay action results mix state changes with transport-oriented tuple events; the scripting sandbox ultimately executes validated source through `Code.eval_string`; and Builder terminal/MCP surfaces have overlapping hand-maintained operation semantics.
+
+V3's one-authority, proposal/commit, typed-schema and canonical-Builder contracts solve real accumulated architecture problems rather than aesthetic ones.
+
+### 31.2 StateDelta composition and pre-commit DomainEvent visibility were still too implicit
+
+**Finding:** StateDelta existed as a first-class proposal and deterministic event chains were specified, but two details were easy to implement differently:
+
+- how two evaluators writing the same authoritative target compose or conflict;
+- whether a DomainEvent generated during an in-transaction decision may be externally observed before the transaction commits.
+
+**Correction:** document 04 now makes the proposal overlay explicit. Delta operations use canonical typed targets, deterministic ordering, registered composition/conflict rules and no implicit last-writer-wins. In-decision DomainEvents are proposed facts; they may drive other deterministic reducers but cannot escape through PubSub/client/external authority paths until the commit succeeds.
+
+Acceptance cases ARCH-09/10 cover these boundaries.
+
+### 31.3 Logical world identity and authority placement needed nominal separation
+
+**Finding:** StateScope was already independent from physical placement, but an implementation could still overload an `instance_id` as both logical world identity and current ZoneShard/authority owner.
+
+**Risk:** early schemas could make later partitioning/handoff/fencing awkward or accidentally alter semantic/idempotency identity when placement changes.
+
+**Correction:** document 03 and ADR-046 now require distinct logical world/context and mutation-owner placement identities. R20 still selects the concrete placement mechanism.
+
+### 31.4 Portable-kernel scope needed an inspectable residency contract
+
+**Finding:** the packet correctly says to keep the portable kernel narrow, but a large capability library creates two symmetric risks: BEAM host/orchestration logic can creep into the native kernel, or offline-required semantic logic can remain hidden in one host implementation.
+
+**Correction:** the capability architecture now requires an inspectable semantic-residency view across portable semantics, Realm-only pure evaluators, host coordination, client presentation and authoring/certification. The same view identifies conformance obligations under either shared-Rust or dual-implementation R1 outcomes.
+
+### 31.5 R1 needed pre-registered quantitative decision criteria
+
+**Finding:** R1 listed important acceptance/rejection dimensions but terms such as "acceptable FFI overhead" or "unreasonably fragile" could be reinterpreted after a favored implementation had already been built.
+
+**Correction:** R1 now requires a reviewed acceptance-envelope artifact before spike implementation results are known. It records representative state/command sizes, target devices, latency/scheduler/memory/save expectations, crash/debug/release criteria, dependency risk, and fallback comparison procedure.
+
+The permanent architecture does not guess numeric thresholds; R1 freezes them before measurement.
+
+### 31.6 R3 was at risk of freezing too much too early
+
+**Finding:** the packet correctly says to prove a real cartridge before over-generalizing authoring, but R3 simultaneously listed production schemas for many high-level systems that would not be implemented/exercised until R7/R8.
+
+**Risk:** guessed fields become compatibility commitments before evidence exists.
+
+**Correction:** R3 now distinguishes constitutional contracts (identity, command/delta/event/effect, determinism, scope, manifests, registry, GameView, etc.) from versioned feature envelopes. Narrative/instance schemas freeze with R7; living-world/population/commerce/world-event schemas freeze with R8 before downstream artifacts depend on them.
+
+This preserves early machine-readable structure without treating every brainstormed field as permanent API.
+
+### 31.7 Architecture torture testing and product design are now separate cartridges
+
+**Finding:** R10 required one small first story to simultaneously be a coherent product and contain nearly every architectural stress feature—dream/InstancePlan, merchant, PopulationPlan, Behavior conflict, WorldEventPlan, target ambiguity, barrier and more.
+
+**Risk:** the first game's fiction gets distorted by the test checklist, while regression coverage remains entangled with one product story.
+
+**Correction:** R9C now creates a permanent synthetic V3 Conformance Cartridge optimized for broad deterministic/fault/invariant coverage. R10 becomes the first real player-facing Story cartridge and uses mechanics because they serve the game.
+
+R11 Builder generalization uses both synthetic breadth and real authoring pain.
+
+### 31.8 Builder complexity should be progressively disclosed
+
+**Finding:** ActionRecipe, ReactionRule, Behavior, StateMachine, SceneSequence, ServiceJob, PopulationPlan, Quest, WorldEventPlan and related shapes are individually defensible, but forcing every author/model to select among them before stating intent would turn the composition grammar into a usability tax.
+
+**Correction:** Builder now explicitly prefers intent-oriented operations and can suggest/explain the smallest typed composition shape. Material authority/persistence/scope differences are surfaced rather than guessed. Repeated R10 author confusion becomes Builder/primitive-boundary evidence.
+
+### 31.9 Certification needed explicit applicability classes
+
+**Finding:** the Lab architecture is intentionally rigorous, but without a registry-level applicability classification the system risks either running irrelevant expensive checks everywhere or relying on humans/content to remember which hard gates apply.
+
+**Correction:** certification gates now classify as always-mandatory, capability-triggered, risk/profile-triggered, or commercial-release-only. Applicability derives from the frozen artifact/deployment/profile and fails conservative.
+
+This changes scheduling/cost, not correctness authority: applicable mandatory gates remain mandatory.
+
+### 31.10 The accepted specification needs a single post-R0 home
+
+**Finding:** current Lokacore already contains valuable but historically inconsistent architecture documentation. Leaving the accepted v3 packet in Lokacore while a fresh implementation repository independently evolves its own docs would recreate the same multi-era source-of-truth problem.
+
+**Correction:** R0 records the exact accepted normative commit/file set and a cutover manifest. R2 imports that contract into the fresh implementation repository. Thereafter implementation-era amendments happen there; Lokacore remains reference/provenance.
+
+The fresh repository should physically separate compact normative architecture/ADRs/gates from archaeology, review history and external research so detail does not imply equal authority.
+
+### 31.11 Audit conclusion
+
+The strongest remaining threat to v3 is no longer an incoherent authority model. It is **surface-area risk**: freezing abstractions before evidence, making the portable layer too broad, letting a rich composition grammar become hard to use, or building certification/tooling so comprehensively that it delays the first game.
+
+The corrections in this round therefore preserve the central architecture while making it smaller and harder to misimplement:
+
+~~~text
+one semantic spine
++ explicit proposal/commit visibility
++ explicit semantic residency
++ pre-registered architecture-spike evidence
++ constitutional contracts before feature-schema freeze
++ synthetic conformance cartridge separate from product cartridge
++ intent-first Builder
++ applicability-driven certification
++ one post-R0 normative specification authority
+~~~
+
+No new reason was found to create a V4 architecture before implementation evidence exists. The remaining deliberate evidence gates remain R1, store-review treatment of downloaded rule content, R20 placement/handoff mechanics, and capability graduation from real content.
+
+This review is repository design evidence and still requires the project's normal independent/adversarial review process before R0 acceptance.
