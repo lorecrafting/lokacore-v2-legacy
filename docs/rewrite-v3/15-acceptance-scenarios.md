@@ -898,6 +898,12 @@ For every registered capability used by the conformance cartridge, tooling can r
 
 A portable capability implemented only in one host-specific path without the required parity implementation/evidence is rejected.
 
+### ARCH-13 — Post-cutover specification authority is singular
+
+After R2 imports the R0-accepted specification into the fresh v3 repository, a stale Lokacore architecture document disagrees with a reviewed implementation-repository ADR.
+
+Implementation tooling/issues/PRs resolve the implementation-repository contract as normative and treat Lokacore only as provenance/reference. No automated context loader presents both as peer sources of truth.
+
 ## R. Definition of a regression
 
 Any bug affecting state correctness should result in:
@@ -1727,3 +1733,15 @@ cannot be resolved because of an unknown/dynamic dependency.
 Certification does not silently classify the relevant gate as unnecessary. It widens the
 required evidence set or blocks for explicit certification-policy disposition. Candidate
 metadata cannot mark its own hard gate inapplicable.
+
+### CERT-18 — Conformance breadth is not product certification
+
+The synthetic R9C conformance cartridge passes broad architecture/invariant coverage.
+
+A separate R10 Story cartridge does not inherit release approval from R9C, and R10 is not
+forced to include an unused merchant, dream, ServiceJob, PopulationPlan, or other mechanic
+merely because R9C exercises it.
+
+R10 certification selects the mandatory gates implied by its own frozen semantic surface,
+profile, and release level while shared engine invariants remain covered by the regression
+corpus.
