@@ -1718,3 +1718,12 @@ authoring principal attempts to submit the semantic review under a new model/ses
 
 Independence validation rejects it from durable candidate/principal lineage; a separate
 review assignment must inspect the frozen candidate.
+
+### CERT-17 — Unknown gate applicability fails conservative
+
+A frozen candidate contains a semantic surface whose certification-registry applicability
+cannot be resolved because of an unknown/dynamic dependency.
+
+Certification does not silently classify the relevant gate as unnecessary. It widens the
+required evidence set or blocks for explicit certification-policy disposition. Candidate
+metadata cannot mark its own hard gate inapplicable.
