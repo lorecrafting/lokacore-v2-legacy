@@ -528,7 +528,7 @@ Each covered semantic surface SHOULD have small deterministic scenarios and, whe
 
 ### Gate R9C
 
-The synthetic cartridge passes its applicable `offline_private` semantic/conformance certification, cross-host fixtures, crash/retry cases, and coverage accounting.
+The synthetic cartridge passes its applicable `offline_private` semantic/conformance certification, the currently available R1-selected portable/mobile/host-adapter conformance fixtures, crash/retry cases, and coverage accounting. R9C does not require the production Realm authority that is introduced at R14; once R14 exists, the same cartridge becomes a standing offline-versus-BEAM differential fixture.
 
 A future engine/capability change that breaks a previously proved foundational interaction should fail this cartridge quickly enough to serve as a permanent architecture regression corpus.
 
