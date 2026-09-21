@@ -810,13 +810,14 @@ At strategy level, the checkpoints are:
 ### S0 — Accept the v3 specification and prove portability
 
 - finish self/adversarial review;
-- accept decision register;
+- accept decision register and record the exact normative spec/cutover manifest;
+- pre-register the portability spike's measurable acceptance/rejection envelope;
 - run the mandatory shared-kernel/mobile/BEAM feasibility spike;
 - reject or freeze the provisional Rust/binding choice from evidence.
 
 ### S1 — Build the offline cartridge foundation and prove a real game
 
-- fresh repository and strict boundaries;
+- fresh repository and strict boundaries, importing the accepted v3 normative contract as the single implementation-era architecture authority;
 - machine-readable constitutional portable/content contracts, with higher-level feature schemas frozen as they are implemented/exercised;
 - cartridge compiler;
 - portable deterministic world rules;
