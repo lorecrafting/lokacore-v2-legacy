@@ -133,6 +133,30 @@ Private Story/WorldInstance execution may naturally co-locate player, party, and
 
 The exact long-lived placement/routing strategy for cross-zone player/party state MUST be decided and acceptance-tested before the corresponding shared-Realm milestones. Schemas and APIs MUST NOT assume that player or party scope is permanently owned by the current ZoneShard.
 
+### Logical world identity is not mutation-owner placement
+
+Schemas and APIs MUST distinguish the identity of the **logical world/context** from the identity of the process/domain that currently owns mutation authority for part of it.
+
+Representative concepts:
+
+- `WorldContextId` / `WorldInstanceId` — the logical simulation/save/deployment context in which state exists;
+- `AuthorityDomainId` — the current serialized mutation-ownership domain;
+- `ZoneShardId` — one possible Realm placement/routing identity for an authority domain;
+- `RealmId` — the broader persistent Realm identity.
+
+The exact names are implementation work, but the types MUST NOT be interchangeable.
+
+A private WorldInstance may initially have a one-to-one mapping between world context and authority domain. A partitioned Realm will not: one logical Realm/world can contain many authority domains, and player/party state may move or be routed independently of the ZoneShard that currently hosts a character.
+
+Therefore:
+
+- an `instance_id` or logical world ID MUST NOT silently double as a fencing/owner/shard token;
+- command idempotency identity MUST remain stable when `AuthorityDomainId` changes;
+- durable rows that need both context and current mutation placement MUST model both explicitly;
+- projection, routing, and persistence APIs must not infer one identity from the other once partitioning is supported.
+
+R20 selects the concrete placement/routing mechanism, but R3 must reserve distinct nominal contracts so the earlier schema does not make that later design impossible.
+
 ### Multiplayer state uses independent axes
 
 Do not overload one `scope` field to answer every multiplayer question.
@@ -394,6 +418,8 @@ updated_at
 JSONB is acceptable for typed component state if schemas/migrations validate it. Frequently queried/indexed fields may be promoted to columns deliberately.
 
 Shared entities normally omit scoped-presence fields. Player/party overlay entities use explicit state scope and AudiencePolicy metadata. Lazily materialized actors may be reconstructed from durable quest/fact state plus a stable materialization key rather than persisted forever.
+
+The logical `instance_id`/world-context reference is not by itself the current mutation-owner identity. Once ownership can move, persistence/routing metadata MUST carry an explicit authority-domain/fencing reference rather than overloading the logical world identifier.
 
 Do not create an EAV table for every component field by default.
 
