@@ -483,13 +483,56 @@ mutation-sensitivity gates. The Lab can account for quest/scene/area coverage, e
 declared bounded branches, export an exact evidence bundle, and reproduce a model-proposed
 adversarial scenario deterministically without treating the model output itself as pass/fail evidence.
 
+## R9C — Synthetic V3 Conformance Cartridge
+
+### Objective
+
+Create a small permanent **architecture/conformance cartridge** whose job is to stress the engine and Lab, not to be a commercially coherent story.
+
+This separates two different optimization targets:
+
+- the conformance cartridge is intentionally adversarial, compact, and mechanically broad;
+- R10 is intentionally player-facing, coherent, and allowed to use only the mechanics its fiction needs.
+
+### Build
+
+The conformance cartridge SHOULD exercise the currently implemented portable foundation broadly enough to cover representative interactions such as:
+
+- deterministic text/touch target ambiguity and resolution;
+- containment/inventory transfer and retry/crash boundaries;
+- coherent bidirectional Barrier state;
+- scoped Facts + ReactionRule chains;
+- branching Quest outcomes and exactly-once typed consequences;
+- SceneSequence crash/reconnect/choice semantics;
+- SceneSpace overlay plus minimal InstancePlan entry/export/teardown;
+- at least one portable LokaScript budget/containment case;
+- Behavior intent conflict/arbitration;
+- SpawnBundle + provenance-safe PopulationPlan;
+- merchant/Commerce conservation;
+- ServiceJob queue/escrow/time completion where implemented;
+- WorldEventPlan phase/reaction composition;
+- logical-time/RNG boundary cases;
+- intentionally injectable defects for invariant/mutation-sensitivity checks.
+
+It does not need polished prose, art, catalog metadata, monetization, or a natural narrative reason for every mechanic. Synthetic rooms/entities may exist solely to prove contracts.
+
+Each covered semantic surface SHOULD have small deterministic scenarios and, where useful, a known-bad mutation/fault fixture demonstrating that the intended gate catches the defect.
+
+### Gate R9C
+
+The synthetic cartridge passes its applicable `offline_private` semantic/conformance certification, cross-host fixtures, crash/retry cases, and coverage accounting.
+
+A future engine/capability change that breaks a previously proved foundational interaction should fail this cartridge quickly enough to serve as a permanent architecture regression corpus.
+
+The conformance cartridge is **not** evidence that the product is fun, understandable, or commercially shippable. That is R10/R12 work.
+
 ## R10 — First real offline cartridge
 
 **Sequencing rule:** prove authoring requirements with a real cartridge before completing the generalized Builder API. Minimal scripts/CLI helpers are allowed, but do not let tooling delay product proof.
 
 ### Objective
 
-Prove product.
+Prove the **player-facing product and authoring model**, complementing rather than duplicating the synthetic R9C conformance cartridge.
 
 Target scope:
 
@@ -498,34 +541,35 @@ Target scope:
 - 10–20 items;
 - 2–4 connected quests forming a coherent story thread;
 - at least one multi-stage/branching quest with typed durable world consequences;
-- at least one quest-launched SceneSequence rendered as a text cutscene;
-- at least one dream/vision or private narrative scene with explicitly exported consequences;
-- at least one scripted world-event/reaction sequence driven by typed facts/events;
-- at least one quest-gated area/access change;
-- at least one NPC role/schedule/dialogue reaction to quest outcome;
-- at least one ambient/environmental reaction to shared fact state;
-- schedules;
-- InspectableDetails and deterministic text target ambiguity/disambiguation;
-- coherent locked/openable bidirectional barrier;
-- SpawnBundle + PopulationPlan;
-- merchant with hours/stock/price or admission variation;
-- at least one ReactionRule and conflicting Behavior arbitration fixture;
-- environmental change;
-- simple skill/check;
-- optional simple combat;
-- multiple endings/consequences.
+- at least one durable narrative SceneSequence where it improves the story;
+- at least one quest/world outcome that changes later dialogue, behavior, access, ambience, schedule, or another visible world response through typed facts/consequences;
+- schedules/living-world behavior sufficient for the setting to feel inhabited;
+- InspectableDetails and ordinary text/touch interaction;
+- environmental/world-state variation;
+- simple skill/check and optional simple combat where fiction supports them;
+- multiple endings or materially different durable consequences.
+
+The real cartridge MAY use dreams/InstancePlan, WorldEventPlan, PopulationPlan, merchant/Commerce, ServiceJob, complex Behavior arbitration, or other available primitives when they serve the design. It is no longer required to include every architecture feature merely to prove that feature exists; R9C owns broad synthetic coverage.
 
 ### Important
 
 Hand-author substantial portions first. Do not immediately ask the factory to mass-generate.
 
-The first cartridge exists to stress contracts. It MUST prove that quests and living-world systems interact through typed facts/consequences rather than cartridge-specific mutation scripts.
+R10 exists to answer questions R9C cannot:
+
+- are the primitives pleasant enough to author a coherent game?
+- does the composition grammar encourage understandable world design rather than ceremony?
+- which operations are repetitive/error-prone enough to deserve Builder verbs?
+- which nominally elegant primitive boundaries repeatedly confuse skilled authors/agents?
+- does the resulting world feel like a living narrative game rather than a technology demo?
+
+The cartridge MUST still prove that quests and living-world systems interact through typed facts/consequences rather than cartridge-specific hidden mutation scripts.
 
 ### Gate R10
 
-Full `offline_private` certification plus a **developer-harness physical-device smoke** using the minimal Expo/native integration established by R1/R2/R6. Polished non-developer product-shell acceptance belongs to R12.
+Full applicable `offline_private` certification plus a **developer-harness physical-device smoke** using the minimal Expo/native integration established by R1/R2/R6. Polished non-developer product-shell acceptance belongs to R12.
 
-The cartridge should be authored primarily through source files/compiler/Lab at this stage. Record every repetitive or error-prone authoring operation as evidence for the Builder API rather than prematurely generalizing it.
+The cartridge should be authored primarily through source files/compiler/Lab at this stage. Record every repetitive, confusing, or error-prone authoring operation as evidence for the Builder API rather than prematurely generalizing it.
 
 ## R11 — Builder API v1 and script-surface generalization
 
@@ -551,11 +595,11 @@ Let humans/agents author without raw repo semantics.
 - explainability operations for target resolution, behavior, population, prices, scenes, quest progress, and world-event phase;
 - machine-readable role/surface metadata sufficient for an orchestrator to distinguish L3–L6 builders, read-only reviewers and engine-capability escalation;
 - typed MISSING_CAPABILITY / CapabilityProposal result path;
-- expand LokaScript bindings/recipes only from concrete R10 authoring needs and accepted reusable capability gaps.
+- expand LokaScript bindings/recipes only from concrete R9C conformance gaps, R10 authoring needs, and accepted reusable capability gaps.
 
 ### Gate R11
 
-Astra/another agent can recreate or extend representative first-cartridge content using only Builder API tools and fix intentionally injected validation failures without shell/Git editing.
+Astra/another agent can recreate or extend representative R10 product content using only Builder API tools, can manipulate the relevant R9C conformance fixtures through typed Lab/Builder surfaces, and can fix intentionally injected validation failures without shell/Git editing.
 
 ## R12 — Loka app: production Story Mode
 
