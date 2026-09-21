@@ -500,6 +500,26 @@ After Realm Mode exists, the same app release MUST also run:
 
 Online release cadence is never allowed to silently drop supported offline Story saves.
 
+### Gate applicability classes
+
+Certification rigor MUST scale by declared semantics without allowing content to opt out of relevant correctness obligations.
+
+Every gate/check in the certification registry SHOULD declare an applicability class:
+
+- **always mandatory** — foundational schema/reference/determinism/integrity/authority checks required for every candidate in the profile;
+- **capability-triggered** — required when the frozen artifact/deployment uses the relevant capability or semantic surface, such as scripts, ServiceJobs, commerce, InstancePlan, party scope, or cross-authority effects;
+- **risk/profile-triggered** — selected by execution profile or detected architecture risk, such as multiplayer interleavings, load/backpressure, shard handoff, long-horizon economy/population soak, or hostile-package checks;
+- **commercial-release-only** — store/package/signing/entitlement/physical-device/human release evidence that is unnecessary for an edit-time or internal semantic candidate but mandatory for the corresponding commercial release.
+
+The registry, not the cartridge author/model, determines which gates apply from the frozen candidate, capability lock, deployment, and release profile. Unknown applicability fails conservative: it widens the required evidence set or requires explicit certification-policy disposition rather than silently skipping work.
+
+This classification exists to prevent two failures at once:
+
+1. a tiny offline story paying the implementation/runtime cost of unrelated shared-Realm checks during every author edit;
+2. a candidate avoiding a hard gate merely because nobody manually selected it.
+
+Fast preflight may run a strict subset for feedback, but the frozen-candidate certificate still includes every applicable mandatory gate.
+
 ## 21. Release certificate
 
 Machine-readable example:
