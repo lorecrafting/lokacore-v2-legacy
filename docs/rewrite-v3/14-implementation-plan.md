@@ -181,7 +181,7 @@ docs/
 - generated-schema drift check;
 - ADR directory;
 - AGENTS/task routing docs;
-- minimal release/dev tooling.
+- minimal release/dev tooling;
 - import the exact R0-accepted normative specification/ADRs into the fresh repository as implementation authority;
 - physically separate normative implementation docs from historical archaeology/review/research evidence so agents do not treat every old Lokacore document as peer authority.
 
@@ -245,9 +245,10 @@ Initial envelopes include:
 - InstancePlan including explicit closure/import/export policy;
 - SpawnBundle/PopulationPlan;
 - commerce provider/policy composition;
+- Service/Capacity/ServiceJob composition envelope;
 - WorldEventPlan.
 
-R7 freezes the v1 narrative/Scene/InstancePlan/consequence shapes before they become R10 dependencies. R8 freezes the v1 living-world/population/commerce/service/world-event shapes before the conformance and product cartridges depend on them.
+R7 freezes the v1 narrative/Scene/InstancePlan/consequence shapes before R9C/R10 depend on them. R8 freezes the v1 living-world/population/commerce/service/world-event shapes before the conformance and product cartridges depend on them.
 
 This does **not** permit runtime ambiguity. A feature may not ship/use an unstable anonymous map merely because its detailed schema was deferred. It means the final versioned schema is frozen when implementation evidence exists, instead of guessing every field at R3 and carrying accidental compatibility forever.
 
