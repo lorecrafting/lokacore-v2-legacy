@@ -817,18 +817,19 @@ At strategy level, the checkpoints are:
 ### S1 — Build the offline cartridge foundation and prove a real game
 
 - fresh repository and strict boundaries;
-- machine-readable portable/content contracts;
+- machine-readable constitutional portable/content contracts, with higher-level feature schemas frozen as they are implemented/exercised;
 - cartridge compiler;
 - portable deterministic world rules;
 - local authority + SQLite;
 - quest/dialogue/LokaScript;
 - living-world primitives;
 - Cartridge Lab;
+- build a small permanent synthetic v3 conformance cartridge for broad architecture/fault/invariant coverage;
 - substantially hand-author the first real offline cartridge through source/compiler/Lab;
 - record repetitive/error-prone authoring work;
 - then generalize the canonical Builder API from that evidence.
 
-**Gate:** a small real cartridge can be completed fully offline, survives app termination/restart, passes deterministic certification, and has produced concrete evidence for the Builder API rather than the Builder API delaying the game.
+**Gate:** the synthetic conformance cartridge catches the intended architecture/fault classes, and a small real cartridge can be completed fully offline, survives app termination/restart, passes applicable deterministic certification, and has produced concrete evidence for the Builder API rather than the Builder API delaying the game.
 
 ### S2 — Ship the first commercial cartridge
 
@@ -900,15 +901,16 @@ The current order is:
 2. run the portable-kernel feasibility spike;
 3. create the fresh repository only after the spike resolves provisional architecture;
 4. establish strict repo/app boundaries and unified CI;
-5. create the machine-readable contracts before large feature work;
+5. establish the constitutional machine-readable contracts before large feature work, while deferring exact higher-level feature schemas until the phase that implements/exercises them;
 6. compile one tiny cartridge;
 7. make that cartridge deterministic and crash-safe offline;
 8. add quests/dialogue/living-world capabilities and the Cartridge Lab;
-9. substantially hand-author and certify the first real offline cartridge using source/compiler/Lab, recording authoring pain;
-10. generalize the canonical Builder API/MCP/terminal adapters from that evidence;
-11. polish the production Story shell, add commerce/entitlements, and ship the first commercial cartridge before scaling AI generation;
-12. add BEAM online authority and prove host conformance;
-13. then expand factory/co-op/social/shared-world work.
+9. build and certify the permanent synthetic v3 conformance cartridge;
+10. substantially hand-author and certify the first real offline cartridge using source/compiler/Lab, recording authoring pain;
+11. generalize the canonical Builder API/MCP/terminal adapters from both conformance breadth and real authoring evidence;
+12. polish the production Story shell, add commerce/entitlements, and ship the first commercial cartridge before scaling AI generation;
+13. add BEAM online authority and prove host conformance, including the standing conformance cartridge as an offline-vs-BEAM differential fixture;
+14. then expand factory/co-op/social/shared-world work.
 
 The detailed R0–R22 dependency graph and gates live in [`docs/rewrite-v3/14-implementation-plan.md`](../rewrite-v3/14-implementation-plan.md).
 
@@ -926,4 +928,4 @@ This roadmap consolidates rather than deletes earlier thinking:
 - [`../../server/lib/loka/framework/quest/progress.ex`](../../server/lib/loka/framework/quest/progress.ex) — current quest progress path;
 - [`../../server/lib/loka/engine/script/sandbox.ex`](../../server/lib/loka/engine/script/sandbox.ex) — current constrained Elixir runtime.
 
-Older documents remain historical/design context. When they disagree with this document on product sequencing, the cartridge-first sequence here is the current working direction. Implementation truth still lives in current code and generated/canonical contracts once those are introduced.
+Older documents remain historical/design context. When they disagree with this document on product sequencing, the cartridge-first sequence here is the current working direction. Before the v3 cutover, current Lokacore code remains reference reality; after R0/R2 import the accepted normative packet into the fresh v3 repository, implementation-era architecture truth lives there and Lokacore becomes provenance/archaeology rather than a second evolving specification.
