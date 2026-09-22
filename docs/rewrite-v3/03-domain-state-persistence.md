@@ -1,5 +1,44 @@
 # 03 — Domain State and Persistence
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Design contract: state and durability.
+
+Start with identities and scope, then sections 14-18 on receipts, commits, outbox and snapshots. Online table sketches are not local-save requirements.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Core state model](#1-core-state-model)
+- [2. Definition identity](#2-definition-identity)
+- [3. Runtime entity identity](#3-runtime-entity-identity)
+- [4. Component state](#4-component-state)
+- [5. Persistent vs ephemeral state](#5-persistent-vs-ephemeral-state)
+- [6. State scopes](#6-state-scopes)
+- [7. Typed world facts and narrative memory](#7-typed-world-facts-and-narrative-memory)
+- [8. Persistence by authority host](#8-persistence-by-authority-host)
+- [9. Proposed online durable schema families](#9-proposed-online-durable-schema-families)
+- [10. World instance row](#10-world-instance-row)
+- [11. Runtime entity rows](#11-runtime-entity-rows)
+- [12. Quest instance rows](#12-quest-instance-rows)
+- [13. Scoped facts and durable ServiceJobs](#13-scoped-facts-and-durable-servicejobs)
+- [14. Command receipts and retry admission](#14-command-receipts-and-retry-admission)
+- [15. Transactional command commit and uncertain outcomes](#15-transactional-command-commit-and-uncertain-outcomes)
+- [16. Effect outbox](#16-effect-outbox)
+- [17. Event trace is not full event sourcing](#17-event-trace-is-not-full-event-sourcing)
+- [18. Snapshots](#18-snapshots)
+- [19. Optimistic concurrency](#19-optimistic-concurrency)
+- [20. Persistence adapters](#20-persistence-adapters)
+- [21. Migration rules](#21-migration-rules)
+- [22. Deletion semantics](#22-deletion-semantics)
+- [23. Inventory/location invariant](#23-inventorylocation-invariant)
+- [24. Definition cache](#24-definition-cache)
+- [25. Offline save lineage and trust](#25-offline-save-lineage-and-trust)
+
+</details>
+<!-- packet-navigation:end -->
+
 ## 1. Core state model
 
 Loka v3 separates four concepts that Lokacore often blurred:

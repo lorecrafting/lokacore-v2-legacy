@@ -1,5 +1,25 @@
 # Fresh-engine playable proof (R6P)
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Proposed R6P work package.
+
+Four-place proof on the fresh engine before the full chapter; not a reduced release or completed build.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [Scope stays intact](#scope-stays-intact)
+- [Location and prerequisites](#location-and-prerequisites)
+- [Concrete proof: The Ferryman's Lantern](#concrete-proof-the-ferrymans-lantern)
+- [Implementation tickets and dependency graph](#implementation-tickets-and-dependency-graph)
+- [Evidence required to finish R6P](#evidence-required-to-finish-r6p)
+- [What follows the proof](#what-follows-the-proof)
+
+</details>
+<!-- packet-navigation:end -->
+
 **Status:** proposed implementation work package; not a completed build or R0/R1 acceptance.
 
 ## Scope stays intact

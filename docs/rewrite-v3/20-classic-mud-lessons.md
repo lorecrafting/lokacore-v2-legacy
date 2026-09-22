@@ -1,5 +1,35 @@
 # 20 — Classic MUD Design Review: DikuMUD, CircleMUD, and TinyMUD
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Informative prior-art evidence.
+
+Study patterns and tradeoffs, not source code or a mandate to build every classic mechanic before the first release.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Summary](#1-summary)
+- [2. What Loka already gets right](#2-what-loka-already-gets-right)
+- [3. Diku/Circle: prototype + population recipe is the important pattern](#3-dikucircle-prototype--population-recipe-is-the-important-pattern)
+- [4. Diku/Circle: tiny orthogonal NPC behavior is powerful](#4-dikucircle-tiny-orthogonal-npc-behavior-is-powerful)
+- [5. Diku special procedures: preserve the power, reject the escape hatch](#5-diku-special-procedures-preserve-the-power-reject-the-escape-hatch)
+- [6. Circle extra descriptions: world density without entity inflation](#6-circle-extra-descriptions-world-density-without-entity-inflation)
+- [7. Circle door halves expose an invariant Loka should fix](#7-circle-door-halves-expose-an-invariant-loka-should-fix)
+- [8. Circle shops validate data-driven commerce](#8-circle-shops-validate-data-driven-commerce)
+- [9. Circle socials and TinyMUD success/failure messages: audience-aware narration](#9-circle-socials-and-tinymud-successfailure-messages-audience-aware-narration)
+- [10. TinyMUD: relationships are more important than a universal object type](#10-tinymud-relationships-are-more-important-than-a-universal-object-type)
+- [11. TinyMUD matching: target resolution is game UX](#11-tinymud-matching-target-resolution-is-game-ux)
+- [12. TinyMUD locks validate a compact policy grammar](#12-tinymud-locks-validate-a-compact-policy-grammar)
+- [13. TinyMUD builder verbs: author intent should be semantic](#13-tinymud-builder-verbs-author-intent-should-be-semantic)
+- [14. What not to copy](#14-what-not-to-copy)
+- [15. Conformance cartridge suggested by this review](#15-conformance-cartridge-suggested-by-this-review)
+- [16. Sources reviewed](#16-sources-reviewed)
+
+</details>
+<!-- packet-navigation:end -->
+
 **Status:** informative/reference evidence for the v3 architecture.  
 **Review baseline:** original/preserved DikuMUD and TinyMUD source plus CircleMUD builder documentation reviewed for architectural and world-building lessons.
 

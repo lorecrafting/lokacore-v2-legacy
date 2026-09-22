@@ -1,5 +1,31 @@
 # 00a — Chapter One Content Specification: The Missing Child
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Product scope: chapter one.
+
+Review the 57-room content, manifest, quests and scenarios. YAML field shapes remain illustrative until their schema gate.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Manifest](#1-manifest)
+- [2. Rooms](#2-rooms)
+- [3. Activation groups](#3-activation-groups)
+- [4. NPCs](#4-npcs)
+- [5. Items](#5-items)
+- [6. Facts](#6-facts)
+- [7. Quests](#7-quests)
+- [8. Dialogue](#8-dialogue)
+- [9. Scenes](#9-scenes)
+- [10. Reactions](#10-reactions)
+- [11. Chapter-one certification](#11-chapter-one-certification)
+- [12. Hello-world fixture](#12-hello-world-fixture)
+
+</details>
+<!-- packet-navigation:end -->
+
 **Status:** Draft 0.1 — exact content for the R10 cartridge, chapter one of The Fox of Ashmere. Prose is placeholder; structure is the deliverable.
 **Purpose:** be the thing the compiler compiles. Every room, NPC, item, fact, quest, and scene here is real content the R4 compiler, R5–R8 capabilities, and R9 minimum gates are built against. §12 is the hello-world subset used as the first R4 fixture.
 **Reads with:** `00-first-cartridge-design.md` §11 (the ladder), `05-cartridges-content-capabilities.md` (envelope formats), `06-quests-dialogue-actions-scripting.md` (quest and dialogue grammar), `09-cartridge-lab-certification.md` §1a (the gates this content must pass).
@@ -208,6 +234,8 @@ Sixteen named NPCs in chapter one. Schedules are hour ranges in world time; prof
 | wisp | the marsh light | marsh_light | 20–6 marsh_light; 6–20 absent (visible from oak_crown only) | — | — |
 
 Two novices in the same room from 12–18 is the target-ambiguity fixture.
+
+> **Open content reconciliation:** the table puts Ash in the cloister at 14:00 but Hale in the kitchen garden, while §11 requires both novices in the cloister at 14:00. Choose a schedule or fixture-time/location correction before certifying that scenario; this housekeeping pass does not change either NPC's intended schedule.
 
 ### Populations
 

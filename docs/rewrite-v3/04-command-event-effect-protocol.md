@@ -1,5 +1,40 @@
 # 04 — Action Invocations, Commands, State Deltas, Domain Events, Effects, and Client Protocol
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Design contract: decisions and projections.
+
+Read sections 1-10 for semantic execution. Network protocol sections apply when Realm transport is introduced.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Six concepts, six responsibilities](#1-six-concepts-six-responsibilities)
+- [2. Action invocation and command semantics](#2-action-invocation-and-command-semantics)
+- [3. Canonical command representation](#3-canonical-command-representation)
+- [4. Decision environment](#4-decision-environment)
+- [5. Decision result](#5-decision-result)
+- [6. Online hybrid decision coordination](#6-online-hybrid-decision-coordination)
+- [7. Game error taxonomy](#7-game-error-taxonomy)
+- [8. Domain event envelope](#8-domain-event-envelope)
+- [9. Event processing model](#9-event-processing-model)
+- [10. Effect types](#10-effect-types)
+- [11. Causation and correlation](#11-causation-and-correlation)
+- [12. Protocol source of truth for online transport](#12-protocol-source-of-truth-for-online-transport)
+- [13. Version negotiation](#13-version-negotiation)
+- [14. Client projection](#14-client-projection)
+- [15. Portable game-view projection](#15-portable-game-view-projection)
+- [16. Snapshot, projection sequence, and freshness model](#16-snapshot-projection-sequence-and-freshness-model)
+- [17. Text commands](#17-text-commands)
+- [18. Search/target resolution](#18-searchtarget-resolution)
+- [19. Action availability](#19-action-availability)
+- [20. Protocol tests](#20-protocol-tests)
+- [21. Offline command conformance](#21-offline-command-conformance)
+
+</details>
+<!-- packet-navigation:end -->
+
 ## 1. Six concepts, six responsibilities
 
 Loka v3 MUST distinguish:

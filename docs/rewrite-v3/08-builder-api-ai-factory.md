@@ -1,5 +1,48 @@
 # 08 — Builder API and AI Factory
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Design contract: authoring plane.
+
+Tools and agent permissions are separate from gameplay authority. General Builder/factory work follows demonstrated authoring needs.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Core decision](#1-core-decision)
+- [2. Builder targets: story, realm, promote](#2-builder-targets-story-realm-promote)
+- [3. Workspace-first authoring](#3-workspace-first-authoring)
+- [4. Builder operation envelope](#4-builder-operation-envelope)
+- [5. Operation families](#5-operation-families)
+- [6. Structured diagnostics](#6-structured-diagnostics)
+- [7. Batch plans](#7-batch-plans)
+- [8. Dry run](#8-dry-run)
+- [9. Rename/move must be semantic](#9-renamemove-must-be-semantic)
+- [10. Terminal adapter](#10-terminal-adapter)
+- [11. MCP adapter](#11-mcp-adapter)
+- [12. AI model independence](#12-ai-model-independence)
+- [13. AI authoring workflow](#13-ai-authoring-workflow)
+- [14. Context minimization](#14-context-minimization)
+- [15. Primitive proposal workflow](#15-primitive-proposal-workflow)
+- [16. AI semantic review contract](#16-ai-semantic-review-contract)
+- [17. Audit trail](#17-audit-trail)
+- [18. Visual tools](#18-visual-tools)
+- [19. Git relationship](#19-git-relationship)
+- [20. Factory and runtime separation](#20-factory-and-runtime-separation)
+- [21. Builder API schema source](#21-builder-api-schema-source)
+- [22. Agent permissions](#22-agent-permissions)
+- [23. Foundry integration](#23-foundry-integration)
+- [24. Builder expressive power: semantic composition, not arbitrary authority](#24-builder-expressive-power-semantic-composition-not-arbitrary-authority)
+- [25. Foundry/Astra orchestration: project roles map onto Loka layers](#25-foundryastra-orchestration-project-roles-map-onto-loka-layers)
+- [26. Capability escalation contract](#26-capability-escalation-contract)
+- [27. Context routing follows role and escalation](#27-context-routing-follows-role-and-escalation)
+- [28. Agents-as-tools versus authority handoff](#28-agents-as-tools-versus-authority-handoff)
+- [29. Foundry is optional infrastructure](#29-foundry-is-optional-infrastructure)
+
+</details>
+<!-- packet-navigation:end -->
+
 ## 1. Core decision
 
 The canonical authoring surface is a **typed Builder API**.

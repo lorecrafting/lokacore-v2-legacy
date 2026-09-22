@@ -1,5 +1,61 @@
 # 06 — Quests, Dialogue, Actions, and Scripting
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Design contract: narrative and interaction.
+
+Quests/actions: sections 1-22. Custom events/scenes: 30-38 and 41-42. LokaScript sections 23-27 and 29 remain deferred; multiplayer scenes are later.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Quest Runtime](#1-quest-runtime)
+- [2. Quest definition](#2-quest-definition)
+- [3. Objective operators](#3-objective-operators)
+- [4. Quest instance](#4-quest-instance)
+- [5. Quest event processing](#5-quest-event-processing)
+- [6. Exactly-once rewards](#6-exactly-once-rewards)
+- [7. Quest subscriptions/indexing](#7-quest-subscriptionsindexing)
+- [8. Quest invariants](#8-quest-invariants)
+- [9. Quest/world contract](#9-questworld-contract)
+- [10. Quest outcomes and typed consequences](#10-quest-outcomes-and-typed-consequences)
+- [11. Prefer facts for broad narrative consequences](#11-prefer-facts-for-broad-narrative-consequences)
+- [12. Opening and changing areas](#12-opening-and-changing-areas)
+- [13. NPC state, schedules, relationships, and memory](#13-npc-state-schedules-relationships-and-memory)
+- [14. Reactive world rules](#14-reactive-world-rules)
+- [15. Consequence scope and escalation](#15-consequence-scope-and-escalation)
+- [16. Branches should leave durable world consequences](#16-branches-should-leave-durable-world-consequences)
+- [17. Dialogue definition](#17-dialogue-definition)
+- [18. Dialogue state](#18-dialogue-state)
+- [19. ActionSet algebra](#19-actionset-algebra)
+- [20. Action definition](#20-action-definition)
+- [21. Policies/conditions](#21-policiesconditions)
+- [22. Text command parser](#22-text-command-parser)
+- [23. Scripting goals](#23-scripting-goals)
+- [24. LokaScript allowed model](#24-lokascript-allowed-model)
+- [25. Portable script binding registry](#25-portable-script-binding-registry)
+- [26. Script budgets](#26-script-budgets)
+- [27. Deterministic scripts](#27-deterministic-scripts)
+- [28. Trusted compiled Elixir extensions](#28-trusted-compiled-elixir-extensions)
+- [29. Script lifecycle](#29-script-lifecycle)
+- [30. Cartridge custom domain events](#30-cartridge-custom-domain-events)
+- [31. State machine use outside quests](#31-state-machine-use-outside-quests)
+- [32. Quest as the narrative spine](#32-quest-as-the-narrative-spine)
+- [33. SceneSequence: reusable narrative orchestration](#33-scenesequence-reusable-narrative-orchestration)
+- [34. Scene step vocabulary](#34-scene-step-vocabulary)
+- [35. Text cutscenes](#35-text-cutscenes)
+- [36. Dreams, visions, memories, and other private sequences](#36-dreams-visions-memories-and-other-private-sequences)
+- [37. Scene control and player agency](#37-scene-control-and-player-agency)
+- [38. Quest-to-scene integration](#38-quest-to-scene-integration)
+- [39. Scripted world events and WorldEventPlan](#39-scripted-world-events-and-worldeventplan)
+- [40. Multiplayer scene semantics](#40-multiplayer-scene-semantics)
+- [41. Journal, reveal, hints, and story readability](#41-journal-reveal-hints-and-story-readability)
+- [42. Narrative robustness and certification](#42-narrative-robustness-and-certification)
+
+</details>
+<!-- packet-navigation:end -->
+
 ## 1. Quest Runtime
 
 Quest correctness is a primary v3 requirement. Quests are also the primary authored narrative thread that carries story through the living world; scenes, dreams, cutscenes, and scripted world events extend that thread without giving quests a second mutation authority.
@@ -780,6 +836,8 @@ Parser should support classic MUD conveniences:
 - helpful ambiguity errors.
 
 ## 23. Scripting goals
+
+> **Deferred design:** ADR-018 defers LokaScript until a demonstrated composition gap is admitted. This retained design is not a chapter-one build requirement; it constrains that feature if admitted.
 
 We want a powerful AI-friendly escape hatch without reintroducing unrestricted runtime code.
 

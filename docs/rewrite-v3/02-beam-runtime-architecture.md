@@ -1,5 +1,32 @@
 # 02 — BEAM Runtime Architecture
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Design contract: online host.
+
+Review ownership and recovery now; production online hosting arrives at R14 and shared-world work later.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Proposed repository shape](#1-proposed-repository-shape)
+- [2. Supervision topology](#2-supervision-topology)
+- [3. Offline versus online authority](#3-offline-versus-online-authority)
+- [4. Session, account, character, instance](#4-session-account-character-instance)
+- [5. Online private/party world owner](#5-online-privateparty-world-owner)
+- [6. Why not one GenServer per entity by default](#6-why-not-one-genserver-per-entity-by-default)
+- [7. Shared MUD evolution](#7-shared-mud-evolution)
+- [8. BEAM distribution](#8-beam-distribution)
+- [9. Gateway/runtime separation](#9-gatewayruntime-separation)
+- [10. Restart behavior](#10-restart-behavior)
+- [11. Schedulers: use three temporal strategies](#11-schedulers-use-three-temporal-strategies)
+- [12. Backpressure and overload](#12-backpressure-and-overload)
+- [13. BEAM-specific review questions](#13-beam-specific-review-questions)
+
+</details>
+<!-- packet-navigation:end -->
+
 ## 1. Proposed repository shape
 
 Use a Mix umbrella to make dependency direction mechanically obvious.

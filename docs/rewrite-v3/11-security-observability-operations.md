@@ -1,5 +1,44 @@
 # 11 — Security, Observability, and Operations
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Design contract: safety and operations.
+
+Distinguish always-needed integrity/recovery from later online operations. LokaScript security is retained deferred design.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Trust zones](#1-trust-zones)
+- [2. Online authority checks](#2-online-authority-checks)
+- [3. Offline trust boundary](#3-offline-trust-boundary)
+- [4. Builder authorization](#4-builder-authorization)
+- [5. Fail closed](#5-fail-closed)
+- [6. LokaScript security](#6-lokascript-security)
+- [7. Portable-kernel implementation safety](#7-portable-kernel-implementation-safety)
+- [8. Content integrity](#8-content-integrity)
+- [9. Artifact signing trust and key rotation](#9-artifact-signing-trust-and-key-rotation)
+- [10. Secrets](#10-secrets)
+- [11. Observability identity](#11-observability-identity)
+- [12. Structured logs](#12-structured-logs)
+- [13. Telemetry](#13-telemetry)
+- [14. Tracing](#14-tracing)
+- [15. Game trace store](#15-game-trace-store)
+- [16. Health/readiness](#16-healthreadiness)
+- [17. Deployment](#17-deployment)
+- [18. Rolling deploys](#18-rolling-deploys)
+- [19. Backups](#19-backups)
+- [20. Admin operations](#20-admin-operations)
+- [21. Rate limits and abuse](#21-rate-limits-and-abuse)
+- [22. Crash reporting](#22-crash-reporting)
+- [23. Supply chain](#23-supply-chain)
+- [24. SLO candidates](#24-slo-candidates)
+- [25. Incident principle](#25-incident-principle)
+
+</details>
+<!-- packet-navigation:end -->
+
 ## 1. Trust zones
 
 ### Untrusted
@@ -92,6 +131,8 @@ Unknown:
 is rejected.
 
 ## 6. LokaScript security
+
+> **Deferred design:** ADR-018 defers LokaScript until a demonstrated composition gap is admitted. This retained design is not a chapter-one build requirement; it constrains that feature if admitted.
 
 Portable custom interpreter is the primary semantic boundary.
 

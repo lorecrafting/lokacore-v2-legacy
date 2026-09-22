@@ -1,5 +1,49 @@
 # 07 — Offline Storypacks and the Path to the MMORPG
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Design contract: two authority modes and portability.
+
+Read sections 1-14 for the shared boundary, then continuity and Realm reuse. The experiment envelope remains proposed.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Requirement](#1-requirement)
+- [2. One client, two strict authority modes](#2-one-client-two-strict-authority-modes)
+- [3. Execution profiles](#3-execution-profiles)
+- [4. Portable rules contract and R1 candidates](#4-portable-rules-contract-and-r1-candidates)
+- [5. Portable rules boundary](#5-portable-rules-boundary)
+- [6. Portable state and commit boundary](#6-portable-state-and-commit-boundary)
+- [7. Server execution](#7-server-execution)
+- [8. Offline execution](#8-offline-execution)
+- [9. Offline persistence](#9-offline-persistence)
+- [10. Offline time](#10-offline-time)
+- [11. Offline scripts](#11-offline-scripts)
+- [12. Capability portability classification](#12-capability-portability-classification)
+- [13. Conformance suite](#13-conformance-suite)
+- [14. Architecture spike gate](#14-architecture-spike-gate)
+- [15. Campaigns, sequels, and single-player expansions](#15-campaigns-sequels-and-single-player-expansions)
+- [16. Cartridge versus deployment](#16-cartridge-versus-deployment)
+- [17. Three ways a single-player cartridge enters the MMO](#17-three-ways-a-single-player-cartridge-enters-the-mmo)
+- [18. Quest design for future reuse](#18-quest-design-for-future-reuse)
+- [19. Shared NPC versus personal narrative](#19-shared-npc-versus-personal-narrative)
+- [20. Death and permanence](#20-death-and-permanence)
+- [21. Economy boundary](#21-economy-boundary)
+- [22. What may transfer from offline](#22-what-may-transfer-from-offline)
+- [23. Online-authoritative cartridge mode](#23-online-authoritative-cartridge-mode)
+- [24. Cloud save for offline storypacks](#24-cloud-save-for-offline-storypacks)
+- [25. Offline entitlement](#25-offline-entitlement)
+- [26. Cartridge update while offline](#26-cartridge-update-while-offline)
+- [27. Offline download/package integrity](#27-offline-downloadpackage-integrity)
+- [28. Local privacy](#28-local-privacy)
+- [29. Why this still uses BEAM's strengths](#29-why-this-still-uses-beams-strengths)
+- [30. Product progression](#30-product-progression)
+
+</details>
+<!-- packet-navigation:end -->
+
 ## 1. Requirement
 
 First-generation single-player cartridges SHOULD be fully playable offline after installation/download.
@@ -370,6 +414,8 @@ No background process is required to simulate every second while the app is clos
 Use on-demand derivation and process due durable jobs on resume. Device wall time is an input to local private play, not a trusted Realm/competitive clock.
 
 ## 11. Offline scripts
+
+> **Deferred design:** ADR-018 defers LokaScript until a demonstrated composition gap is admitted. This retained design is not a chapter-one build requirement; it constrains that feature if admitted.
 
 Offline-capable cartridges may use only **portable LokaScript** and portable bindings.
 

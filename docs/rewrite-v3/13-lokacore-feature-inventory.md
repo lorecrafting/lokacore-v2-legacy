@@ -1,5 +1,65 @@
 # 13 — Lokacore Feature Inventory and Rebuild Disposition
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Informative legacy inventory.
+
+Use for feature archaeology and disposition, never as a module-by-module porting checklist.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Source snapshot](#1-source-snapshot)
+- [2. Disposition vocabulary](#2-disposition-vocabulary)
+- [3. Architectural substrate](#3-architectural-substrate)
+- [4. Persistence and state](#4-persistence-and-state)
+- [5. World and spatial systems](#5-world-and-spatial-systems)
+- [6. Action system](#6-action-system)
+- [7. Search and command parsing](#7-search-and-command-parsing)
+- [8. Conditions and access](#8-conditions-and-access)
+- [9. Quests](#9-quests)
+- [10. Dialogue](#10-dialogue)
+- [11. Cutscenes and storylines](#11-cutscenes-and-storylines)
+- [12. Inventory, containers, and equipment](#12-inventory-containers-and-equipment)
+- [13. Combat and death](#13-combat-and-death)
+- [14. Resources, stats, skills, progression](#14-resources-stats-skills-progression)
+- [15. Economy and shops](#15-economy-and-shops)
+- [16. Crafting and gathering](#16-crafting-and-gathering)
+- [17. Timers and temporal systems](#17-timers-and-temporal-systems)
+- [18. NPC living-world behavior](#18-npc-living-world-behavior)
+- [19. Weather, day/night, atmosphere, visual/sound state](#19-weather-daynight-atmosphere-visualsound-state)
+- [20. Scripting](#20-scripting)
+- [21. Script templates](#21-script-templates)
+- [22. Social/emote systems](#22-socialemote-systems)
+- [23. Sessions](#23-sessions)
+- [24. Broadcasting](#24-broadcasting)
+- [25. Builder terminal](#25-builder-terminal)
+- [26. MCP builder](#26-mcp-builder)
+- [27. Provider-specific AI chat](#27-provider-specific-ai-chat)
+- [28. Builder audit/observability](#28-builder-auditobservability)
+- [29. Content validation](#29-content-validation)
+- [30. Bot testing](#30-bot-testing)
+- [31. AI evaluation](#31-ai-evaluation)
+- [32. Balance simulation](#32-balance-simulation)
+- [33. Admin dashboard](#33-admin-dashboard)
+- [34. React Native living-book UI](#34-react-native-living-book-ui)
+- [35. Minimap](#35-minimap)
+- [36. Authentication](#36-authentication)
+- [37. Health, telemetry, Sentry/Prometheus](#37-health-telemetry-sentryprometheus)
+- [38. CI](#38-ci)
+- [39. Spark companion](#39-spark-companion)
+- [40. Plugin system](#40-plugin-system)
+- [41. Old client/platform experiments](#41-old-clientplatform-experiments)
+- [42. Documentation corpus](#42-documentation-corpus)
+- [43. World content](#43-world-content)
+- [44. Highest-value things to preserve](#44-highest-value-things-to-preserve)
+- [45. Highest-value things not to preserve](#45-highest-value-things-not-to-preserve)
+- [46. Rebuild extraction rule](#46-rebuild-extraction-rule)
+
+</details>
+<!-- packet-navigation:end -->
+
 **Purpose:** ensure the rebuild does not accidentally discard useful work or blindly reproduce transitional architecture.
 
 This is an architectural inventory, not a promise to ship every historical feature.

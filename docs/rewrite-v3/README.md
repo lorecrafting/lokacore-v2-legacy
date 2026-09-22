@@ -1,7 +1,35 @@
 # Loka v3 Rebuild Specification Packet
 
-**Status:** Draft 0.4 — post-audit tightening candidate; still awaiting independent adversarial review/acceptance; not implementation authorization  
-**Date:** 2026-09-20  
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Packet overview and authority map.
+
+Start with the review guide and milestone guide; section 8 defines the document authority/conflict rules.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Why this packet exists](#1-why-this-packet-exists)
+- [2. Normative language](#2-normative-language)
+- [3. Product invariant](#3-product-invariant)
+- [4. Architecture in one diagram](#4-architecture-in-one-diagram)
+- [5. BEAM-native design rule](#5-beam-native-design-rule)
+- [6. Working top-level decisions](#6-working-top-level-decisions)
+- [7. Packet index](#7-packet-index)
+- [8. Specification authority map](#8-specification-authority-map)
+- [9. What this packet deliberately does not do](#9-what-this-packet-deliberately-does-not-do)
+- [10. Reference implementation policy](#10-reference-implementation-policy)
+- [11. Specification change discipline](#11-specification-change-discipline)
+- [12. R0 cutover and implementation-facing specification organization](#12-r0-cutover-and-implementation-facing-specification-organization)
+
+</details>
+<!-- packet-navigation:end -->
+
+**Status:** Draft — audit-corrected review candidate; R0 acceptance and independent review remain pending; not implementation authorization
+
+**Last housekeeping pass:** 2026-09-22
+
 **Source system:** `lorecrafting/lokacore`  
 **Strategic parent:** `docs/product/CARTRIDGE-ROADMAP.md`  
 **Purpose:** define a clean-room rebuild of Loka as one mobile product with two strictly separated authority modes—offline-first **Story Mode** and BEAM-authoritative **Realm Mode**—while preserving portable cartridge semantics where reuse is valuable and removing transitional Lokacore architecture.
@@ -176,7 +204,7 @@ The online authority/orchestration layer SHOULD remain idiomatic Elixir/OTP. Rul
 
 ## 6. Working top-level decisions
 
-| Topic | Draft v0.4 decision |
+| Topic | Current draft direction |
 |---|---|
 | Online language/runtime | Elixir on BEAM/OTP |
 | Portable offline rules | One deterministic portable semantic contract; the shared-kernel candidate is chosen by the R1 spike, with dual-implementation golden conformance as the fallback |
@@ -208,43 +236,20 @@ Implementation MUST NOT treat either provisional choice as settled before its ev
 
 ## 7. Packet index
 
-Read in this order:
+**Start with [the human/LLM review guide](REVIEW-GUIDE.md).** It explains the reading order, the different ID systems, and how to leave review findings. [Every R milestone in plain English](R-MILESTONES.md) is the roadmap companion; [document 14](14-implementation-plan.md) still governs phase tasks and gates.
 
-0. [First Cartridge Design: The Fox of Ashmere](00-first-cartridge-design.md) — the product the packet exists to ship; read it first so the rest has a concrete referent
-   - [Chapter One Content Specification](00a-chapter-one-content.md) — the exact R10 content: rooms, NPCs, items, facts, quests, scenes, and the hello-world compiler fixture
-1. [Core Principles and Non-Goals](01-core-principles.md)
-2. [BEAM Runtime Architecture](02-beam-runtime-architecture.md)
-3. [Domain State and Persistence](03-domain-state-persistence.md)
-4. [Action Invocations, Commands, State Deltas, Events, Effects, and Protocol](04-command-event-effect-protocol.md)
-5. [Cartridges, Content, and Capabilities](05-cartridges-content-capabilities.md)
-6. [Quests, Dialogue, Actions, and Scripting](06-quests-dialogue-actions-scripting.md)
-7. [Quest Sharing, Phasing, Instancing, and Scarce World Services](19-quest-sharing-instancing-capacity.md)
-8. [Composable World Primitives and Builder Expressivity](21-composable-world-primitives.md)
-9. [Offline Storypacks and the Path to the MMORPG](07-offline-storypacks-to-mmo.md)
-10. [Builder API and AI Factory](08-builder-api-ai-factory.md)
-11. [Cartridge Lab and Certification](09-cartridge-lab-certification.md)
-12. [Mobile, Commerce, and Release](10-mobile-commerce-release.md)
-13. [Security, Observability, and Operations](11-security-observability-operations.md)
-14. [Evennia Design Review](12-evennia-lessons.md)
-15. [Classic MUD Design Review](20-classic-mud-lessons.md)
-16. [Lokacore Feature Inventory](13-lokacore-feature-inventory.md)
-17. [Implementation Plan](14-implementation-plan.md)
-18. [Acceptance Scenarios](15-acceptance-scenarios.md)
-19. [Architecture Decision Register](16-decision-register.md)
-20. [Research Baseline and External References](17-research-baseline.md)
-21. [Specification Review Record](18-review-record.md)
+| Review area | Documents |
+|---|---|
+| Product and release scope | [00 — Full Ashmere design](00-first-cartridge-design.md), [00a — Chapter one](00a-chapter-one-content.md), [R6P — Earlier playable proof](pre-release-proof.md), [generated release scope](release-scope.md) |
+| Core architecture | [01 — Principles](01-core-principles.md), [07 — Story/Realm and portability](07-offline-storypacks-to-mmo.md), [02 — Online runtime](02-beam-runtime-architecture.md), [03 — State and persistence](03-domain-state-persistence.md), [04 — Decision and protocol contracts](04-command-event-effect-protocol.md) |
+| Content and mechanics | [05 — Cartridge/capability contracts](05-cartridges-content-capabilities.md), [21 — Composition vocabulary](21-composable-world-primitives.md), [06 — Narrative and actions](06-quests-dialogue-actions-scripting.md), [19 — Sharing, instances, capacity](19-quest-sharing-instancing-capacity.md) |
+| Authoring and release assurance | [08 — Builder/factory](08-builder-api-ai-factory.md), [09 — Lab/certification](09-cartridge-lab-certification.md), [10 — App/commerce/release](10-mobile-commerce-release.md), [11 — Security/operations](11-security-observability-operations.md) |
+| Decisions, plan and evidence gates | [16 — Decision register](16-decision-register.md), [14 — Implementation plan](14-implementation-plan.md), [15 — Acceptance scenarios](15-acceptance-scenarios.md), [R1 — Proposed experiment envelope](r1-acceptance-envelope.md) |
+| Reference evidence, not current implementation instructions | [12 — Evennia](12-evennia-lessons.md), [20 — Classic MUDs](20-classic-mud-lessons.md), [22 — Ink](22-ink-runtime-lessons.md), [13 — Legacy inventory](13-lokacore-feature-inventory.md), [17 — Research baseline](17-research-baseline.md), [18 — Review history](18-review-record.md) |
 
-Implementation-facing companions:
+For implementation, use [INDEX.md](INDEX.md) to locate governing contracts, not to replace them. The [planning matrix](release-scope.json) generates the release checklist; the [contract corpus](conformance/README.md) explains the small executable specification model and the separate future host-evidence obligations. [Index cut candidates](INDEX-cut-candidates.md) are review suggestions, not approved deletions or permissions to omit invariants.
 
-- [Implementation Index](INDEX.md) — the R0 compact architecture and invariant index; read this before the numbered documents when implementing
-- [Index cut candidates](INDEX-cut-candidates.md) — normative sections the index could not state; working list for the deletion pass
-- [R1 Acceptance Envelope](r1-acceptance-envelope.md) — pre-registered thresholds for the portable-kernel spike
-
-Additional implementation companions:
-
-- [Fresh-engine playable proof (R6P)](pre-release-proof.md) — earlier proof, full chapter scope unchanged.
-- [Generated release scope](release-scope.md) / [planning matrix](release-scope.json) — feature-level applicability; not candidate-controlled certification authority.
-- [Small contract corpus](conformance/README.md) — executable specification checks and the separate R1 host-evidence contract.
+File numbers, R milestones, and review order are different axes. The thematic grouping above does not rename files or change their authority.
 
 ## 8. Specification authority map
 
@@ -271,7 +276,8 @@ Implementation MUST conform to:
 
 ### Normative content pull list
 
-- `00-first-cartridge-design.md`
+- `00-first-cartridge-design.md` — the full design and release ladder;
+- `00a-chapter-one-content.md` — chapter-one content details, read with that ladder.
 
 Document 00 does not define architecture. It defines which capabilities the first product cartridge requires, and therefore which parts of the R5–R8 catalog are mandatory before R10 and which are deferred. Where document 00 names a mechanic the catalog lacks, `21-composable-world-primitives.md` §28 registers it. A capability in the catalog that document 00 does not pull is not an R10 requirement.
 
@@ -286,12 +292,19 @@ These define what evidence is required before later phases may depend on earlier
 
 - `12-evennia-lessons.md`
 - `20-classic-mud-lessons.md`
+- `22-ink-runtime-lessons.md`
 - `13-lokacore-feature-inventory.md`
 - `17-research-baseline.md`
 - `18-review-record.md`
 - historical Lokacore documents linked from the product roadmap
 
 These explain why decisions were made but do not override normative contracts.
+
+### Companion status
+
+`pre-release-proof.md` is the proposed R6P work package referenced by document 14. `release-scope.json` is reviewed planning input; `release-scope.md` is generated from it, not a runtime capability registry or certificate. The proposed R1 envelope and numeric profile still require their recorded acceptance gates. `checks/` and `conformance/` are specification-model tooling and fixtures, not the production engine.
+
+`REVIEW-GUIDE.md`, `R-MILESTONES.md`, per-document navigation, and `INDEX.md` are reading aids. They do not introduce new requirements, resolve contradictions by precedence, or mark any gate complete. Dated `reviews/` records and `INDEX-cut-candidates.md` are informative.
 
 ### Conflict rule
 

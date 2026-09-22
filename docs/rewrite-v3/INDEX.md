@@ -1,17 +1,38 @@
 # Loka v3 — Implementation Index
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Routing summary, not a replacement contract.
+
+Use the vocabulary and invariant links to reach governing sections. Phase summaries are not completion evidence.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Provenance](#1-provenance)
+- [2. Pipeline](#2-pipeline)
+- [3. Vocabulary](#3-vocabulary)
+- [4. Invariants](#4-invariants)
+- [5. Chapter ladder](#5-chapter-ladder)
+- [6. Phase gates](#6-phase-gates)
+- [7. Open evidence gates](#7-open-evidence-gates)
+
+</details>
+<!-- packet-navigation:end -->
+
 The R0 compact architecture and invariant index (README §12). This is a routing summary, not a replacement contract. Governing sections and executable schemas/fixtures retain detail; a summary that contradicts them is a defect, not an alternative implementation choice. Scope: what an implementer of **chapter one** (`00a-chapter-one-content.md`) must know. Limits: under 10k tokens, 39 navigation concepts (not a count of all implementation complexity; capability and scenario IDs are indexed separately).
 
 ## 1. Provenance
 
 | Item | Value |
 |---|---|
-| Packet state | Draft 0.5 with audit corrections; R0 acceptance pending; baseline `1f5f32c` |
+| Packet state | Audit-corrected draft; R0 acceptance pending. See README status and the exact reviewed Git commit. |
 | Normative architecture | docs 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 19, 21; accepted ADRs in doc 16 (README §8) |
 | Normative content pull list | doc 00 (§11 ladder), doc 00a (chapter one) |
 | Normative gates | doc 14 (phases), doc 15 (scenarios) |
 | Informative/reference | docs 12, 13, 17, 18, 20, 22; index summaries do not override governing contracts |
-| ADR state | 51 accepted (incl. "accepted direction"), 4 provisional (004, 005, 023, 035), 3 deferred (018, 024, 025), 4 rejected (011, 020, 021, 030) |
+| ADR state | Per-entry status in document 16; Accepted direction is not evidence of implementation or R0 acceptance. |
 | Open evidence gates | §7 below |
 | Known spec defects | doc 18 §33.1, §33.2 (resolved 2026-09-21; see §33 for the amendments) |
 | Cutover rule | after R2 imports this packet, the fresh repository is the only normative authority (ADR-062, ARCH-13) |
@@ -197,6 +218,8 @@ Source: 00 §11. Each chapter is a complete cartridge with its own `offline_priv
 Ladder rules: full chapter-one scope stays intact; R6P is a separate early proof. Use `release-scope.md` for capability/gate applicability. Save support follows document 10 §28. Three chapter artifacts remain separate. R16 adds an unrelated reuse fixture; R9C is conformance, not diversity evidence.
 
 ## 6. Phase gates
+
+For plain-English explanations of every milestone, including R3A/R3B and R6P/R9C, read [R-MILESTONES.md](R-MILESTONES.md). Document 14 owns the actual gates and dependencies.
 
 Source: 14. Sizing values are historical estimates, not promises or acceptance criteria; re-estimate from R1/R6P and measured LLM-assisted authoring/review throughput.
 

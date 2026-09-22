@@ -1,5 +1,35 @@
 # INDEX cut candidates
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Informative pruning suggestions.
+
+Listing a section does not approve deleting it or dropping its invariants. Recheck suggestions against current contracts.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [01 — Core principles](#01--core-principles)
+- [02 — BEAM runtime architecture](#02--beam-runtime-architecture)
+- [03 — Domain state and persistence](#03--domain-state-and-persistence)
+- [04 — Command, event, effect protocol](#04--command-event-effect-protocol)
+- [05 — Cartridges, content, capabilities](#05--cartridges-content-capabilities)
+- [06 — Quests, dialogue, actions, scripting](#06--quests-dialogue-actions-scripting)
+- [07 — Offline storypacks to MMO](#07--offline-storypacks-to-mmo)
+- [08 — Builder API and AI factory](#08--builder-api-and-ai-factory)
+- [09 — Cartridge Lab and certification](#09--cartridge-lab-and-certification)
+- [10 — Mobile, commerce, release](#10--mobile-commerce-release)
+- [11 — Security, observability, operations](#11--security-observability-operations)
+- [14 — Implementation plan](#14--implementation-plan)
+- [15 — Acceptance scenarios](#15--acceptance-scenarios)
+- [19 — Quest sharing, instancing, capacity](#19--quest-sharing-instancing-capacity)
+- [21 — Composable world primitives](#21--composable-world-primitives)
+- [Summary](#summary)
+
+</details>
+<!-- packet-navigation:end -->
+
 Sections of the normative packet that INDEX.md could not state. Listing is not deletion; each entry needs review. Missing an index summary does not make an invariant optional. In particular, error/numeric/receipt/causation/activation semantics cannot be cut as mere implementation detail; follow the corrected governing contracts and release matrix. Built from INDEX.md at the same commit.
 
 ## 01 — Core principles
