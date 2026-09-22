@@ -156,10 +156,10 @@ The preferred implementation for R1 is one shared portable kernel, candidate A o
 R1 compares three candidates against the pre-registered acceptance envelope in `r1-acceptance-envelope.md`. **None is selected before the spike.** `14-implementation-plan.md` R1 and ADR-004 are the authority for the candidate set.
 
 - **A. One TypeScript kernel** — one TypeScript package run natively in React Native's JavaScript engine, reached from BEAM through an Erlang Port to an isolated runner.
-- **B. One Rust kernel** — one deterministic Rust library behind Rustler on BEAM and behind native iOS and Android React Native bindings.
+- **B. One Rust kernel** — one deterministic Rust library behind a declared BEAM boundary (Rustler NIF or explicitly evaluated isolated worker) and native iOS/Android React Native bindings. Language selection does not silently select a crash-isolation boundary.
 - **C. Dual Elixir/TypeScript** — pure Elixir online plus TypeScript offline, held to one semantic schema and a golden-vector parity suite.
 
-The comparison procedure builds A first; B is evaluated only if A fails a MUST row, and C only if B also fails (`r1-acceptance-envelope.md` §12).
+The comparison procedure builds A first; B is evaluated only if A fails a MUST row, and C only if B also fails (`r1-acceptance-envelope.md` §2).
 
 Candidate B additionally depends on a mobile binding strategy. Current React Native/Expo supports custom native modules, React Native provides typed TurboModule/JSI native integration, and Rustler provides an Elixir/Rust NIF bridge. Rust-to-React-Native binding generators also exist, but at least one prominent reviewed option describes itself as early-development and not yet recommended for production. Therefore **both of candidate B's host-binding strategies remain provisional until R1**, and the architecture must not depend on any one third-party binding generator.
 
@@ -244,12 +244,13 @@ portable rules decide(committed state/view, semantic command, env)
 authority transactionally persists delta + receipt
         |
 on success: adopt/apply committed result in memory
-on failure: discard proposal
+on definitive rollback: discard proposal
+on uncertain COMMIT: fence admission, reconcile receipt and reload
 ```
 
 The portable rules layer MUST NOT irreversibly advance hidden authoritative state before host commit succeeds.
 
-If R1 selects a shared native implementation, the spike must decide how state crosses the FFI boundary without pathological full-world copies and benchmark at least:
+For any candidate with a host boundary, begin with the simplest strategy and measure actual bytes/copy/latency. Compare more complex alternatives only if the simple strategy fails the reviewed envelope; record correctness reasons for any exclusion:
 
 - stateless serialized state-in/state-out;
 - long-lived native state handle + non-mutating decision/delta;
@@ -432,9 +433,9 @@ After R1 selects the execution strategy, CI runs golden vectors through every re
 - the iOS Story authority path;
 - the Android Story authority path.
 
-Under candidate A these concretely become the TypeScript kernel plus an Erlang Port runner and the React Native JavaScript engine on both devices; under candidate B, a Rust core plus Rustler and iOS/Android native bindings. If R1 selects candidate C, the documented dual-implementation fallback, the same conformance obligation applies to the accepted Elixir and mobile implementations instead.
+Under candidate A these concretely become the TypeScript kernel plus an Erlang Port runner and the React Native JavaScript engine on both devices; under candidate B, a Rust core plus its declared BEAM boundary and iOS/Android native bindings. If R1 selects candidate C, the documented dual-implementation fallback, the same conformance obligation applies to the accepted Elixir and mobile implementations instead.
 
-Any divergence blocks release.
+Any semantic divergence blocks release. Retain and compare per-step canonical state, decision, event/effect and RNG bytes as well as hashes; see `conformance/README.md`. Final transcript/hash agreement alone is insufficient.
 
 ## 14. Architecture spike gate
 
@@ -459,17 +460,17 @@ Commands:
 Prove:
 
 1. the candidate kernel runs the exact scenario;
-2. the BEAM host produces the canonical trace hash (an Erlang Port runner for candidate A, Rustler for candidate B, the native Elixir implementation for candidate C);
-3. for candidate B only, at least two viable mobile binding strategies are evaluated (for example direct platform wrappers around a stable C ABI versus TurboModule/JSI generation);
+2. the BEAM host produces the canonical trace hash (an Erlang Port runner for candidate A, the explicitly selected NIF/isolated-worker boundary for candidate B, the native Elixir implementation for candidate C);
+3. for candidate B, pre-register its mobile and BEAM boundaries, demonstrate the simplest sufficient build/debug path, and document why alternatives were or were not implemented;
 4. iOS React Native host produces same trace hash;
 5. Android React Native host produces same trace hash;
 6. local SQLite save/reload preserves hash;
-7. BEAM/PostgreSQL save/reload preserves hash;
+7. the BEAM spike adapter preserves canonical state across export/reload using its declared test store; real PostgreSQL transaction/recovery proof remains mandatory at R14, not an unbuilt R1 prerequisite;
 8. 10,000 deterministic command runs show acceptable latency;
 9. a deliberately injected mismatch is caught by conformance CI;
 10. chosen mobile integration approach has a credible Expo/EAS build, upgrade, crash-debugging, and maintenance story.
 
-The procedure for comparing the three candidates is `r1-acceptance-envelope.md` §12; candidate C, dual Elixir/TypeScript implementations with mandatory golden-vector parity, is the fallback, not the first choice.
+The procedure for comparing the three candidates is `r1-acceptance-envelope.md` §§2–3 and §11; candidate C, dual Elixir/TypeScript implementations with mandatory golden-vector parity, is the fallback, not the first choice.
 
 ## 15. Campaigns, sequels, and single-player expansions
 

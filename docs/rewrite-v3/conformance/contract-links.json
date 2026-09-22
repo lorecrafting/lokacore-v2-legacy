@@ -1,0 +1,47 @@
+{
+  "status": "checked-summary-links-not-normative-overrides",
+  "links": [
+    {
+      "id": "A3",
+      "summary": "UI/text/bots emit ActionInvocation; authorize receipt access first; matching retries replay; NEW attempts re-resolve current legality/freshness",
+      "document": "04-command-event-effect-protocol.md",
+      "heading": "## 2. Action invocation and command semantics",
+      "scenario": "RECEIPT-04"
+    },
+    {
+      "id": "A5",
+      "summary": "Decision output is provisional; rejection/definite rollback discards it; failed attempts commit; uncertain commits reconcile before reevaluation",
+      "document": "04-command-event-effect-protocol.md",
+      "heading": "### 5.0 Rejection is not a failed attempt",
+      "scenario": "ATTEMPT-01"
+    },
+    {
+      "id": "N1",
+      "summary": "Quest reducers may consume proposed in-decision events; only commit makes results authoritative; no implicit pre-activation credit; delivery is idempotent",
+      "document": "04-command-event-effect-protocol.md",
+      "heading": "### 5.1 Proposal-state semantics and StateDelta composition",
+      "scenario": "QST-31"
+    },
+    {
+      "id": "N9",
+      "summary": "Facts are typed/scoped/defaulted durable truth; canonical events and registered consequences are also explicit coordination channels",
+      "document": "06-quests-dialogue-actions-scripting.md",
+      "heading": "## 9. Quest/world contract",
+      "scenario": "QST-31"
+    },
+    {
+      "id": "W1",
+      "summary": "Connections may be directed/undirected; bidirectional Barrier faces share state. Six-direction reciprocal exits are Ashmere content policy, not a universal engine limit",
+      "document": "21-composable-world-primitives.md",
+      "heading": "## 5. Spatial and topology primitives",
+      "scenario": "TOPOLOGY-01"
+    },
+    {
+      "id": "P8",
+      "summary": "App/kernel updates preserve installed-save access under the published compatibility policy; required local migrations are rollback-safe",
+      "document": "10-mobile-commerce-release.md",
+      "heading": "## 28. App/kernel upgrades must not strand offline saves",
+      "scenario": "COMPAT-01"
+    }
+  ]
+}

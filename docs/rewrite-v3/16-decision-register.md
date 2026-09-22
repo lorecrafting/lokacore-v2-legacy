@@ -69,7 +69,7 @@ Offline competitive/economic state is not trusted as MMO authority.
 
 Preferred direction: one portable deterministic kernel shared by offline mobile and online BEAM hosts.
 
-R1 compares three candidates against a pre-registered envelope: (A) one TypeScript kernel native in React Native and reached from BEAM through a Port; (B) one Rust kernel behind Rustler and native mobile bindings; (C) dual Elixir/TypeScript implementations with golden-vector conformance.
+R1 compares three candidates against a pre-registered envelope: (A) one TypeScript kernel native in React Native and reached from BEAM through a Port; (B) one Rust kernel behind a pre-registered NIF/isolated-worker BEAM boundary and native mobile bindings; (C) dual Elixir/TypeScript implementations with golden-vector conformance.
 
 Must pass the R1 feasibility spike before freeze. Whichever strategy is selected, the portable semantic contract and conformance obligation are the same.
 
@@ -676,7 +676,7 @@ ritual/trial spaces and other instanced gameplay. There is no separate DreamEngi
 
 Client-visible mutation idempotency is keyed by a stable logical gameplay lineage + invocation identity, not by the current session, process, shard, or other mutation-owner placement.
 
-If a command commits and ownership moves before its acknowledgement is observed, a retry after handoff MUST discover/replay the original receipt rather than execute under a fresh destination-owner namespace.
+If a command commits and ownership moves before its acknowledgement is observed, a retry after handoff MUST discover/replay the original receipt rather than execute under a fresh destination-owner namespace. Receipt access is authenticated before lookup; matching invocation intent is recognized BEFORE current-world action/freshness validation. The original resolved command and semantic outcome are retained, not re-derived from changed state (03 §14).
 
 R20 chooses the concrete durable mechanism—realm-level receipt index, receipt migration, forwarding/tombstones, or an equivalently strong design—but may not weaken this semantic invariant.
 
@@ -690,7 +690,7 @@ Proposed DomainEvents may drive deterministic in-decision reducers, but they MUS
 
 StateDelta composition uses registered typed operations, deterministic proposal-overlay ordering, canonical mutation targets, and explicit conflict/composition rules. Implicit authoritative last-writer-wins behavior is rejected.
 
-A rejected decision or failed commit discards the entire proposal.
+A rejected decision or definitive transaction rollback discards the entire proposal. An admitted failed roll is a committed attempt, not a rejection; unknown commit outcomes require durable reconciliation before reevaluation (03 §15; 04 §5.0).
 
 ## ADR-060 — Capability semantic residency is explicit
 

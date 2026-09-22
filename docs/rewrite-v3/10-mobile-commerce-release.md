@@ -124,7 +124,7 @@ Online server projections are cache only.
 
 The Loka binary contains the Story runtime foundation from launch:
 
-- portable kernel native library/version;
+- portable rules implementation/version selected by R1;
 - local authority + SQLite save support;
 - supported render/action capabilities;
 - catalog/purchase/download UI;
@@ -263,7 +263,9 @@ For the simplest initial review posture:
 - server-only compiled Elixir remains on server;
 - kernel changes ship through reviewed app binary.
 
-Store policies must be re-verified immediately before submission.
+Store policies must be re-verified before the review-position experiment and immediately before submission. Deferring LokaScript reduces the exposed surface but is not approval evidence: serialized JSON or declarative rule graphs may still encode behavior. The exact representation and review path remain ADR-035, not a green-test inference.
+
+Primary policy source for the review-position check: [Apple App Review Guidelines](https://developer.apple.com/app-store/review/guidelines/), rechecked 2026-09-22. This source is policy evidence, not approval of Loka.
 
 ## 15. Content delivery
 
@@ -458,7 +460,7 @@ The product goal—downloadable offline storypacks—remains; the precise portab
 
 Automatic app updates create a compatibility obligation that is independent of cartridge updates.
 
-A new app/kernel release MUST NOT make a previously valid installed save unopenable merely because native code was replaced.
+A new app/kernel release MUST NOT make a previously valid installed save within the published support policy unopenable merely because code was replaced. The policy must be published before commercial release and cannot be silently shortened to excuse missing migration/recovery work.
 
 The release process therefore tracks a compatibility matrix across:
 

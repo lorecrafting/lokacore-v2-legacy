@@ -54,7 +54,8 @@ Player/agent input uses ActionInvocation; trusted autonomous world work uses a t
 ```text
 touch/text/player-agent/test-bot
   -> ActionInvocation
-  -> authority re-resolves + revalidates
+  -> authorize + recognize receipt (matching retry returns prior outcome)
+  -> NEW attempt: authority re-resolves + revalidates
   -> typed semantic Command
                          \
 scheduler / durable job  \
@@ -238,6 +239,12 @@ Implementation-facing companions:
 - [Implementation Index](INDEX.md) — the R0 compact architecture and invariant index; read this before the numbered documents when implementing
 - [Index cut candidates](INDEX-cut-candidates.md) — normative sections the index could not state; working list for the deletion pass
 - [R1 Acceptance Envelope](r1-acceptance-envelope.md) — pre-registered thresholds for the portable-kernel spike
+
+Additional implementation companions:
+
+- [Fresh-engine playable proof (R6P)](pre-release-proof.md) — earlier proof, full chapter scope unchanged.
+- [Generated release scope](release-scope.md) / [planning matrix](release-scope.json) — feature-level applicability; not candidate-controlled certification authority.
+- [Small contract corpus](conformance/README.md) — executable specification checks and the separate R1 host-evidence contract.
 
 ## 8. Specification authority map
 

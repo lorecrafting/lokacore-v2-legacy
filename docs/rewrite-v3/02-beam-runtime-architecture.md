@@ -14,7 +14,7 @@ loka/
 │   ├── loka_runtime/    # OTP world/session/scheduling authority
 │   ├── loka_builder/    # workspaces, Builder API, lab, certification
 │   └── loka_web/        # Phoenix HTTP/channels/admin/MCP adapter
-├── kernel/              # portable deterministic rules kernel (Rust; spike-gated)
+├── kernel/              # portable rules implementation (language and boundary selected by R1)
 ├── mobile/              # React Native / Expo + local authority/persistence
 ├── protocol/            # external machine-readable schemas/codegen
 ├── cartridges/          # first-party source cartridges in development
@@ -155,8 +155,9 @@ It SHOULD NOT block on slow external I/O while holding command serialization. Pe
 1 client ActionInvocation arrives
 2 gateway authenticates + validates transport/protocol
 3 invocation is routed to the owning WorldInstance/ZoneShard
-4 authority verifies actor control, re-resolves the current ActionSet, and constructs the typed Command
-5 authority checks idempotency identity and relevant expected authority revision
+4 authority verifies actor/receipt access and trusted logical retry identity
+5 matching intent replays its stored outcome BEFORE current ActionSet/freshness checks;
+  only NEW invocations resolve current actions/targets and construct the typed Command
 6 DecisionCoordinator evaluates portable + server-only rules into one proposal
 7 store transaction commits affected durable records + command receipt + effect outbox
 8 in-memory state advances to committed revision
@@ -164,7 +165,7 @@ It SHOULD NOT block on slow external I/O while holding command serialization. Pe
 10 durable outbox effects are dispatched/retried
 ```
 
-The exact transaction strategy may batch entity changes, but step 7 must prevent a crash from producing half a logical action.
+The exact transaction strategy may batch entity changes, but step 7 must prevent a crash from producing half a logical action. The transaction rechecks the receipt/unique identity. An uncertain COMMIT fences new decisions until durable reconciliation; see document 03 §§14–15. A replay returns its historical outcome without replacing the current GameView.
 
 ## 6. Why not one GenServer per entity by default
 
