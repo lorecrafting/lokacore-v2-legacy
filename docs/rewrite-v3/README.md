@@ -190,7 +190,7 @@ The online authority/orchestration layer SHOULD remain idiomatic Elixir/OTP. Rul
 | Runtime identity | cartridge-qualified definition refs + UUID runtime instance IDs |
 | State correctness | single mutation authority + transactional persistence/outbox |
 | Game decisions | pure/replayable functions with injected clock and RNG |
-| Scripting | declarative capabilities first; restricted Elixir-syntax LokaScript interpreter as escape hatch |
+| Scripting | Declarative composition only for the first cartridge; LokaScript deferred (ADR-018) until a real cartridge demonstrates a gap |
 | Builder | canonical typed Builder API; MCP/terminal/CLI are adapters |
 | Realm transport protocol | one machine-readable external schema with generated TypeScript/Elixir validation, introduced with Realm Mode |
 | Release | exact certified semantic cartridge/deployment hash |

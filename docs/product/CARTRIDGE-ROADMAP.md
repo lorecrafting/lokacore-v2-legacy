@@ -909,7 +909,7 @@ The current order is:
 9. build and certify the permanent synthetic v3 conformance cartridge;
 10. substantially hand-author and certify the first real offline cartridge using source/compiler/Lab, recording authoring pain;
 11. generalize the canonical Builder API/MCP/terminal adapters from both conformance breadth and real authoring evidence;
-12. polish the production Story shell, add commerce/entitlements, and ship the first commercial cartridge before scaling AI generation;
+12. polish the production Story shell, add commerce/entitlements, ship chapter one as the free showcase, then chapter two as the first paid cartridge before scaling AI generation;
 13. add BEAM online authority and prove host conformance, including the standing conformance cartridge as an offline-vs-BEAM differential fixture;
 14. then expand factory/co-op/social/shared-world work.
 
