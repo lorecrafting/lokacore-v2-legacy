@@ -1377,3 +1377,15 @@ Document 09 now opens with the gates chapter one actually requires. The remainin
 - read Ink's runtime as prior art for cross-host parity before the R1 envelope is written;
 - produce the compact spec index R0 promises, targeting under 10k tokens and under 40 named concepts;
 - run a deletion-focused review pass with a target line count.
+
+## 33. Contradictions surfaced while drafting the R1 envelope and the R0 index
+
+Recorded per README §8's conflict rule. Neither is resolved here; the envelope and the index follow the task instructions given and point at this section.
+
+### 33.1 Document 07 still prescribes a Rust-specific spike
+
+`07-offline-storypacks-to-mmo.md` §4 ("Working R1 hypothesis: Rust") and §14 items 1 to 3 (Rust kernel, Elixir/Rustler host, two mobile binding strategies) describe the spike as a Rust experiment with dual Elixir/TypeScript as the only fallback. README §6 says the same ("Rust is the working hypothesis"). `14-implementation-plan.md` R1 and ADR-004 now compare three candidates with none selected, and the envelope's comparison procedure builds candidate A (TypeScript) first. Document 07 is normative architecture and document 14 is normative gates, so this is a specification defect under the conflict rule. The envelope treats document 07 §14 items 1 to 3 as applying only if B is built; document 07 §4, §14, and README §6 need amendment to match doc 14 R1 and ADR-004.
+
+### 33.2 The tiny model is defined twice and the definitions differ
+
+`14-implementation-plan.md` R1 defines the tiny model with one scheduled job and one RNG check, and its command list includes wait/advance time; `07-offline-storypacks-to-mmo.md` §14 lists the same two. `00a-chapter-one-content.md` §12 says its hello-world fixture "is the R1 spike model" and contains neither a scheduled job nor any RNG use. The envelope uses the §12 fixture as-is, as instructed, and proves RNG replay and durable-job determinism at the medium model instead. Either the fixture gains a scheduled job and an RNG check, or doc 14 R1 and doc 07 §14 drop them from the tiny model; the packet should say which.
