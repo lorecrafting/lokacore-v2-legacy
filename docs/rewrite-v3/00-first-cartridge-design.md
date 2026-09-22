@@ -536,7 +536,7 @@ Endings from (`child_status`, `allegiance`, `king_status`, `wanted`): child home
 
 ## 7. Scope
 
-| Places | 76 |
+| Places | 109 |
 | Named NPCs | 29 |
 | Mob kinds | 10, ~35 alive at cap |
 | Items | ~180 definitions |
@@ -563,6 +563,9 @@ Endings from (`child_status`, `allegiance`, `king_status`, `wanted`): child home
 
 ## 9. Build implications
 
+The full chapter-one scope is reaffirmed (2026-09-22). The earlier R6P proof is separate and built on the fresh engine. The calendar figures below are historical estimates, not release commitments; recalibrate using measured engineering and LLM-assisted authoring/review throughput.
+
+
 This game needs the entire R7 and R8 catalog from document 14 plus the additions in §12. Delivered all at once that is 60 to 100 weeks to first sale; §11 ladders it so chapter one ships in roughly 9 to 14 months and full density arrives by month 18 to 29 with revenue in between.
 
 ## 10. Open questions
@@ -583,7 +586,7 @@ Each chapter compiles its **whole map so far** from a shared source tree, so a p
 
 | Chapter | Areas | Rooms | Levels |
 |---|---|---|---|
-| 1 — The Missing Child | Ashmere, the Fen, Priory public rooms (steps, nave, study, tower, belfry, spire, cloister, infirmary, scriptorium, kitchen garden) | 57 | z−1 to z+3 |
+| 1 — The Missing Child | Ashmere, the Fen, Priory public rooms (steps, nave, study, tower, belfry, spire, cloister, infirmary, scriptorium, kitchen garden) | 57 | z−2 to z+3 |
 | 2 — The Barrow King | + crypt, ossuary, priory gate, all of Barrow Downs | 77 | z−3 to z+3 |
 | 3 — The King's Road | + King's Road and Harrowgate, mine | 109 | z−3 to z+3 |
 
@@ -603,7 +606,7 @@ Each tier is cumulative. A row's chapter is where the mechanic first appears; it
 | Economy | one shop (chandler), inn food and drink, ferry fare | second shop (priory alms for potions), healer, trainers for the three guilds | armorer, apothecary, bank, haggle, faction pricing, liquidity and restock, stables, smithy jobs, mine quota, NPC-to-NPC trade, housing, mail |
 | Crime | none | none | steal, witnesses, wanted, arrest, trial, jail, fence, disguise |
 | Living world | schedules, patrol, wander, guard, scavenge, role profiles, speech topics, ambient emotes, rumors, relationships, one faction track (Priory vs Fen-folk as one axis), populations (hounds, deer, crows, rats), loot tables, reactive world | three faction tracks, drives, NPC memory, permanent NPC death with funeral, wights and adders, ecology light | Crown faction, recognition, NPC commerce, spiders and pike, four world events |
-| Quests | offered/automatic/discovered, all three resolutions, operators all/any/sequence/count/optional/within/event/discovered/fact/scene, survive, repeatable, timed, failure states, journal, scenes, dream, riddles, continuity export | protect, race, escort, item-order puzzle, investigation, trial-style choice scenes, hidden quests | stealth quest, quota quests, housing quest, courier chain, full trial |
+| Quests | offered/automatic/discovered, all three resolutions, operators all/any/sequence/count/optional/within/event/discovered/fact/scene, survive, escort, repeatable, timed, failure states, journal, scenes, dream, riddles, continuity export | protect, race, item-order puzzle, investigation, trial-style choice scenes, hidden quests | stealth quest, quota quests, housing quest, courier chain, full trial |
 | Touch UI | compass, action sheets, inventory grid, paper doll, dialogue chips, letter-bank riddles, journal, minimap, settings, text drawer | combat action bar and stances, companion cards, z-level stepper, scan view | shop tabs, job cards, recipe cards, housing card, mail inbox, boards |
 
 ### Quests by chapter
@@ -628,10 +631,10 @@ Full density arrives around month 18 to 29 instead of month 14 to 23 with no rev
 
 ### Rules for the ladder
 
-1. A mechanic is built in the chapter that first needs it, never earlier. Doc 14 R7 and R8 build lists are read through this table.
-2. A chapter-one save must open in the chapter-one release forever (document 10 §28); later chapters do not migrate earlier saves, they import exports.
+1. Build production mechanics by their first demonstrated need; a small earlier R6P proof may exercise a subset without shrinking chapter one. Doc 14 catalogs are filtered by `release-scope.json`, not read as wholesale prerequisites.
+2. Chapter-one saves remain pinned to their release; app/kernel updates honor the published support and recovery policy in document 10 §28. Later chapters import declared continuity rather than silently migrating earlier saves. No unsupported promise of indefinite interpreter support is inferred from this ladder.
 3. Shared source is one tree under `cartridges/ashmere/` with per-chapter manifests selecting ActivationGroups; the compiler produces three artifacts with three hashes.
-4. R10 in document 14 means chapter one. R16's "two materially different cartridges" are chapters two and three plus the R9C conformance cartridge.
+4. R10 means the full chapter one. R16 uses chapters two and three for continuity/growth plus a small unrelated content-only reuse fixture; R9C remains mechanical assurance, not product diversity proof.
 
 ## 12. Mechanics not yet in document 21
 

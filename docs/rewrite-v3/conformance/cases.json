@@ -1,0 +1,576 @@
+{
+  "fixture_version": 1,
+  "cases": [
+    {
+      "id": "activation-before-credit",
+      "credit": "event",
+      "steps": [
+        {
+          "request": {
+            "id": "a",
+            "actor": "hero",
+            "action": "activate"
+          },
+          "options": {},
+          "result": {
+            "kind": "accepted",
+            "code": "activated",
+            "revision": 1,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 1,
+            "room": "landing",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "b",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "north"
+            }
+          },
+          "options": {},
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 2,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "c",
+            "actor": "hero",
+            "action": "take"
+          },
+          "options": {},
+          "result": {
+            "kind": "accepted",
+            "code": "taken",
+            "revision": 3,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 3,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": "lantern-offer-1",
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "c",
+            "actor": "hero",
+            "action": "take",
+            "view": "view:0",
+            "session": "reconnect",
+            "seq": 0,
+            "route": "new-owner"
+          },
+          "options": {},
+          "result": {
+            "kind": "accepted",
+            "code": "taken",
+            "revision": 3,
+            "delivery": "replay"
+          },
+          "state": {
+            "revision": 3,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": "lantern-offer-1",
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "d",
+            "actor": "hero",
+            "action": "choose",
+            "input": {
+              "choice_id": "carry",
+              "continuation_id": "lantern-offer-1"
+            }
+          },
+          "options": {},
+          "result": {
+            "kind": "accepted",
+            "code": "choice_completed",
+            "revision": 4,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 4,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": null,
+            "outcome": "carry"
+          }
+        },
+        {
+          "request": {
+            "id": "d",
+            "actor": "hero",
+            "action": "choose",
+            "view": "view:0",
+            "input": {
+              "choice_id": "carry",
+              "continuation_id": "lantern-offer-1"
+            }
+          },
+          "options": {},
+          "result": {
+            "kind": "accepted",
+            "code": "choice_completed",
+            "revision": 4,
+            "delivery": "replay"
+          },
+          "state": {
+            "revision": 4,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": null,
+            "outcome": "carry"
+          }
+        }
+      ]
+    },
+    {
+      "id": "preactivation-event-credit",
+      "credit": "event",
+      "steps": [
+        {
+          "request": {
+            "id": "n",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "north"
+            }
+          },
+          "options": {},
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 1,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 1,
+            "room": "green",
+            "lantern": "green",
+            "quest": "absent",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "t",
+            "actor": "hero",
+            "action": "take"
+          },
+          "options": {},
+          "result": {
+            "kind": "accepted",
+            "code": "taken",
+            "revision": 2,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "absent",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "s",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "south"
+            }
+          },
+          "options": {},
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 3,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 3,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "absent",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "a",
+            "actor": "hero",
+            "action": "activate"
+          },
+          "options": {},
+          "result": {
+            "kind": "accepted",
+            "code": "activated",
+            "revision": 4,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 4,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "preactivation-state-credit",
+      "credit": "state",
+      "steps": [
+        {
+          "request": {
+            "id": "n",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "north"
+            }
+          },
+          "options": {},
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 1,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 1,
+            "room": "green",
+            "lantern": "green",
+            "quest": "absent",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "t",
+            "actor": "hero",
+            "action": "take"
+          },
+          "options": {},
+          "result": {
+            "kind": "accepted",
+            "code": "taken",
+            "revision": 2,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "absent",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "s",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "south"
+            }
+          },
+          "options": {},
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 3,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 3,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "absent",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "a",
+            "actor": "hero",
+            "action": "activate"
+          },
+          "options": {},
+          "result": {
+            "kind": "accepted",
+            "code": "activated",
+            "revision": 4,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 4,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": "lantern-offer-1",
+            "outcome": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "schedule-and-save-boundary",
+      "credit": "event",
+      "steps": [
+        {
+          "request": {
+            "id": "w",
+            "actor": "hero",
+            "action": "wait",
+            "input": {
+              "until": 19
+            }
+          },
+          "options": {},
+          "result": {
+            "kind": "accepted",
+            "code": "waited",
+            "revision": 1,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 1,
+            "room": "landing",
+            "lantern": "green",
+            "quest": "absent",
+            "arrived": false,
+            "clock": 19,
+            "bram_room": "green",
+            "job_pending": false,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "w",
+            "actor": "hero",
+            "action": "wait",
+            "input": {
+              "until": 19
+            },
+            "view": "view:0"
+          },
+          "options": {},
+          "result": {
+            "kind": "accepted",
+            "code": "waited",
+            "revision": 1,
+            "delivery": "replay"
+          },
+          "state": {
+            "revision": 1,
+            "room": "landing",
+            "lantern": "green",
+            "quest": "absent",
+            "arrived": false,
+            "clock": 19,
+            "bram_room": "green",
+            "job_pending": false,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        }
+      ]
+    }
+  ]
+}

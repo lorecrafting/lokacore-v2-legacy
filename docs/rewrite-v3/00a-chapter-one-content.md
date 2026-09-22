@@ -19,6 +19,7 @@ chapter: 1
 requires:
   kernel_api: ">=1.0 <2.0"
   content_schema: 1
+  rule_ir: 1
   capabilities:
     - movement@1
     - barrier@1
@@ -31,6 +32,7 @@ requires:
     - fact@1
     - resource@1
     - attributes@1
+    - position@1
     - skills@1
     - status@1
     - check@1
@@ -307,7 +309,8 @@ resolution: { mode: turn_in, targets: [npcs/elspeth, npcs/bram] }
 objectives:
   all:
     - id: learn_name
-      event: { type: dialogue_node_reached, target: npcs/elspeth, node: tells_name }
+      # Q1 already observed tells_name before activating Q2: current knowledge, not replay.
+      state: { fact_equals: { key: village.arrived, value: true } }
     - id: find_tracks
       event: { type: discovered, target: details/reed_bank.tracks }
     - id: cross_mire
@@ -416,7 +419,7 @@ Chapter one ends when both Q2 and Q3 are resolved: a ReactionRule on the second 
 | S10 a_room_at_the_lantern | automatic on first rest at inn_rooms / automatic | `event: rested` at inn_rooms | player.slept_at_lantern; scene dream_of_the_fen; export player.dream_seen |
 | S27 a_night_in_the_marsh | discovered at hound_run after 20:00 / automatic | `survive: { window: 20:00–06:00, room_tag: fen }` with `optional: shelter at drowned_oak` | fen.night_survived; sedge profile warm; sedge teaches swim; faction −1 (Priory disapproves) |
 
-Every side quest has a declared failure state: S1 none; S2 expiry; S3 tobin dies (Bram gives an alternate turn-in); S4 answering wrong three times (wisp leaves until the next night); S9 none; S10 none; S27 death (ghost respawn at isle_shrine, quest resets).
+Every side quest has a declared failure state: S1 none; S2 expiry; S3 tobin dies (Bram gives an alternate turn-in); S4 answering wrong three times (wisp leaves until the next night); S9 none; S10 none; S27 death (ordinary shrine respawn at isle_shrine, quest resets; ghost-walk is chapter two).
 
 ## 8. Dialogue
 
@@ -493,7 +496,8 @@ version: 0.0.1
 requires:
   kernel_api: ">=1.0 <2.0"
   content_schema: 1
-  capabilities: [movement@1, containment@1, inspectable_detail@1, equipment@1, fact@1, quest@1, dialogue@1, topics@1, check@1, behavior@1, schedule@1]
+  rule_ir: 1
+  capabilities: [movement@1, containment@1, inspectable_detail@1, description_variant@1, equipment@1, fact@1, policy@1, target_resolution@1, narration@1, quest@1, dialogue@1, topics@1, check@1, behavior@1, schedule@1]
 supported_profiles: [offline_private]
 time_policy: play_time
 entry: { room: rooms/ferry_landing }
@@ -640,4 +644,8 @@ dialogue.common.leave: "Good day."
 narration.lantern_slips: The handle turns slick in your fingers and the lantern rolls back into the weeds.
 ```
 
-The fixture proves, in order: compile to an artifact hash twice with identical output (CAR-04); `look`, `north`, `take lantern`, `south`, `talk bram`, choose, resolve; `village.arrived` flips once; the green's description variant changes; a duplicate `take lantern` invocation is rejected; the take check's RNG outcome, pass or fail, replays identically from the same seed and the same restored save, and a retry after a failed check is a new command rather than a duplicate (DET-03); `wait` to hour 19 moves Bram to the green through a durable scheduled job that survives save and restore (WORLD-01); save, kill, restore at every step (OFF-03, OFF-04). Under any R1 strategy this is the golden trace the hosts must match, and the fixture now matches the `14-implementation-plan.md` R1 tiny model exactly: 2 rooms, 1 exit, 1 NPC, 1 item, 1 player, 1 typed fact, 1 quest, 1 scheduled job, 1 RNG check.
+The positive fixture activates the quest **before** the acquisition it observes: `look`, `talk bram`, choose `accept`, `north`, `take lantern`, then return/inspect. The seeded take may fail as an admitted attempt; that failure commits its RNG state, and another attempt uses a NEW invocation ID. A matching duplicate replays the original success or failure rather than rejecting or rolling again. `village.arrived` flips once on successful post-activation acquisition and the green's derived description changes.
+
+Separate required cases prove: acquisition before activation gives no event credit; an explicitly state-predicate quest may credit an already-held lantern; changed intent under the same ID conflicts; a stale-view retry after success replays its receipt; definite rollback consumes nothing; uncertain commit is reconciled before retry. `wait` to hour 19 moves Bram through a durable scheduled command, and save/restore preserves jobs and RNG.
+
+`conformance/README.md` defines the executable small-contract examples and the full R1 host-adapter evidence they do NOT yet supply. The R1 golden corpus must include source/prepared definitions, initial snapshot, exact commands, per-step decision/event/state bytes, and RNG states; this prose is not itself a passing golden trace. The two-room fixture remains independent of the larger R6P playable proof and the full 57-room release.

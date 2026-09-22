@@ -1,6 +1,6 @@
 # INDEX cut candidates
 
-Sections of the normative packet that INDEX.md could not state. Listing is not deletion; each entry needs a human decision. Built from INDEX.md at the same commit.
+Sections of the normative packet that INDEX.md could not state. Listing is not deletion; each entry needs review. Missing an index summary does not make an invariant optional. In particular, error/numeric/receipt/causation/activation semantics cannot be cut as mere implementation detail; follow the corrected governing contracts and release matrix. Built from INDEX.md at the same commit.
 
 ## 01 — Core principles
 

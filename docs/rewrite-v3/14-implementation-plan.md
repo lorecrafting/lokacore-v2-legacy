@@ -3,7 +3,9 @@
 **Status:** draft sequencing derived from v3 architecture.  
 **Rule:** no fresh implementation repository should begin substantive engine work until this packet is accepted and Phase R0 is complete.
 
-This plan intentionally prioritizes a small shippable offline storypack while proving that the same portable rules can later run under BEAM authority.
+The full first release remains chapter one: **57 rooms, 10 quests, two endings**. LLM-assisted authoring and reasoning are part of the plan. A separate small **R6P playable proof** tests the from-scratch engine before that release; it is not a reduced chapter or a legacy-engine migration.
+
+[release-scope.md](release-scope.md), generated from the reviewed [release-scope.json](release-scope.json), makes the chapter/proof capability and gate applicability explicit. Detailed catalogs remain design material; a later feature in a phase's catalog is NOT a prerequisite for an earlier release. Applicable safety gates cannot be waived. R0/R1 acceptance and R2 specification cutover remain required before production engine work.
 
 ## R0 — Specification acceptance
 
@@ -80,11 +82,11 @@ R1 evidence reports both the measured result and the pre-registered threshold.
 
 ### Candidates
 
-R1 compares three strategies against the pre-registered envelope. None is selected here.
+R1 compares three strategies against the pre-registered envelope. None is selected here. R1A uses Tiny semantics/prepared definitions; R1B uses synthetic volume and bounded chain/scene cases, NOT the whole chapter. A is a first-sufficient experiment, not a ranking of unmeasured candidates. Language and host boundary are separate decisions, including an explicitly evaluated isolated Rust-worker variant if needed.
 
 **A. One TypeScript kernel.** The portable rules are one TypeScript package. React Native runs it natively in its JavaScript engine with no FFI, no native module, and no binding generator. BEAM reaches it through an Erlang Port to a Node process, or an equivalent isolated runner, with JSON or a binary codec across the boundary. Determinism requires integer arithmetic for rule-critical math, `Map` and canonical key ordering rather than object-key order, and a seeded PRNG. Costs: a Node process in the server deployment and per-decision serialization, which is the same state-crossing cost strategy B must benchmark.
 
-**B. One Rust kernel.** One deterministic Rust library behind Elixir/Rustler, an iOS React Native native binding, and an Android React Native native binding. Strongest type system and no runtime dependency inside the kernel; highest build, binding, and debugging cost across four hosts.
+**B. One Rust kernel.** One deterministic Rust library behind a pre-registered BEAM boundary (Rustler NIF or isolated worker), an iOS React Native native binding, and an Android React Native native binding. Strongest type system and no runtime dependency inside the kernel; highest build, binding, and debugging cost across four hosts.
 
 **C. Dual implementation.** Pure Elixir online plus TypeScript offline, held to one semantic schema and golden-vector suite. No cross-language boundary on either host; permanent two-implementation maintenance and semantic-drift cost.
 
@@ -114,14 +116,14 @@ Commands:
 
 ### Prove
 
-- canonical serialization;
-- exact trace parity;
+- canonical serialization and independently reviewed RNG/numeric vectors;
+- per-step state/decision/event/RNG bytes and exact trace parity;
 - snapshot round-trip;
 - deterministic RNG;
 - same errors;
 - build automation on all hosts;
-- acceptable FFI overhead/copy behavior at realistic world-state sizes;
-- a safe decide → persist → apply-delta protocol;
+- boundary overhead/copy behavior at synthetic representative state sizes; later full-chapter validation checks representativeness;
+- receipt-before-current-world-validation and safe decide → persist → apply-delta, including uncertain COMMIT;
 - deterministic IDs/map ordering/numeric behavior;
 - no BEAM scheduler starvation.
 
@@ -252,7 +254,7 @@ Initial envelopes include:
 - Service/Capacity/ServiceJob composition envelope;
 - WorldEventPlan.
 
-R5 freezes the v1 ActionRecipe/InspectableDetail/Connection/Barrier and other foundation-world shapes before portable world rules depend on them. R7 freezes the v1 narrative/Scene/InstancePlan/consequence shapes before R9C/R10 depend on them. R8 freezes the v1 living-world/population/commerce/service/world-event shapes before the conformance and product cartridges depend on them.
+R5 freezes the v1 ActionRecipe/InspectableDetail/Connection/Barrier and other foundation-world shapes before portable world rules depend on them. R7 freezes each narrative/Scene/consequence shape before its first dependent artifact; InstancePlan freezes when actually pulled. R8 likewise freezes each living-world/population/commerce/service/world-event feature with its first use, not wholesale before chapter one.
 
 This does **not** permit runtime ambiguity. A feature may not ship/use an unstable anonymous map merely because its detailed schema was deferred. It means the final versioned schema is frozen when implementation evidence exists, instead of guessing every field at R3 and carrying accidental compatibility forever.
 
@@ -368,13 +370,21 @@ Airplane mode:
 - finish;
 - no state corruption.
 
+## R6P — Early fresh-engine playable proof
+
+Implement [pre-release-proof.md](pre-release-proof.md) using the minimum R3–R6 foundation and the selected early R7/R8 slices. R6P does **not** depend on the entirety of R7/R8 or R9; minimal conformance and fault checks accompany each slice from the start. The phase numbers group capabilities, not a mandate to build each group wholesale before feedback.
+
+Gate: a coherent four-place experience with real prose, a consequential choice, a schedule, touch input, atomic local saves, retry/restart safety and device evidence. Keep the resulting regression corpus green as the full chapter is built. A Python contract-model pass is not this gate. No production v3 code is added to legacy Lokacore.
+
 ## R7 — Quest, dialogue, and scenes
 
 ### Objective
 
 Support real narrative cartridges.
 
-### Build
+### Build by release applicability
+
+Chapter one includes quest operators actually used by `00a` (including escort and survive), dialogue, current-world scenes and a scoped-overlay dream. InstancePlan, ghost-walk, spell combinations, stances and other later mechanics are catalog entries below, NOT chapter-one dependencies unless a reviewed content amendment pulls them. Freeze each feature schema with its first exercised slice.
 
 - StateMachine primitive;
 - QuestInstance;
@@ -402,7 +412,7 @@ Support real narrative cartridges.
 
 Known Lokacore quest-bug class has a regression scenario that cannot reproduce corruption/premature completion.
 
-A quest can drive a durable SceneSequence containing text narration, an authoritative choice, a crash/reconnect checkpoint, and typed world consequences exactly once. A player-scoped dream proves both overlay and minimal InstancePlan composition, isolation, reconnect/save behavior, and explicit export semantics.
+For chapter one, a quest drives a durable SceneSequence with narration, authoritative choice, crash/reconnect checkpoint, and once-only consequences; its dream proves scoped-overlay isolation and resume. A minimal InstancePlan has its own entry/export/teardown/recovery gate when that feature is first pulled. It is not required just to render the chapter-one overlay dream.
 
 LokaScript is **not** part of R7. No chapter of `00-first-cartridge-design.md` requires it; ADR-018 is deferred until a real cartridge presents a mechanic that ActionRecipe, ReactionRule, Policy, and quest operators cannot express, at which point it is admitted through a CapabilityProposal and its own phase.
 
@@ -412,7 +422,9 @@ LokaScript is **not** part of R7. No chapter of `00-first-cartridge-design.md` r
 
 Make the world feel like a MUD, not a branching ebook.
 
-### Build initially
+### Build by release applicability
+
+Chapter one requires schedules, behaviors, populations, reactions, day/night, tides, light, topics, immediate shop/inn/ferry transactions and the other features in the generated matrix. It does not require ServiceJob queues/escrow, WorldEventPlan, weather, mounts, crime, property, or mail. The full catalog below is phased by the release matrix and doc 00; do not implement it all before R10.
 
 - typed ReactionRule evaluation;
 - NPC role/state profiles;
@@ -441,10 +453,10 @@ Make the world feel like a MUD, not a branching ebook.
 
 ### Gate R8
 
-30 simulated days:
+30 simulated days for chapter-one scheduled work, populations and reactions. Additionally test each implemented transaction family:
 
-- service queues/jobs remain bounded and deterministic;
-- escrowed inputs/outputs conserve ownership;
+- service queues/jobs remain bounded and deterministic **when ServiceJob is implemented**;
+- escrowed inputs/outputs conserve ownership **when escrow is implemented**;
 - merchant stock/payment conservation holds under retries/concurrency;
 - no schedule deadlocks;
 - Behavior conflict arbitration is deterministic;
@@ -461,7 +473,9 @@ Make the world feel like a MUD, not a branching ebook.
 
 Make failures reproducible before content scale.
 
-### Build
+### Build minimum first
+
+Document 09 §1a and the generated release matrix select the first-release gates. The list below also contains later Lab capabilities: bounded exploration, mutation sensitivity, generalized CoverageManifest and model-proposed scenario import are not chapter-one prerequisites. Small known-answer/fault tests accompany R3 onward; R9 packages them into repeatable certification rather than postponing testing until R9.
 
 - virtual clock;
 - seed/RNG controls;
@@ -487,12 +501,9 @@ Make failures reproducible before content scale.
 
 ### Gate R9
 
-Every seeded injected failure generates a one-command/fixture reproducible report.
+For chapter one, every deliberately injected applicable failure yields a retained reproducible scenario. The static/quest/world, per-step determinism, receipt/commit faults, branch/scene coverage and human-smoke obligations of document 09 §1a pass. Export exact artifact/fixture/toolchain identity with the evidence.
 
-A deliberately broken mini-cartridge is detected by the expected static/model/invariant/
-mutation-sensitivity gates. The Lab can account for quest/scene/area coverage, explore
-declared bounded branches, export an exact evidence bundle, and reproduce a model-proposed
-adversarial scenario deterministically without treating the model output itself as pass/fail evidence.
+Later features add bounded exploration, mutation sensitivity, mounted analysis and other gates when applicable; they are not required merely because they appear in this catalog. A model-proposed attack counts only after deterministic execution against an admitted invariant.
 
 ## R9C — Synthetic V3 Conformance Cartridge
 
@@ -507,7 +518,7 @@ This separates two different optimization targets:
 
 ### Build
 
-The conformance cartridge SHOULD exercise the currently implemented portable foundation broadly enough to cover representative interactions such as:
+The conformance cartridge SHOULD exercise the currently implemented portable foundation. It MUST NOT pull an unneeded future engine feature just to fill a checklist. Only applicable implemented interactions below are required at a given release:
 
 - deterministic text/touch target ambiguity and resolution;
 - containment/inventory transfer and retry/crash boundaries;
@@ -697,7 +708,7 @@ Within the same Loka app, the player can choose local Story execution or a conne
 
 ## R16 — Repeatable AI factory
 
-Only now automate content production heavily.
+LLMs may assist content creation, test proposals and review earlier. R16 certifies that heavy automation is repeatable; it is not permission to use an LLM for the first time. Its prerequisites are R11 and demonstrated Story authoring/certification, NOT R14/R15 Realm production.
 
 ### Build
 
@@ -711,7 +722,7 @@ Only now automate content production heavily.
 
 ### Gate R16
 
-Two materially different cartridges produced mostly as content changes without unreviewed engine patches. Chapters two and three of `00-first-cartridge-design.md` §11 are the intended candidates; each introduces its tier of capabilities through reviewed engine work first, then its content through the Builder.
+Chapters two and three of `00-first-cartridge-design.md` §11 demonstrate campaign continuity and planned capability growth, with separately reviewed engine work before content depends on it. Also build a small unrelated cartridge using the already-proved capability set to test reuse without Ashmere-specific assumptions. Record engine changes, authoring/correction effort and escaped defects, not only generated room count. No unreviewed engine patch may be disguised as a content-only success.
 
 ## R17 — Party/co-op instances
 
@@ -838,56 +849,31 @@ Each remains independently specified/certified.
 # Dependency graph
 
 ```text
-R0 spec
- |
-R1 portability spike
- |
-R2 repo foundation
- |
-R3 schemas/contracts
- |
-R4 compiler
- |
-R5 kernel
- |
-R6 offline host
- |
-R7 narrative
- |
-R8 living world
- |
-R9 lab
- |
-R9C conformance cartridge
- |
-R10 first product cartridge
- |\
- | R11 builder
- |
- R12 mobile shell
- |
-R13 commerce
-                  |
-                 R14 BEAM online
-                  |
-                 R15 online-private
-                  |
-                 R16 factory  (also requires R11 Builder API)
-                  |
-                 R17 party
-                  |
-                 R18 shared hub
-                  |
-                 R19 instanced story regions
-                  |
-                 R20 shards
-                  |
-                 R21 shared promotion
-                  |
-                 R22 MMORPG expansion
+R0 acceptance -> R1 spike -> R2 fresh repository/spec cutover
+                                 |
+                  minimal R3-R6 + early R7/R8 slices
+                                 |
+                          R6P playable proof
+                                 |
+                 remaining chapter-one R5-R8 features
+                                 |
+                      R9 minimum + R9C corpus
+                                 |
+                         R10 full chapter one
+                        /          |            \
+               R12 Story app   R11 Builder    R14 BEAM authority
+                   |              |                 |
+          free release gates  R16 content reuse  R15 online-private
+                   |          /            \         |
+          R13 paid commerce  chapter two  chapter three
+                   |                              R17 party -> R18 hub
+              paid releases                           |
+                                     R19 geography -> R20 shards
+                                                      |
+                                             R21 -> R22 expansion
 ```
 
-Some implementation can overlap, but gates define what may depend on what.
+R12 may overlap R10. Platform persistence required by R14 can be introduced without waiting for purchase product work. R13 is mandatory before paid releases, not before the proof or an otherwise compliant free chapter release. Both free and paid releases require their applicable store, installation, signing, compatibility and human acceptance gates. Realm gates do not block offline content/Builder/factory work. Phase numbers are stable labels, not an implicit total order.
 
 # Issue sizing rule
 
@@ -936,7 +922,7 @@ Models should not silently amend architecture during implementation.
 
 # Sizing
 
-Rough ranges for one developer with agent assistance, following the chapter ladder in `00-first-cartridge-design.md` §11. They are planning inputs, not commitments; revise them after R1 and again after R6.
+Historical ranges for one developer with agent assistance, following the chapter ladder in `00-first-cartridge-design.md` §11. They are not promises or acceptance gates. Re-estimate after R1/R6P using observed engineering and LLM-assisted authoring/correction/review throughput; do not reduce chapter scope to fit an old calendar guess.
 
 | Phase | Range |
 |---|---|
@@ -948,18 +934,18 @@ Rough ranges for one developer with agent assistance, following the chapter ladd
 | R10 chapter one content | 6 to 10 weeks |
 | R12 app shell | 6 to 10 weeks |
 | R13 commerce and entitlement | 3 to 5 weeks |
-| **Chapter one in the store** | **about 9 to 14 months from R1** |
+| **Full free chapter one in the store** | Re-estimate after R6P; R10/R12 and applicable release gates |
 | R11 Builder v1 | 4 to 8 weeks |
 | Chapter two tier and content | 4 to 7 months after chapter one |
 | Chapter three tier and content | 5 to 8 months after chapter two |
 | **Full design shipped** | **about 18 to 29 months from R1** |
 
-R14 onward is not sized here; it starts after chapter one ships and runs alongside chapters two and three.
+Realm development is not sized here and may run alongside later chapters. R16 is on the independent Story/Builder track, not a dependency on R14/R15.
 
 # Shipping rule
 
-The rebuild has failed if it spends a year building a universal engine without shipping a cartridge.
+Prove a small playable experience at R6P, then ship the full chapter rather than build every future catalog feature first.
 
-The first major product gate spans R10 + R12 + R13: **a polished offline purchasable storypack in the production Loka app**.
+The first free product gate spans **R10 + R12 plus applicable installation, signing, compatibility, store and human gates**. The first paid cartridge additionally requires R13 purchase/restore/entitlement evidence. Free experience validation and paid-product validation are different, explicit milestones.
 
 The MMORPG path exists in the architecture so that work compounds, not so it blocks shipping.

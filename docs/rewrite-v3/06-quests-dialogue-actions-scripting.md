@@ -175,7 +175,9 @@ Quest event delivery MUST be idempotent without relying on an unsafe forever-gro
 
 ## 5. Quest event processing
 
-Quest Runtime consumes canonical DomainEvents only.
+Quest Runtime consumes canonical DomainEvents, including proposed events inside the enclosing decision (04 §5.1). Quest/reaction/consequence deltas join the same atomic commit; external consumers see only committed events. This is not a post-commit quest-write pipeline.
+
+Activation records a deterministic event-position boundary, not just a wall/logical timestamp. An event ordered before activation is not retroactively delivered merely because both occurred in one command or at the same logical time. Already-known/owned state is an explicit current-state predicate. A discovered activation may use its trigger as evidence only under an explicitly declared operator policy; no implicit historical replay is allowed.
 
 Movement code does not call “increment quest.”
 

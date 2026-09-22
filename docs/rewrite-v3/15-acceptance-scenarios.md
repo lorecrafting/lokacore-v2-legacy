@@ -1745,3 +1745,38 @@ merely because R9C exercises it.
 R10 certification selects the mandatory gates implied by its own frozen semantic surface,
 profile, and release level while shared engine invariants remain covered by the regression
 corpus.
+
+
+## Audit follow-through acceptance cases
+
+### RECEIPT-04 — Replay before current-world validation
+
+Commit take/choice/purchase, lose its response, then retry through an authorized new session/route with a stale view and consumed target/offer. Replay the original semantic outcome before current legality checks; no second mutation/RNG/effect. The current GameView remains current. Revoked/foreign actor access is denied before receipt disclosure.
+
+### RECEIPT-05 — Changed intent is not a retry
+
+Reuse invocation identity with changed actor/target order/input/price constraint or semantic continuation binding: integrity conflict. Changes only to connection, diagnostic sequence, routing and pure freshness metadata do not alter intent. A semantic offer token is not excluded merely because its name contains "token".
+
+### ATTEMPT-01 — Valid failed roll versus rejected attempt
+
+A valid 50% attempt that fails commits its next RNG state and failure receipt. Matching retry makes no draw; a new invocation follows the next deterministic draw. An unavailable action or definite rollback does not advance game RNG/time/resources. Retrying a receipted terminal rejection replays the chosen terminal result.
+
+### RECOVERY-01 — Missing acknowledgement does not prove rollback
+
+Lose COMMIT acknowledgement while the original transaction is still unresolved. Fence new decisions; an initially absent receipt is not permission to rerun. Test both eventual commit and eventual rollback on the real store. Committed disposition reloads and replays; only confirmed non-commit permits retry of the same identity.
+
+### QST-31 — Activation and knowledge are different from historical events
+
+The hello fixture activates before acquisition. Its negative control acquires before activation and receives no retroactive event credit; an explicit current-state variant does credit possession. In chapter one, Q2 consumes the knowledge/fact established by Q1 rather than demanding Q1's already-consumed dialogue event again.
+
+### PROOF-01 — Proof does not shrink the first release
+
+R6P is a separate cartridge/save lineage on the fresh engine. Its device/human evidence does not certify chapter one. The full release retains 57 rooms, ten quests and two endings and all applicable feature gates. Python specification checks alone cannot satisfy R6P/R1/R10.
+
+### SCOPE-02 — Capability families do not imply every later feature
+
+Immediate ferry/shop operations trigger transactional tests now; they do not trigger unimplemented ServiceJob escrow. Conversely, a future artifact that actually uses escrow or an unknown dynamic feature cannot skip its gate using chapter-one labels or candidate-controlled metadata.
+
+### TOPOLOGY-01 — Transport and conditional reachability
+
+The 57-room chapter's island is reachable through the ferry, not ordinary exits alone. Separately test payment, schedule, policy and return travel under declared scenarios. Do not label a structurally linked but unaffordable/never-available required target playable, or impose six-direction reciprocal exits on all future engine connections.

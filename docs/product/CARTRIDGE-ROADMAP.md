@@ -13,6 +13,12 @@ The normative draft architecture packet is [`docs/rewrite-v3/README.md`](../rewr
 
 The rewrite packet refines this roadmap in one major respect: offline-capable single-player storypacks are locally authoritative and use a portable deterministic rules kernel, while online private/party/shared play is authoritative under the BEAM runtime. The cartridge/content model is shared so storypack work can graduate into the later MMORPG without becoming throwaway work.
 
+## Audit follow-through — 2026-09-22
+
+Chapter one remains the full 57-room, ten-quest, two-ending release, built on a **from-scratch engine** with LLM-assisted authoring/reasoning. The smaller [R6P proof](../rewrite-v3/pre-release-proof.md) is an earlier engineering/player-feedback milestone, not a smaller release or a request to improve the old engine. Use the [release matrix](../rewrite-v3/release-scope.md) to distinguish proof, chapter-one and later features.
+
+Offline chapters, Builder generalization and factory experiments can proceed without production Realm. The free release requires product/installation/compatibility/store gates; paid purchase/restore additionally requires R13. Calendar estimates below are historical planning assumptions, to be replaced by measured engineering and agent-assisted authoring/review throughput.
+
 ## Strategy in one page
 
 Build **one Loka mobile app with two strict authority modes**. Ship small, self-contained story worlds first through **Story Mode**. Add the persistent multiplayer product later as **Realm Mode** in the same app. The modes share rendering, account/catalog surfaces, accessibility, localization, and generated contracts, but they do not share authority:

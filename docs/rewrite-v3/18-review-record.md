@@ -1399,3 +1399,16 @@ Recorded per README §8's conflict rule. All three were resolved by owner decisi
 `00-first-cartridge-design.md` §11 listed "barter with Sedge" in the chapter-one Economy cell while the same table's chapter-three cell and its "What each chapter buys" table listed "barter (formalized)", so the packet both did and did not ship barter in chapter one.
 
 **Resolution (2026-09-21):** barter is chapter three only. Chapter one loses it in doc 00 §11 (Economy row and the chapter-three capability cell, now plain "barter"), doc 00a §4 (Sedge's trainer cell) and §5 (the herb row's use column, now S9 only), and `INDEX.md` §5 (chapter-one ladder row); `INDEX-cut-candidates.md` records the decision on the doc 21 §28 `commerce@1` barter row. Doc 00 §2 (Sedge's cast row), §4.6 (the economy mechanics table) and §12 (the capability gap list) keep barter as full-design prose because they describe the whole game, not chapter one.
+
+
+## 34. Audit follow-through and owner scope clarification — 2026-09-22
+
+The owner reaffirmed the clean-sheet engine rebuild and full first-chapter scope (57 rooms, 10 quests, two endings), with powerful LLM-assisted creation/reasoning. The agreed smaller slice is an earlier fresh-engine proof, not a reduced first release or a legacy migration. PR #8 merged the planning record and CI scaffold while substantive work remained local; the follow-up carries the actual corrections.
+
+Corrections: receipt recognition precedes current ActionSet/freshness validation; incoming intent and resolved command have distinct digests; valid failed attempts commit their RNG/outcome; uncertain COMMIT requires reconciliation, not speculative rerun. The tiny fixture now activates before acquisition, with explicit negative/state-credit controls. Q2 uses already-established knowledge rather than repeating Q1's event. Index summaries no longer forbid provisional in-decision events or elevate Ashmere's six-direction convention into a universal engine rule.
+
+R1 now separates Tiny semantics from synthetic volume, decision/commit/checkpoint/restore timings, shared server load, UI responsiveness, and fault-class-specific recovery. All performance numbers and the numeric profile remain proposed until the evidence gate is accepted. The executable Python model is specification evidence only, not a kernel, database test, or mobile proof.
+
+The generated release matrix removes accidental later-feature prerequisites while keeping applicable first-release safety gates. R6P is a small touch-first proof in the fresh repository after R0/R1/R2. Story/Builder/factory work does not depend on production Realm. Paid commerce and free product proof are separate gates. The original outside/Fable report is not authenticated by this change; §32 remains the repository's outside-review summary, not independent approval of this follow-up.
+
+See `reviews/2026-09-22-audit-follow-through.md` for actual checks, review findings, corrections and remaining evidence. This change does not claim R0/R1 acceptance, completed native builds, App Review approval, or independent reviewer signoff.
