@@ -1,0 +1,96 @@
+# Temporary branch-only transport of locally reviewed specification edits.
+# Removed through the GitHub connector before the follow-up PR is ready.
+name: Materialize reviewed V3 specification
+on:
+  push:
+    branches: [docs/v3-audit-complete]
+permissions:
+  contents: write
+jobs:
+  materialize:
+    if: github.repository == 'lorecrafting/lokacore' && github.ref == 'refs/heads/docs/v3-audit-complete'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Apply verified data edits to documentation only
+        run: |
+          git merge-base --is-ancestor c4674f5b5c6c59e08dec39cc52a1ed71b83eeed4 HEAD
+          python3 - <<'PY'
+          import bz2
+          import hashlib
+          import json
+          from pathlib import Path
+          root = Path.cwd().resolve()
+          folder = root / '.github/v3-audit-payload'
+          compressed = b''.join((folder / f'{i}.part').read_bytes() for i in range(7))
+          if len(compressed) != 41113:
+              raise SystemExit('Unexpected transport length')
+          decoder = bz2.BZ2Decompressor()
+          raw = decoder.decompress(compressed, max_length=500001)
+          if len(raw) > 500000 or not decoder.eof or decoder.unused_data:
+              raise SystemExit('Invalid or oversized transport')
+          if hashlib.sha256(raw).hexdigest() != '3bb6a0f92ed0f8ef9eb91962929607ea3b2823d39c66c8d3622150e40e8652f8':
+              raise SystemExit('Transport digest mismatch')
+          data = json.loads(raw)
+          if data['base'] != 'c4674f5b5c6c59e08dec39cc52a1ed71b83eeed4' or len(data['entries']) != 31:
+              raise SystemExit('Wrong base or entry count')
+          seen = set()
+          prepared = []
+          for entry in data['entries']:
+              name = entry['path']
+              path = root / name
+              if name in seen or not (name.startswith('docs/rewrite-v3/') or name == 'docs/product/CARTRIDGE-ROADMAP.md'):
+                  raise SystemExit('Duplicate or unauthorized path')
+              seen.add(name)
+              if not path.resolve().is_relative_to(root / 'docs') or path.is_symlink():
+                  raise SystemExit('Unsafe path')
+              if entry['old'] is None:
+                  if path.exists():
+                      raise SystemExit(f'New file already exists: {name}')
+                  previous = b''
+              else:
+                  previous = path.read_bytes()
+                  if hashlib.sha256(previous).hexdigest() != entry['old']:
+                      raise SystemExit(f'Original content changed: {name}')
+              lines = previous.decode('utf-8').splitlines(keepends=True)
+              prior_end = -1
+              for start, end, text in entry['ops']:
+                  if type(start) is not int or type(end) is not int or not isinstance(text, str):
+                      raise SystemExit('Invalid edit type')
+                  if not 0 <= start <= end <= len(lines) or start < prior_end:
+                      raise SystemExit('Invalid or overlapping edit')
+                  prior_end = end
+              for start, end, text in reversed(entry['ops']):
+                  lines[start:end] = text.splitlines(keepends=True)
+              result = ''.join(lines).encode('utf-8')
+              if hashlib.sha256(result).hexdigest() != entry['new']:
+                  raise SystemExit(f'Result digest mismatch: {name}')
+              prepared.append((path, result))
+          for path, result in prepared:
+              path.parent.mkdir(parents=True, exist_ok=True)
+              path.write_bytes(result)
+          print(f'Applied {len(prepared)} verified documentation/contract files')
+          PY
+          git rm -r .github/v3-audit-payload
+          git add docs/rewrite-v3 docs/product/CARTRIDGE-ROADMAP.md
+      - name: Run executable specification checks
+        run: |
+          python3 -m unittest discover -s docs/rewrite-v3/checks -p 'test_*.py' -v
+          python3 docs/rewrite-v3/checks/release_scope.py --check
+          git diff --cached --check
+      - name: Commit and push only this review branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'docs(v3): correct executable contracts and preserve full chapter with early proof'
+          AUTH="$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)"
+          git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $AUTH" push origin HEAD:refs/heads/docs/v3-audit-complete
