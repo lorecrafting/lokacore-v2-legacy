@@ -1544,3 +1544,46 @@ Later Realm candidates:
 Use facts, institutions, relationships, commerce, WorldEventPlan, and policies first. Add dedicated semantics only where concurrency/invariants demand them.
 
 The purpose of this catalog is to make future composition opportunities visible—not to make R3/R5 a checklist for an entire simulated civilization.
+
+## 28. Capabilities graduated by the first cartridge
+
+`00-first-cartridge-design.md` pulls the following capabilities that §4–§27 name only as candidates or not at all. They graduate under the §24 rule on the strength of one real cartridge, which is the weakest admissible evidence, so each entry must ship with its invariants and Lab fixtures in the phase that builds it. Exact field vocabularies freeze in that phase per document 14 R3B, not here.
+
+Layer refers to §2. Portability is `portable` unless stated; the first cartridge is `offline_private`, so nothing here may be `server_only`.
+
+| Capability | Layer | Core invariant | Required fixture |
+|---|---|---|---|
+| `tide@1` | L2 | tide state is derived from the calendar, never stored or ticked; a `(tide)` Connection is traversable iff the derived state permits | replay across a tide boundary at arbitrary save points yields identical traversal results |
+| `mount@1` | L3 | a mount is a RuntimeEntity in a follow relation; rider location equals mount location while mounted; a mount cannot enter a Connection whose traversal mode excludes it | dismount forced at a fen edge; mount HP and hunger persist through save; no duplicate mount on reconnect |
+| `sense_cue@1` | L2 | cues are projection only; propagation range is declared per cue; no authoritative state | bell rung in belfry appears in every z0 Ashmere room's projection and nowhere in Harrowgate |
+| `skills@1` learn-by-doing | L2 | increment happens only inside the committed decision of a successful Check; bounded per world day | 1,000 retried checks under crash injection never double-increment |
+| `spell_words@1` | L3 | combination table is compiled cartridge data; an unknown pair fails closed | `ward + light` produces sanctuary on every host; `ward + chill` is a typed rejection |
+| `position@1` | L2 | one position per character; combat and regen read it; sleeping characters take double damage and cannot act | wake on damage exactly once; save mid-sleep resumes asleep |
+| `collection@1` | L2 | player-scoped facts; projection only; never a policy input for gameplay legality | bestiary counts survive death and ironman reset rules as declared |
+| `equipment@1` cursed | L2 | a cursed item's unequip Action is absent from the ActionSet until the curse status is removed | forged unequip invocation rejected (ACT-09 pattern) |
+| `liquid@1` | L2 | a container holds one liquid kind and a quantity; fill/pour conserve quantity; spoilage is derived time | pour-into-self, overfill, and mixed-kind pours are typed rejections |
+| `readable@1` | L2 | pages are definition content; boards and mail are runtime readables with author provenance; reading may grant topics/facts exactly once | re-reading never re-grants |
+| `identity_knowledge@1` | L2 | player-scoped map of definition → known/unknown; unknown items project a placeholder name and hide affects | `reveal` word and library identify both flip the same fact once |
+| TargetSpec adjacent-room scope | L1 | candidate scope may include rooms one Connection away when the Action declares it; resolution remains none/unique/ambiguous | bow shot into a dark room without light resolves `none` |
+| `stance@1` | L2 | three states; modifier table is registry data; changing stance is an Action with a cooldown | stance persists through save and combat rounds |
+| `pet@1` | L3 | growth stages derive from logical time since adoption; loyalty is a Relationship; a dead pet is a corpse, not a respawn | 30-day simulation: pup reaches adult exactly once; feeding gaps apply declared penalties |
+| `hunt@1` | L3 | a Behavior that reads Memory of the last attacker and pursues within area bounds for a declared duration | wight follows through two rooms then forgets after the window |
+| `death@1` ghost policy | L2/L3 | on death the character enters a ghost ActionSet (move, look, recall, touch corpse); corpse is a container with a cleanup policy; resurrection is a Service; ironman maps death to a terminal save state | crash at every boundary of death → ghost → corpse touch → restore; inventory never duplicated or lost |
+| `commerce@1` barter | L4 | an offer may be item-for-item with no currency path; acceptance is one CommerceTransaction | conservation holds; partial acceptance is impossible |
+| `property@1` | L4 | ownership is a typed relation; access policy on the property's Connections and containers reads it; furniture slots are containment with a slot key | buying twice is a typed rejection; a wanted player's cottage remains theirs |
+| `steal@1` | L3 | a Check whose failure emits a `crime_witnessed` event to every NPC in the room whose PerceptionPolicy passes; success moves the item and sets a `stolen` flag | sneaking with no witnesses never emits; a blind NPC never witnesses |
+| `law@1` | L4 | wanted state is a per-faction player-scoped fact set only by `crime_witnessed` reactions; arrest is a guard Behavior that requires adjacency and the wanted fact; jail is a SceneSpace overlay with a restricted ActionSet and a duration; trial is a SceneSequence | escape via lockpick sets wanted again; serving the term clears exactly once; a Priory-wanted player is not arrested by the Crown |
+| `mail@1` | L4 | sending creates a ServiceJob whose completion places a runtime readable in the recipient's inbox container; NPC replies are ReactionRules on delivery | app closed across delivery time: exactly one letter on resume |
+| `drives@1` | L3 | drives are bounded scores derived from resources and time; they contribute to Behavior arbitration and never act directly | noon hunger sends Peg to the inn on every host in the same round |
+| `topics@1` | L2 | player-scoped set; a topic is added by dialogue nodes, details, and readables that declare it; "Ask about" chips project only known topics; saying an unknown topic is still legal in the text drawer | topic learned once cannot be unlearned except by declared consequence |
+| `recognition@1` | L3 | NPC recognition of a character is a Memory keyed by displayed identity; disguise changes displayed identity for a duration; guard arrest reads recognition, not the wanted fact directly | disguised wanted player passes the gate; recognition Check on close inspection strips the disguise |
+| NPC-to-NPC `commerce@1` job | L4 | a scheduled authority-internal Command performs a CommerceTransaction between two providers; stock moves, currency is conserved | 90-day simulation: chandler herb stock equals Sedge's sales; no item created from nothing |
+| `quest@1` protect / survive / race | L3 | protect: named entity alive when the window closes; survive: actor alive and present through the window; race: actor reaches target before a declared event fires; all three are pure reducers over existing events | each has a pass, a fail, and a retry-after-crash fixture |
+| `track@1` | L3 | a trail is a set of player-scoped facts on Connections that decay by derived time; the track Check reveals the next Connection only | trail from fox hollow to reed bank replays identically on every host |
+| speech pose | L2 | a pose is a per-character NarrationSpec fragment included in room projection until changed or the character moves | pose survives save; clears on movement |
+| `performance@1` | L3 | an ActionRecipe pattern that applies a room-scoped timed status to eligible listeners; requires an instrument item | two bards in one room compose by the registered rule, not last-writer-wins (ARCH-10) |
+
+Two rules apply to every row:
+
+1. none of these introduce a second mutation path; each is Actions, ReactionRules, Behaviors, Services, or derived state over existing authority contracts;
+2. a later cartridge that does not pull a capability here does not pay for it; the certification registry's capability-triggered class (document 09 §20) scopes its gates to cartridges whose lock includes it.

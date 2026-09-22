@@ -394,7 +394,8 @@ Support real narrative cartridges.
 - only the bindings actually needed by the first cartridge plus a small synthetic safety fixture set;
 - interpreter budgets;
 - event-chain bounds;
-- branch/world-consequence trace output.
+- branch/world-consequence trace output;
+- the R7-phase capabilities pulled by `00-first-cartridge-design.md` §12 and registered in document 21 §28: positions, stances, learn-by-doing skills, spell-word combination, collection log, adjacent-room targeting, ghost-mode death, pose, and the protect/survive/race objective operators.
 
 ### Gate R7
 
@@ -434,7 +435,8 @@ Make the world feel like a MUD, not a branching ebook.
 - typed commerce/merchant contract: provider, catalog/stock, price/payment, buy/sell admission, liquidity, restock, schedule, atomic immediate trade;
 - portable Service/Capacity composition primitives;
 - durable local ServiceJob model sufficient to prove queued/timed services;
-- WorldEventPlan phase composition sufficient for the first cartridge's scripted living-world event.
+- WorldEventPlan phase composition sufficient for the first cartridge's scripted living-world events;
+- the R8-phase capabilities pulled by `00-first-cartridge-design.md` §12 and registered in document 21 §28: tides, mounts, sense propagation, cursed items, liquids, readables, identify, pets, mob memory/hunt, barter, property, steal, law (crime/witness/wanted/arrest/jail), mail, drives, discovered topics, disguise/recognition, NPC-to-NPC commerce, track, and performance.
 
 ### Gate R8
 
@@ -542,22 +544,9 @@ The conformance cartridge is **not** evidence that the product is fun, understan
 
 Prove the **player-facing product and authoring model**, complementing rather than duplicating the synthetic R9C conformance cartridge.
 
-Target scope:
+Target scope is **chapter one** of `00-first-cartridge-design.md` (The Fox of Ashmere, §11): 57 places, the Ashmere/Fen/Priory areas, ten quests, two endings, and the chapter-one column of its mechanics table. The full 109-place, 28-quest design is the destination reached by chapters two and three, which are the R16 cartridges. Document 00 §11 is the pull list for R5–R8; its §12 names the capabilities the catalog must add (registered in `21-composable-world-primitives.md` §28), each built in the chapter that first needs it.
 
-- ~8–15 locations;
-- 5–8 NPCs;
-- 10–20 items;
-- 2–4 connected quests forming a coherent story thread;
-- at least one multi-stage/branching quest with typed durable world consequences;
-- at least one durable narrative SceneSequence where it improves the story;
-- at least one quest/world outcome that changes later dialogue, behavior, access, ambience, schedule, or another visible world response through typed facts/consequences;
-- schedules/living-world behavior sufficient for the setting to feel inhabited;
-- InspectableDetails and ordinary text/touch interaction;
-- environmental/world-state variation;
-- simple skill/check and optional simple combat where fiction supports them;
-- multiple endings or materially different durable consequences.
-
-The real cartridge MAY use dreams/InstancePlan, WorldEventPlan, PopulationPlan, merchant/Commerce, ServiceJob, complex Behavior arbitration, or other available primitives when they serve the design. It is no longer required to include every architecture feature merely to prove that feature exists; R9C owns broad synthetic coverage.
+The ladder is deliberate: chapter one is the free showcase and proves the foundation plus the cheap derived-state mechanics; chapter two adds the dungeon, magic, death, and companions; chapter three adds economy, crafting, crime, housing, and mounts. R9C still owns synthetic fault/invariant coverage; R10 owns coherence and authoring evidence.
 
 ### Important
 
@@ -721,7 +710,7 @@ Only now automate content production heavily.
 
 ### Gate R16
 
-Two materially different cartridges produced mostly as content changes without unreviewed engine patches.
+Two materially different cartridges produced mostly as content changes without unreviewed engine patches. Chapters two and three of `00-first-cartridge-design.md` §11 are the intended candidates; each introduces its tier of capabilities through reviewed engine work first, then its content through the Builder.
 
 ## R17 — Party/co-op instances
 

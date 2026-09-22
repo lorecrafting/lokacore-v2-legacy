@@ -209,6 +209,7 @@ Implementation MUST NOT treat either provisional choice as settled before its ev
 
 Read in this order:
 
+0. [First Cartridge Design: The Fox of Ashmere](00-first-cartridge-design.md) — the product the packet exists to ship; read it first so the rest has a concrete referent
 1. [Core Principles and Non-Goals](01-core-principles.md)
 2. [BEAM Runtime Architecture](02-beam-runtime-architecture.md)
 3. [Domain State and Persistence](03-domain-state-persistence.md)
@@ -253,6 +254,12 @@ Implementation MUST conform to:
 - `19-quest-sharing-instancing-capacity.md`
 - `21-composable-world-primitives.md`
 - accepted decisions in `16-decision-register.md`
+
+### Normative content pull list
+
+- `00-first-cartridge-design.md`
+
+Document 00 does not define architecture. It defines which capabilities the first product cartridge requires, and therefore which parts of the R5–R8 catalog are mandatory before R10 and which are deferred. Where document 00 names a mechanic the catalog lacks, `21-composable-world-primitives.md` §28 registers it. A capability in the catalog that document 00 does not pull is not an R10 requirement.
 
 ### Normative gates and sequencing
 
