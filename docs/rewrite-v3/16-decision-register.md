@@ -69,11 +69,9 @@ Offline competitive/economic state is not trusted as MMO authority.
 
 Preferred direction: one portable deterministic kernel shared by offline mobile and online BEAM hosts.
 
-Working language: Rust.
+R1 compares three candidates against a pre-registered envelope: (A) one TypeScript kernel native in React Native and reached from BEAM through a Port; (B) one Rust kernel behind Rustler and native mobile bindings; (C) dual Elixir/TypeScript implementations with golden-vector conformance.
 
-Must pass R1 feasibility spike before freeze.
-
-Fallback: dual Elixir/TypeScript semantics with golden-vector conformance.
+Must pass the R1 feasibility spike before freeze. Whichever strategy is selected, the portable semantic contract and conformance obligation are the same.
 
 ## ADR-005 — Mobile binding strategy
 
@@ -220,9 +218,11 @@ No dialogue/script direct quest-storage mutation.
 
 ## ADR-018 — LokaScript
 
-**Status:** Accepted direction; representation details provisional
+**Status:** Deferred; direction retained
 
-Cartridge scripting is an Elixir-like restricted authoring language compiled to portable normalized AST/bytecode and interpreted by the portable rules system.
+No chapter of the first cartridge (`00-first-cartridge-design.md`) needs general scripting. LokaScript is not built in R7. It is admitted only when a real cartridge presents a mechanic that ActionRecipe, ReactionRule, Policy, and quest operators cannot express, through a CapabilityProposal. If admitted, the preferred representation is a bounded declarative expression tree over registered bindings rather than a general instruction VM, to preserve the ADR-035 store posture.
+
+If built, cartridge scripting is a restricted authoring language compiled to portable normalized AST/bytecode and interpreted by the portable rules system.
 
 No released cartridge execution through `Code.eval_string`.
 

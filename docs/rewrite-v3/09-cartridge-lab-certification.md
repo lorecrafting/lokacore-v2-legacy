@@ -8,6 +8,26 @@ It uses the same portable semantic contract and R1-selected implementation strat
 
 The Lab is a product feature for developers/agents, not merely an ExUnit helper.
 
+## 1a. R9 minimum: what chapter one actually requires
+
+The rest of this document is the certification design for every profile and level. Chapter one of `00-first-cartridge-design.md` is an `offline_private` cartridge whose capability lock contains no scripts, no ServiceJobs, no commerce beyond one shop, no instancing, no party scope, and no cross-authority effects. Under the applicability classes in §20, its certificate requires only:
+
+| Gate | What it is for chapter one |
+|---|---|
+| Static | schema, references, unknown fields, template cycles, capability lock, portability check, localization keys, asset hashes |
+| Topology | every room reachable from `ferry_landing` under each ActivationGroup set the manifest declares; every exit reciprocal; barrier faces coherent; no required quest target unreachable |
+| Quest/dialogue model | lifecycle transitions, activation/resolution validity, prerequisite cycles, terminal-outcome reachability for both endings, duplicate-event idempotency, reward-once, consequence scope |
+| Determinism | DET-01 through DET-10 on the R1-selected hosts; canonical ordering; RNG replay |
+| Crash/recovery | OFF-03 through OFF-07 at every commit boundary of every chapter-one command type |
+| Bot playthroughs | three deterministic bots: main path to each ending, a completionist, and a duplicate-tapper; coverage of every quest outcome, dialogue choice, and scene beat recorded |
+| Autonomous simulation | 30 logical days: schedules reach destinations, populations bounded, no reaction loops, tides and light replay identically |
+| Invariants | containment unique, no cycles, one Barrier state, revision monotonic, same command executes at most once |
+| Human smoke | developer-harness device smoke at R10; production-shell smoke at R12 |
+
+Not required for chapter one: CoverageManifest beyond the bot coverage above, mutation sensitivity, bounded state exploration, metamorphic tests, area-mounted closure, soak beyond 30 days, multiplayer interleavings, shard handoff, load, independent-reviewer lineage, Jev triage. Those gates attach when a later chapter's lock or profile triggers them.
+
+Building the Lab in this order, minimum first, is R9. Everything from §24 onward is the vision the registry grows into.
+
 ## 2. Determinism contract
 
 A deterministic repro identifies:

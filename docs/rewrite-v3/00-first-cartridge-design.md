@@ -587,7 +587,7 @@ Each chapter compiles its **whole map so far** from a shared source tree, so a p
 | 2 — The Barrow King | + crypt, ossuary, priory gate, all of Barrow Downs | 77 | z−3 to z+3 |
 | 3 — The King's Road | + King's Road and Harrowgate, mine | 109 | z−3 to z+3 |
 
-In chapter one the well is boarded over and the crypt door is sealed; in chapter two the priory gate opens. Those are ActivationGroups keyed to a chapter fact, so the shared source needs no per-chapter map edits.
+In chapter one the crypt door is sealed, the priory gate is locked, and the east gate road is flooded; chapter two opens the crypt and the priory gate, chapter three the road. Those are ActivationGroups selected by each chapter's manifest, so the shared source needs no per-chapter map edits. Chapter one's exact room, NPC, item, fact, quest, and scene content is specified in `00a-chapter-one-content.md`.
 
 ### Mechanics by chapter
 

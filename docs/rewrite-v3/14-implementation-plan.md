@@ -78,13 +78,17 @@ The exact numeric thresholds are an R1 planning artifact rather than permanent a
 
 R1 evidence reports both the measured result and the pre-registered threshold.
 
-### Working hypothesis
+### Candidates
 
-One Rust deterministic kernel can run behind:
+R1 compares three strategies against the pre-registered envelope. None is selected here.
 
-- Elixir/Rustler;
-- iOS React Native native binding;
-- Android React Native native binding.
+**A. One TypeScript kernel.** The portable rules are one TypeScript package. React Native runs it natively in its JavaScript engine with no FFI, no native module, and no binding generator. BEAM reaches it through an Erlang Port to a Node process, or an equivalent isolated runner, with JSON or a binary codec across the boundary. Determinism requires integer arithmetic for rule-critical math, `Map` and canonical key ordering rather than object-key order, and a seeded PRNG. Costs: a Node process in the server deployment and per-decision serialization, which is the same state-crossing cost strategy B must benchmark.
+
+**B. One Rust kernel.** One deterministic Rust library behind Elixir/Rustler, an iOS React Native native binding, and an Android React Native native binding. Strongest type system and no runtime dependency inside the kernel; highest build, binding, and debugging cost across four hosts.
+
+**C. Dual implementation.** Pure Elixir online plus TypeScript offline, held to one semantic schema and golden-vector suite. No cross-language boundary on either host; permanent two-implementation maintenance and semantic-drift cost.
+
+The chapter-one mechanics in `00-first-cartridge-design.md` §11 are almost entirely derived state and pure reducers, which is the easiest case for strategy A and should be the spike's representative workload.
 
 ### Tiny model
 
@@ -364,7 +368,7 @@ Airplane mode:
 - finish;
 - no state corruption.
 
-## R7 — Quest, dialogue, and portable scripting
+## R7 — Quest, dialogue, and scenes
 
 ### Objective
 
@@ -390,9 +394,6 @@ Support real narrative cartridges.
 - text-cutscene beats, choices, checkpoints, and action-control modes;
 - player-scoped dream/vision compositions over current-world, overlay, or InstancePlan space with explicit exported consequences;
 - quest milestone/scene hooks and scene outcome objectives;
-- LokaScript parser/normalized-IR skeleton and interpreter core sufficient to prove containment/determinism;
-- only the bindings actually needed by the first cartridge plus a small synthetic safety fixture set;
-- interpreter budgets;
 - event-chain bounds;
 - branch/world-consequence trace output;
 - the R7-phase capabilities pulled by `00-first-cartridge-design.md` §12 and registered in document 21 §28: positions, stances, learn-by-doing skills, spell-word combination, collection log, adjacent-room targeting, ghost-mode death, pose, and the protect/survive/race objective operators.
@@ -403,7 +404,7 @@ Known Lokacore quest-bug class has a regression scenario that cannot reproduce c
 
 A quest can drive a durable SceneSequence containing text narration, an authoritative choice, a crash/reconnect checkpoint, and typed world consequences exactly once. A player-scoped dream proves both overlay and minimal InstancePlan composition, isolation, reconnect/save behavior, and explicit export semantics.
 
-LokaScript containment/determinism fixtures pass, but a broad general-purpose binding library is **not** required before R10.
+LokaScript is **not** part of R7. No chapter of `00-first-cartridge-design.md` requires it; ADR-018 is deferred until a real cartridge presents a mechanic that ActionRecipe, ReactionRule, Policy, and quest operators cannot express, at which point it is admitted through a CapabilityProposal and its own phase.
 
 ## R8 — Living-world capability pack
 
@@ -515,7 +516,7 @@ The conformance cartridge SHOULD exercise the currently implemented portable fou
 - branching Quest outcomes and exactly-once typed consequences;
 - SceneSequence crash/reconnect/choice semantics;
 - SceneSpace overlay plus minimal InstancePlan entry/export/teardown;
-- at least one portable LokaScript budget/containment case;
+- a LokaScript budget/containment case only if ADR-018 has been admitted by then;
 - Behavior intent conflict/arbitration;
 - SpawnBundle + provenance-safe PopulationPlan;
 - merchant/Commerce conservation;
@@ -592,7 +593,7 @@ Let humans/agents author without raw repo semantics.
 - explainability operations for target resolution, behavior, population, prices, scenes, quest progress, and world-event phase;
 - machine-readable role/surface metadata sufficient for an orchestrator to distinguish L3–L6 builders, read-only reviewers and engine-capability escalation;
 - typed MISSING_CAPABILITY / CapabilityProposal result path;
-- expand LokaScript bindings/recipes only from concrete R9C conformance gaps, R10 authoring needs, and accepted reusable capability gaps.
+- expand ActionRecipe/ReactionRule vocabulary only from concrete R9C conformance gaps, R10 authoring needs, and accepted reusable capability gaps; a demonstrated gap that no composition can close becomes the evidence for admitting ADR-018.
 
 ### Gate R11
 
@@ -932,6 +933,28 @@ merge readiness
 ```
 
 Models should not silently amend architecture during implementation.
+
+# Sizing
+
+Rough ranges for one developer with agent assistance, following the chapter ladder in `00-first-cartridge-design.md` §11. They are planning inputs, not commitments; revise them after R1 and again after R6.
+
+| Phase | Range |
+|---|---|
+| R1 spike | 3 to 5 days for strategy A; 3 to 6 weeks for strategy B |
+| R2 to R6 foundation | 8 to 12 weeks |
+| R7 narrative, chapter-one tier | 4 to 6 weeks |
+| R8 living world, chapter-one tier | 4 to 6 weeks |
+| R9 and R9C, minimum gates | 4 to 6 weeks |
+| R10 chapter one content | 6 to 10 weeks |
+| R12 app shell | 6 to 10 weeks |
+| R13 commerce and entitlement | 3 to 5 weeks |
+| **Chapter one in the store** | **about 9 to 14 months from R1** |
+| R11 Builder v1 | 4 to 8 weeks |
+| Chapter two tier and content | 4 to 7 months after chapter one |
+| Chapter three tier and content | 5 to 8 months after chapter two |
+| **Full design shipped** | **about 18 to 29 months from R1** |
+
+R14 onward is not sized here; it starts after chapter one ships and runs alongside chapters two and three.
 
 # Shipping rule
 

@@ -210,6 +210,7 @@ Implementation MUST NOT treat either provisional choice as settled before its ev
 Read in this order:
 
 0. [First Cartridge Design: The Fox of Ashmere](00-first-cartridge-design.md) — the product the packet exists to ship; read it first so the rest has a concrete referent
+   - [Chapter One Content Specification](00a-chapter-one-content.md) — the exact R10 content: rooms, NPCs, items, facts, quests, scenes, and the hello-world compiler fixture
 1. [Core Principles and Non-Goals](01-core-principles.md)
 2. [BEAM Runtime Architecture](02-beam-runtime-architecture.md)
 3. [Domain State and Persistence](03-domain-state-persistence.md)

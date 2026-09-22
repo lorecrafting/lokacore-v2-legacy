@@ -826,20 +826,20 @@ At strategy level, the checkpoints are:
 - living-world primitives;
 - Cartridge Lab;
 - build a small permanent synthetic v3 conformance cartridge for broad architecture/fault/invariant coverage;
-- substantially hand-author the first real offline cartridge through source/compiler/Lab;
+- substantially hand-author chapter one of The Fox of Ashmere (`docs/rewrite-v3/00-first-cartridge-design.md` §11) through source/compiler/Lab;
 - record repetitive/error-prone authoring work;
 - then generalize the canonical Builder API from that evidence.
 
 **Gate:** the synthetic conformance cartridge catches the intended architecture/fault classes, and a small real cartridge can be completed fully offline, survives app termination/restart, passes applicable deterministic certification, and has produced concrete evidence for the Builder API rather than the Builder API delaying the game.
 
-### S2 — Ship the first commercial cartridge
+### S2 — Ship chapter one to the store as the free showcase
 
 - polished mobile shell;
 - download/install/save lifecycle;
 - purchase/restore/offline entitlement;
 - device smoke and store review.
 
-**Gate:** a non-developer can buy/download, enter airplane mode, play, resume, and finish.
+**Gate:** a non-developer can install, download chapter one, enter airplane mode, play, resume, and finish. Purchase and restore are exercised against the store sandbox even though chapter one is free, so chapter two ships as content only.
 
 ### S3 — Add BEAM online authority using the same cartridge semantics
 
@@ -855,7 +855,7 @@ At strategy level, the checkpoints are:
 ### S4 — Scale the factory and social/co-op layer
 
 - AI factory/reviewer loop;
-- second and third materially different cartridges;
+- chapters two and three of The Fox of Ashmere as paid cartridges, each adding its mechanic tier per the release ladder;
 - party instances;
 - shared hub/social identity;
 - storypack portals/embedded instances.

@@ -1344,3 +1344,36 @@ one semantic spine
 No new reason was found to create a V4 architecture before implementation evidence exists. The remaining deliberate evidence gates remain R1, store-review treatment of downloaded rule content, R20 placement/handoff mechanics, and capability graduation from real content.
 
 This review is repository design evidence and still requires the project's normal independent/adversarial review process before R0 acceptance.
+
+## 32. Independent review and the first-cartridge design
+
+An outside review of the Draft 0.4 packet (2026-09-21) reached a different conclusion from §26–§31: the authority architecture was sound and no invariant needed reversing, but the packet had grown to about 99k tokens, 177 MUSTs, and 151 distinct named concepts across 23 implementation phases, with no named game to pull from the catalog. Its diagnosis was that every prior review round added scope and none removed it, and that the largest remaining risk was building a general engine before any product demanded its parts.
+
+### 32.1 Correction: a named first cartridge as the content pull list
+
+`00-first-cartridge-design.md` now names the first product, The Fox of Ashmere, and enumerates every mechanic it uses. The README classifies it as the normative content pull list: it does not define architecture, but it decides which catalog capabilities R5–R8 must build before R10 and which are deferred. Where it needs a capability the catalog lacked, document 21 §28 registers it with its invariant and fixture.
+
+The product decision was to include the full classic-MUD mechanic set rather than a minimal story. That grew R10 well beyond its earlier 8–15 room scope.
+
+### 32.2 Correction: a three-chapter release ladder
+
+To keep the shipping rule intact, document 00 §11 delivers the design as three chapters of one campaign, each a separately certified cartridge adding one area group and one mechanic tier. Chapter one is R10 and the free showcase; chapters two and three are the R16 cartridges. Each tier composes primitives proved by the previous tier; the highest-invariant systems (economy conservation, escrow custody, crime witnesses) land last. Document 14 R10 and R16 now reference the ladder, and document 14 carries per-phase sizing.
+
+### 32.3 Correction: LokaScript deferred
+
+No chapter of the first cartridge needs general scripting; every mechanic composes ActionRecipes, ReactionRules, Policy trees, and quest operators. LokaScript moves out of R7 and ADR-018 becomes deferred until a real cartridge demonstrates a mechanic the composition grammar cannot express. This also removes most of the App Store 2.5.2 exposure recorded in ADR-035, since the downloaded content is now purely declarative data over shipped capabilities.
+
+### 32.4 Correction: R1 candidate list widened
+
+The portable-kernel spike compared Rust against a dual Elixir/TypeScript fallback. A third candidate is now listed: one TypeScript kernel used by both hosts, native in React Native and reached from BEAM through a Port. It removes all mobile FFI and binding-generator risk and shrinks the spike. ADR-004 remains provisional; the spike decides.
+
+### 32.5 Correction: R9 minimum separated from the certification vision
+
+Document 09 now opens with the gates chapter one actually requires. The remaining certification design stays normative for the profiles and levels that need it, selected by the capability-triggered applicability class, so a small cartridge does not pay for shared-Realm assurance.
+
+### 32.6 Still open from the outside review
+
+- test the offline-first product belief cheaply before R1, for example by putting one online-private story from Lokacore on TestFlight;
+- read Ink's runtime as prior art for cross-host parity before the R1 envelope is written;
+- produce the compact spec index R0 promises, targeting under 10k tokens and under 40 named concepts;
+- run a deletion-focused review pass with a target line count.
