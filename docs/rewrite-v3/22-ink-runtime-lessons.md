@@ -1,5 +1,32 @@
 # 22 - Ink Runtime Lessons for Loka v3
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Informative pinned prior-art study.
+
+Read the conclusions alongside the current conformance corpus and R1 envelope; proposed adaptations here are not automatically accepted.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Compiled artifact](#1-compiled-artifact)
+- [2. Save state](#2-save-state)
+- [3. Determinism and RNG](#3-determinism-and-rng)
+- [4. Cross-implementation parity](#4-cross-implementation-parity)
+- [5. Choices as validated input](#5-choices-as-validated-input)
+- [6. Mutation model](#6-mutation-model)
+- [7. External functions, observers, and bindings](#7-external-functions-observers-and-bindings)
+- [8. Error handling](#8-error-handling)
+- [9. Multiple flows and threads](#9-multiple-flows-and-threads)
+- [10. Runtime size and performance](#10-runtime-size-and-performance)
+- [11. TypeScript port viability](#11-typescript-port-viability)
+- [Recommended changes to r1-acceptance-envelope.md](#recommended-changes-to-r1-acceptance-envelopemd)
+- [Open questions for Raymond](#open-questions-for-raymond)
+
+</details>
+<!-- packet-navigation:end -->
+
 **Study baseline:** Loka v3 at `c2303ca90115e7940d2b29ccb389da46b2f950c0`; inkle/ink at `35c63e52f1d36060930dc7ed3cfba38ea224b528` (v1.2.1); y-lohse/inkjs at `6b1153410ab1c4bcfd9ef04eb2f0107f36be7778` (v2.4.0); chromy/ink-proof at `eb6dbd33de8697b8d19c465549bbaa4d0fdc11a5`.
 
 The requested local checkout was not mounted in the execution environment, so the same repository files were read through GitHub at the pinned commits above. Measurements below are against those exact trees. This is informative prior-art analysis, not a proposal to embed Ink or replace Loka's architecture.

@@ -1,5 +1,30 @@
 # R1 Acceptance Envelope
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Proposed R1 experiment and thresholds.
+
+Read semantic versus synthetic workloads, measurement methods, fault classes and acceptance procedure. Numbers are not measured or accepted yet.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Two kinds of evidence, not a preliminary engine rebuild](#1-two-kinds-of-evidence-not-a-preliminary-engine-rebuild)
+- [2. Candidates and decision rule](#2-candidates-and-decision-rule)
+- [3. Corpus, command mix, and sampling](#3-corpus-command-mix-and-sampling)
+- [4. Physical devices and reproducible setup](#4-physical-devices-and-reproducible-setup)
+- [5. Decision and user-visible latency (MUST)](#5-decision-and-user-visible-latency-must)
+- [6. Boundary strategies and common server workload (MUST)](#6-boundary-strategies-and-common-server-workload-must)
+- [7. Persistence, checkpoint, and cold restore (MUST)](#7-persistence-checkpoint-and-cold-restore-must)
+- [8. Memory and retention (MUST / RECORD)](#8-memory-and-retention-must--record)
+- [9. Fault classes and recovery (MUST)](#9-fault-classes-and-recovery-must)
+- [10. Build, debug, dependencies (MUST unless RECORD)](#10-build-debug-dependencies-must-unless-record)
+- [11. Decision report and remaining gates](#11-decision-report-and-remaining-gates)
+
+</details>
+<!-- packet-navigation:end -->
+
 **Version:** 0.2 — proposed audit correction. **Every numeric threshold remains proposed, Raymond to confirm.** No candidate has been selected, benchmarked, or accepted by this document. Freeze a reviewed envelope and exact device/toolchain manifest before collecting candidate performance results. Amendments after measurement must identify the earlier measurements and reason; never tune the acceptance rule to rescue a favorite candidate.
 
 R1 is a disposable feasibility experiment in a separate workspace. It is not the production engine or a requirement to implement chapter one twice. The 57-room first release remains unchanged. `pre-release-proof.md` defines a later, small player-facing proof of the fresh engine; that proof is not the R1 microbenchmark.

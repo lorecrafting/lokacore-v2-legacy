@@ -1,5 +1,44 @@
 # 05 — Cartridges, Content, and Capabilities
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Design contract: content format and capability boundary.
+
+Follow definitions, compilation, versioning and immutable releases. Deployment/extension details have their own applicability.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Cartridge definition](#1-cartridge-definition)
+- [2. Source layout](#2-source-layout)
+- [3. Manifest](#3-manifest)
+- [4. Local keys and qualified identity](#4-local-keys-and-qualified-identity)
+- [5. Content envelope](#5-content-envelope)
+- [6. Capability registry](#6-capability-registry)
+- [7. Capability discovery API](#7-capability-discovery-api)
+- [8. Compile stages](#8-compile-stages)
+- [9. Authoring-time templates/mixins](#9-authoring-time-templatesmixins)
+- [10. Controlled compiler functions](#10-controlled-compiler-functions)
+- [11. Assets](#11-assets)
+- [12. Immutability](#12-immutability)
+- [13. Dependencies between cartridges](#13-dependencies-between-cartridges)
+- [14. Capability packs](#14-capability-packs)
+- [15. Definition versus state](#15-definition-versus-state)
+- [16. Spawn model](#16-spawn-model)
+- [17. World topology](#17-world-topology)
+- [18. Localization](#18-localization)
+- [19. Content migrations](#19-content-migrations)
+- [20. Cartridge artifact](#20-cartridge-artifact)
+- [21. Promotion states](#21-promotion-states)
+- [22. Cartridge/deployment split](#22-cartridgedeployment-split)
+- [23. Cartridge ports and extension points](#23-cartridge-ports-and-extension-points)
+- [24. Realm-native cartridges and portable Story reuse](#24-realm-native-cartridges-and-portable-story-reuse)
+- [25. Composable world-primitive contract](#25-composable-world-primitive-contract)
+
+</details>
+<!-- packet-navigation:end -->
+
 ## 1. Cartridge definition
 
 A cartridge is an immutable, versioned, compiled bundle of game definitions and assets that Loka can instantiate.

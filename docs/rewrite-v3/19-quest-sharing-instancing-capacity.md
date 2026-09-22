@@ -1,5 +1,40 @@
 # 19 — Quest Sharing, Phasing, Instancing, and Scarce World Services
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Design contract: independent scope and capacity axes.
+
+Read the dimensions and selection table before details. The smithy is a composition example; queued service and spatial-instance gates depend on actual use.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Five independent dimensions](#1-five-independent-dimensions)
+- [2. Story Mode tracking](#2-story-mode-tracking)
+- [3. Realm Mode progress scopes](#3-realm-mode-progress-scopes)
+- [4. Objective credit is separate from quest ownership](#4-objective-credit-is-separate-from-quest-ownership)
+- [5. Shared world is the default](#5-shared-world-is-the-default)
+- [6. Scoped overlays and phasing](#6-scoped-overlays-and-phasing)
+- [7. GameView layering](#7-gameview-layering)
+- [8. When to create a private instance](#8-when-to-create-a-private-instance)
+- [9. InstancePlan: reusable scoped spatial simulation](#9-instanceplan-reusable-scoped-spatial-simulation)
+- [10. Scarce services are compositions of reusable primitives](#10-scarce-services-are-compositions-of-reusable-primitives)
+- [11. Durable ServiceJobs](#11-durable-servicejobs)
+- [12. Worked example: the one-sword-per-day smithy](#12-worked-example-the-one-sword-per-day-smithy)
+- [13. Shared service fairness and contention](#13-shared-service-fairness-and-contention)
+- [14. Story Mode service behavior](#14-story-mode-service-behavior)
+- [15. Phased quest drops and actors](#15-phased-quest-drops-and-actors)
+- [16. Personal access versus shared geometry](#16-personal-access-versus-shared-geometry)
+- [17. Party resources and rewards](#17-party-resources-and-rewards)
+- [18. Builder guidance](#18-builder-guidance)
+- [19. Certification requirements](#19-certification-requirements)
+- [20. Selection table](#20-selection-table)
+- [21. Commerce and services compose but are not the same mechanism](#21-commerce-and-services-compose-but-are-not-the-same-mechanism)
+
+</details>
+<!-- packet-navigation:end -->
+
 **Status:** normative v3 architecture.
 
 This document defines how Story Mode and Realm Mode represent quest progress, personal/party world differences, private instances, phased quest actors, and genuinely shared bottlenecks.

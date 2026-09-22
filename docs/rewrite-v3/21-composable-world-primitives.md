@@ -1,5 +1,47 @@
 # 21 — Composable World Primitives and Builder Expressivity
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Design boundaries plus capability catalog.
+
+Read sections 1-3 and 24-26 for composition/graduation. Check release scope before treating a catalog entry or candidate as current work.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Core rule: closed semantics, open composition](#1-core-rule-closed-semantics-open-composition)
+- [2. Where builder expressive power lives](#2-where-builder-expressive-power-lives)
+- [3. Expression mechanisms available to builders](#3-expression-mechanisms-available-to-builders)
+- [4. Foundation world primitives](#4-foundation-world-primitives)
+- [5. Spatial and topology primitives](#5-spatial-and-topology-primitives)
+- [6. Perception and descriptive-world primitives](#6-perception-and-descriptive-world-primitives)
+- [7. Action and interaction primitives](#7-action-and-interaction-primitives)
+- [8. Item, inventory, equipment, and material primitives](#8-item-inventory-equipment-and-material-primitives)
+- [9. Character and embodiment primitives](#9-character-and-embodiment-primitives)
+- [10. Autonomous behavior primitives](#10-autonomous-behavior-primitives)
+- [11. Reaction primitives](#11-reaction-primitives)
+- [12. Population, encounter, and lifecycle primitives](#12-population-encounter-and-lifecycle-primitives)
+- [13. Commerce primitives](#13-commerce-primitives)
+- [14. Service primitives](#14-service-primitives)
+- [15. Crafting, gathering, and production primitives](#15-crafting-gathering-and-production-primitives)
+- [16. Social-world primitives](#16-social-world-primitives)
+- [17. Environmental and ecological primitives](#17-environmental-and-ecological-primitives)
+- [18. Narrative primitives](#18-narrative-primitives)
+- [19. Spatial instance and scene primitives](#19-spatial-instance-and-scene-primitives)
+- [20. Scene and sequence primitives](#20-scene-and-sequence-primitives)
+- [21. WorldEventPlan composite](#21-worldeventplan-composite)
+- [22. Examples of emergent domain composites](#22-examples-of-emergent-domain-composites)
+- [23. Builder semantic operations](#23-builder-semantic-operations)
+- [24. Primitive graduation rule](#24-primitive-graduation-rule)
+- [25. Builder expression test](#25-builder-expression-test)
+- [26. Choosing the right composition shape](#26-choosing-the-right-composition-shape)
+- [27. Additional immersive-world capability candidates](#27-additional-immersive-world-capability-candidates)
+- [28. Capabilities graduated by the first cartridge](#28-capabilities-graduated-by-the-first-cartridge)
+
+</details>
+<!-- packet-navigation:end -->
+
 **Status:** normative v3 architecture for composition boundaries; the primitive catalog includes both foundation requirements and later capability candidates.  
 **Purpose:** give builders enormous expressive power without giving cartridge content arbitrary runtime authority.
 
@@ -170,6 +212,8 @@ festival_vendor
 without creating runtime inheritance.
 
 ### 3.8 Bounded LokaScript
+
+> **Deferred design:** ADR-018 defers LokaScript until a demonstrated composition gap is admitted. This retained design is not a chapter-one build requirement; it constrains that feature if admitted.
 
 LokaScript is the flexible expression layer for logic that is awkward in static YAML but still fits existing semantics.
 

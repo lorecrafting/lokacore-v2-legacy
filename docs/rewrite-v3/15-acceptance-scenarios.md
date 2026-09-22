@@ -1,5 +1,46 @@
 # 15 — Adversarial Acceptance Scenarios
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Governing acceptance scenarios.
+
+Locate the scenario family for a claim. A listed scenario is a requirement/example for implementation evidence, not proof it has run.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [A. Portable rules and determinism](#a-portable-rules-and-determinism)
+- [B. Offline lifecycle](#b-offline-lifecycle)
+- [C. Containment and inventory](#c-containment-and-inventory)
+- [D. Quest correctness](#d-quest-correctness)
+- [E. Dialogue](#e-dialogue)
+- [F. Actions and policy](#f-actions-and-policy)
+- [G. Scripting](#g-scripting)
+- [H. Living world and time](#h-living-world-and-time)
+- [I. Cartridge/compiler](#i-cartridgecompiler)
+- [J. Builder/AI](#j-builderai)
+- [K. Mobile protocol](#k-mobile-protocol)
+- [L. Online transaction and recovery](#l-online-transaction-and-recovery)
+- [M. Session/account/character](#m-sessionaccountcharacter)
+- [N. Offline-to-MMO reconciliation](#n-offline-to-mmo-reconciliation)
+- [O. Commerce](#o-commerce)
+- [P. Operations](#p-operations)
+- [Q. Architecture tests](#q-architecture-tests)
+- [R. Definition of a regression](#r-definition-of-a-regression)
+- [S. Cartridge composition](#s-cartridge-composition)
+- [T. Long-lived offline compatibility and signing](#t-long-lived-offline-compatibility-and-signing)
+- [U. Receipt and platform boundaries](#u-receipt-and-platform-boundaries)
+- [V. Client mode and builder target separation](#v-client-mode-and-builder-target-separation)
+- [W. Quest sharing, phasing, and scarce services](#w-quest-sharing-phasing-and-scarce-services)
+- [X. Composable world primitives and classic-MUD conformance](#x-composable-world-primitives-and-classic-mud-conformance)
+- [Y. Quest scenes, dreams, cutscenes, and scripted world events](#y-quest-scenes-dreams-cutscenes-and-scripted-world-events)
+- [Z. Release assurance and orchestrated role boundaries](#z-release-assurance-and-orchestrated-role-boundaries)
+- [Audit follow-through acceptance cases](#audit-follow-through-acceptance-cases)
+
+</details>
+<!-- packet-navigation:end -->
+
 These scenarios turn architecture claims into observable behavior.
 
 They are intended to seed automated tests, Cartridge Lab repros, architecture reviews, and implementation issues.

@@ -1,9 +1,55 @@
 # 14 — Implementation Plan and Dependency Graph
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Governing milestone tasks and gates.
+
+Use the plain-English R guide first. Numbers are stable labels; R6P pulls selected early slices forward and Realm does not block offline content.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [R0 — Specification acceptance](#r0--specification-acceptance)
+- [R1 — Disposable portable-kernel feasibility spike](#r1--disposable-portable-kernel-feasibility-spike)
+- [R2 — Fresh repository foundation](#r2--fresh-repository-foundation)
+- [R3 — Contract/schema foundation](#r3--contractschema-foundation)
+- [R4 — Cartridge compiler v1](#r4--cartridge-compiler-v1)
+- [R5 — Portable world rules foundation](#r5--portable-world-rules-foundation)
+- [R6 — Offline authority and save system](#r6--offline-authority-and-save-system)
+- [R6P — Early fresh-engine playable proof](#r6p--early-fresh-engine-playable-proof)
+- [R7 — Quest, dialogue, and scenes](#r7--quest-dialogue-and-scenes)
+- [R8 — Living-world capability pack](#r8--living-world-capability-pack)
+- [R9 — Cartridge Lab v1](#r9--cartridge-lab-v1)
+- [R9C — Synthetic V3 Conformance Cartridge](#r9c--synthetic-v3-conformance-cartridge)
+- [R10 — First real offline cartridge](#r10--first-real-offline-cartridge)
+- [R11 — Builder API v1 and script-surface generalization](#r11--builder-api-v1-and-script-surface-generalization)
+- [R12 — Loka app: production Story Mode](#r12--loka-app-production-story-mode)
+- [R13 — Commerce and entitlement](#r13--commerce-and-entitlement)
+- [R14 — BEAM online authority + Realm Mode skeleton](#r14--beam-online-authority--realm-mode-skeleton)
+- [R15 — Online-private deployment](#r15--online-private-deployment)
+- [R16 — Repeatable AI factory](#r16--repeatable-ai-factory)
+- [R17 — Party/co-op instances](#r17--partyco-op-instances)
+- [R18 — Realm Mode persistent social shell](#r18--realm-mode-persistent-social-shell)
+- [R19 — Instanced story regions in world geography](#r19--instanced-story-regions-in-world-geography)
+- [R20 — Shared zone/shard architecture](#r20--shared-zoneshard-architecture)
+- [R21 — Shared-area promotion](#r21--shared-area-promotion)
+- [R22 — Persistent text MMORPG expansion](#r22--persistent-text-mmorpg-expansion)
+- [Dependency graph](#dependency-graph)
+- [Issue sizing rule](#issue-sizing-rule)
+- [Agent workflow](#agent-workflow)
+- [Sizing](#sizing)
+- [Shipping rule](#shipping-rule)
+
+</details>
+<!-- packet-navigation:end -->
+
 **Status:** draft sequencing derived from v3 architecture.  
 **Rule:** no fresh implementation repository should begin substantive engine work until this packet is accepted and Phase R0 is complete.
 
 The full first release remains chapter one: **57 rooms, 10 quests, two endings**. LLM-assisted authoring and reasoning are part of the plan. A separate small **R6P playable proof** tests the from-scratch engine before that release; it is not a reduced chapter or a legacy-engine migration.
+
+[Plain-English milestone guide](R-MILESTONES.md) · [Human/LLM review guide](REVIEW-GUIDE.md). Phase numbers are stable identifiers, not a completion checklist or a strict sequence. R3A/R3B are parts of R3; R6P/R9C are additional named milestones.
 
 [release-scope.md](release-scope.md), generated from the reviewed [release-scope.json](release-scope.json), makes the chapter/proof capability and gate applicability explicit. Detailed catalogs remain design material; a later feature in a phase's catalog is NOT a prerequisite for an earlier release. Applicable safety gates cannot be waived. R0/R1 acceptance and R2 specification cutover remain required before production engine work.
 
@@ -582,6 +628,8 @@ The cartridge should be authored primarily through source files/compiler/Lab at 
 
 ## R11 — Builder API v1 and script-surface generalization
 
+Here, “script-surface generalization” means the demonstrated typed authoring/composition surface. It does not re-admit deferred LokaScript (ADR-018).
+
 ### Objective
 
 Let humans/agents author without raw repo semantics.
@@ -849,29 +897,26 @@ Each remains independently specified/certified.
 # Dependency graph
 
 ```text
-R0 acceptance -> R1 spike -> R2 fresh repository/spec cutover
-                                 |
-                  minimal R3-R6 + early R7/R8 slices
-                                 |
-                          R6P playable proof
-                                 |
-                 remaining chapter-one R5-R8 features
-                                 |
-                      R9 minimum + R9C corpus
-                                 |
-                         R10 full chapter one
-                        /          |            \
-               R12 Story app   R11 Builder    R14 BEAM authority
-                   |              |                 |
-          free release gates  R16 content reuse  R15 online-private
-                   |          /            \         |
-          R13 paid commerce  chapter two  chapter three
-                   |                              R17 party -> R18 hub
-              paid releases                           |
-                                     R19 geography -> R20 shards
-                                                      |
-                                             R21 -> R22 expansion
+FOUNDATION AND FIRST STORY
+R0 -> R1 -> R2 -> minimal R3-R6 + selected early R7/R8 slices
+                              -> R6P playable proof
+                              -> remaining chapter-one features
+                              -> R9 minimum + R9C -> R10 full chapter
+
+STORY RELEASE                       AUTHORING / REUSE
+R10 -> R12 + free-release gates      R10 authoring evidence -> R11 -> R16
+        -> R13 before paid release                            |
+                                                     later Story content
+
+REALM (separate track; does not block offline content or Builder)
+R14 -> R15 -> R17 -> R18 -> R19 -> R20 -> R21 -> R22
 ```
+
+This is an orientation map, not a second dependency registry. The Realm track uses the
+shared foundation and applicable platform services; it is not an independent rebuild.
+R6P deliberately draws only selected early narrative/schedule slices forward. Later
+capabilities still satisfy their own phase gates before content can depend on them.
+
 
 R12 may overlap R10. Platform persistence required by R14 can be introduced without waiting for purchase product work. R13 is mandatory before paid releases, not before the proof or an otherwise compliant free chapter release. Both free and paid releases require their applicable store, installation, signing, compatibility and human acceptance gates. Realm gates do not block offline content/Builder/factory work. Phase numbers are stable labels, not an implicit total order.
 

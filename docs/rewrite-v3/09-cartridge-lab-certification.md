@@ -1,5 +1,61 @@
 # 09 — Cartridge Lab and Certification
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Design contract: applicable assurance.
+
+Start with section 1a for chapter one. The wider catalog does not require every gate for every profile.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Objective](#1-objective)
+- [1a. R9 minimum: what chapter one actually requires](#1a-r9-minimum-what-chapter-one-actually-requires)
+- [2. Determinism contract](#2-determinism-contract)
+- [3. Virtual clock](#3-virtual-clock)
+- [4. Deterministic RNG](#4-deterministic-rng)
+- [5. Boot modes](#5-boot-modes)
+- [6. Snapshot and rewind](#6-snapshot-and-rewind)
+- [7. Trace viewer](#7-trace-viewer)
+- [8. Static certification gate](#8-static-certification-gate)
+- [9. Quest/dialogue model gate](#9-questdialogue-model-gate)
+- [10. Property-based tests](#10-property-based-tests)
+- [11. Autonomous world simulation](#11-autonomous-world-simulation)
+- [12. Bot personas](#12-bot-personas)
+- [13. Multiplayer race testing](#13-multiplayer-race-testing)
+- [14. Crash/chaos testing](#14-crashchaos-testing)
+- [15. Offline lifecycle testing](#15-offline-lifecycle-testing)
+- [16. Script fuzzing](#16-script-fuzzing)
+- [17. Performance certification](#17-performance-certification)
+- [18. Semantic review](#18-semantic-review)
+- [19. Human smoke](#19-human-smoke)
+- [20. Certification profiles and Builder targets](#20-certification-profiles-and-builder-targets)
+- [21. Release certificate](#21-release-certificate)
+- [22. Regression corpus](#22-regression-corpus)
+- [23. Shared-area promotion certification](#23-shared-area-promotion-certification)
+- [24. Certification pyramid: fast preflight to exact-hash release](#24-certification-pyramid-fast-preflight-to-exact-hash-release)
+- [25. Freeze first, certify the exact candidate](#25-freeze-first-certify-the-exact-candidate)
+- [26. Coverage manifest](#26-coverage-manifest)
+- [27. Static graph and model analysis](#27-static-graph-and-model-analysis)
+- [28. Bounded state exploration and path search](#28-bounded-state-exploration-and-path-search)
+- [29. Invariant registry](#29-invariant-registry)
+- [30. Mutation-sensitivity testing](#30-mutation-sensitivity-testing)
+- [31. Differential and metamorphic testing](#31-differential-and-metamorphic-testing)
+- [32. Adversarial gameplay generation](#32-adversarial-gameplay-generation)
+- [33. LLM semantic review as a separate evidence layer](#33-llm-semantic-review-as-a-separate-evidence-layer)
+- [34. Jev/System-One-style fast semantic triage](#34-jevsystem-one-style-fast-semantic-triage)
+- [35. Release blocker classes](#35-release-blocker-classes)
+- [36. Release evidence bundle](#36-release-evidence-bundle)
+- [37. Cartridge-authored tests are supplemental, not certification authority](#37-cartridge-authored-tests-are-supplemental-not-certification-authority)
+- [38. Regression ratchet](#38-regression-ratchet)
+- [39. Area-level assurance: isolate, then mount](#39-area-level-assurance-isolate-then-mount)
+- [40. Change-impact analysis accelerates feedback but cannot shrink release truth](#40-change-impact-analysis-accelerates-feedback-but-cannot-shrink-release-truth)
+- [41. Release-candidate soak and long-horizon simulation](#41-release-candidate-soak-and-long-horizon-simulation)
+
+</details>
+<!-- packet-navigation:end -->
+
 ## 1. Objective
 
 The Cartridge Lab is an executable test environment for a compiled cartridge or candidate shared area.

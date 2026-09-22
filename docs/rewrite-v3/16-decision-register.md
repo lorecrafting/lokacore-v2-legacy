@@ -1,6 +1,84 @@
 # 16 — Architecture Decision Register
 
-This register separates accepted direction from provisional choices that still require evidence.
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Decision register: status varies by entry.
+
+Accepted design direction is not R0 approval or implementation completion. Provisional and deferred decisions have separate checkpoints.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [Status vocabulary](#status-vocabulary)
+- [Decision checkpoints](#decision-checkpoints)
+- [ADR-001 — Clean-sheet rebuild](#adr-001--clean-sheet-rebuild)
+- [ADR-002 — BEAM/OTP online runtime](#adr-002--beamotp-online-runtime)
+- [ADR-003 — Offline-first single-player storypacks](#adr-003--offline-first-single-player-storypacks)
+- [ADR-004 — Shared portable deterministic rules kernel](#adr-004--shared-portable-deterministic-rules-kernel)
+- [ADR-005 — Mobile binding strategy](#adr-005--mobile-binding-strategy)
+- [ADR-006 — PostgreSQL online, SQLite offline](#adr-006--postgresql-online-sqlite-offline)
+- [ADR-007 — One online authority owner per world domain](#adr-007--one-online-authority-owner-per-world-domain)
+- [ADR-008 — Definition/runtime separation](#adr-008--definitionruntime-separation)
+- [ADR-009 — ActionInvocation / Command / StateDelta / DomainEvent / Effect / GameView separation](#adr-009--actioninvocation--command--statedelta--domainevent--effect--gameview-separation)
+- [ADR-010 — Transactional command receipts](#adr-010--transactional-command-receipts)
+- [ADR-011 — Full event sourcing](#adr-011--full-event-sourcing)
+- [ADR-012 — State scopes](#adr-012--state-scopes)
+- [ADR-013 — Capability registry](#adr-013--capability-registry)
+- [ADR-014 — Cartridge/deployment separation](#adr-014--cartridgedeployment-separation)
+- [ADR-015 — Campaign composition layer](#adr-015--campaign-composition-layer)
+- [ADR-016 — ActionSet algebra](#adr-016--actionset-algebra)
+- [ADR-017 — Quest reducer architecture](#adr-017--quest-reducer-architecture)
+- [ADR-018 — LokaScript](#adr-018--lokascript)
+- [ADR-019 — Builder API canonical authority](#adr-019--builder-api-canonical-authority)
+- [ADR-020 — Visual authoring UI](#adr-020--visual-authoring-ui)
+- [ADR-021 — AI runtime dependency](#adr-021--ai-runtime-dependency)
+- [ADR-022 — Cartridge release artifact](#adr-022--cartridge-release-artifact)
+- [ADR-023 — First monetization model](#adr-023--first-monetization-model)
+- [ADR-024 — Public user-authored scripting/content marketplace](#adr-024--public-user-authored-scriptingcontent-marketplace)
+- [ADR-025 — Distributed BEAM cluster](#adr-025--distributed-beam-cluster)
+- [ADR-026 — Shared MMO area model](#adr-026--shared-mmo-area-model)
+- [ADR-027 — Offline entitlement behavior](#adr-027--offline-entitlement-behavior)
+- [ADR-028 — Database schema granularity](#adr-028--database-schema-granularity)
+- [ADR-029 — Inventory relation](#adr-029--inventory-relation)
+- [ADR-030 — Runtime inheritance](#adr-030--runtime-inheritance)
+- [ADR-031 — Temporal model](#adr-031--temporal-model)
+- [ADR-032 — First shippable milestone](#adr-032--first-shippable-milestone)
+- [ADR-033 — Keep the portable kernel deliberately narrow](#adr-033--keep-the-portable-kernel-deliberately-narrow)
+- [ADR-034 — Cartridge composition uses explicit ports](#adr-034--cartridge-composition-uses-explicit-ports)
+- [ADR-035 — Downloaded rule representation is an App Store release gate](#adr-035--downloaded-rule-representation-is-an-app-store-release-gate)
+- [ADR-036 — Prove a real cartridge before generalizing authoring tools](#adr-036--prove-a-real-cartridge-before-generalizing-authoring-tools)
+- [ADR-037 — One mobile client, two strict gameplay modes](#adr-037--one-mobile-client-two-strict-gameplay-modes)
+- [ADR-038 — Builder has explicit story/realm targets](#adr-038--builder-has-explicit-storyrealm-targets)
+- [ADR-039 — One app simplifies entitlement UX without weakening trust](#adr-039--one-app-simplifies-entitlement-ux-without-weakening-trust)
+- [ADR-040 — Quests influence the world through typed consequences](#adr-040--quests-influence-the-world-through-typed-consequences)
+- [ADR-041 — Typed scoped facts coordinate narrative state](#adr-041--typed-scoped-facts-coordinate-narrative-state)
+- [ADR-042 — Prefer reactive/derived world responses over quest puppeteering](#adr-042--prefer-reactivederived-world-responses-over-quest-puppeteering)
+- [ADR-043 — Quest sharing uses independent dimensions](#adr-043--quest-sharing-uses-independent-dimensions)
+- [ADR-044 — Prefer shared world, then overlay, then instance](#adr-044--prefer-shared-world-then-overlay-then-instance)
+- [ADR-045 — Scarce services compose Capacity/Reservation/ServiceJob primitives](#adr-045--scarce-services-compose-capacityreservationservicejob-primitives)
+- [ADR-046 — State scope and physical authority placement are independent](#adr-046--state-scope-and-physical-authority-placement-are-independent)
+- [ADR-047 — Projection sequencing is not authority revisioning](#adr-047--projection-sequencing-is-not-authority-revisioning)
+- [ADR-048 — Online owners require fencing once ownership can move](#adr-048--online-owners-require-fencing-once-ownership-can-move)
+- [ADR-049 — Real-elapsed Story time enters through an idempotent authority input](#adr-049--real-elapsed-story-time-enters-through-an-idempotent-authority-input)
+- [ADR-050 — Closed semantics, open composition](#adr-050--closed-semantics-open-composition)
+- [ADR-051 — Target resolution, details, and coherent barriers are core world contracts](#adr-051--target-resolution-details-and-coherent-barriers-are-core-world-contracts)
+- [ADR-052 — Population, reactions, and behaviors compose living-world activity](#adr-052--population-reactions-and-behaviors-compose-living-world-activity)
+- [ADR-053 — Commerce is a typed composite contract](#adr-053--commerce-is-a-typed-composite-contract)
+- [ADR-054 — SceneSequence is reusable narrative orchestration](#adr-054--scenesequence-is-reusable-narrative-orchestration)
+- [ADR-055 — Quests are the narrative spine, not a second world authority](#adr-055--quests-are-the-narrative-spine-not-a-second-world-authority)
+- [ADR-056 — Authored geography is independent from Realm authority placement](#adr-056--authored-geography-is-independent-from-realm-authority-placement)
+- [ADR-057 — Scene sequencing and spatial instancing are orthogonal](#adr-057--scene-sequencing-and-spatial-instancing-are-orthogonal)
+- [ADR-058 — Retry identity survives authority migration](#adr-058--retry-identity-survives-authority-migration)
+- [ADR-059 — Decision output is provisional until authoritative commit](#adr-059--decision-output-is-provisional-until-authoritative-commit)
+- [ADR-060 — Capability semantic residency is explicit](#adr-060--capability-semantic-residency-is-explicit)
+- [ADR-061 — Conformance cartridge and first product cartridge have different jobs](#adr-061--conformance-cartridge-and-first-product-cartridge-have-different-jobs)
+- [ADR-062 — Accepted v3 specification cuts over to one implementation-era authority](#adr-062--accepted-v3-specification-cuts-over-to-one-implementation-era-authority)
+
+</details>
+<!-- packet-navigation:end -->
+
+This register separates accepted direction from provisional choices that still require evidence. **Accepted** describes a design decision within this draft packet; it does not mean that R0, implementation, tests, or a release gate have passed. Read the exact Git revision and each decision's status, not the age or position of its prose.
 
 ## Status vocabulary
 

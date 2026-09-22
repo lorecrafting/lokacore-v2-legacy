@@ -1,5 +1,25 @@
 # 01 — Core Principles and Non-Goals
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Design contract.
+
+Read authority, determinism and content principles before individual capabilities. Deferred features stay deferred.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Product principles](#1-product-principles)
+- [2. Architecture principles](#2-architecture-principles)
+- [3. BEAM/OTP principles](#3-beamotp-principles)
+- [4. Content principles](#4-content-principles)
+- [5. AI principles](#5-ai-principles)
+- [6. Non-goals for v3 foundation](#6-non-goals-for-v3-foundation)
+
+</details>
+<!-- packet-navigation:end -->
+
 ## 1. Product principles
 
 ### P1. One rules/content model, multiple authority hosts

@@ -1,5 +1,31 @@
 # 00 — First Cartridge: The Fox of Ashmere
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Product scope: full campaign and chapter ladder.
+
+Read the pitch, then section 11. Full-campaign mechanics and goals are not all chapter-one dependencies.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Pitch, player, session](#1-pitch-player-session)
+- [2. Setting, factions, cast](#2-setting-factions-cast)
+- [3. Map](#3-map)
+- [4. Feature list](#4-feature-list)
+- [5. Quest list](#5-quest-list)
+- [6. Interaction surface](#6-interaction-surface)
+- [7. Scope](#7-scope)
+- [8. Done means](#8-done-means)
+- [9. Build implications](#9-build-implications)
+- [10. Open questions](#10-open-questions)
+- [11. Release ladder: three chapters, one world](#11-release-ladder-three-chapters-one-world)
+- [12. Mechanics not yet in document 21](#12-mechanics-not-yet-in-document-21)
+
+</details>
+<!-- packet-navigation:end -->
+
 **Status:** Draft 0.5 — maximum-density design delivered as a three-chapter ladder (§11). Every classic-MUD mechanic family that fits the setting is in; chapter one is the R10 cartridge. Names and prose are placeholders a writer will replace.
 **Purpose:** name the first game and enumerate every mechanic it uses, so R3–R9 build against a real content pull list instead of the abstract catalog. §4 is the full feature list; §11 ladders it across three chapters; §12 lists the mechanics this game needs that document 21 does not yet name.
 **Reads with:** `14-implementation-plan.md` (R10 scope), `21-composable-world-primitives.md` (catalog), `19-quest-sharing-instancing-capacity.md` (services), `13-lokacore-feature-inventory.md` (ghost mode, balance sim, script templates to mine).
@@ -554,7 +580,11 @@ Endings from (`child_status`, `allegiance`, `king_status`, `wanted`): child home
 | Playtime | 8 to 12 hours |
 | Prose | ~70,000 words |
 
+> **Open content reconciliation:** section 5 lists five main quests (Q1-Q5) and 28 side quests (S1-S28), while the full-design summary above says 28 quests. Reconcile the intended campaign total before freezing that inventory. The chapter-one scope remains ten quests.
+
 ## 8. Done means
+
+**Read by release:** the full-design goals below span the campaign. Chapter-one acceptance uses §11, document 00a §11, and document 14 R10/R12; later-chapter content and endings are not additional chapter-one requirements.
 
 - R10 gate: full applicable `offline_private` certification plus device smoke in the developer harness.
 - 90-day autonomous simulation across four seeds: populations bounded, every scheduled NPC reaches every destination in every season, no reaction loops, currency and items conserved except registered faucets and sinks, no orphan jobs, tide and moon cycles replay identically.

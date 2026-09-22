@@ -1,5 +1,48 @@
 # 10 — Mobile, Commerce, and Release
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Design contract: app and release.
+
+Separate offline play, free release, paid entitlements and later Realm. Review save compatibility and downloaded-content gates explicitly.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. One React Native client, two session modes](#1-one-react-native-client-two-session-modes)
+- [2. Mobile structure](#2-mobile-structure)
+- [3. Online connection lifecycle](#3-online-connection-lifecycle)
+- [4. Offline launch lifecycle](#4-offline-launch-lifecycle)
+- [5. Local state](#5-local-state)
+- [6. One app, many cartridges, later Realm Mode](#6-one-app-many-cartridges-later-realm-mode)
+- [7. Client/kernel feature negotiation](#7-clientkernel-feature-negotiation)
+- [8. Catalog](#8-catalog)
+- [9. Entitlements](#9-entitlements)
+- [10. Purchase lifecycle](#10-purchase-lifecycle)
+- [11. Offline entitlement policy](#11-offline-entitlement-policy)
+- [12. Restore/refunds/revocation](#12-restorerefundsrevocation)
+- [13. Initial monetization](#13-initial-monetization)
+- [14. Store executable-code boundary](#14-store-executable-code-boundary)
+- [15. Content delivery](#15-content-delivery)
+- [16. Local package management](#16-local-package-management)
+- [17. Cloud backup](#17-cloud-backup)
+- [18. Offline versus online characters](#18-offline-versus-online-characters)
+- [19. Narrative continuity](#19-narrative-continuity)
+- [20. Release environments](#20-release-environments)
+- [21. Cartridge rollout](#21-cartridge-rollout)
+- [22. App binary compatibility](#22-app-binary-compatibility)
+- [23. Mobile CI](#23-mobile-ci)
+- [24. Deep links](#24-deep-links)
+- [25. Privacy/data minimization](#25-privacydata-minimization)
+- [26. Current technology feasibility note](#26-current-technology-feasibility-note)
+- [27. Store-review gate for downloadable rule content](#27-store-review-gate-for-downloadable-rule-content)
+- [28. App/kernel upgrades must not strand offline saves](#28-appkernel-upgrades-must-not-strand-offline-saves)
+- [29. Account, entitlement, and mode boundary](#29-account-entitlement-and-mode-boundary)
+
+</details>
+<!-- packet-navigation:end -->
+
 ## 1. One React Native client, two session modes
 
 Loka v3 ships one React Native / Expo application.
