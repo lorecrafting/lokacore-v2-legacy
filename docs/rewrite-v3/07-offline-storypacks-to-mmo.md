@@ -139,7 +139,7 @@ Each cartridge/deployment declares supported profiles.
 
 A cartridge can support more than one profile.
 
-## 4. Portable rules contract and R1 implementation hypothesis
+## 4. Portable rules contract and R1 candidates
 
 ### Problem
 
@@ -149,24 +149,23 @@ Offline Story authority and online BEAM authority must implement the same portab
 
 Define one **portable deterministic semantic contract**: canonical commands, state/deltas, RNG/time behavior, rule IR, errors, and conformance vectors. Every supported authoritative host must conform to it.
 
-The preferred implementation hypothesis for R1 is one small shared deterministic native kernel. The documented fallback is separate Elixir/mobile implementations generated/organized around the same schemas and held to golden cross-host conformance.
+The preferred implementation for R1 is one shared portable kernel, candidate A or candidate B below. The documented fallback is candidate C: separate Elixir and mobile implementations organized around the same schemas and held to golden cross-host conformance.
 
-### Working R1 hypothesis: Rust
+### R1 candidates
 
-Reasons to test Rust:
+R1 compares three candidates against the pre-registered acceptance envelope in `r1-acceptance-envelope.md`. **None is selected before the spike.** `14-implementation-plan.md` R1 and ADR-004 are the authority for the candidate set.
 
-- compiles to iOS and Android native libraries;
-- can be exposed to React Native through a native/TurboModule boundary;
-- can be called from Elixir through Rustler;
-- strong type system and serialization ecosystem;
-- no garbage-collected runtime dependency inside the candidate kernel;
-- good fit for pure deterministic state transition code.
+- **A. One TypeScript kernel** — one TypeScript package run natively in React Native's JavaScript engine, reached from BEAM through an Erlang Port to an isolated runner.
+- **B. One Rust kernel** — one deterministic Rust library behind Rustler on BEAM and behind native iOS and Android React Native bindings.
+- **C. Dual Elixir/TypeScript** — pure Elixir online plus TypeScript offline, held to one semantic schema and a golden-vector parity suite.
 
-Current React Native/Expo supports custom native modules, React Native provides typed TurboModule/JSI native integration, and Rustler provides an Elixir/Rust NIF bridge. Rust-to-React-Native binding generators also exist, but at least one prominent reviewed option describes itself as early-development and not yet recommended for production. Therefore the **shared-kernel language and both host-binding strategies remain provisional until R1**. The architecture must not depend on any one third-party Rust-to-React-Native generator.
+The comparison procedure builds A first; B is evaluated only if A fails a MUST row, and C only if B also fails (`r1-acceptance-envelope.md` §12).
+
+Candidate B additionally depends on a mobile binding strategy. Current React Native/Expo supports custom native modules, React Native provides typed TurboModule/JSI native integration, and Rustler provides an Elixir/Rust NIF bridge. Rust-to-React-Native binding generators also exist, but at least one prominent reviewed option describes itself as early-development and not yet recommended for production. Therefore **both of candidate B's host-binding strategies remain provisional until R1**, and the architecture must not depend on any one third-party binding generator.
 
 ### What stays Elixir/BEAM-native
 
-Selecting a shared native portable implementation does NOT turn Loka into a Rust server.
+Selecting one shared portable kernel does NOT move the online system out of BEAM.
 
 BEAM/OTP still owns the online system:
 
@@ -183,7 +182,7 @@ BEAM/OTP still owns the online system:
 - observability integration;
 - admin/builder services.
 
-If R1 accepts Rust, Rust owns only deterministic portable simulation semantics. If R1 rejects it, the BEAM implementation still obeys the same portable semantic contract and conformance fixtures.
+Whichever candidate R1 keeps owns only deterministic portable simulation semantics; BEAM/OTP still owns everything in the list above. Under candidate C the Elixir implementation obeys the same portable semantic contract and conformance fixtures as the TypeScript one.
 
 This is analogous to using a physics/rules library inside an actor-oriented server.
 
@@ -433,7 +432,7 @@ After R1 selects the execution strategy, CI runs golden vectors through every re
 - the iOS Story authority path;
 - the Android Story authority path.
 
-If R1 accepts the shared Rust kernel, these concretely become Rust core + Rustler + iOS/Android bindings. If R1 selects the documented dual-implementation fallback, the same conformance obligation applies to the accepted Elixir/mobile implementations instead.
+Under candidate A these concretely become the TypeScript kernel plus an Erlang Port runner and the React Native JavaScript engine on both devices; under candidate B, a Rust core plus Rustler and iOS/Android native bindings. If R1 selects candidate C, the documented dual-implementation fallback, the same conformance obligation applies to the accepted Elixir and mobile implementations instead.
 
 Any divergence blocks release.
 
@@ -459,18 +458,18 @@ Commands:
 
 Prove:
 
-1. Rust kernel runs exact scenario;
-2. Elixir/Rustler host produces canonical trace hash;
-3. at least two viable mobile binding strategies are evaluated (for example direct platform wrappers around a stable C ABI versus TurboModule/JSI generation);
+1. the candidate kernel runs the exact scenario;
+2. the BEAM host produces the canonical trace hash (an Erlang Port runner for candidate A, Rustler for candidate B, the native Elixir implementation for candidate C);
+3. for candidate B only, at least two viable mobile binding strategies are evaluated (for example direct platform wrappers around a stable C ABI versus TurboModule/JSI generation);
 4. iOS React Native host produces same trace hash;
 5. Android React Native host produces same trace hash;
 6. local SQLite save/reload preserves hash;
 7. BEAM/PostgreSQL save/reload preserves hash;
 8. 10,000 deterministic command runs show acceptable latency;
 9. a deliberately injected mismatch is caught by conformance CI;
-10. chosen mobile binding approach has a credible Expo/EAS build, upgrade, crash-debugging, and maintenance story.
+10. chosen mobile integration approach has a credible Expo/EAS build, upgrade, crash-debugging, and maintenance story.
 
-If this spike is too operationally costly, fallback is dual Elixir/TypeScript implementations with mandatory golden-vector parity. That is the fallback, not first choice.
+The procedure for comparing the three candidates is `r1-acceptance-envelope.md` §12; candidate C, dual Elixir/TypeScript implementations with mandatory golden-vector parity, is the fallback, not the first choice.
 
 ## 15. Campaigns, sequels, and single-player expansions
 

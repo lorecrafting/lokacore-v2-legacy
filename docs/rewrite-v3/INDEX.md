@@ -13,7 +13,7 @@ The R0 compact architecture and invariant index (README §12). Everything here i
 | Informative only | docs 12, 13, 17, 18, 20; README prose |
 | ADR state | 51 accepted (incl. "accepted direction"), 4 provisional (004, 005, 023, 035), 3 deferred (018, 024, 025), 4 rejected (011, 020, 021, 030) |
 | Open evidence gates | §7 below |
-| Known spec defects | doc 18 §33.1, §33.2 (unresolved; implementation stops at those boundaries) |
+| Known spec defects | doc 18 §33.1, §33.2 (resolved 2026-09-21; see §33 for the amendments) |
 | Cutover rule | after R2 imports this packet, the fresh repository is the only normative authority (ADR-062, ARCH-13) |
 
 ## 2. Pipeline
@@ -189,7 +189,7 @@ Source: 00 §11. Each chapter is a complete cartridge with its own `offline_priv
 
 | Chapter | Areas | Rooms | Levels | Mechanic tier adds | Quests | Sizing |
 |---|---|---|---|---|---|---|
-| 1 — The Missing Child (R10, free) | Ashmere, the Fen, Priory public rooms | 57 | z−1 to z+3 | six exits, doors/keys, tides, light, water rooms, details, variants, sense cues; day/night, shop hours, cooldowns, inn rest; 4 ancestries, 6 stats, levels 1–5, 6 skills learn-by-doing; 14 slots, stacking, liquids, readables, corpses; melee rounds, flee, wimpy, bleed/poison, death + shrine respawn; one shop, inn, ferry, barter; schedules, patrol, wander, guard, scavenge, topics, rumors, one faction axis, 4 populations, reactive world; all quest operators, scenes, dream, riddles, continuity export; full touch UI | Q1–Q3, S1–S4, S9, S10, S27 | 9 to 14 months from R1 |
+| 1 — The Missing Child (R10, free) | Ashmere, the Fen, Priory public rooms | 57 | z−1 to z+3 | six exits, doors/keys, tides, light, water rooms, details, variants, sense cues; day/night, shop hours, cooldowns, inn rest; 4 ancestries, 6 stats, levels 1–5, 6 skills learn-by-doing; 14 slots, stacking, liquids, readables, corpses; melee rounds, flee, wimpy, bleed/poison, death + shrine respawn; one shop, inn, ferry; schedules, patrol, wander, guard, scavenge, topics, rumors, one faction axis, 4 populations, reactive world; all quest operators, scenes, dream, riddles, continuity export; full touch UI | Q1–Q3, S1–S4, S9, S10, S27 | 9 to 14 months from R1 |
 | 2 — The Barrow King (R16, paid) | + crypt, ossuary, priory gate, Barrow Downs | 77 | z−3 to z+3 | hidden exits, traps, climbing, moon portal, scan; moon, weather, `real_elapsed`, Wight Night; guilds, levels to 10, spell words, stances, collection, ironman; durability, affects, cursed, identify; ghost/resurrection, specials, dual wield, hireling, boss phases, hunt, sanctuary, pets; second shop, healer, trainers; 3 faction tracks, drives, NPC memory, permanent death | Q4, S7, S8, S12, S13, S20, S21, S25, S26, S28 | 4 to 7 months after ch. 1 |
 | 3 — The King's Road (R16, paid) | + King's Road, Harrowgate, mine | 109 | z−3 to z+3 | mounts, cart, terrain, toll; seasons, events, Lantern Night; two more guilds, levels to 15, remaining skills; repair, forging, quality, tools; ranged, backstab, disarm; full economy, bank, haggle, stables, smithy, housing, mail; crime, witnesses, wanted, arrest, trial, jail, fence, disguise | Q5, S5, S6, S11, S14–S19, S22–S24 | 5 to 8 months after ch. 2 |
 
@@ -223,6 +223,6 @@ Source: 14. Sizing is for one developer with agent assistance, revised after R1 
 
 Implementation MUST NOT treat these as settled.
 
-- **R1 / ADR-004 / ADR-005** — portable kernel strategy and mobile binding; decided by the spike against the frozen envelope. Doc 18 §33.1 records that doc 07 §4/§14 and README §6 still read as Rust-specific.
+- **R1 / ADR-004 / ADR-005** — portable kernel strategy and mobile binding; decided by the spike against the frozen envelope.
 - **ADR-035** — App Store treatment of downloadable rule content; a store-review position is required before first submission. Chapter one is declarative data only (ADR-018 deferred).
 - **R20 / ADR-025 / ADR-048 / ADR-058** — ownership placement, fencing, handoff, and migration-stable receipt routing for partitioned Realm play; not needed before chapter one ships.

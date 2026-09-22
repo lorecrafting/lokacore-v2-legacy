@@ -1380,12 +1380,22 @@ Document 09 now opens with the gates chapter one actually requires. The remainin
 
 ## 33. Contradictions surfaced while drafting the R1 envelope and the R0 index
 
-Recorded per README §8's conflict rule. Neither is resolved here; the envelope and the index follow the task instructions given and point at this section.
+Recorded per README §8's conflict rule. All three were resolved by owner decision on 2026-09-21; each subsection records the amendment applied.
 
 ### 33.1 Document 07 still prescribes a Rust-specific spike
 
 `07-offline-storypacks-to-mmo.md` §4 ("Working R1 hypothesis: Rust") and §14 items 1 to 3 (Rust kernel, Elixir/Rustler host, two mobile binding strategies) describe the spike as a Rust experiment with dual Elixir/TypeScript as the only fallback. README §6 says the same ("Rust is the working hypothesis"). `14-implementation-plan.md` R1 and ADR-004 now compare three candidates with none selected, and the envelope's comparison procedure builds candidate A (TypeScript) first. Document 07 is normative architecture and document 14 is normative gates, so this is a specification defect under the conflict rule. The envelope treats document 07 §14 items 1 to 3 as applying only if B is built; document 07 §4, §14, and README §6 need amendment to match doc 14 R1 and ADR-004.
 
+**Resolution (2026-09-21):** doc 14 R1 and ADR-004 are the authority. Document 07 §4 now carries an "R1 candidates" subsection naming A, B, and C, states that none is selected before the spike, points at `r1-acceptance-envelope.md` for the envelope and its §12 for the procedure, and confines the binding-generator risk to candidate B; §4 "What stays Elixir/BEAM-native" and §14's Prove items 1 to 3 and 10 and its closing paragraph are candidate-neutral, with item 3 scoped to B. README §6 item 1 lists the three candidates and says A is built first. Doc 14 R1's "Rejection criteria" heading text now reads "Reject a shared-kernel candidate (A or B) if:", and envelope §12 step 3 cites only document 07 §14 item 3.
+
 ### 33.2 The tiny model is defined twice and the definitions differ
 
 `14-implementation-plan.md` R1 defines the tiny model with one scheduled job and one RNG check, and its command list includes wait/advance time; `07-offline-storypacks-to-mmo.md` §14 lists the same two. `00a-chapter-one-content.md` §12 says its hello-world fixture "is the R1 spike model" and contains neither a scheduled job nor any RNG use. The envelope uses the §12 fixture as-is, as instructed, and proves RNG replay and durable-job determinism at the medium model instead. Either the fixture gains a scheduled job and an RNG check, or doc 14 R1 and doc 07 §14 drop them from the tiny model; the packet should say which.
+
+**Resolution (2026-09-21):** the fixture is extended; the doc 14 R1 and doc 07 §14 tiny-model definitions stand. `00a-chapter-one-content.md` §12 now gives `npcs/bram.yaml` a two-block `schedule` component (6-19 ferry landing, 19-6 village green) and puts one `check: { kind: luck, chance: 50 }` on taking the lantern with a retry-allowed narration on failure; the fixture lock adds `check@1`, `behavior@1`, and `schedule@1`, and its closing paragraph now claims DET-03 and WORLD-01. Envelope §1 records the job and the check on the Tiny row and proves RNG replay and durable-job determinism at Tiny as well as Medium.
+
+### 33.3 Barter was listed in two chapters
+
+`00-first-cartridge-design.md` §11 listed "barter with Sedge" in the chapter-one Economy cell while the same table's chapter-three cell and its "What each chapter buys" table listed "barter (formalized)", so the packet both did and did not ship barter in chapter one.
+
+**Resolution (2026-09-21):** barter is chapter three only. Chapter one loses it in doc 00 §11 (Economy row and the chapter-three capability cell, now plain "barter"), doc 00a §4 (Sedge's trainer cell) and §5 (the herb row's use column, now S9 only), and `INDEX.md` §5 (chapter-one ladder row); `INDEX-cut-candidates.md` records the decision on the doc 21 §28 `commerce@1` barter row. Doc 00 §2 (Sedge's cast row), §4.6 (the economy mechanics table) and §12 (the capability gap list) keep barter as full-design prose because they describe the whole game, not chapter one.

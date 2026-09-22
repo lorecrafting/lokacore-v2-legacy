@@ -198,7 +198,7 @@ Sixteen named NPCs in chapter one. Schedules are hour ranges in world time; prof
 | tobin | Tobin | watch_post | 6–18 watch_post; 18–6 patrol north_gate → watch_post → village_green → east_gate | — | trainer: swords, dodge |
 | hob | Hob | old_mill | 6–18 old_mill; 18–6 mill_loft | — | — (ghost quest in ch2) |
 | ada | Goodwife Ada | orchard | 7–17 orchard; 17–7 elspeth_cottage (neighbor) | — | — |
-| sedge | Mother Sedge | isle_hut | 6–20 herb_garden/isle_hut; 20–6 isle_hut | wary, warm, hostile | trainer: herbalism, swim; barter |
+| sedge | Mother Sedge | isle_hut | 6–20 herb_garden/isle_hut; 20–6 isle_hut | wary, warm, hostile | trainer: herbalism, swim |
 | wick | Brother Wick | infirmary | 6–21 infirmary; 21–6 cloister | — | trainer: bandage; healer |
 | ash | Novice Ash | scriptorium | 6–12 scriptorium; 12–18 cloister; 18–6 scriptorium | — | — |
 | hale | Novice Hale | kitchen_garden | 6–18 kitchen_garden; 18–6 cloister | — | — |
@@ -229,7 +229,7 @@ Forty-one definitions. Slots use the 14-slot model; chapter one fills nine of th
 | ale_mug | liquid container | drink | drowned_lantern (1p) | `drunk` status at 3 |
 | bread, smoked_fish, apple | food | eat | maud, orchard | hunger |
 | bandage | consumable | bandage recipe | infirmary, chandler (2p) | stops bleeding |
-| fenwort, marsh_lily, oak_moss, ghostcap, rue | herb | barter, S9 | nodes | stack; regrow 2 days |
+| fenwort, marsh_lily, oak_moss, ghostcap, rue | herb | S9 | nodes | stack; regrow 2 days |
 | rusty_sword, iron_sword | weapon | wield | Tobin gives rusty; chandler sells iron (40p) | slash |
 | fishing_knife | weapon | wield / off-hand | chandler (8p) | pierce; skinning |
 | wooden_shield | shield | off-hand | chandler (15p) | block |
@@ -483,7 +483,7 @@ The gates are document 09 §1a. Content-specific fixtures this document commits 
 
 ## 12. Hello-world fixture
 
-The smallest compilable subset, used as the first R4 fixture and the R1 spike model. Two rooms, one NPC, one item, one quest, one dialogue.
+The smallest compilable subset, used as the first R4 fixture and the R1 spike model. Two rooms, one NPC with a durable two-block schedule, one item guarded by one RNG check, one quest, one dialogue.
 
 ```yaml
 # cartridge.yaml
@@ -493,7 +493,7 @@ version: 0.0.1
 requires:
   kernel_api: ">=1.0 <2.0"
   content_schema: 1
-  capabilities: [movement@1, containment@1, inspectable_detail@1, fact@1, quest@1, dialogue@1, topics@1]
+  capabilities: [movement@1, containment@1, inspectable_detail@1, equipment@1, fact@1, quest@1, dialogue@1, topics@1, check@1, behavior@1, schedule@1]
 supported_profiles: [offline_private]
 time_policy: play_time
 entry: { room: rooms/ferry_landing }
@@ -544,6 +544,11 @@ components:
   location: { room: rooms/ferry_landing }
   dialogue: { ref: dialogues/bram }
   quest_giver: { quests: [quests/hello_favor] }
+  schedule:
+    profiles:
+      default:
+        - { hours: "6-19", room: rooms/ferry_landing }
+        - { hours: "19-6", room: rooms/village_green }
 ```
 
 ```yaml
@@ -556,6 +561,9 @@ components:
   description: { short: item.lantern.short, long: item.lantern.long }
   location: { room: rooms/village_green }
   equipment: { slot: light }
+  take:
+    check: { kind: luck, chance: 50 }
+    on_fail: { narrate: narration.lantern_slips, retry: allowed }
 ```
 
 ```yaml
@@ -629,6 +637,7 @@ dialogue.bram.offer: "There's a lantern up on the green. Fetch it down to me and
 dialogue.common.accept: "I'll fetch it."
 dialogue.common.decline: "Not today."
 dialogue.common.leave: "Good day."
+narration.lantern_slips: The handle turns slick in your fingers and the lantern rolls back into the weeds.
 ```
 
-The fixture proves, in order: compile to an artifact hash twice with identical output (CAR-04); `look`, `north`, `take lantern`, `south`, `talk bram`, choose, resolve; `village.arrived` flips once; the green's description variant changes; a duplicate `take lantern` invocation is rejected; save, kill, restore at every step (OFF-03, OFF-04). Under any R1 strategy this is the golden trace the hosts must match.
+The fixture proves, in order: compile to an artifact hash twice with identical output (CAR-04); `look`, `north`, `take lantern`, `south`, `talk bram`, choose, resolve; `village.arrived` flips once; the green's description variant changes; a duplicate `take lantern` invocation is rejected; the take check's RNG outcome, pass or fail, replays identically from the same seed and the same restored save, and a retry after a failed check is a new command rather than a duplicate (DET-03); `wait` to hour 19 moves Bram to the green through a durable scheduled job that survives save and restore (WORLD-01); save, kill, restore at every step (OFF-03, OFF-04). Under any R1 strategy this is the golden trace the hosts must match, and the fixture now matches the `14-implementation-plan.md` R1 tiny model exactly: 2 rooms, 1 exit, 1 NPC, 1 item, 1 player, 1 typed fact, 1 quest, 1 scheduled job, 1 RNG check.

@@ -127,7 +127,7 @@ Commands:
 
 ### Rejection criteria
 
-Reject shared-Rust approach if:
+Reject a shared-kernel candidate (A or B) if:
 
 - iOS/Android build/release maintenance is unreasonably fragile;
 - deterministic representation cannot be stabilized;

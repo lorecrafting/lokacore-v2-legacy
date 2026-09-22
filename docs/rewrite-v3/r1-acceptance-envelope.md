@@ -4,17 +4,17 @@
 
 This envelope pre-registers what "acceptable" means for the portable-kernel spike so the result cannot be redefined to favor a candidate. Candidates are document 14 R1: **A** one TypeScript kernel (native in React Native, Erlang Port from BEAM), **B** one Rust kernel (Rustler plus native mobile bindings), **C** dual Elixir/TypeScript with golden-vector parity. Rows marked MUST are gates; rows marked RECORD are measured and reported but do not reject a candidate on their own.
 
-Two packet contradictions found while drafting are recorded in document 18 §33; this envelope follows the task instructions given and does not resolve them.
+Two packet contradictions found while drafting were recorded and resolved in document 18 §33.
 
 ## 1. Models
 
 | Model | Content | Runtime entities (approx.) | Source |
 |---|---|---|---|
-| Tiny | `00a` §12 hello-world fixture, used as-is: 2 rooms, 1 reciprocal exit, 1 NPC, 1 item, 1 fact, 1 quest, 1 dialogue, 1 player | 5 | `00a-chapter-one-content.md` §12 |
+| Tiny | `00a` §12 hello-world fixture, used as-is: 2 rooms, 1 reciprocal exit, 1 NPC, 1 item, 1 fact, 1 quest, 1 dialogue, 1 player, 1 scheduled job (Bram's schedule), 1 RNG check | 5 | `00a-chapter-one-content.md` §12 |
 | Medium | Chapter one complete: 57 rooms, 16 named NPCs, 4 PopulationPlans at their day caps (hounds 4, deer 3, crows 4, rats 5), every §5 item, every §6 fact, 10 quests, all §9 scenes and §10 reactions, 1 player with a 14-slot paper doll | 250 to 400 | `00a` §1 to §10 |
 | Stress | Full 109-room design, every named NPC in document 00 §2, 10 PopulationPlans each at its declared cap, all 28 quests instantiated, 30 world days of durable jobs pending, 200 typed facts set, 1 player | at least 600, target 1,000 | `00-first-cartridge-design.md` §3, §4.7 |
 
-The Tiny model as-is contains no RNG check and no scheduled job (see document 18 §33.2). Under this envelope, RNG replay (DET-03) and durable-job determinism are proved at Medium, where combat checks, schedules, and populations exist. Raymond MAY instead amend the fixture; the envelope does not.
+The Tiny model now matches the doc 14 R1 tiny model; RNG replay (DET-03) and durable-job determinism are proved at Tiny and again at Medium.
 
 Stress content that does not yet exist as YAML MAY be synthesized by the compiler fixture generator, provided it uses only capabilities in the `00a` §1 lock.
 
@@ -135,7 +135,7 @@ The spike injects faults at every step of the Tiny golden trace and at 100 rando
 
 1. **A is built first** against the Tiny model, then Medium, then Stress, on all four hosts (development machine, minimum iOS, minimum Android, BEAM via Port).
 2. If A passes every MUST row, the R1 ADR selects A. B and C are not built.
-3. If A fails any MUST row, the failing rows and measured values are recorded, then **B** is built and evaluated the same way. Document 07 §14 items 1 to 3 (Rust kernel, Rustler host, two mobile binding strategies) apply only in this step.
+3. If A fails any MUST row, the failing rows and measured values are recorded, then **B** is built and evaluated the same way. Document 07 §14 item 3 (two mobile binding strategies) applies only in this step.
 4. If B also fails, **C** is built and evaluated. C has no boundary rows; it must still pass §4, §7, §8, §9, §10.
 5. Whichever candidate is kept: the `00a` §12 golden trace hash MUST be identical on every host it runs on, and save/reload on every host MUST preserve that hash (document 07 §14 items 4 to 7). No candidate is accepted on the development machine alone.
 6. The evidence report lists, for every row above, the pre-registered threshold and the measured value side by side (document 14 R1). A row that was not measured is a fail, not a pass.

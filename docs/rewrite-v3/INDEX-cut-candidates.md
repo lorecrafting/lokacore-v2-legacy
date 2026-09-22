@@ -361,7 +361,7 @@ Sections of the normative packet that INDEX.md could not state. Listing is not d
 | §28 | `drives@1` | chapter 2/3 | 00 §11: drives are chapter two. |
 | §28 | `performance@1` | chapter 2/3 | 00 §11: performance is chapter two. |
 | §28 | `quest@1` protect / race | chapter 2/3 | Chapter one pulls survive only; protect and race are chapter two. |
-| §28 | `commerce@1` barter | chapter 2/3 | Chapter one has ad hoc Sedge barter; formalized offer is chapter three. |
+| §28 | `commerce@1` barter | chapter 2/3 | Chapter three per doc 00 §11 (owner decision 2026-09-21); chapter one has no barter mechanic. |
 | §28 | `property@1` | chapter 2/3 | 00 §11: housing is chapter three. |
 | §28 | `steal@1` | chapter 2/3 | 00 §11: crime is chapter three. |
 | §28 | `law@1` | chapter 2/3 | 00 §11: wanted, arrest, trial, jail are chapter three. |
