@@ -1,0 +1,43 @@
+name: V3 specification
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'docs/rewrite-v3/**'
+      - 'docs/product/CARTRIDGE-ROADMAP.md'
+      - '.github/workflows/v3-spec.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/rewrite-v3/**'
+      - 'docs/product/CARTRIDGE-ROADMAP.md'
+      - '.github/workflows/v3-spec.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  spec:
+    name: V3 specification checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Check whitespace
+        run: git diff --check
+      - name: Capture exact specification input for review
+        run: |
+          git rev-parse HEAD > v3-spec-head.txt
+          git archive --format=tar.gz --output=v3-spec-input.tar.gz HEAD docs .github/workflows AGENTS.md
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: v3-spec-input
+          path: |
+            v3-spec-head.txt
+            v3-spec-input.tar.gz
+          if-no-files-found: error
+          retention-days: 7
