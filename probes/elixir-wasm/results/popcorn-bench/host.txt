@@ -1,0 +1,8 @@
+source_commit=cdd26cfbfd4b99ee77b803249ab5a563248ba4c6
+run_id=35907356254
+run_attempt=1
+ImageVersion=20260920.314.1
+nproc=4
+cpu_model=AMD EPYC 7763 64-Core Processor
+elixir=Elixir 1.20.4 (compiled with Erlang/OTP 29)
+node=v24.21.0
