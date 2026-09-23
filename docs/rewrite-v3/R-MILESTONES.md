@@ -89,3 +89,5 @@ For a full human review, continue with [REVIEW-GUIDE.md](REVIEW-GUIDE.md). For a
 ### Readiness handoff (2026-09-22)
 
 Read [the R1 work package](r1-work-package.md) and ADR-064–067. The R1 numerical/device-class **targets are now owner-approved**, not measured. Actual setup/independent oracle review, R0 acceptance, R1 selection and R2 cutover remain gates. The composition, Lantern intent and run-lifetime amendments live in their existing governing documents, not in the earlier standalone discussion proposal.
+
+The 2026-09-23 [staged-preparation amendment](r1-work-package.md#stage-and-preview-boundary-owner-approved-sequencing-2026-09-23) requires reviewed semantic execution setup before A1 and complete native/physical setup before A2. A1 is not qualification; the iPhone 11 planning-target substitution and owner-reported inventory remain distinct from measurements.

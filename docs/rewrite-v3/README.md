@@ -421,3 +421,5 @@ Do not continue expanding the primitive catalog, build generalized scripting, or
 Post-PR #10: [focused preparation and remaining inputs](prep/after-pr-10/README.md),
 [Elixir specification tooling](spec_tools/README.md), and [correction/review provenance](reviews/2026-09-22-prep-followup.md).
 These records do not establish R0 acceptance, independent review or an R1 result.
+
+The 2026-09-23 [staged-preparation amendment](r1-work-package.md#stage-and-preview-boundary-owner-approved-sequencing-2026-09-23) requires reviewed semantic execution setup before A1 and complete native/physical setup before A2. A1 is not qualification; the iPhone 11 planning-target substitution and owner-reported inventory remain distinct from measurements.

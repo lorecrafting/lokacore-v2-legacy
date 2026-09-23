@@ -40,6 +40,23 @@ jobs:
           else
             git show --format= --check HEAD
           fi
+      - name: Verify integration and transport cleanup
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          git rev-parse HEAD > v3-spec-head.txt
+          if [ -n "$BASE_SHA" ] && git cat-file -e "$BASE_SHA^{commit}" 2>/dev/null; then
+            git merge-tree --write-tree HEAD "$BASE_SHA" > v3-spec-integration.txt
+          else
+            git rev-parse HEAD^{tree} > v3-spec-integration.txt
+          fi
+          merged_tree=$(head -n 1 v3-spec-integration.txt)
+          if git ls-tree -r --name-only "$merged_tree" | grep -E '^([.]v3-stage-transport/|[.]github/workflows/v3-stage-transport[.]yml$)'; then
+            echo 'Temporary transport paths remain in the prospective merged tree' >&2
+            exit 1
+          fi
+          cd docs/rewrite-v3/prep/after-pr-10/dependency-evidence
+          sha256sum -c SHA256SUMS
       - name: Run executable specification checks
         run: |
           python3 -m unittest discover -s docs/rewrite-v3/checks -p 'test_*.py' -v 2>&1 | tee v3-spec-tests.log
@@ -64,20 +81,62 @@ jobs:
           mix test | tee "$GITHUB_WORKSPACE/v3-spec-elixir-default.log"
           mix test --include comparison | tee "$GITHUB_WORKSPACE/v3-spec-elixir.log"
           mix loka.readiness --check-template
-          for input in ../conformance/r1-run-manifest.template.json ../prep/after-pr-10/setup.pending.json; do
-            set +e
-            output=$(mix loka.readiness --require-ready "$input" --evidence-root .. 2>&1)
-            result=$?
-            set -e
-            printf '%s\n' "$output"
-            test "$result" -eq 1
-            grep -q 'NOT READY: preparation pending' <<< "$output"
+          {
+          for stage in A1 A2; do
+            for input in ../conformance/r1-run-manifest.template.json ../prep/after-pr-10/setup.pending.json; do
+              for checker in mix python; do
+                set +e
+                if [ "$checker" = mix ]; then
+                  output=$(mix loka.readiness --require-ready "$input" --evidence-root .. --stage "$stage" 2>&1)
+                else
+                  output=$(python3 ../checks/readiness.py --require-ready "$input" --evidence-root .. --stage "$stage" 2>&1)
+                fi
+                result=$?
+                set -e
+                printf '%s %s %s exit=%s\n%s\n' "$checker" "$stage" "$input" "$result" "$output"
+                test "$result" -eq 1
+                grep -q 'NOT READY: preparation pending' <<< "$output"
+              done
+            done
           done
+          for stage in default A3 a1; do
+            for input in ../conformance/r1-run-manifest.template.json ../prep/after-pr-10/setup.pending.json; do
+              args=()
+              if [ "$stage" != default ]; then args=(--stage "$stage"); fi
+              for checker in mix python; do
+                set +e
+                if [ "$checker" = mix ]; then
+                  output=$(mix loka.readiness --require-ready "$input" --evidence-root .. "${args[@]}" 2>&1)
+                else
+                  output=$(python3 ../checks/readiness.py --require-ready "$input" --evidence-root .. "${args[@]}" 2>&1)
+                fi
+                result=$?
+                set -e
+                printf '%s %s %s exit=%s\n%s\n' "$checker" "$stage" "$input" "$result" "$output"
+                test "$result" -eq 1
+                if [ "$stage" = default ]; then
+                  grep -q 'NOT READY: preparation pending' <<< "$output"
+                else
+                  grep -q 'NOT READY: unsupported readiness stage' <<< "$output"
+                fi
+              done
+            done
+          done
+          } | tee "$GITHUB_WORKSPACE/v3-spec-negative.log"
           git diff --exit-code
+      - name: Retain formatter diagnostic on failure
+        if: failure()
+        working-directory: docs/rewrite-v3/spec_tools
+        run: |
+          if command -v mix >/dev/null 2>&1; then
+            mix format
+            git diff -- lib test > "$GITHUB_WORKSPACE/v3-spec-format.patch"
+          fi
       - name: Capture exact specification input for review
         if: always()
         run: |
           git rev-parse HEAD > v3-spec-head.txt
+          printf 'ImageOS=%s\nImageVersion=%s\nRunnerOS=%s\nRunnerArch=%s\n' "${ImageOS:-unavailable}" "${ImageVersion:-unavailable}" "$RUNNER_OS" "$RUNNER_ARCH" > v3-spec-runner.txt
           git archive --format=tar.gz --output=v3-spec-input.tar.gz HEAD docs .github/workflows AGENTS.md
       - if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -91,5 +150,9 @@ jobs:
             v3-spec-toolchain.log
             v3-spec-elixir.log
             v3-spec-elixir-default.log
+            v3-spec-negative.log
+            v3-spec-integration.txt
+            v3-spec-runner.txt
+            v3-spec-format.patch
           if-no-files-found: error
           retention-days: 7

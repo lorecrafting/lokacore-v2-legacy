@@ -243,7 +243,7 @@ class PreparationCases(unittest.TestCase):
         data['candidate_author_ids']=['synthetic-author']
         for platform in ('ios','android'):
             data['devices'][platform]={k:'synthetic-test-only' for k in readiness.DEVICE_FIELDS}
-            data['devices'][platform].update(qualification_class='iphone-se-2' if platform=='ios' else 'galaxy-a14-4gb', installed_ram_gb=3 if platform=='ios' else 4,architecture='arm64',os_version='16.4' if platform=='ios' else '10')
+            data['devices'][platform].update(qualification_class='iphone-11' if platform=='ios' else 'galaxy-a14-4gb', installed_ram_gb=4,architecture='arm64',os_version='16.4' if platform=='ios' else '10')
         data['server']={'model':'synthetic M1 fixture','os_build':'synthetic','cores':8,'ram_gb':16}
         data['toolchain']={k:'1.2.3' for k in readiness.TOOLS}
         def retain(path,raw):

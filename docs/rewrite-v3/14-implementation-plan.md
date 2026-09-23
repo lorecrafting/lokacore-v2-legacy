@@ -98,15 +98,15 @@ No unresolved contradiction about:
 
 ### Readiness closure and authorization boundaries
 
-Owner approval on 2026-09-22 adopts ADR-064–067's recommendations for this amendment. It does not substitute for the accepted R0 commit/cutover record, genuinely independent review, actual setup or measured R1 results. The preparation work may proceed now; substantive candidate semantics require the frozen reviewed setup/contract below. Production still waits for R0/R1/R2.
+Owner approval on 2026-09-22 adopts ADR-064–067's recommendations for this amendment. It does not substitute for the accepted R0 commit/cutover record, genuinely independent review, actual setup or measured R1 results. The preparation work may proceed now; substantive candidate semantics require the frozen reviewed A1 setup/contract below. The 2026-09-23 owner-approved sequencing amendment defers complete native/physical setup to A2; it does not grant R0 or candidate acceptance. Production still waits for R0/R1/R2.
 
 | Work item | Dependencies | Deliverable / stop condition |
 |---|---|---|
 | PREP-01 Contract closure | Review this amendment | 04 initial order/conflict/budget contracts; 05/06 operation/objective/continuation rules; 10/23 run defaults; preserved Tiny oracle; both Lantern traces and adverse cases. Record remaining independent review, do not label self-review independent. |
-| PREP-02 Setup and oracle freeze | PREP-01, R0 acceptance record | Real device/SKU/OS inventory, exact stable toolchain/lock data, artifact hashes and oracle/manifest review receipts. `--require-ready` rejects incomplete manifests. No synthetic device entries or fabricated acceptance hash. |
+| PREP-02 Setup and oracle freeze | PREP-01, R0 acceptance record | Two stage-specific freezes using existing records: A1 requires accepted contract, exact seven inputs, independent oracle review and reproducible reviewed Node/TypeScript/Elixir/full-OTP host/lock evidence; A2 adds complete native locks, physical qualification inventory and approved common host. `--require-ready --stage A1` is semantic-only; default/explicit `--stage A2` stays full-native. No synthetic acceptance or inventory. |
 | PREP-03 Download representation review | PREP-01; parallel with setup/R1 | Exact permitted payload/capability surface, sample package and policy review notes, unresolved risks, owner disposition before production content scaling; final store gate remains 10 §27. |
-| R1-A1 Semantic candidate | PREP-02 | One TypeScript package, stateless prepared definitions, Tiny/per-step known answers and bounded composition fixtures. No production compiler. |
-| R1-A2 Actual host adapters | R1-A1 | Hermes physical iOS/Android and isolated Node/BEAM Port; actual SQLite commit, recovery and byte parity. |
+| R1-A1 Semantic candidate | PREP-02 A1 freeze | One TypeScript package, stateless prepared definitions, Tiny/per-step known answers and bounded composition fixtures. No production compiler. |
+| R1-A2 Actual host adapters | R1-A1, PREP-02 A2 freeze | Hermes physical iOS/Android and isolated Node/BEAM Port; actual SQLite commit, recovery and byte parity. |
 | R1-A3 Fault/load evidence | R1-A2 | Full envelope, synthetic generators, worker death, scheduler interference, backlog/overload and mobile interruption/response tests. |
 | R1-A4 Reviewed selection | R1-A3 | Retained raw evidence, exact manifests, limits/failures and ADR-004/005 disposition. Passing A stops comparison; failure authorizes B then C with the same contract. |
 | R1-A5 Production handoff | R1-A4, R0, PREP-03 investment disposition | R2 sole-source cutover, selected architecture, retained fixtures; deliberately reimplement production rather than carry accidental spike scaffolding. |

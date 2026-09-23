@@ -6,15 +6,15 @@
   "candidate_author_ids": [],
   "devices": {
     "ios": {
-      "qualification_class": null,
-      "model": null,
+      "qualification_class": "iphone-11",
+      "model": "iPhone 11",
       "sku": null,
       "soc": null,
       "installed_ram_gb": null,
       "os_version": null,
       "os_build": null,
       "architecture": null,
-      "availability_record": null
+      "availability_record": "Owner-reported physical availability: prep/after-pr-10/owner-instruction-2026-09-23.md; exact device inventory not inspected."
     },
     "android": {
       "qualification_class": null,
@@ -29,10 +29,10 @@
     }
   },
   "server": {
-    "model": null,
+    "model": "MacBook Air M1",
     "os_build": null,
     "cores": null,
-    "ram_gb": null
+    "ram_gb": 16
   },
   "toolchain": {
     "expo": "57.0.24",
@@ -57,7 +57,7 @@
   "inputs": [
     {
       "path": "r1-acceptance-envelope.md",
-      "sha256": "c404127e08ed1965bad6cece6f707b45641d787791edc650d056a67baa6ea345"
+      "sha256": "c7748647761bcc9b6f1de4c965e50d6135b9e0a14aba4a95f30a75c728742df5"
     },
     {
       "path": "conformance/numeric-profile.md",
@@ -90,10 +90,10 @@
   },
   "oracle_review": {
     "path": "prep/after-pr-10/oracle-review.pending.json",
-    "sha256": "aae6f26845db79a50da92ee58d9bf3cffe211485d0b99d73d23e48812cacd825"
+    "sha256": "e2a2f38ba40d7ae8eb838a8bf5ba76cfd1fe88aae750a6b638a46ec065608f4a"
   },
   "setup_review": {
     "path": "prep/after-pr-10/setup-review.pending.json",
-    "sha256": "8f20cd0cdbae98430bbf5f8ac83b107f8fd55e7a624bb08d48097b5a4a549b2d"
+    "sha256": "ad500db739278a1bc42d785fc3f63306d91f648b3af5f82ffc0b42a9d0491688"
   }
 }
