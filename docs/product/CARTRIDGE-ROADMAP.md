@@ -936,3 +936,10 @@ This roadmap consolidates rather than deletes earlier thinking:
 - [`../../server/lib/loka/engine/script/sandbox.ex`](../../server/lib/loka/engine/script/sandbox.ex) — current constrained Elixir runtime.
 
 Older documents remain historical/design context. When they disagree with this document on product sequencing, the cartridge-first sequence here is the current working direction. Before the v3 cutover, current Lokacore code remains reference reality; after R0/R2 import the accepted normative packet into the fresh v3 repository, implementation-era architecture truth lives there and Lokacore becomes provenance/archaeology rather than a second evolving specification.
+
+
+## First-public-release accounts and prologue admission (2026-09-22)
+
+Owner direction: accounts and Story completion tracking arrive with the first public Story release, including the free chapter, not only with paid commerce or Realm. Installed Story play remains offline and does not require a live login. The platform accepts designated authenticated offline milestones for account-wide prologue/onboarding prerequisites only; editable local saves never grant competitive Realm value. Full-save backup remains optional and separate.
+
+The governing rebuild contract is [document 23](../rewrite-v3/23-accounts-progress-admission.md), ADR-063 and ACCOUNT-01–12. R12A delivers the real account/progress service, R13 extends it with purchases, and R14/R15 enforce server-side admission. R6P uses a fake adapter and does not wait for production identity. This amendment changes platform launch sequencing, not the 57-room chapter scope or the clean-room rebuild boundary.

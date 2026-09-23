@@ -22,6 +22,7 @@ Start with the review guide and milestone guide; section 8 defines the document 
 - [10. Reference implementation policy](#10-reference-implementation-policy)
 - [11. Specification change discipline](#11-specification-change-discipline)
 - [12. R0 cutover and implementation-facing specification organization](#12-r0-cutover-and-implementation-facing-specification-organization)
+- [13. Launch identity and the prologue journey](#13-launch-identity-and-the-prologue-journey)
 
 </details>
 <!-- packet-navigation:end -->
@@ -224,6 +225,7 @@ The online authority/orchestration layer SHOULD remain idiomatic Elixir/OTP. Rul
 | Realm transport protocol | one machine-readable external schema with generated TypeScript/Elixir validation, introduced with Realm Mode |
 | Release | exact certified semantic cartridge/deployment hash |
 | AI | author/reviewer/tool client, never runtime authority |
+| Accounts and prologue tracking | Required at first public Story launch (R12A); offline-first gameplay; authenticated reports may satisfy onboarding-only Realm prerequisites (ADR-063, document 23) |
 
 ### Intentionally unresolved evidence gates
 
@@ -251,6 +253,8 @@ For implementation, use [INDEX.md](INDEX.md) to locate governing contracts, not 
 
 File numbers, R milestones, and review order are different axes. The thematic grouping above does not rename files or change their authority.
 
+[Accounts, Story Progress, and Realm Admission](23-accounts-progress-admission.md) — launch identity, offline completion synchronization, and server-owned prologue prerequisites.
+
 ## 8. Specification authority map
 
 This packet is intentionally comprehensive, but not every document has the same authority.
@@ -272,6 +276,7 @@ Implementation MUST conform to:
 - `11-security-observability-operations.md`
 - `19-quest-sharing-instancing-capacity.md`
 - `21-composable-world-primitives.md`
+- `23-accounts-progress-admission.md`
 - accepted decisions in `16-decision-register.md`
 
 ### Normative content pull list
@@ -399,3 +404,7 @@ The exact directory names MAY change, but the authority distinction may not.
 The compact implementation-facing architecture should link each important invariant to its machine-readable schema/registry and its governing acceptance/certification checks. The long review record, Evennia/classic-MUD studies, historical architecture, and external research remain valuable evidence, but they do not become peer sources of truth merely because they are detailed.
 
 This organization is intended to make the architecture **harder to misimplement**, not to discard the rationale that produced it.
+
+## 13. Launch identity and the prologue journey
+
+Read [23 — Accounts, Story Progress, and Realm Admission](23-accounts-progress-admission.md) alongside mobile/state/security contracts. Accounts and milestone tracking arrive at the first public Story release, including the free chapter. Installed local gameplay survives offline/auth outages; accepted low-stakes reports satisfy explicitly mapped account onboarding prerequisites, never Realm currency/items/stats or purchase entitlement. R12A is a subdivision of R12; all existing top-level R IDs and the full first-chapter scope remain unchanged.

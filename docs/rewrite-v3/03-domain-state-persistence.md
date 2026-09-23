@@ -35,6 +35,7 @@ Start with identities and scope, then sections 14-18 on receipts, commits, outbo
 - [23. Inventory/location invariant](#23-inventorylocation-invariant)
 - [24. Definition cache](#24-definition-cache)
 - [25. Offline save lineage and trust](#25-offline-save-lineage-and-trust)
+- [26. Story milestones and platform acceptance](#26-story-milestones-and-platform-acceptance)
 
 </details>
 <!-- packet-navigation:end -->
@@ -46,7 +47,7 @@ Loka v3 separates four concepts that Lokacore often blurred:
 1. **Definition** — immutable content from a specific cartridge release.
 2. **Runtime entity** — mutable world instance created from a definition.
 3. **Scoped state** — state owned by player/party/instance/realm rather than a physical entity.
-4. **Durable platform state** — accounts, entitlements, release catalog, audit/certification metadata.
+4. **Durable platform state** — accounts, accepted Story milestones, onboarding policy, entitlements, release catalog, audit/certification metadata.
 
 These MUST have distinct identities and storage semantics.
 
@@ -375,6 +376,10 @@ Exact migrations are implementation work, but the logical model should include:
 
 ```text
 accounts
+story_run_bindings
+story_milestone_reports
+story_milestone_acceptances
+onboarding_requirement_policies
 characters
 entitlements
 catalog_entries
@@ -814,4 +819,8 @@ Offline save identity includes a lineage/ancestor revision so cloud backup can d
 
 Two independently advanced offline branches MUST NOT be auto-merged unless a cartridge provides an explicit deterministic merge strategy. Preserve both and ask the user to select.
 
-Offline runtime state is user-controlled and therefore MUST NOT be imported as authoritative MMO economy/progression state. Reuse cartridge definitions and low-stakes narrative metadata; online-authoritative state has a separate trust boundary.
+Offline runtime state is user-controlled and MUST NOT be imported as authoritative MMO economy/competitive progression. Designated milestone reports may satisfy non-competitive account onboarding prerequisites only under [document 23](23-accounts-progress-admission.md); they are not a save-state import or verified-human-play claim.
+
+## 26. Story milestones and platform acceptance
+
+A rule-owned terminal milestone and its host-side pending report persist atomically with the local gameplay outcome. Report/account binding and delivery state survive recovery but are not portable gameplay inputs or part of the canonical gameplay hash. Platform acceptance is a separate authenticated, idempotent transaction; it cannot retroactively roll back local Story completion. Account/progress records arrive with R12A, not R13/R14. Record and lifecycle semantics are owned by [document 23](23-accounts-progress-admission.md); account is not an additional gameplay scope.

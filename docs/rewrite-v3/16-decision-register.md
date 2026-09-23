@@ -74,6 +74,7 @@ Accepted design direction is not R0 approval or implementation completion. Provi
 - [ADR-060 — Capability semantic residency is explicit](#adr-060--capability-semantic-residency-is-explicit)
 - [ADR-061 — Conformance cartridge and first product cartridge have different jobs](#adr-061--conformance-cartridge-and-first-product-cartridge-have-different-jobs)
 - [ADR-062 — Accepted v3 specification cuts over to one implementation-era authority](#adr-062--accepted-v3-specification-cuts-over-to-one-implementation-era-authority)
+- [ADR-063 — Launch accounts and onboarding-only Story progress](#adr-063--launch-accounts-and-onboarding-only-story-progress)
 
 </details>
 <!-- packet-navigation:end -->
@@ -799,3 +800,13 @@ R0 records the exact accepted normative specification commit/file set. R2 import
 After cutover, implementation-era architecture amendments occur in the fresh repository through reviewed spec/ADR changes. Lokacore remains a read-only archaeology/reference corpus and MUST NOT evolve as a second normative specification.
 
 Normative implementation docs should be physically separated from historical review/research/reference material so humans and agents cannot mistake evidence for peer architectural authority.
+
+## ADR-063 — Launch accounts and onboarding-only Story progress
+
+**Status:** Accepted product direction by owner, 2026-09-22; implementation and R0 evidence pending.
+
+The first public Story release includes accounts and durable account-level completion tracking. Local milestone/pending-report capture is atomic with gameplay; later authenticated synchronization records evidence-labeled platform acceptance. Installed Story play does not require a live login or network. Account is not a new gameplay scope.
+
+Designated offline-client reports can satisfy account-wide prologue prerequisites under server-owned admission policy. They do not prove human comprehension and cannot grant currency, inventory, statistics, purchase entitlement or competitive Realm rewards. Requirement IDs are stable and map to approved release/milestone alternatives; a client cannot grant itself access. Both intended completed endings qualify by default.
+
+R12A brings the minimal account/platform database and progress API before the first free public release. R13 extends it with commerce; R14/R15 enforce actual Realm admission. R6P uses a fake sync adapter, not production identity. See [document 23](23-accounts-progress-admission.md) and ACCOUNT-01–12 for binding, deletion, idempotency and multi-device semantics. Mandatory sign-in before first acquisition versus guest-first UX is not decided by this ADR; after acquisition, installed offline play remains guaranteed under its entitlement policy.

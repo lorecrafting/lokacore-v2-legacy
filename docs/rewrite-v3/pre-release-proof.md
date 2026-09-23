@@ -63,6 +63,8 @@ No new general scripting, dream-space runtime, combat, economy, or party system 
 | P5 Touch-first mobile path | P4 + R1/R2 mobile integration | GameView render, ActionInvocation input, clear unavailable-action feedback, readable current state |
 | P6 Adversarial/device proof | P5 | Per-boundary crash/retry tests, airplane-mode resume, numeric/state parity and actual human device feedback |
 
+P2/P6 also exercise atomic milestone capture, offline completion and delayed authenticated synchronization through a fake progress adapter, including duplicate delivery and account switching. Production authentication/PostgreSQL/API work belongs to R12A before the public release; it does not block R6P.
+
 P1/P2 do not authorize the legacy repository to grow a production engine. The dependency graph is imported with the accepted packet into the fresh implementation repository.
 
 ## Evidence required to finish R6P
@@ -79,4 +81,4 @@ Continue directly to the **full chapter-one capability and content set**. LLM-as
 
 Story content and Builder work do not require R14/R15 Realm production. A small unrelated cartridge using already-shipped mechanics is the additional R16 reuse test; Ashmere chapters two and three still prove campaign continuity and capability growth.
 
-The free chapter's playable/store release is distinct from the first paid purchase/restore milestone. R13 remains mandatory for paid commerce; it does not block this proof. The downloaded-rule review posture and published save-compatibility policy must be resolved before their applicable release, not assumed from a green proof.
+The free chapter's playable/store release is distinct from the first paid purchase/restore milestone. R12A accounts/progress is mandatory for the first free public release. R13 remains mandatory for paid commerce; neither production service blocks this proof. The downloaded-rule review posture and published save-compatibility policy must be resolved before their applicable release, not assumed from a green proof.

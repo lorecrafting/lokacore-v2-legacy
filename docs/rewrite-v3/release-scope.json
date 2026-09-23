@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "status": "proposed-planning-not-release-certificate",
   "release_order": [
     "proof",
@@ -37,7 +37,8 @@
     "DEVICE": "Actual iOS/Android build, input responsiveness, offline and save evidence.",
     "HUMAN": "Readability, discoverability, consequence comprehension and authoring feedback.",
     "INSTANCE": "Spatial instancing closure, entry/export/teardown/recovery before feature use.",
-    "ESCROW": "Queued ServiceJob custody, capacity, retry/fault and reconciliation before use."
+    "ESCROW": "Queued ServiceJob custody, capacity, retry/fault and reconciliation before use.",
+    "ACCOUNT": "R12A first-public-app account lifecycle and real milestone sync; local capture/model adapter in proof; admission at R14/R15 (doc 23)."
   },
   "capabilities": [
     {
@@ -507,6 +508,22 @@
     "The chapter-one lock is exhaustive; later entries are feature-planning examples, not frozen chapter-two/three manifests.",
     "Production certification derives used features and transitive dependencies from the frozen compiled artifact and engine-owned registry; unknown applicability blocks/widens evidence.",
     "Native bindings, commercial purchase/review, hostile ingestion, compatibility and multiplayer gates also apply when those host/release risks exist; this planning list cannot waive them.",
-    "R6P uses only each capability slice it exercises; a later feature of the same capability does not become an early dependency."
-  ]
+    "R6P uses only each capability slice it exercises; a later feature of the same capability does not become an early dependency.",
+    "ACCOUNT is a first-public-app/platform obligation, not an engine capability or a live-service prerequisite for pure cartridge certification. R6P tests a fake sync adapter."
+  ],
+  "platform_gates": {
+    "proof": [],
+    "chapter_one": [
+      "ACCOUNT"
+    ],
+    "chapter_two": [
+      "ACCOUNT"
+    ],
+    "chapter_three": [
+      "ACCOUNT"
+    ],
+    "realm": [
+      "ACCOUNT"
+    ]
+  }
 }

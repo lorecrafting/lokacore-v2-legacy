@@ -40,6 +40,7 @@ Read sections 1-14 for the shared boundary, then continuity and Realm reuse. The
 - [28. Local privacy](#28-local-privacy)
 - [29. Why this still uses BEAM's strengths](#29-why-this-still-uses-beams-strengths)
 - [30. Product progression](#30-product-progression)
+- [31. Prologue-to-Realm journey](#31-prologue-to-realm-journey)
 
 </details>
 <!-- packet-navigation:end -->
@@ -76,7 +77,8 @@ Responsibilities:
 - offline local authority;
 - local SQLite saves;
 - campaigns/sequels/expansions;
-- optional cloud backup/account linking;
+- first-release accounts and account-level Story milestone synchronization;
+- optional cloud-save backup, separate from progress tracking;
 - portable GameView rendering.
 
 Ordinary Story play MUST NOT require:
@@ -953,15 +955,15 @@ Recommended evolution:
 
 ### Stage 1
 
-Offline private storypacks.
+Offline private storypacks with first-release accounts and durable Story milestone tracking (R12A). Installed play remains offline.
 
 ### Stage 2
 
-Optional account/catalog/cloud backup.
+Optional cloud-save backup and richer catalog/continuity features. Completion synchronization is already required at Stage 1; it does not imply full-save backup.
 
 ### Stage 3
 
-Online private versions of same packs.
+Online private versions of same packs, with server-side prologue prerequisites where declared.
 
 ### Stage 4
 
@@ -984,3 +986,7 @@ Selected cartridges promoted to certified shared areas.
 Persistent modern text MMORPG where the cartridge pipeline continuously supplies new adventures and regions.
 
 At no stage is the original cartridge investment discarded.
+
+## 31. Prologue-to-Realm journey
+
+[Document 23](23-accounts-progress-admission.md) requires account-level prologue progress from the first public Story release. Offline completion is recorded locally and synchronized later. The platform labels accepted reports with their real evidence source and maps approved milestones to account-wide onboarding requirements. Realm checks those requirements on the server. This narrow admission policy is not permission to import offline items, gold, levels or competitive rewards. Account-service outages and expired login sessions cannot disable installed local play.

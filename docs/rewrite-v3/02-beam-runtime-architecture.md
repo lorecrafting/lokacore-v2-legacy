@@ -5,7 +5,7 @@
 
 **Reader context:** Design contract: online host.
 
-Review ownership and recovery now; production online hosting arrives at R14 and shared-world work later.
+Account/progress service arrives at R12A; gameplay hosting at R14. Review ownership and recovery without pulling shared-world work forward.
 
 <details>
 <summary>Sections in this document</summary>
@@ -23,6 +23,7 @@ Review ownership and recovery now; production online hosting arrives at R14 and 
 - [11. Schedulers: use three temporal strategies](#11-schedulers-use-three-temporal-strategies)
 - [12. Backpressure and overload](#12-backpressure-and-overload)
 - [13. BEAM-specific review questions](#13-beam-specific-review-questions)
+- [14. Early platform service is not early Realm simulation](#14-early-platform-service-is-not-early-realm-simulation)
 
 </details>
 <!-- packet-navigation:end -->
@@ -360,3 +361,7 @@ Every proposed process must answer:
 - Can this be a pure module instead?
 
 If the last answer is yes, prefer the pure module.
+
+## 14. Early platform service is not early Realm simulation
+
+R12A introduces the account lifecycle and Story progress service before the first public Story release, reusing the `loka_platform` boundary and PostgreSQL. R13 adds commerce to that foundation; R14 later adds WorldInstance gameplay hosting. Authentication, accepted account milestones and Realm admission policy never execute inside the portable rules kernel. Account/profile binding is host metadata. See [document 23](23-accounts-progress-admission.md).

@@ -84,6 +84,8 @@ Not required for chapter one: CoverageManifest beyond the bot coverage above, mu
 
 Building the Lab in this order, minimum first, is R9. The later mechanisms grow as capabilities require them; current mandatory safety obligations cannot be disabled by candidate-authored exclusions. R6P uses its own smaller applicable corpus and never claims chapter-one certification.
 
+Chapter-one terminal milestones and atomic local report capture are tested with narrative/recovery gates now. The first public app release also requires the R12A account/progress gate from [document 23](23-accounts-progress-admission.md), including real authenticated synchronization. It is an app/platform gate, not permission to require a live account server in pure Lab simulations or R6P. A cartridge certificate alone cannot satisfy it.
+
 ## 2. Determinism contract
 
 A deterministic repro identifies:

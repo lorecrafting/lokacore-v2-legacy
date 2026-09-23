@@ -482,6 +482,8 @@ Topics discoverable in chapter one: wren, fox, bell, ward, ferry, rumors, room, 
 
 All five have a checkpoint before every consequence beat and are tested by SCENE-01 and SCENE-02.
 
+The committed terminal consequence of `dawn_on_the_green` reaches the cartridge milestone `prologue_completed` for either intended ending. It does not require all side quests or a preferred ending. The local host durably records a pending progress report with that commit; account synchronization and Realm qualification remain [document 23](23-accounts-progress-admission.md) platform policy. This is a milestone declaration for the R3/R7 schema, not a client credits-screen callback.
+
 ## 10. Reactions
 
 | Key | On | When | Apply |
