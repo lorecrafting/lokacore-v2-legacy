@@ -177,7 +177,7 @@ If R1 accepts a Rust/native kernel, additionally require:
 - panic handling at the FFI boundary;
 - no cartridge-driven native allocation without quotas.
 
-If R1 chooses a non-native fallback, apply equivalent sandbox/resource/error-boundary requirements for that implementation.
+If R1 chooses a non-native implementation, apply equivalent sandbox/resource/error-boundary requirements for that implementation.
 
 On BEAM, any native long/heavy kernel operations must not block normal schedulers.
 

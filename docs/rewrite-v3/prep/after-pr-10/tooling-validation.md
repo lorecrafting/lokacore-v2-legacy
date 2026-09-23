@@ -83,6 +83,8 @@ R1-A1 has NOT started and is NOT authorized by this validation.**
 ## Post-PR-11 continuation — exact main reproduced before edits
 
 Observed and proposed R0 source: `9567117404f635c803373d9957050fd8ec50f334`.
+(2026-09-23: historical. The R0 proposal was later retargeted, finally to
+`aaadaffff02e459dbf04e71d6ddc81d75eacf986`; see `r0-acceptance.pending.json`.)
 PR #11 is merged; its reviewed head
 `c06034b4643a6c259f385084d996ebabd1d151b9` and current main both have tree
 `1af0a5df20aebef25444dbd593dcff1339bca9f0`. No later PR or explicit R0

@@ -327,7 +327,7 @@ class ReadinessDocumentConsistency(unittest.TestCase):
         for row in ('| Tiny | 2 | 5 | 10 |','| Medium synthetic | 5 | 15 | 30 |','| Stress synthetic | 15 | 40 | 80 |'):
             self.assertIn(row,envelope)
         self.assertIn('R0 acceptance and independent review remain pending',(ROOT/'README.md').read_text())
-        self.assertIn('tests A (one TypeScript kernel) first',(ROOT/'README.md').read_text())
+        self.assertIn('tests C (dual Elixir/TypeScript with randomized differential testing) first',(ROOT/'README.md').read_text())
 
     def test_readiness_cases_and_work_package_are_routed(self):
         acceptance=(ROOT/'15-acceptance-scenarios.md').read_text()

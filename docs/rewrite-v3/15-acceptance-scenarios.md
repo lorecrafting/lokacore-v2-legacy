@@ -68,7 +68,7 @@ the portable rules layer returns a canonically identical result across repeated 
 
 Run the same fixture through every host implementation/adapter required by the R1-selected portable-execution strategy.
 
-For a shared native kernel this includes direct/native, BEAM, iOS, and Android host paths. For the documented dual-implementation fallback, compare the accepted Elixir and mobile implementations instead.
+For a shared native kernel this includes direct/native, BEAM, iOS, and Android host paths. For the dual implementation, tested first (ADR-068), compare the accepted Elixir and mobile implementations instead.
 
 Domain-result hash MUST match.
 
@@ -1934,7 +1934,7 @@ The checked-in empty setup template and actual pending setup must fail both `--r
 
 ### READY-02 — Gate separation and candidate selection
 
-Owner-approved thresholds plus green Python checks cannot become selected runtime, production-repository authorization, physical-device pass, store approval or chapter release. A receives all applicable actual-host gates. Failures remain visible; B/C are evaluated only in order and unmeasured candidates are not ranked. R0/R1/R2 records are distinct, with exact cutover authority. Evidence: reviewed setup/result/selection/cutover records at PREP-02/R1/R2.
+Owner-approved thresholds plus green Python checks cannot become selected runtime, production-repository authorization, physical-device pass, store approval or chapter release. C receives all applicable actual-host gates. Failures remain visible; B and then A are evaluated only in order and unmeasured candidates are not ranked. R0/R1/R2 records are distinct, with exact cutover authority. Evidence: reviewed setup/result/selection/cutover records at PREP-02/R1/R2.
 
 
 ### COMPOSE-07 — Due-set cancellation and reaction visibility

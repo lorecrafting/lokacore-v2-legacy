@@ -81,7 +81,7 @@ are artifacts, never automatic approvals or source commits.
 Envelope v0.5 proposes the hosted runner as the A1 execution host only. It
 still needs review, and refreshing input hashes renews nobody's consent. R0
 acceptance, attributable oracle approval, independently reviewed A1 setup and
-both readiness checks remain prerequisites to candidate A1 work. A1 needs no UI,
+both readiness checks remain prerequisites to R1-A1 work. A1 needs no UI,
 native build or preview infrastructure. A2 keeps the M1 common host and the
-physical phones. A-first/B-after-failure/C-after-B-failure sequencing, R2
+physical phones. The candidate order is C, then B, then A (ADR-068). R2
 clean-room cutover and the 57-room chapter are unchanged.

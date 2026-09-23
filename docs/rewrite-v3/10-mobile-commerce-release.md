@@ -479,7 +479,7 @@ As of this spec's 2026-09-17 research baseline:
 - Rustler provides a mature Rust/BEAM NIF bridge;
 - Rust-to-React-Native generator projects exist, but current ecosystem maturity varies and at least one prominent option warns against production use today.
 
-These dated observations justify keeping native candidate B available, not prioritizing it. **R1 tests TypeScript candidate A first; neither Rust nor any binding generator is selected by this document**. The spike must prove build/release ergonomics, crash/debug behavior, Expo/EAS integration, upgrade burden, and deterministic cross-host parity first.
+These dated observations justify keeping native candidate B available, not prioritizing it. **R1 tests dual Elixir/TypeScript candidate C first (ADR-068); neither Rust nor any binding generator is selected by this document**. The spike must prove build/release ergonomics, crash/debug behavior, Expo/EAS integration, upgrade burden, and deterministic cross-host parity first.
 
 
 ## 27. Store-review gate for downloadable rule content

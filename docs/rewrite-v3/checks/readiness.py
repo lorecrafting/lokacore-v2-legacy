@@ -37,7 +37,7 @@ NORMATIVE = ('01-core-principles.md', '02-beam-runtime-architecture.md',
 
 
 def template() -> dict:
-    return {'schema_version': 1, 'status': 'preparation_pending', 'candidate': 'A',
+    return {'schema_version': 1, 'status': 'preparation_pending', 'candidate': 'C',
             'accepted_spec_commit': None, 'candidate_author_ids': [],
             'devices': {k: {f: None for f in DEVICE_FIELDS} for k in ('ios', 'android')},
             'server': {'model': None, 'os_build': None, 'cores': None, 'ram_gb': None},
@@ -138,7 +138,7 @@ def require_ready(data: dict, root: Path, stage: str = 'A2') -> None:
         raise ValueError('unknown/missing manifest fields')
     if type(data['schema_version']) is not int or data['schema_version'] != 1:
         raise ValueError('unknown manifest version')
-    if data['status'] != 'setup_reviewed' or data['candidate'] != 'A':
+    if data['status'] != 'setup_reviewed' or data['candidate'] != 'C':
         raise ValueError('preparation pending or unsupported candidate work package')
     if not digest(data['accepted_spec_commit'], 40):
         raise ValueError('missing accepted specification commit')
