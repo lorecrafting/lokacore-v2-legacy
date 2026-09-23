@@ -253,7 +253,7 @@ class PreparationCases(unittest.TestCase):
         data['inputs']=[retain(p,(ROOT/p).read_bytes()) for p in readiness.INPUTS]
         r0={'accepted_spec_commit':data['accepted_spec_commit'],'disposition':'accepted','reviewer_id':'synthetic-owner','normative_files':list(readiness.NORMATIVE),'amendment_authority':'synthetic-only','cutover_destination':'synthetic-only'}
         data['r0_acceptance']=retain('r0.json',canonical(r0))
-        review={'accepted_spec_commit':data['accepted_spec_commit'],'disposition':'approved','reviewer_id':'synthetic-reviewer','independent_of_candidate_authorship':True,'inputs':data['inputs']}
+        review={'accepted_spec_commit':data['accepted_spec_commit'],'disposition':'approved','reviewer_id':'synthetic-reviewer','independent_of_candidate_authorship':True,'subject_author_ids':['synthetic-subject-author'],'independent_of_subject_authorship':True,'inputs':data['inputs']}
         data['oracle_review']=retain('oracle.json',canonical(review))
         review={k:v for k,v in review.items() if k!='inputs'};review['setup_digest']=readiness.setup_digest(data)
         data['setup_review']=retain('setup.json',canonical(review))
