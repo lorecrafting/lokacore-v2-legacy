@@ -1,12 +1,13 @@
 # R0 / PREP-02 decision and setup — still blocked
 
-Current observed main and **proposed R0 contract**:
-`9567117404f635c803373d9957050fd8ec50f334` (PR #11 merge).
-PR #11's reviewed head `c06034b4643a6c259f385084d996ebabd1d151b9` has the same
-Git tree. PRs #10 and #11 are merged; neither merge is an exact R0 acceptance,
-an independent approval, evidence of device availability or permission to build
-production. No subsequent PR or owner acceptance was found in this follow-up's
-repository/PR checks.
+Current observed main: `4a9f60c9040b3582fa79c39916307eab15c76e1b`
+(PR #12 merge). Its tree matches reviewed PR #12 head
+`367274e0c7ef942dd1c11e8b2eb79058cce24040`. The **proposed R0 contract stays
+`9567117404f635c803373d9957050fd8ec50f334`** (PR #11 merge): the later
+preparation/evidence records do not amend the normative contract. PRs #10–#12
+are merged; no separate owner acceptance or independent approval was found in
+the inspected records, recent PR discussions or R0 issue search. The owner's
+merge confirmation is not the missing acceptance.
 
 [Work order](../../r1-work-package.md) · [Focused review](../../reviews/2026-09-22-prep-followup.md)
 · [Tooling coverage](../../spec_tools/README.md) · [Downloaded representation review](../downloaded-representation.md)
@@ -47,7 +48,7 @@ implementation-era normative source; no legacy port or dual specification.
 |---|---|---|
 | R0 | Exact-commit decision proposal and explicit file/ADR/cutover scope. | Owner acceptance; proposing the record does not accept it. |
 | PREP-01 | Bounded source/fixture review and corrections completed and merged in #11; current baseline reproduced. | Independent expected-answer approval remains part of PREP-02; no repeated broad review is requested. |
-| PREP-02 | Seven retained input hashes, linked pending records, observed editing-host limits, and documented native OS-floor compatibility. | Actual devices/common host, complete exact candidate lock, attributable authors and independent oracle/setup approvals. |
+| PREP-02 | Seven retained input hashes, pending bindings, and a retained SDK-matched JavaScript dependency graph with two clean-install checks. Five exact toolchain fields have partial hosted evidence. | Nine remaining toolchain fields, complete native/configuration lock, actual devices/common host, attributable authors and independent oracle/setup approvals. |
 | PREP-03 | Existing payload specimen, pre-shipped API boundary and policy-risk review. | Owner investment disposition before A5/R2; later exact-app/current-policy release review. |
 | R1-A1 | **NOT AUTHORIZED TO START.** A-first/stateless order unchanged. | Truthful completion of PREP-02 and both readiness checks. |
 
@@ -66,18 +67,92 @@ Xcode 27 / iOS 27 SDK; SDK 57 adds opt-in support in expo 57.0.23. The
 preparer must review the actual Xcode/SDK/configuration combination, not treat
 `26.4+` as a blanket build-success guarantee.
 
-No dependency graph or native project was resolved/built in this editing
-container. Local GitHub access failed DNS resolution; Elixir/OTP/Mix and Xcode
-are unavailable. The successful hosted specification checks do not
-supply the candidate dependency lock. All fourteen `toolchain` values remain
-null rather than being copied from documentation or the tooling-only pins.
+## Retained dependency-only resolution — partial PREP-02 evidence
+
+[Captured package manifest](dependency-evidence/package.json) ·
+[Exact package lock](dependency-evidence/package-lock.json) ·
+[Command transcript](dependency-evidence/resolution.log) ·
+[Checksums](dependency-evidence/SHA256SUMS) ·
+[Packaged native metadata](dependency-evidence/dependency-observations.txt)
+
+The bounded hosted capture used Node **24.21.0** and npm **11.19.0** on an
+Ubuntu 24.04 x86_64 runner. This runner is **not** the approved common host or
+qualification hardware. The retained graph is:
+
+| Package / executed resolver runtime | Exact value | Evidence |
+|---|---|---|
+| Expo | 57.0.24 | Lock and SDK-bundled recommendation file |
+| React Native | 0.86.3 | Lock; recommended by the captured Expo SDK |
+| React | 19.2.3 | Lock; recommended by the captured Expo SDK |
+| expo-sqlite binding | 57.0.3 | Lock; not the SQLite engine identity |
+| TypeScript | 6.0.3 | Lock, SDK 57 template range and executed `tsc --version` |
+| React type definitions | 19.2.18 | Lock and SDK 57 template range |
+| Node / npm | 24.21.0 / 11.19.0 | Captured version output; package `engines` / `packageManager` |
+
+The capture resolved SDK recommendations from the retained
+[Expo bundled modules file](dependency-evidence/expo-bundledNativeModules.json)
+and [SDK 57 template manifest](dependency-evidence/expo-template-package.json),
+not independently chosen latest packages. It then ran `npm install
+--package-lock-only`, two `npm ci` installs in separate clean directories,
+`npm ls --all` and Expo's dependency check on both installations. The lock bytes
+stayed identical; each install reported 468 packages. Package lifecycle scripts
+were disabled. The graph retains npm's `uuid@7.0.3` deprecation warning;
+`--no-audit` means **no vulnerability audit was performed**. Successful resolution
+and replay establish neither native compatibility nor supply-chain approval.
+
+The exact capture source is retained as inert
+[`capture-workflow.yml.txt`](dependency-evidence/capture-workflow.yml.txt), not
+an installed repository workflow. Run identifiers, checksums, the corrected
+publication failure and authorship limits are in
+[the validation record](tooling-validation.md#post-pr-12-dependency-evidence).
+The resolver had read-only repository permissions; a separate job validated the
+fixed artifact file set and pushed only the temporary capture branch. No
+candidate code or package lifecycle script ran in that write-capable job. The
+final follow-up imports data blobs onto current main, not the temporary branch's
+workflow or commit ancestry. Continuing specification tooling remains Elixir.
+
+Only `toolchain.expo`, `react_native`, `typescript`, `node` and `sqlite_binding`
+are populated in [the existing pending setup](setup.pending.json). They identify
+this partial resolved proposal, **not a reviewed or native-qualified setup**.
+`toolchain_lock.path/sha256` remain null: pointing the complete-lock field at a
+JavaScript-only lock would conceal missing native dependencies/configuration.
+Use the retained bytes for subsequent native preparation instead of resolving
+new versions without a reason; recheck the exact values on the approved host.
+
+The other nine fields remain unverified. In particular, packaged React Native
+metadata contains both `HERMES_VERSION_NAME=0.17.0` and
+`HERMES_V1_VERSION_NAME=250829098.0.17`; it does not establish which engine the
+actual build uses. The binding contains default SQLite **3.50.3** and SQLCipher
+SQLite **3.49.1** headers. Neither header is an executed SQLite version query or
+an approved native configuration. The recorded Android Gradle Plugin **8.12.0**
+is not the Gradle distribution version. No Hermes, SQLite, Gradle, JDK, Xcode,
+iOS/Android SDK or BEAM candidate runtime was executed by this capture.
+Tooling-only Elixir/OTP pins are not copied into candidate fields.
+
+To replay the *retained* graph, first verify `SHA256SUMS` in the evidence
+folder, then copy only `package.json` and `package-lock.json` to a new disposable
+directory outside the packet. With the recorded Node/npm versions:
+
+```sh
+npm_config_engine_strict=true npm ci --ignore-scripts --no-audit --no-fund
+npm ls --all
+CI=1 EXPO_NO_TELEMETRY=1 node node_modules/expo/bin/cli install --check
+node node_modules/typescript/bin/tsc --version
+```
+
+Compare the resulting lock bytes to the retained original. This replay is
+network-dependent dependency preparation, not permission to create an app or
+start A1. The historical capture's range-resolution step should not be rerun
+merely to produce a newer lock. Native preparation still needs its own actual
+configuration, package/native locks, hashes and version outputs; Xcode 27's
+scene-lifecycle requirements above are not resolved by installing Expo alone.
 
 ## Consolidated external actions
 
 | Who supplies it | Exact artifact / fields | Evidence needed |
 |---|---|---|
 | Owner | `r0-acceptance.pending.json`: decision, `accepted_spec_commit`, `reviewer_id`, `owner_decision_source`; then the setup's accepted commit/reference | Explicit adoption or amendment of the decision above. Verify that its qualifications and later gates remain intact. |
-| Device/setup preparer, with owner approval of the common host | `setup.pending.json`: `devices.ios.*`, `devices.android.*`, `server.*`, `candidate_author_ids`, all 14 `toolchain` entries, `toolchain_lock.path/sha256` | Available physical iPhone SE 2 (3 GB) and Galaxy A14 (4 GB), exact SKU/SoC/physical RAM/OS/build/arm64 and availability records; approved M1+ common host with at least 16 GB and exact configuration. Retain resolved package/native lock bytes and version output for Expo, RN, Hermes, TypeScript, Node, Elixir, full OTP, SQLite, binding, Xcode, iOS SDK, Android SDK, Gradle and JDK. Dependency-only preparation must not implement candidate gameplay. |
+| Device/setup preparer, with owner approval of the common host | `setup.pending.json`: `devices.ios.*`, `devices.android.*`, `server.*`, `candidate_author_ids`, nine remaining `toolchain` entries plus confirmation of the five resolved values, `toolchain_lock.path/sha256` | Available physical iPhone SE 2 (3 GB) and Galaxy A14 (4 GB), exact SKU/SoC/physical RAM/OS/build/arm64 and availability records; approved M1+ common host with at least 16 GB and exact configuration. Reuse the retained JS lock; supply actual native configuration/locks and exact Hermes, Elixir, full OTP, SQLite engine, Xcode, iOS SDK, Android SDK, Gradle and JDK evidence. Confirm the five recorded JS/runtime values on the approved host. Bind the complete evidence bundle only after these facts exist. Dependency-only preparation must not implement candidate gameplay. |
 | Expected-answer reviewer, independent of candidate AND expected-answer authors | `oracle-review.pending.json`: accepted commit, reviewer, `subject_author_ids`, both separation declarations, disposition, exact seven inputs | Inspect state/result bytes, adverse cases, numeric outputs AND next states, order/conflicts/invariants/budgets/receipts/rollback/unknown commit, both Lantern outcomes and early possession. Preserve the due-job cancellation/rescheduling and save-fork/restore model limitations. |
 | Setup reviewer, independent of candidate AND setup authors | `setup-review.pending.json`: accepted commit, reviewer, `subject_author_ids`, both separation declarations, disposition, exact `setup_digest` | Review the actual retained inventory/configuration/lock bundle, not the blank fields or a synthetic stand-in. An owner-approved identity/provenance check is required outside the structural checker. |
 
@@ -105,10 +180,11 @@ Then retain the setup-review file hash, set `status` to `setup_reviewed` only
 when warranted, and run both checkers. Changed underlying inputs invalidate old
 approvals; recomputing a hash alone does not renew one.
 
-This follow-up changes only the R0 proposal and its **pending** bindings:
-the new R0 hash changes the setup digest, so the pending setup-review digest and
-its file hash are refreshed too. No reviewer, approval or measured evidence is
-added. The seven inputs and the permanent blank template remain byte-identical.
+This dependency follow-up leaves the R0 proposal and oracle record byte-identical.
+Five newly evidenced setup values change the setup digest, so its **pending**
+setup-review digest and reference hash are refreshed. No approval, reviewer
+identity or hardware measurement is added. All seven setup inputs, eleven
+preserved inputs and the permanent blank template remain byte-identical.
 
 From `docs/rewrite-v3/spec_tools` (both must currently fail with exit 1):
 

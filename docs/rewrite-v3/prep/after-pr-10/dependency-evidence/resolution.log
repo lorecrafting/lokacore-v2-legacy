@@ -1,0 +1,2353 @@
+Dependency-only preparation; NOT a candidate implementation or native qualification.
+SOURCE_COMMIT=b16ab5508248bec53ae98765f950e4ad8178bd37
+RUN_URL=https://github.com/lorecrafting/lokacore/actions/runs/35840888616
+2026-09-23T09:05:45Z
+Linux runnervmlun5p 6.17.0-1022-azure #22-Ubuntu SMP Mon Jul 27 17:24:03 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+v24.21.0
+11.19.0
+ImageOS=ubuntu24
+ImageVersion=20260907.300.1
+npm view expo-template-blank-typescript@sdk-57 version --json
+"57.0.26"
+npm pack expo-template-blank-typescript@57.0.26 --ignore-scripts --json
+[
+  {
+    "id": "expo-template-blank-typescript@57.0.26",
+    "name": "expo-template-blank-typescript",
+    "version": "57.0.26",
+    "size": 509654,
+    "unpackedSize": 516307,
+    "shasum": "7c2d2a0340456cba955d186742452128f14a6373",
+    "integrity": "sha512-GDG6BJMoD1shxT/vy0lzNQB95i7RWPCAYMSUr7bDf0Iry9fgAznSYjBcPfQ7etQOAgYIs6rM9wJ29Ri3FGcWPw==",
+    "filename": "expo-template-blank-typescript-57.0.26.tgz",
+    "files": [
+      {
+        "path": "App.tsx",
+        "size": 455,
+        "mode": 420
+      },
+      {
+        "path": "LICENSE",
+        "size": 1106,
+        "mode": 420
+      },
+      {
+        "path": "app.json",
+        "size": 662,
+        "mode": 420
+      },
+      {
+        "path": "assets/android-icon-background.png",
+        "size": 17549,
+        "mode": 420
+      },
+      {
+        "path": "assets/android-icon-foreground.png",
+        "size": 78796,
+        "mode": 420
+      },
+      {
+        "path": "assets/android-icon-monochrome.png",
+        "size": 4140,
+        "mode": 420
+      },
+      {
+        "path": "assets/favicon.png",
+        "size": 1129,
+        "mode": 420
+      },
+      {
+        "path": "assets/icon.png",
+        "size": 393493,
+        "mode": 420
+      },
+      {
+        "path": "assets/splash-icon.png",
+        "size": 17547,
+        "mode": 420
+      },
+      {
+        "path": "gitignore",
+        "size": 440,
+        "mode": 420
+      },
+      {
+        "path": "index.ts",
+        "size": 307,
+        "mode": 420
+      },
+      {
+        "path": "package.json",
+        "size": 598,
+        "mode": 420
+      },
+      {
+        "path": "tsconfig.json",
+        "size": 85,
+        "mode": 420
+      }
+    ],
+    "entryCount": 13,
+    "bundled": []
+  }
+]
+expo-template-package.json sha256=1b10ea8f4e4ce2740bcba96da8927174c67e954170c0b115ab3c73b923e31cbc
+npm view expo@57 version --json
+[
+  "57.0.0",
+  "57.0.1",
+  "57.0.2",
+  "57.0.3",
+  "57.0.4",
+  "57.0.5",
+  "57.0.6",
+  "57.0.7",
+  "57.0.8",
+  "57.0.9",
+  "57.0.10",
+  "57.0.11",
+  "57.0.12",
+  "57.0.13",
+  "57.0.14",
+  "57.0.15",
+  "57.0.16",
+  "57.0.17",
+  "57.0.18",
+  "57.0.19",
+  "57.0.20",
+  "57.0.21",
+  "57.0.22",
+  "57.0.23",
+  "57.0.24"
+]
+npm pack expo@57.0.24 --ignore-scripts --json
+[
+  {
+    "id": "expo@57.0.24",
+    "name": "expo",
+    "version": "57.0.24",
+    "size": 468596,
+    "unpackedSize": 957080,
+    "shasum": "fdd69761be7c237ffd87932c8666195e764bda19",
+    "integrity": "sha512-LxSnKMv7en/w4XDNxW3VOx7SbtQ2Bs4MyGhtoZCToDsEsBPO7pJXlv5GnQUCd7Wi8118QV/VDwsDLBKTB3Z3iQ==",
+    "filename": "expo-57.0.24.tgz",
+    "files": [
+      {
+        "path": "AppEntry.js",
+        "size": 134,
+        "mode": 420
+      },
+      {
+        "path": "Expo.podspec",
+        "size": 5107,
+        "mode": 420
+      },
+      {
+        "path": "LICENSE",
+        "size": 1106,
+        "mode": 420
+      },
+      {
+        "path": "README.md",
+        "size": 12291,
+        "mode": 420
+      },
+      {
+        "path": "android/build.gradle",
+        "size": 1479,
+        "mode": 420
+      },
+      {
+        "path": "android/proguard-rules.pro",
+        "size": 1057,
+        "mode": 420
+      },
+      {
+        "path": "android/src/main/AndroidManifest.xml",
+        "size": 24,
+        "mode": 420
+      },
+      {
+        "path": "android/src/main/java/expo/modules/ApplicationLifecycleDispatcher.kt",
+        "size": 908,
+        "mode": 420
+      },
+      {
+        "path": "android/src/main/java/expo/modules/ExpoModulesPackage.kt",
+        "size": 1395,
+        "mode": 420
+      },
+      {
+        "path": "android/src/main/java/expo/modules/ExpoReactHostFactory.kt",
+        "size": 5600,
+        "mode": 420
+      },
+      {
+        "path": "android/src/main/java/expo/modules/fetch/ExpoFetchModule.kt",
+        "size": 5202,
+        "mode": 420
+      },
+      {
+        "path": "android/src/main/java/expo/modules/fetch/FetchExceptions.kt",
+        "size": 829,
+        "mode": 420
+      },
+      {
+        "path": "android/src/main/java/expo/modules/fetch/NativeRequest.kt",
+        "size": 2489,
+        "mode": 420
+      },
+      {
+        "path": "android/src/main/java/expo/modules/fetch/NativeRequestCredentials.kt",
+        "size": 255,
+        "mode": 420
+      },
+      {
+        "path": "android/src/main/java/expo/modules/fetch/NativeRequestInit.kt",
+        "size": 556,
+        "mode": 420
+      },
+      {
+        "path": "android/src/main/java/expo/modules/fetch/NativeRequestRedirect.kt",
+        "size": 208,
+        "mode": 420
+      },
+      {
+        "path": "android/src/main/java/expo/modules/fetch/NativeResponse.kt",
+        "size": 6933,
+        "mode": 420
+      },
+      {
+        "path": "android/src/main/java/expo/modules/fetch/NativeResponseInit.kt",
+        "size": 267,
+        "mode": 420
+      },
+      {
+        "path": "android/src/main/java/expo/modules/fetch/OkHttpFileUrlInterceptor.kt",
+        "size": 3560,
+        "mode": 420
+      },
+      {
+        "path": "android/src/main/java/expo/modules/fetch/RequestUtils.kt",
+        "size": 376,
+        "mode": 420
+      },
+      {
+        "path": "android/src/main/java/expo/modules/fetch/ResponseSink.kt",
+        "size": 781,
+        "mode": 420
+      },
+      {
+        "path": "android/src/main/java/expo/modules/fetch/ResponseState.kt",
+        "size": 305,
+        "mode": 420
+      },
+      {
+        "path": "android/src/main/java/expo/modules/fetch/TransparentCompressionInterceptor.kt",
+        "size": 2974,
+        "mode": 420
+      },
+      {
+        "path": "android/src/main/java/expo/modules/ReactActivityDelegateWrapper.kt",
+        "size": 16478,
+        "mode": 420
+      },
+      {
+        "path": "android/src/test/AndroidManifest.xml",
+        "size": 785,
+        "mode": 420
+      },
+      {
+        "path": "android/src/test/java/expo/modules/fetch/NativeRequestTest.kt",
+        "size": 1172,
+        "mode": 420
+      },
+      {
+        "path": "android/src/test/java/expo/modules/fetch/TransparentCompressionInterceptorTest.kt",
+        "size": 6243,
+        "mode": 420
+      },
+      {
+        "path": "android/src/test/java/expo/modules/ReactActivityDelegateWrapperDelayLoadTest.kt",
+        "size": 10954,
+        "mode": 420
+      },
+      {
+        "path": "android/src/test/java/expo/modules/ReactActivityDelegateWrapperTest.kt",
+        "size": 4186,
+        "mode": 420
+      },
+      {
+        "path": "android/src/test/resources/robolectric.properties",
+        "size": 6,
+        "mode": 420
+      },
+      {
+        "path": "bin/autolinking",
+        "size": 380,
+        "mode": 493
+      },
+      {
+        "path": "bin/cli",
+        "size": 43,
+        "mode": 493
+      },
+      {
+        "path": "bin/fingerprint",
+        "size": 59,
+        "mode": 493
+      },
+      {
+        "path": "build/async-require/asyncRequireModule.d.ts",
+        "size": 530,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/asyncRequireModule.d.ts.map",
+        "size": 165,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/buildAsyncRequire.d.ts",
+        "size": 632,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/buildAsyncRequire.d.ts.map",
+        "size": 290,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/buildErrors.d.ts",
+        "size": 193,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/buildErrors.d.ts.map",
+        "size": 265,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/buildUrlForBundle.d.ts",
+        "size": 595,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/buildUrlForBundle.d.ts.map",
+        "size": 227,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/buildUrlForBundle.native.d.ts",
+        "size": 299,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/buildUrlForBundle.native.d.ts.map",
+        "size": 228,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/errors.d.ts",
+        "size": 226,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/errors.d.ts.map",
+        "size": 300,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/fetchAsync.d.ts",
+        "size": 337,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/fetchAsync.d.ts.map",
+        "size": 288,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/fetchAsync.native.d.ts",
+        "size": 407,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/fetchAsync.native.d.ts.map",
+        "size": 330,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/fetchThenEval.d.ts",
+        "size": 99,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/fetchThenEval.d.ts.map",
+        "size": 180,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/fetchThenEval.web.d.ts",
+        "size": 407,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/fetchThenEval.web.d.ts.map",
+        "size": 370,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/fetchThenEvalJs.d.ts",
+        "size": 305,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/fetchThenEvalJs.d.ts.map",
+        "size": 224,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/getDevServer.d.ts",
+        "size": 263,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/getDevServer.d.ts.map",
+        "size": 200,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/getDevServer.native.d.ts",
+        "size": 156,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/getDevServer.native.d.ts.map",
+        "size": 201,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/getFullBundlerUrl.d.ts",
+        "size": 100,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/getFullBundlerUrl.d.ts.map",
+        "size": 179,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/hmr.d.ts",
+        "size": 689,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/hmr.d.ts.map",
+        "size": 458,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/hmrUtils.d.ts",
+        "size": 565,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/hmrUtils.d.ts.map",
+        "size": 569,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/hmrUtils.native.d.ts",
+        "size": 618,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/hmrUtils.native.d.ts.map",
+        "size": 604,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/index.d.ts",
+        "size": 46,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/index.d.ts.map",
+        "size": 121,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/loadBundle.d.ts",
+        "size": 336,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/loadBundle.d.ts.map",
+        "size": 211,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/messageSocket.d.ts",
+        "size": 54,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/messageSocket.d.ts.map",
+        "size": 137,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/messageSocket.native.d.ts",
+        "size": 61,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/messageSocket.native.d.ts.map",
+        "size": 151,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/setup.d.ts",
+        "size": 46,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/setup.d.ts.map",
+        "size": 121,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/setupFastRefresh.d.ts",
+        "size": 57,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/setupFastRefresh.d.ts.map",
+        "size": 143,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/setupHMR.d.ts",
+        "size": 49,
+        "mode": 420
+      },
+      {
+        "path": "build/async-require/setupHMR.d.ts.map",
+        "size": 127,
+        "mode": 420
+      },
+      {
+        "path": "build/devLoadingViewEmitter.d.ts",
+        "size": 264,
+        "mode": 420
+      },
+      {
+        "path": "build/devLoadingViewEmitter.d.ts.map",
+        "size": 377,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/base.d.ts",
+        "size": 136,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/base.d.ts.map",
+        "size": 153,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/dom-entry.d.ts",
+        "size": 321,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/dom-entry.d.ts.map",
+        "size": 394,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/dom-hooks.d.ts",
+        "size": 362,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/dom-hooks.d.ts.map",
+        "size": 374,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/dom-internal.types.d.ts",
+        "size": 335,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/dom-internal.types.d.ts.map",
+        "size": 288,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/dom.d.ts",
+        "size": 249,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/dom.d.ts.map",
+        "size": 223,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/dom.types.d.ts",
+        "size": 2187,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/dom.types.d.ts.map",
+        "size": 973,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/dom.web.d.ts",
+        "size": 104,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/dom.web.d.ts.map",
+        "size": 166,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/global-events.d.ts",
+        "size": 353,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/global-events.d.ts.map",
+        "size": 391,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/injection.d.ts",
+        "size": 646,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/injection.d.ts.map",
+        "size": 477,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/internal.d.ts",
+        "size": 238,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/internal.d.ts.map",
+        "size": 256,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/internal.web.d.ts",
+        "size": 94,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/internal.web.d.ts.map",
+        "size": 166,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/marshal.d.ts",
+        "size": 384,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/marshal.d.ts.map",
+        "size": 454,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/webview-bridge.d.ts",
+        "size": 923,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/webview-bridge.d.ts.map",
+        "size": 492,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/webview-wrapper.d.ts",
+        "size": 667,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/webview-wrapper.d.ts.map",
+        "size": 669,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/webview/ExpoDOMWebView.d.ts",
+        "size": 224,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/webview/ExpoDOMWebView.d.ts.map",
+        "size": 233,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/webview/RNWebView.d.ts",
+        "size": 323,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/webview/RNWebView.d.ts.map",
+        "size": 296,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/webview/useDebugZeroHeight.d.ts",
+        "size": 483,
+        "mode": 420
+      },
+      {
+        "path": "build/dom/webview/useDebugZeroHeight.d.ts.map",
+        "size": 459,
+        "mode": 420
+      },
+      {
+        "path": "build/environment/DevLoadingView.d.ts",
+        "size": 134,
+        "mode": 420
+      },
+      {
+        "path": "build/environment/DevLoadingView.d.ts.map",
+        "size": 175,
+        "mode": 420
+      },
+      {
+        "path": "build/environment/DevLoadingView.web.d.ts",
+        "size": 138,
+        "mode": 420
+      },
+      {
+        "path": "build/environment/DevLoadingView.web.d.ts.map",
+        "size": 183,
+        "mode": 420
+      },
+      {
+        "path": "build/environment/DevLoadingViewNativeModule.d.ts",
+        "size": 257,
+        "mode": 420
+      },
+      {
+        "path": "build/environment/DevLoadingViewNativeModule.d.ts.map",
+        "size": 178,
+        "mode": 420
+      },
+      {
+        "path": "build/environment/DevLoadingViewNativeModule.native.d.ts",
+        "size": 117,
+        "mode": 420
+      },
+      {
+        "path": "build/environment/DevLoadingViewNativeModule.native.d.ts.map",
+        "size": 187,
+        "mode": 420
+      },
+      {
+        "path": "build/environment/ExpoGo.d.ts",
+        "size": 819,
+        "mode": 420
+      },
+      {
+        "path": "build/environment/ExpoGo.d.ts.map",
+        "size": 780,
+        "mode": 420
+      },
+      {
+        "path": "build/environment/ExpoGo.web.d.ts",
+        "size": 150,
+        "mode": 420
+      },
+      {
+        "path": "build/environment/ExpoGo.web.d.ts.map",
+        "size": 178,
+        "mode": 420
+      },
+      {
+        "path": "build/environment/getInitialSafeArea.d.ts",
+        "size": 173,
+        "mode": 420
+      },
+      {
+        "path": "build/environment/getInitialSafeArea.d.ts.map",
+        "size": 279,
+        "mode": 420
+      },
+      {
+        "path": "build/environment/getInitialSafeArea.native.d.ts",
+        "size": 374,
+        "mode": 420
+      },
+      {
+        "path": "build/environment/getInitialSafeArea.native.d.ts.map",
+        "size": 305,
+        "mode": 420
+      },
+      {
+        "path": "build/errors/AppEntryNotFound.d.ts",
+        "size": 131,
+        "mode": 420
+      },
+      {
+        "path": "build/errors/AppEntryNotFound.d.ts.map",
+        "size": 162,
+        "mode": 420
+      },
+      {
+        "path": "build/errors/ExpoErrorManager.d.ts",
+        "size": 328,
+        "mode": 420
+      },
+      {
+        "path": "build/errors/ExpoErrorManager.d.ts.map",
+        "size": 278,
+        "mode": 420
+      },
+      {
+        "path": "build/errors/ExpoErrorManager.native.d.ts",
+        "size": 270,
+        "mode": 420
+      },
+      {
+        "path": "build/errors/ExpoErrorManager.native.d.ts.map",
+        "size": 282,
+        "mode": 420
+      },
+      {
+        "path": "build/Expo.d.ts",
+        "size": 1258,
+        "mode": 420
+      },
+      {
+        "path": "build/Expo.d.ts.map",
+        "size": 813,
+        "mode": 420
+      },
+      {
+        "path": "build/Expo.fx.d.ts",
+        "size": 130,
+        "mode": 420
+      },
+      {
+        "path": "build/Expo.fx.d.ts.map",
+        "size": 195,
+        "mode": 420
+      },
+      {
+        "path": "build/Expo.fx.web.d.ts",
+        "size": 113,
+        "mode": 420
+      },
+      {
+        "path": "build/Expo.fx.web.d.ts.map",
+        "size": 182,
+        "mode": 420
+      },
+      {
+        "path": "build/hooks/useEvent.d.ts",
+        "size": 3474,
+        "mode": 420
+      },
+      {
+        "path": "build/hooks/useEvent.d.ts.map",
+        "size": 1380,
+        "mode": 420
+      },
+      {
+        "path": "build/launch/AppRegistry.d.ts",
+        "size": 96,
+        "mode": 420
+      },
+      {
+        "path": "build/launch/AppRegistry.d.ts.map",
+        "size": 175,
+        "mode": 420
+      },
+      {
+        "path": "build/launch/AppRegistry.web.d.ts",
+        "size": 1061,
+        "mode": 420
+      },
+      {
+        "path": "build/launch/AppRegistry.web.d.ts.map",
+        "size": 805,
+        "mode": 420
+      },
+      {
+        "path": "build/launch/registerRootComponent.d.ts",
+        "size": 1449,
+        "mode": 420
+      },
+      {
+        "path": "build/launch/registerRootComponent.d.ts.map",
+        "size": 610,
+        "mode": 420
+      },
+      {
+        "path": "build/launch/registerRootComponent.web.d.ts",
+        "size": 694,
+        "mode": 420
+      },
+      {
+        "path": "build/launch/registerRootComponent.web.d.ts.map",
+        "size": 609,
+        "mode": 420
+      },
+      {
+        "path": "build/launch/withDevTools.d.ts",
+        "size": 242,
+        "mode": 420
+      },
+      {
+        "path": "build/launch/withDevTools.d.ts.map",
+        "size": 317,
+        "mode": 420
+      },
+      {
+        "path": "build/launch/withDevTools.ios.d.ts",
+        "size": 366,
+        "mode": 420
+      },
+      {
+        "path": "build/launch/withDevTools.ios.d.ts.map",
+        "size": 337,
+        "mode": 420
+      },
+      {
+        "path": "build/launch/withDevTools.web.d.ts",
+        "size": 246,
+        "mode": 420
+      },
+      {
+        "path": "build/launch/withDevTools.web.d.ts.map",
+        "size": 325,
+        "mode": 420
+      },
+      {
+        "path": "build/timer/polyfillNextTick.d.ts",
+        "size": 228,
+        "mode": 420
+      },
+      {
+        "path": "build/timer/polyfillNextTick.d.ts.map",
+        "size": 146,
+        "mode": 420
+      },
+      {
+        "path": "build/utils/blobUtils.d.ts",
+        "size": 326,
+        "mode": 420
+      },
+      {
+        "path": "build/utils/blobUtils.d.ts.map",
+        "size": 282,
+        "mode": 420
+      },
+      {
+        "path": "build/utils/getBundleUrl.d.ts",
+        "size": 97,
+        "mode": 420
+      },
+      {
+        "path": "build/utils/getBundleUrl.d.ts.map",
+        "size": 169,
+        "mode": 420
+      },
+      {
+        "path": "build/utils/getBundleUrl.native.d.ts",
+        "size": 104,
+        "mode": 420
+      },
+      {
+        "path": "build/utils/getBundleUrl.native.d.ts.map",
+        "size": 183,
+        "mode": 420
+      },
+      {
+        "path": "build/utils/getBundleUrl.web.d.ts",
+        "size": 101,
+        "mode": 420
+      },
+      {
+        "path": "build/utils/getBundleUrl.web.d.ts.map",
+        "size": 177,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/AbortSignal.d.ts",
+        "size": 212,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/AbortSignal.d.ts.map",
+        "size": 224,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/DOMException.d.ts",
+        "size": 649,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/DOMException.d.ts.map",
+        "size": 293,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/fetch/convertFormData.d.ts",
+        "size": 569,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/fetch/convertFormData.d.ts.map",
+        "size": 415,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/fetch/createBlob.d.ts",
+        "size": 448,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/fetch/createBlob.d.ts.map",
+        "size": 270,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/fetch/ExpoFetchModule.d.ts",
+        "size": 88,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/fetch/ExpoFetchModule.d.ts.map",
+        "size": 173,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/fetch/ExpoFetchModule.web.d.ts",
+        "size": 268,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/fetch/ExpoFetchModule.web.d.ts.map",
+        "size": 229,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/fetch/fetch.d.ts",
+        "size": 277,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/fetch/fetch.d.ts.map",
+        "size": 348,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/fetch/fetch.types.d.ts",
+        "size": 757,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/fetch/fetch.types.d.ts.map",
+        "size": 853,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/fetch/fetch.web.d.ts",
+        "size": 92,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/fetch/fetch.web.d.ts.map",
+        "size": 162,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/fetch/FetchErrors.d.ts",
+        "size": 256,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/fetch/FetchErrors.d.ts.map",
+        "size": 339,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/fetch/FetchResponse.d.ts",
+        "size": 2071,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/fetch/FetchResponse.d.ts.map",
+        "size": 1529,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/fetch/index.d.ts",
+        "size": 91,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/fetch/index.d.ts.map",
+        "size": 163,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/fetch/NativeRequest.d.ts",
+        "size": 1142,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/fetch/NativeRequest.d.ts.map",
+        "size": 1195,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/fetch/RequestUtils.d.ts",
+        "size": 1053,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/fetch/RequestUtils.d.ts.map",
+        "size": 706,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/FormData.d.ts",
+        "size": 1572,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/FormData.d.ts.map",
+        "size": 1887,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/ImportMetaRegistry.d.ts",
+        "size": 334,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/ImportMetaRegistry.d.ts.map",
+        "size": 186,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/index.d.ts",
+        "size": 55,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/index.d.ts.map",
+        "size": 133,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/installGlobal.d.ts",
+        "size": 1117,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/installGlobal.d.ts.map",
+        "size": 268,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/runtime.d.ts",
+        "size": 70,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/runtime.d.ts.map",
+        "size": 139,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/runtime.native.d.ts",
+        "size": 119,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/runtime.native.d.ts.map",
+        "size": 174,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/TextDecoder.d.ts",
+        "size": 401,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/TextDecoder.d.ts.map",
+        "size": 489,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/TextDecoderStream.d.ts",
+        "size": 451,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/TextDecoderStream.d.ts.map",
+        "size": 429,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/url.d.ts",
+        "size": 663,
+        "mode": 420
+      },
+      {
+        "path": "build/winter/url.d.ts.map",
+        "size": 486,
+        "mode": 420
+      },
+      {
+        "path": "bundledNativeModules.json",
+        "size": 4268,
+        "mode": 420
+      },
+      {
+        "path": "config-plugins.d.ts",
+        "size": 38,
+        "mode": 420
+      },
+      {
+        "path": "config-plugins.js",
+        "size": 50,
+        "mode": 420
+      },
+      {
+        "path": "config/index.d.ts",
+        "size": 30,
+        "mode": 420
+      },
+      {
+        "path": "config/index.js",
+        "size": 42,
+        "mode": 420
+      },
+      {
+        "path": "config/paths.d.ts",
+        "size": 36,
+        "mode": 420
+      },
+      {
+        "path": "config/paths.js",
+        "size": 48,
+        "mode": 420
+      },
+      {
+        "path": "devtools.d.ts",
+        "size": 32,
+        "mode": 420
+      },
+      {
+        "path": "devtools.js",
+        "size": 44,
+        "mode": 420
+      },
+      {
+        "path": "dom/entry.js",
+        "size": 59,
+        "mode": 420
+      },
+      {
+        "path": "dom/global.d.ts",
+        "size": 44,
+        "mode": 420
+      },
+      {
+        "path": "dom/global.js",
+        "size": 42,
+        "mode": 420
+      },
+      {
+        "path": "dom/index.d.ts",
+        "size": 34,
+        "mode": 420
+      },
+      {
+        "path": "dom/index.js",
+        "size": 32,
+        "mode": 420
+      },
+      {
+        "path": "dom/internal.d.ts",
+        "size": 39,
+        "mode": 420
+      },
+      {
+        "path": "dom/internal.js",
+        "size": 37,
+        "mode": 420
+      },
+      {
+        "path": "expo-module.config.json",
+        "size": 202,
+        "mode": 420
+      },
+      {
+        "path": "fetch.d.ts",
+        "size": 44,
+        "mode": 420
+      },
+      {
+        "path": "fetch.js",
+        "size": 54,
+        "mode": 420
+      },
+      {
+        "path": "fingerprint.d.ts",
+        "size": 35,
+        "mode": 420
+      },
+      {
+        "path": "fingerprint.js",
+        "size": 47,
+        "mode": 420
+      },
+      {
+        "path": "internal/async-require-module.js",
+        "size": 136,
+        "mode": 420
+      },
+      {
+        "path": "internal/babel-preset.d.ts",
+        "size": 146,
+        "mode": 420
+      },
+      {
+        "path": "internal/babel-preset.js",
+        "size": 158,
+        "mode": 420
+      },
+      {
+        "path": "internal/install-global.d.ts",
+        "size": 172,
+        "mode": 420
+      },
+      {
+        "path": "internal/install-global.js",
+        "size": 216,
+        "mode": 420
+      },
+      {
+        "path": "internal/unstable-autolinking-exports.d.ts",
+        "size": 171,
+        "mode": 420
+      },
+      {
+        "path": "internal/unstable-autolinking-exports.js",
+        "size": 183,
+        "mode": 420
+      },
+      {
+        "path": "internal/unstable-expo-updates-cli-exports.d.ts",
+        "size": 177,
+        "mode": 420
+      },
+      {
+        "path": "internal/unstable-expo-updates-cli-exports.js",
+        "size": 189,
+        "mode": 420
+      },
+      {
+        "path": "ios/AppDelegates/AppDelegatesLoaderDelegate.swift",
+        "size": 724,
+        "mode": 420
+      },
+      {
+        "path": "ios/AppDelegates/EXAppDelegatesLoader.h",
+        "size": 302,
+        "mode": 420
+      },
+      {
+        "path": "ios/AppDelegates/EXAppDelegatesLoader.m",
+        "size": 850,
+        "mode": 420
+      },
+      {
+        "path": "ios/AppDelegates/EXBundleConfiguration.h",
+        "size": 557,
+        "mode": 420
+      },
+      {
+        "path": "ios/AppDelegates/EXBundleConfiguration.mm",
+        "size": 2052,
+        "mode": 420
+      },
+      {
+        "path": "ios/AppDelegates/EXLegacyAppDelegateWrapper.h",
+        "size": 520,
+        "mode": 420
+      },
+      {
+        "path": "ios/AppDelegates/EXLegacyAppDelegateWrapper.m",
+        "size": 10635,
+        "mode": 420
+      },
+      {
+        "path": "ios/AppDelegates/ExpoAppDelegate.swift",
+        "size": 8879,
+        "mode": 420
+      },
+      {
+        "path": "ios/AppDelegates/ExpoAppSceneDelegate.swift",
+        "size": 6794,
+        "mode": 420
+      },
+      {
+        "path": "ios/AppDelegates/ExpoReactNativeFactory.h",
+        "size": 519,
+        "mode": 420
+      },
+      {
+        "path": "ios/AppDelegates/ExpoReactNativeFactory.mm",
+        "size": 3256,
+        "mode": 420
+      },
+      {
+        "path": "ios/AppDelegates/ExpoReactNativeFactory.swift",
+        "size": 7137,
+        "mode": 420
+      },
+      {
+        "path": "ios/AppDelegates/ExpoReactNativeFactoryDelegate.swift",
+        "size": 509,
+        "mode": 420
+      },
+      {
+        "path": "ios/AppDelegates/ExpoReactNativeFactoryProvider.swift",
+        "size": 1225,
+        "mode": 420
+      },
+      {
+        "path": "ios/AppDelegates/EXReactRootViewFactory.h",
+        "size": 1461,
+        "mode": 420
+      },
+      {
+        "path": "ios/AppDelegates/EXReactRootViewFactory.mm",
+        "size": 3520,
+        "mode": 420
+      },
+      {
+        "path": "ios/AppDelegates/RCTAppDelegateUmbrella.h",
+        "size": 865,
+        "mode": 420
+      },
+      {
+        "path": "ios/AppDelegates/SceneEventForwarder.swift",
+        "size": 5213,
+        "mode": 420
+      },
+      {
+        "path": "ios/EXAppDefinesLoader.h",
+        "size": 288,
+        "mode": 420
+      },
+      {
+        "path": "ios/EXAppDefinesLoader.m",
+        "size": 576,
+        "mode": 420
+      },
+      {
+        "path": "ios/Expo.h",
+        "size": 199,
+        "mode": 420
+      },
+      {
+        "path": "ios/Expo.swift",
+        "size": 135,
+        "mode": 420
+      },
+      {
+        "path": "ios/Fetch/ExpoFetchCustomExtension.swift",
+        "size": 462,
+        "mode": 420
+      },
+      {
+        "path": "ios/Fetch/ExpoFetchModule.swift",
+        "size": 5004,
+        "mode": 420
+      },
+      {
+        "path": "ios/Fetch/ExpoURLSessionTask.swift",
+        "size": 3422,
+        "mode": 420
+      },
+      {
+        "path": "ios/Fetch/FetchExceptions.swift",
+        "size": 837,
+        "mode": 420
+      },
+      {
+        "path": "ios/Fetch/NativeRequest.swift",
+        "size": 1000,
+        "mode": 420
+      },
+      {
+        "path": "ios/Fetch/NativeRequestCredentials.swift",
+        "size": 221,
+        "mode": 420
+      },
+      {
+        "path": "ios/Fetch/NativeRequestInit.swift",
+        "size": 369,
+        "mode": 420
+      },
+      {
+        "path": "ios/Fetch/NativeRequestRedirect.swift",
+        "size": 165,
+        "mode": 420
+      },
+      {
+        "path": "ios/Fetch/NativeResponse.swift",
+        "size": 7903,
+        "mode": 420
+      },
+      {
+        "path": "ios/Fetch/NativeResponseInit.swift",
+        "size": 229,
+        "mode": 420
+      },
+      {
+        "path": "ios/Fetch/ResponseSink.swift",
+        "size": 644,
+        "mode": 420
+      },
+      {
+        "path": "ios/Fetch/ResponseState.swift",
+        "size": 308,
+        "mode": 420
+      },
+      {
+        "path": "ios/Swift.h",
+        "size": 525,
+        "mode": 420
+      },
+      {
+        "path": "ios/Tests/ExpoAppDelegateTests.swift",
+        "size": 471,
+        "mode": 420
+      },
+      {
+        "path": "ios/Tests/ExpoAppSceneDelegateTests.swift",
+        "size": 22159,
+        "mode": 420
+      },
+      {
+        "path": "local-build-cache-provider.d.ts",
+        "size": 50,
+        "mode": 420
+      },
+      {
+        "path": "local-build-cache-provider.js",
+        "size": 62,
+        "mode": 420
+      },
+      {
+        "path": "metro-config.d.ts",
+        "size": 36,
+        "mode": 420
+      },
+      {
+        "path": "metro-config.js",
+        "size": 47,
+        "mode": 420
+      },
+      {
+        "path": "package.json",
+        "size": 3625,
+        "mode": 420
+      },
+      {
+        "path": "react-native.config.js",
+        "size": 1489,
+        "mode": 420
+      },
+      {
+        "path": "requiresExtraSetup.json",
+        "size": 265,
+        "mode": 420
+      },
+      {
+        "path": "scripts/autolinking.rb",
+        "size": 1188,
+        "mode": 420
+      },
+      {
+        "path": "scripts/compose-source-maps.js",
+        "size": 1814,
+        "mode": 493
+      },
+      {
+        "path": "scripts/node-binary.sh",
+        "size": 761,
+        "mode": 493
+      },
+      {
+        "path": "scripts/react-native-xcode.sh",
+        "size": 6016,
+        "mode": 493
+      },
+      {
+        "path": "scripts/resolveAppEntry.js",
+        "size": 1166,
+        "mode": 493
+      },
+      {
+        "path": "scripts/xcode/with-environment.sh",
+        "size": 1755,
+        "mode": 493
+      },
+      {
+        "path": "src/__tests__/__fbBatchedBridgeConfig-test.ts",
+        "size": 785,
+        "mode": 420
+      },
+      {
+        "path": "src/__tests__/url-builtin.test.native.ts",
+        "size": 1037,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/__mocks__/getDevServer.native.ts",
+        "size": 228,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/__mocks__/getDevServer.ts",
+        "size": 228,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/__tests__/asyncRequireModule.test.ts",
+        "size": 10314,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/__tests__/buildAsyncRequire.test.ts",
+        "size": 1007,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/__tests__/buildUrlForBundle.test.native.ts",
+        "size": 1642,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/__tests__/buildUrlForBundle.test.web.ts",
+        "size": 349,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/__tests__/fetchAsync.test.web.ts",
+        "size": 570,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/__tests__/loadBundle.test.ios.ts",
+        "size": 1847,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/__tests__/loadBundle.test.web.ts",
+        "size": 1465,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/asyncRequireModule.ts",
+        "size": 5698,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/buildAsyncRequire.ts",
+        "size": 988,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/buildErrors.ts",
+        "size": 465,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/buildUrlForBundle.native.ts",
+        "size": 1000,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/buildUrlForBundle.ts",
+        "size": 799,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/errors.ts",
+        "size": 360,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/fetchAsync.native.ts",
+        "size": 3210,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/fetchAsync.ts",
+        "size": 592,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/fetchThenEval.ts",
+        "size": 56,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/fetchThenEval.web.ts",
+        "size": 2648,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/fetchThenEvalJs.ts",
+        "size": 1897,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/getDevServer.native.ts",
+        "size": 128,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/getDevServer.ts",
+        "size": 573,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/getFullBundlerUrl.ts",
+        "size": 390,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/hmr.ts",
+        "size": 10818,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/hmrUtils.native.ts",
+        "size": 3319,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/hmrUtils.ts",
+        "size": 1365,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/index.ts",
+        "size": 417,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/loadBundle.ts",
+        "size": 932,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/messageSocket.native.ts",
+        "size": 1308,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/messageSocket.ts",
+        "size": 2321,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/setup.ts",
+        "size": 317,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/setupFastRefresh.ts",
+        "size": 1034,
+        "mode": 420
+      },
+      {
+        "path": "src/async-require/setupHMR.ts",
+        "size": 2626,
+        "mode": 420
+      },
+      {
+        "path": "src/devLoadingViewEmitter.ts",
+        "size": 469,
+        "mode": 420
+      },
+      {
+        "path": "src/dom/__tests__/base-test.ts",
+        "size": 3754,
+        "mode": 420
+      },
+      {
+        "path": "src/dom/__tests__/dom-ready-test.native.ts",
+        "size": 4277,
+        "mode": 420
+      },
+      {
+        "path": "src/dom/__tests__/webview-wrapper-test.ts",
+        "size": 1583,
+        "mode": 420
+      },
+      {
+        "path": "src/dom/base.ts",
+        "size": 2250,
+        "mode": 420
+      },
+      {
+        "path": "src/dom/dom-entry.tsx",
+        "size": 3912,
+        "mode": 420
+      },
+      {
+        "path": "src/dom/dom-hooks.ts",
+        "size": 1353,
+        "mode": 420
+      },
+      {
+        "path": "src/dom/dom-internal.types.ts",
+        "size": 265,
+        "mode": 420
+      },
+      {
+        "path": "src/dom/dom.ts",
+        "size": 280,
+        "mode": 420
+      },
+      {
+        "path": "src/dom/dom.types.ts",
+        "size": 2056,
+        "mode": 420
+      },
+      {
+        "path": "src/dom/dom.web.ts",
+        "size": 208,
+        "mode": 420
+      },
+      {
+        "path": "src/dom/global-events.ts",
+        "size": 537,
+        "mode": 420
+      },
+      {
+        "path": "src/dom/injection.ts",
+        "size": 1672,
+        "mode": 420
+      },
+      {
+        "path": "src/dom/internal.ts",
+        "size": 285,
+        "mode": 420
+      },
+      {
+        "path": "src/dom/internal.web.ts",
+        "size": 52,
+        "mode": 420
+      },
+      {
+        "path": "src/dom/marshal.tsx",
+        "size": 3600,
+        "mode": 420
+      },
+      {
+        "path": "src/dom/webview-bridge.ts",
+        "size": 1495,
+        "mode": 420
+      },
+      {
+        "path": "src/dom/webview-wrapper.tsx",
+        "size": 9130,
+        "mode": 420
+      },
+      {
+        "path": "src/dom/webview/ExpoDOMWebView.ts",
+        "size": 240,
+        "mode": 420
+      },
+      {
+        "path": "src/dom/webview/RNWebView.ts",
+        "size": 348,
+        "mode": 420
+      },
+      {
+        "path": "src/dom/webview/useDebugZeroHeight.ts",
+        "size": 2038,
+        "mode": 420
+      },
+      {
+        "path": "src/environment/DevLoadingView.tsx",
+        "size": 3476,
+        "mode": 420
+      },
+      {
+        "path": "src/environment/DevLoadingView.web.tsx",
+        "size": 3314,
+        "mode": 420
+      },
+      {
+        "path": "src/environment/DevLoadingViewNativeModule.native.ts",
+        "size": 92,
+        "mode": 420
+      },
+      {
+        "path": "src/environment/DevLoadingViewNativeModule.ts",
+        "size": 150,
+        "mode": 420
+      },
+      {
+        "path": "src/environment/ExpoGo.ts",
+        "size": 1234,
+        "mode": 420
+      },
+      {
+        "path": "src/environment/ExpoGo.web.ts",
+        "size": 117,
+        "mode": 420
+      },
+      {
+        "path": "src/environment/getInitialSafeArea.native.ts",
+        "size": 731,
+        "mode": 420
+      },
+      {
+        "path": "src/environment/getInitialSafeArea.ts",
+        "size": 173,
+        "mode": 420
+      },
+      {
+        "path": "src/errors/AppEntryNotFound.tsx",
+        "size": 875,
+        "mode": 420
+      },
+      {
+        "path": "src/errors/ExpoErrorManager.native.ts",
+        "size": 1697,
+        "mode": 420
+      },
+      {
+        "path": "src/errors/ExpoErrorManager.ts",
+        "size": 329,
+        "mode": 420
+      },
+      {
+        "path": "src/Expo.fx.tsx",
+        "size": 1456,
+        "mode": 420
+      },
+      {
+        "path": "src/Expo.fx.web.tsx",
+        "size": 832,
+        "mode": 420
+      },
+      {
+        "path": "src/Expo.ts",
+        "size": 1318,
+        "mode": 420
+      },
+      {
+        "path": "src/hooks/useEvent.ts",
+        "size": 4462,
+        "mode": 420
+      },
+      {
+        "path": "src/launch/AppRegistry.ts",
+        "size": 55,
+        "mode": 420
+      },
+      {
+        "path": "src/launch/AppRegistry.web.tsx",
+        "size": 4371,
+        "mode": 420
+      },
+      {
+        "path": "src/launch/registerRootComponent.tsx",
+        "size": 2428,
+        "mode": 420
+      },
+      {
+        "path": "src/launch/registerRootComponent.web.tsx",
+        "size": 1494,
+        "mode": 420
+      },
+      {
+        "path": "src/launch/withDevTools.ios.tsx",
+        "size": 1529,
+        "mode": 420
+      },
+      {
+        "path": "src/launch/withDevTools.tsx",
+        "size": 1218,
+        "mode": 420
+      },
+      {
+        "path": "src/launch/withDevTools.web.tsx",
+        "size": 657,
+        "mode": 420
+      },
+      {
+        "path": "src/timer/polyfillNextTick.ts",
+        "size": 326,
+        "mode": 420
+      },
+      {
+        "path": "src/ts-declarations/console.d.ts",
+        "size": 2127,
+        "mode": 420
+      },
+      {
+        "path": "src/ts-declarations/global.d.ts",
+        "size": 461,
+        "mode": 420
+      },
+      {
+        "path": "src/ts-declarations/react-native.d.ts",
+        "size": 763,
+        "mode": 420
+      },
+      {
+        "path": "src/ts-declarations/virtual.d.ts",
+        "size": 102,
+        "mode": 420
+      },
+      {
+        "path": "src/utils/__tests__/getBundleUrl.test.web.ts",
+        "size": 1185,
+        "mode": 420
+      },
+      {
+        "path": "src/utils/blobUtils.ts",
+        "size": 644,
+        "mode": 420
+      },
+      {
+        "path": "src/utils/getBundleUrl.native.ts",
+        "size": 504,
+        "mode": 420
+      },
+      {
+        "path": "src/utils/getBundleUrl.ts",
+        "size": 129,
+        "mode": 420
+      },
+      {
+        "path": "src/utils/getBundleUrl.web.ts",
+        "size": 847,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/__tests__/AbortSignal.test.native.ts",
+        "size": 5168,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/__tests__/DOMException.test.native.ts",
+        "size": 3927,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/__tests__/FormData.test.ios.ts",
+        "size": 4838,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/__tests__/structuredClone.test.ios.ts",
+        "size": 727,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/__tests__/TextDecoder.test.native.ts",
+        "size": 20145,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/__tests__/TextDecoderStream.test.ios.ts",
+        "size": 8168,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/__tests__/TextEncoderStream.test.ios.ts",
+        "size": 2678,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/AbortSignal.ts",
+        "size": 3510,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/DOMException.ts",
+        "size": 2442,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/fetch/__tests__/convertFormData-test.native.ts",
+        "size": 4033,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/fetch/__tests__/FetchResponse-blob-test.native.ts",
+        "size": 2664,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/fetch/__tests__/FetchResponse-test.ts",
+        "size": 14764,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/fetch/__tests__/RequestUtils-test.ts",
+        "size": 8293,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/fetch/convertFormData.ts",
+        "size": 3920,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/fetch/createBlob.ts",
+        "size": 906,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/fetch/ExpoFetchModule.ts",
+        "size": 129,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/fetch/ExpoFetchModule.web.ts",
+        "size": 166,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/fetch/fetch.ts",
+        "size": 3800,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/fetch/fetch.types.ts",
+        "size": 787,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/fetch/fetch.web.ts",
+        "size": 39,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/fetch/FetchErrors.ts",
+        "size": 370,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/fetch/FetchResponse.ts",
+        "size": 15261,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/fetch/index.ts",
+        "size": 56,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/fetch/NativeRequest.ts",
+        "size": 1126,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/fetch/RequestUtils.ts",
+        "size": 4049,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/FormData.ts",
+        "size": 7779,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/ImportMetaRegistry.ts",
+        "size": 411,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/index.ts",
+        "size": 20,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/installGlobal.ts",
+        "size": 4115,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/runtime.native.ts",
+        "size": 2395,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/runtime.ts",
+        "size": 202,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/TextDecoder.ts",
+        "size": 12361,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/TextDecoderStream.ts",
+        "size": 2552,
+        "mode": 420
+      },
+      {
+        "path": "src/winter/url.ts",
+        "size": 3252,
+        "mode": 420
+      },
+      {
+        "path": "template.tgz",
+        "size": 297906,
+        "mode": 420
+      },
+      {
+        "path": "tsconfig.base.json",
+        "size": 658,
+        "mode": 420
+      },
+      {
+        "path": "types/global.d.ts",
+        "size": 1085,
+        "mode": 420
+      },
+      {
+        "path": "types/index.d.ts",
+        "size": 281,
+        "mode": 420
+      },
+      {
+        "path": "types/index.js",
+        "size": 33,
+        "mode": 420
+      },
+      {
+        "path": "types/metro-require.d.ts",
+        "size": 2634,
+        "mode": 420
+      },
+      {
+        "path": "types/react-native-web.d.ts",
+        "size": 7901,
+        "mode": 420
+      },
+      {
+        "path": "virtual/env.js",
+        "size": 99,
+        "mode": 420
+      },
+      {
+        "path": "virtual/rsc.js",
+        "size": 49,
+        "mode": 420
+      },
+      {
+        "path": "virtual/streams.js",
+        "size": 65886,
+        "mode": 420
+      }
+    ],
+    "entryCount": 429,
+    "bundled": []
+  }
+]
+expo-bundledNativeModules.json sha256=7a413594466d631f8ac99b1b1117868370d717b7c740d2b33fc595b8ce9bac74
+npm view react@19.2.3 version --json
+"19.2.3"
+npm view react-native@0.86.3 version --json
+"0.86.3"
+npm view expo-sqlite@~57.0.3 version --json
+"57.0.3"
+npm view typescript@~6.0.3 version --json
+"6.0.3"
+npm view @types/react@~19.2.2 version --json
+[
+  "19.2.2",
+  "19.2.3",
+  "19.2.4",
+  "19.2.5",
+  "19.2.6",
+  "19.2.7",
+  "19.2.8",
+  "19.2.9",
+  "19.2.10",
+  "19.2.11",
+  "19.2.12",
+  "19.2.13",
+  "19.2.14",
+  "19.2.15",
+  "19.2.16",
+  "19.2.17",
+  "19.2.18"
+]
+{
+  "name": "loka-r1-a-dependency-evidence",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Dependency-only PREP-02 evidence. No app, entrypoint, gameplay or native qualification.",
+  "engines": {
+    "node": "24.21.0"
+  },
+  "packageManager": "npm@11.19.0",
+  "dependencies": {
+    "expo": "57.0.24",
+    "react": "19.2.3",
+    "react-native": "0.86.3",
+    "expo-sqlite": "57.0.3"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3",
+    "@types/react": "19.2.18"
+  }
+}
+
++ npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+
+up to date in 12s
++ npm ci --ignore-scripts --no-audit --no-fund
+npm warn deprecated uuid@7.0.3: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+
+added 468 packages in 9s
++ npm ls --all (full tree validation; stdout omitted on success)
++ node node_modules/expo/bin/cli install --check
+Dependencies are up to date
++ node node_modules/typescript/bin/tsc --version
+Version 6.0.3
+package-lock.json: OK
++ clean-directory npm ci replay
+npm warn deprecated uuid@7.0.3: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+
+added 468 packages in 7s
+Dependencies are up to date
+PASS: exact package-lock bytes preserved through both clean installs; no native build or runtime performed.

@@ -1,0 +1,170 @@
+name: Temporary V3 dependency evidence capture
+on:
+  push:
+    branches: [prep/v3-dependency-capture-20260923]
+permissions:
+  contents: read
+jobs:
+  resolve:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    defaults:
+      run:
+        shell: bash
+    env:
+      CI: '1'
+      EXPO_NO_TELEMETRY: '1'
+      npm_config_ignore_scripts: 'true'
+      npm_config_engine_strict: 'true'
+      npm_config_registry: https://registry.npmjs.org
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.21.0'
+      - name: Resolve and replay dependency-only graph
+        run: |
+          set -euo pipefail
+          export BUNDLE="$RUNNER_TEMP/dependency-evidence"
+          mkdir -p "$BUNDLE" "$RUNNER_TEMP/loka-deps"
+          cp .github/workflows/v3-dependency-capture.yml "$BUNDLE/capture-workflow.yml.txt"
+          cd "$RUNNER_TEMP/loka-deps"
+          exec > >(tee "$BUNDLE/resolution.log") 2>&1
+          printf 'Dependency-only preparation; NOT a candidate implementation or native qualification.\n'
+          printf 'SOURCE_COMMIT=%s\nRUN_URL=https://github.com/%s/actions/runs/%s\n' "$GITHUB_SHA" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID"
+          { date -u +%FT%TZ; uname -a; node --version; npm --version; printf 'ImageOS=%s\nImageVersion=%s\n' "$ImageOS" "$ImageVersion"; } | tee "$BUNDLE/runtime.txt"
+          node <<'NODE'
+          const fs = require('node:fs');
+          const cp = require('node:child_process');
+          const crypto = require('node:crypto');
+          const out = process.env.BUNDLE;
+          const npm = (...args) => cp.execFileSync('npm', args, {encoding:'utf8'}).trim();
+          const stable = /^\d+\.\d+\.\d+$/;
+          const compare = (a,b) => {const x=a.split('.').map(Number), y=b.split('.').map(Number); for(let i=0;i<3;i++){if(x[i]!==y[i])return x[i]-y[i];} return 0;};
+          function resolve(spec) {
+            const raw=npm('view',spec,'version','--json');
+            console.log('npm view',spec,'version --json\n'+raw);
+            const data=JSON.parse(raw), versions=(Array.isArray(data)?data:[data]).filter(x=>stable.test(x));
+            if(!versions.length)throw new Error('No stable resolution: '+spec);
+            return versions.sort(compare).at(-1);
+          }
+          function packedFile(spec,path,name) {
+            const raw=npm('pack',spec,'--ignore-scripts','--json');
+            const metadata=JSON.parse(raw);
+            console.log('npm pack',spec,'--ignore-scripts --json\n'+raw);
+            const bytes=cp.execFileSync('tar',['-xOf',metadata[0].filename,path]);
+            fs.writeFileSync(out+'/'+name,bytes);
+            console.log(name+' sha256='+crypto.createHash('sha256').update(bytes).digest('hex'));
+            return JSON.parse(bytes);
+          }
+          const tv=resolve('expo-template-blank-typescript@sdk-57');
+          const template=packedFile('expo-template-blank-typescript@'+tv,'package/package.json','expo-template-package.json');
+          const ev=resolve('expo@57');
+          if(compare(ev,'57.0.23')<0)throw new Error('SDK 57 scene-support patch not available');
+          const bundled=packedFile('expo@'+ev,'package/bundledNativeModules.json','expo-bundledNativeModules.json');
+          const deps={expo:ev};
+          for(const name of ['react','react-native','expo-sqlite']) {
+            if(typeof bundled[name]!=='string')throw new Error('Missing SDK recommendation: '+name);
+            deps[name]=resolve(name+'@'+bundled[name]);
+          }
+          const dev={};
+          for(const name of ['typescript','@types/react']) {
+            const range=template.devDependencies?.[name];
+            if(typeof range!=='string')throw new Error('Missing SDK template recommendation: '+name);
+            dev[name]=resolve(name+'@'+range);
+          }
+          const pkg={name:'loka-r1-a-dependency-evidence',version:'0.0.0',private:true,description:'Dependency-only PREP-02 evidence. No app, entrypoint, gameplay or native qualification.',engines:{node:process.versions.node},packageManager:'npm@'+npm('--version'),dependencies:deps,devDependencies:dev};
+          fs.writeFileSync('package.json',JSON.stringify(pkg,null,2)+'\n');
+          console.log(fs.readFileSync('package.json','utf8'));
+          NODE
+          echo '+ npm install --package-lock-only --ignore-scripts --no-audit --no-fund'
+          npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+          sha256sum package-lock.json > "$RUNNER_TEMP/lock-before.sha256"
+          echo '+ npm ci --ignore-scripts --no-audit --no-fund'
+          npm ci --ignore-scripts --no-audit --no-fund
+          echo '+ npm ls --all (full tree validation; stdout omitted on success)'
+          npm ls --all > "$RUNNER_TEMP/npm-tree.txt" || { cat "$RUNNER_TEMP/npm-tree.txt"; exit 1; }
+          npm ls --depth=0 --json > "$BUNDLE/npm-ls.json"
+          echo '+ node node_modules/expo/bin/cli install --check'
+          node node_modules/expo/bin/cli install --check
+          echo '+ node node_modules/typescript/bin/tsc --version'
+          node node_modules/typescript/bin/tsc --version
+          sha256sum -c "$RUNNER_TEMP/lock-before.sha256"
+          node <<'NODE' > "$BUNDLE/dependency-observations.txt"
+          const fs=require('node:fs'), path=require('node:path'), crypto=require('node:crypto');
+          console.log('Packaged source metadata only. NOT executed Hermes, SQLite, Gradle, JDK, Xcode or a native lock.');
+          function show(file,select) {
+            if(!fs.existsSync(file)){console.log('\nABSENT '+file); return;}
+            const bytes=fs.readFileSync(file); console.log('\nFILE '+file+'\nSHA256 '+crypto.createHash('sha256').update(bytes).digest('hex'));
+            bytes.toString('utf8').split('\n').forEach((line,i)=>{if(select(line))console.log(((i+1)+': '+line).trimEnd());});
+          }
+          for(const p of ['sdks/.hermesversion','sdks/hermes-engine/version.properties','ReactAndroid/gradle.properties','gradle/libs.versions.toml'])show('node_modules/react-native/'+p,()=>true);
+          function walk(dir){for(const e of fs.readdirSync(dir,{withFileTypes:true})){const f=path.join(dir,e.name);if(e.isDirectory()&&e.name!=='node_modules')walk(f);else if(e.isFile()&&e.name==='sqlite3.h')show(f,l=>/^#define SQLITE_(VERSION|VERSION_NUMBER|SOURCE_ID)\s/.test(l));}}
+          walk('node_modules/expo-sqlite');
+          NODE
+          cp package.json package-lock.json "$BUNDLE/"
+          echo '+ clean-directory npm ci replay'
+          mkdir "$RUNNER_TEMP/loka-deps-replay"
+          cp package.json package-lock.json "$RUNNER_TEMP/loka-deps-replay/"
+          cd "$RUNNER_TEMP/loka-deps-replay"
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm ls --all > "$RUNNER_TEMP/npm-replay-tree.txt" || { cat "$RUNNER_TEMP/npm-replay-tree.txt"; exit 1; }
+          node node_modules/expo/bin/cli install --check
+          cmp package-lock.json "$BUNDLE/package-lock.json"
+          echo 'PASS: exact package-lock bytes preserved through both clean installs; no native build or runtime performed.'
+      - name: Hash captured evidence
+        run: |
+          cd "$RUNNER_TEMP/dependency-evidence"
+          sha256sum package.json package-lock.json runtime.txt npm-ls.json expo-template-package.json expo-bundledNativeModules.json dependency-observations.txt resolution.log capture-workflow.yml.txt > SHA256SUMS
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: dependency-evidence
+          path: ${{ runner.temp }}/dependency-evidence/
+          if-no-files-found: error
+          retention-days: 30
+  retain:
+    needs: resolve
+    if: github.ref == 'refs/heads/prep/v3-dependency-capture-20260923'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: dependency-evidence
+          path: ${{ runner.temp }}/captured
+      - name: Retain data on temporary branch only
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/captured"
+          printf '%s\n' SHA256SUMS capture-workflow.yml.txt dependency-observations.txt expo-bundledNativeModules.json expo-template-package.json npm-ls.json package-lock.json package.json resolution.log runtime.txt | sort > "$RUNNER_TEMP/expected-files"
+          find . -mindepth 1 -maxdepth 1 -type f -printf '%f\n' | sort > "$RUNNER_TEMP/actual-files"
+          diff -u "$RUNNER_TEMP/expected-files" "$RUNNER_TEMP/actual-files"
+          test -z "$(find . -mindepth 1 ! -type f -print)"
+          test -z "$(find . -type f -size +8M -print)"
+          sha256sum -c SHA256SUMS
+          cd "$GITHUB_WORKSPACE"
+          dest=docs/rewrite-v3/prep/after-pr-10/dependency-evidence
+          test ! -e "$dest"
+          mkdir -p "$dest"
+          cp "$RUNNER_TEMP/captured/"* "$dest/"
+          git add -- "$dest"
+          git diff --cached --check
+          git config user.name 'Loka dependency evidence capture'
+          git config user.email 'actions@users.noreply.github.com'
+          git commit -m 'Retain dependency-only resolver output (temporary capture branch)'
+          auth=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)
+          git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $auth" push origin HEAD:refs/heads/prep/v3-dependency-capture-20260923
+          printf 'EVIDENCE_COMMIT='; git rev-parse HEAD
+          git ls-tree -r HEAD -- "$dest"

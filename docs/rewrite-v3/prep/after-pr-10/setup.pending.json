@@ -35,15 +35,15 @@
     "ram_gb": null
   },
   "toolchain": {
-    "expo": null,
-    "react_native": null,
+    "expo": "57.0.24",
+    "react_native": "0.86.3",
     "hermes": null,
-    "typescript": null,
-    "node": null,
+    "typescript": "6.0.3",
+    "node": "24.21.0",
     "elixir": null,
     "otp": null,
     "sqlite": null,
-    "sqlite_binding": null,
+    "sqlite_binding": "57.0.3",
     "xcode": null,
     "ios_sdk": null,
     "android_sdk": null,
@@ -94,6 +94,6 @@
   },
   "setup_review": {
     "path": "prep/after-pr-10/setup-review.pending.json",
-    "sha256": "43b8971b246e25fdedd947cd0d61ff2ea58e56b5f01147b6a8bf7c60781711f5"
+    "sha256": "8f20cd0cdbae98430bbf5f8ac83b107f8fd55e7a624bb08d48097b5a4a549b2d"
   }
 }

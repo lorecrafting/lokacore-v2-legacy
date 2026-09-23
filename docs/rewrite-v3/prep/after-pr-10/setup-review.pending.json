@@ -6,5 +6,5 @@
   "subject_author_ids": [],
   "independent_of_subject_authorship": null,
   "note": "Digest binds this incomplete configuration only, not approval. Replace after actual setup facts/locks are frozen and independently reviewed.",
-  "setup_digest": "39df2a7d479ddff7cb57445d019881a646ab13c4045d37a2eb777c9cb158d1d1"
+  "setup_digest": "3ac484c71e4ae2a9606dd2bc74cac39ca391a13023f46ffd5cd8601e77a07ab5"
 }
