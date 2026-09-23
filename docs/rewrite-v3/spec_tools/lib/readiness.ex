@@ -111,11 +111,7 @@ defmodule LokaSpec.Readiness do
     )
 
     Enum.each(~w(ios android), fn platform ->
-      if stage == "A2" do
-        device!(data["devices"][platform], platform)
-      else
-        deferred_device!(data["devices"][platform], platform)
-      end
+      device!(data["devices"][platform], platform, stage)
     end)
 
     server = data["server"]
@@ -134,9 +130,7 @@ defmodule LokaSpec.Readiness do
 
       ensure!(
         (stage == "A1" and name not in @a1_tools and is_nil(value)) or
-          (is_binary(value) and
-             (Regex.match?(~r/\A\d+(?:\.\d+){0,3}(?:\+[a-zA-Z0-9.-]+)?\z/, value) or
-                digest?(value, 40))),
+          exact_tool_version?(name, value),
         "toolchain must use exact stable version/build: " <> name
       )
     end)
@@ -197,52 +191,55 @@ defmodule LokaSpec.Readiness do
     :ok
   end
 
-  defp deferred_device!(device, platform) do
+  # Same field semantics at both stages; only A1 may omit a field.
+  defp device!(device, platform, stage) do
     ensure!(keys?(device, @device), "incomplete device inventory")
 
-    Enum.each(device, fn {field, value} ->
-      valid = if field == "installed_ram_gb", do: positive?(value), else: nonempty?(value)
+    Enum.each(@device, fn field ->
+      value = device[field]
 
       ensure!(
-        is_nil(value) or valid,
-        "malformed deferred device detail: " <> platform <> "/" <> field
+        (stage == "A1" and is_nil(value)) or device_field?(platform, field, value),
+        "missing/invalid device detail: " <> platform <> "/" <> field
       )
     end)
   end
 
-  defp device!(device, platform) do
-    ensure!(keys?(device, @device), "incomplete device inventory")
+  defp device_field?(_, "installed_ram_gb", value), do: value === 4
+  defp device_field?(_, "architecture", value), do: value == "arm64"
 
-    Enum.each(@device -- ["installed_ram_gb"], fn field ->
-      ensure!(nonempty?(device[field]), "missing device detail: " <> platform <> "/" <> field)
-    end)
+  defp device_field?(platform, "qualification_class", value) do
+    value == if(platform == "ios", do: "iphone-11", else: "galaxy-a14-4gb")
+  end
 
-    {ram, class, minimum} =
-      if platform == "ios",
-        do: {4, "iphone-11", [16, 4, 0]},
-        else: {4, "galaxy-a14-4gb", [10, 0, 0]}
+  defp device_field?(platform, "os_version", value) do
+    if is_binary(value) and Regex.match?(~r/\A[0-9]+(?:\.[0-9]+)*\z/, value) do
+      version = String.split(value, ".") |> Enum.map(&String.to_integer/1)
+      minimum = if platform == "ios", do: [16, 4, 0], else: [10, 0, 0]
+      version ++ List.duplicate(0, max(0, 3 - length(version))) >= minimum
+    else
+      false
+    end
+  end
 
-    ensure!(
-      device["installed_ram_gb"] === ram,
-      "qualification RAM class changed without amendment"
+  defp device_field?(_, _, value), do: nonempty?(value)
+
+  # Syntax is not proof of installation; retain actual runtime outputs separately.
+  defp exact_tool_version?(_, value) when not is_binary(value), do: false
+
+  defp exact_tool_version?(name, value) when name in ~w(node typescript elixir) do
+    Regex.match?(
+      ~r/\A(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)(?:\+[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*)?\z/,
+      value
     )
+  end
 
-    ensure!(
-      device["qualification_class"] == class and device["architecture"] == "arm64",
-      "qualification class/architecture changed without amendment"
-    )
+  defp exact_tool_version?("otp", value) do
+    Regex.match?(~r/\A[0-9]+(?:\.[0-9]+){1,3}\z/, value)
+  end
 
-    ensure!(
-      Regex.match?(~r/\A\d+(?:\.\d+)*\z/, device["os_version"]),
-      "device OS must be exact numeric version"
-    )
-
-    version = String.split(device["os_version"], ".") |> Enum.map(&String.to_integer/1)
-
-    ensure!(
-      version ++ List.duplicate(0, max(0, 3 - length(version))) >= minimum,
-      "device OS below planning policy"
-    )
+  defp exact_tool_version?(_, value) do
+    Regex.match?(~r/\A\d+(?:\.\d+){0,3}(?:\+[a-zA-Z0-9.-]+)?\z/, value) or digest?(value, 40)
   end
 
   # Resolve links before the containment check, including linked parent directories.

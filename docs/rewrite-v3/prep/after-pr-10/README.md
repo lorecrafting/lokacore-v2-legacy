@@ -83,6 +83,17 @@ actual RAM evidence. BOOX lists e-paper, 6 GB and Android 13; those product
 specifications do not establish the owner's installed firmware or app support.
 Do not buy replacement hardware before identifying the Pixel.
 
+## Cloud-first follow-up direction (not a silent host amendment)
+
+The owner now asks to avoid making the local M1 Air a development dependency:
+use GitHub-accessible build/test evidence and browser/Expo previews where practical.
+See [cloud-first development](cloud-first-development.md) for the checked options,
+security/cost boundaries and smallest next amendment. This correction preserves
+the reviewed envelope byte-for-byte. The current envelope's M1+/16 GB host row
+has **not** been changed to a hosted runner, and no actual setup observation or
+approval is replaced by this preference. CI specification checks can run now;
+candidate A1 still needs the accepted, explicitly amended/reviewed host setup.
+
 ## Retained dependency evidence: reuse, do not resolve again
 
 [Manifest](dependency-evidence/package.json) · [JavaScript lock](dependency-evidence/package-lock.json)
@@ -113,6 +124,20 @@ For A1, `toolchain_lock` must reference the complete retained A1 execution bundl
 (JS lock plus actual Node/npm/TypeScript/Elixir/full-OTP tooling and host evidence),
 not merely a filename with missing environment records. A2 needs complete native
 configuration/locks as well. It remains null in the actual pending record.
+
+For Fable F4, use **one retained checksum/index manifest** as the eventual
+`toolchain_lock.path`, with its hash in `toolchain_lock.sha256`. List the actual
+lock bytes, package manifest, execution-host record, Node/npm/TypeScript/Elixir
+and full OTP output, replay commands/results and the resulting byte comparisons.
+The manifest uses paths relative to a documented bundle root; keep its entries
+inside that root, with no missing members, unsafe paths or unreviewed symlinks.
+Run `sha256sum -c SHA256SUMS` from that root (or `shasum -a 256 -c SHA256SUMS`),
+retain the successful verification output separately, and have the setup reviewer
+inspect both coverage and **every referenced byte**. An index hash proves only
+that the index is unchanged; the readiness checker does not recursively verify
+members or authenticate runtime output. Avoid a self-containing checksum cycle.
+A checksum pass over an incomplete or fabricated bundle is still not approval.
+Do not point the pending field at the JS-only lock or at this instruction file.
 
 Nine candidate fields remain unverified: Hermes, Elixir, full OTP, SQLite engine,
 Xcode, iOS SDK, Android SDK, Gradle and JDK. Elixir/full OTP are required already

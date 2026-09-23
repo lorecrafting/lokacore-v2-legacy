@@ -73,8 +73,12 @@ stage tests). Final source checks, formatting and ExUnit execution are recorded
 in the PR's exact-head CI/provenance report; do not infer a hosted pass from this
 pre-publication source record. The specification tooling pins remain unchanged.
 Local Git metadata identifies a snapshot, not the upstream commit. Publication
-must preserve the actual upstream parent and exclude any transport-only files
-or workflow ancestry; no local network push is claimed without execution.
+must preserve the actual upstream parent. The original intention to exclude
+transport ancestry was superseded when the owner merged temporary PR #15 into
+main as `94c745dd03f2a5d3ca9c015069294725f7110a51`. The correction reconciles that
+history and removes the four transport-only files, not their ancestry. No shared
+history rewrite or local network push is claimed. See the separate
+[Fable correction record](2026-09-23-fable-corrections.md).
 
 ## Self-review and adversarial self-review
 

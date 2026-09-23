@@ -385,6 +385,94 @@ defmodule LokaSpec.ReadinessTest do
     end
   end
 
+  # F1/F2 controls bind each changed synthetic record afresh. A failure must be
+  # field validation, not an accidentally stale setup-review digest.
+  defp correction_cases do
+    devices =
+      for platform <- ~w(ios android),
+          {field, value, valid} <- [
+            {"qualification_class", if(platform == "ios", do: "iphone-11", else: "galaxy-a14-4gb"), true},
+            {"installed_ram_gb", 4, true},
+            {"architecture", "arm64", true},
+            {"os_version", if(platform == "ios", do: "16.4", else: "10"), true},
+            {"model", "owner-reported partial inventory", true},
+            {"qualification_class", "iphone-se-2", false},
+            {"installed_ram_gb", 3, false},
+            {"installed_ram_gb", true, false},
+            {"architecture", "x86_64", false},
+            {"os_version", "latest", false},
+            {"os_version", "9", false},
+            {"os_version", "16.x", false},
+            {"os_version", 17, false},
+            {"os_version", "１７.０", false}
+          ],
+          do: {"A1", ["devices", platform, field], value, valid}
+
+    versions =
+      for stage <- ~w(A1 A2),
+          {tool, version} <- [{"node", "24.21.0"}, {"typescript", "6.0.3"}, {"elixir", "1.20.4"}, {"otp", "28.4"}],
+          do: {stage, ["toolchain", tool], version, true}
+
+    invalid =
+      for stage <- ~w(A1 A2),
+          tool <- ~w(node typescript elixir otp),
+          value <- ["latest", "^24.21.0", "1.2.x", "1.2.3-rc1", "1..2", String.duplicate("a", 40), String.duplicate("1", 40), "", nil, 28, "２８.４"],
+          do: {stage, ["toolchain", tool], value, false}
+
+    partial =
+      for stage <- ~w(A1 A2),
+          {tool, value} <- [{"node", "24"}, {"typescript", "6"}, {"elixir", "1.20"}, {"otp", "28"}, {"node", "01.2.3"}, {"elixir", "1.2.3+a..b"}, {"otp", "28.4**"}, {"otp", "28.4+patched"}],
+          do: {stage, ["toolchain", tool], value, false}
+
+    devices ++ versions ++ invalid ++ partial ++
+      [
+        {"A1", ["devices", "ios", "os_version"], "16.3.9", false},
+        {"A1", ["toolchain", "otp"], "28.4.1", true},
+        {"A2", ["toolchain", "otp"], "28.4.1.2", true},
+        {"A1", ["toolchain", "elixir"], "1.20.4+build.7", true}
+      ]
+  end
+
+  defp corrected_record(root, stage, path, value) do
+    data = staged(root, stage, stage == "A1") |> put_in(path, value)
+
+    edit_receipt(data, root, "setup_review", fn review ->
+      Map.put(review, "setup_digest", Readiness.setup_digest(data, stage))
+    end)
+  end
+
+  test "F1 F2 supplied semantics and complete runtime identities survive rebinding", %{root: root} do
+    for {stage, path, value, valid} <- correction_cases() do
+      data = corrected_record(root, stage, path, value)
+      assert (Readiness.validate(data, root, stage) == :ok) == valid,
+             inspect({stage, path, value, valid})
+    end
+  end
+
+  test "F3 unsupported explicit stages have controlled diagnostics in both modes" do
+    for stage <- ~w(A3 a1),
+        mode <- [["--check-template"], ["--require-ready", "not-read-for-invalid-stage"]] do
+      assert_raise Mix.Error, ~r/NOT READY: unsupported readiness stage/, fn ->
+        Mix.Tasks.Loka.Readiness.run(mode ++ ["--stage", stage])
+      end
+    end
+  end
+
+  @tag :comparison
+  test "F1 F2 corrected re-bound matrix agrees with the Python CLI", %{root: root} do
+    for {stage, path, value, valid} <- correction_cases() do
+      data = corrected_record(root, stage, path, value)
+      manifest = Path.join(root, "correction-manifest.json")
+      File.write!(manifest, Codec.encode(data))
+
+      {output, exit} =
+        System.cmd("python3", [Path.join(Readiness.root(), "checks/readiness.py"), "--require-ready", manifest, "--evidence-root", root, "--stage", stage], stderr_to_stdout: true)
+
+      assert exit == if(valid, do: 0, else: 1), output
+      assert (Readiness.validate(data, root, stage) == :ok) == valid
+    end
+  end
+
   defp changes do
     [
       {["accepted_spec_commit"], nil},

@@ -96,6 +96,41 @@ def retained(entry: dict, root: Path) -> bytes:
     return raw
 
 
+def device_field_valid(platform: str, field: str, value) -> bool:
+    """Same field semantics at both stages; only A1 may omit a field."""
+    if field == 'installed_ram_gb':
+        return type(value) is int and value == 4
+    if field == 'qualification_class':
+        return value == ('iphone-11' if platform == 'ios' else 'galaxy-a14-4gb')
+    if field == 'architecture':
+        return value == 'arm64'
+    if field == 'os_version':
+        if type(value) is not str or not re.fullmatch(r'[0-9]+(?:\.[0-9]+)*', value):
+            return False
+        version = tuple(int(n) for n in value.split('.'))
+        padded = version + (0,) * max(0, 3 - len(version))
+        return padded >= ((16, 4, 0) if platform == 'ios' else (10, 0, 0))
+    return nonempty(value)
+
+
+def exact_tool_version(name: str, value) -> bool:
+    """Syntax, not proof of installation. Retain actual runtime outputs separately."""
+    if type(value) is not str:
+        return False
+    if name in ('node', 'typescript', 'elixir'):
+        # Full stable SemVer; a release major/minor or naked hash is not a version.
+        pattern = r'(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)(?:\+[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*)?'
+    elif name == 'otp':
+        # OTP_VERSION may legitimately be 28.4; otp_release=28 is incomplete.
+        pattern = r'[0-9]+(?:\.[0-9]+){1,3}'
+    else:
+        # Preserve the existing non-A1 tool/build-ID interface.
+        pattern = r'\d+(?:\.\d+){0,3}(?:\+[a-zA-Z0-9.-]+)?'
+        if digest(value, 40):
+            return True
+    return bool(re.fullmatch(pattern, value))
+
+
 def require_ready(data: dict, root: Path, stage: str = 'A2') -> None:
     if stage not in STAGES:
         raise ValueError('unsupported readiness stage')
@@ -115,28 +150,11 @@ def require_ready(data: dict, root: Path, stage: str = 'A2') -> None:
     for platform, device in data['devices'].items():
         if type(device) is not dict or set(device) != set(DEVICE_FIELDS):
             raise ValueError('incomplete device inventory')
-        if stage == 'A1':
-            # Deferred does not mean malformed records or invented placeholders.
-            for field, value in device.items():
-                valid = (type(value) is int and value > 0) if field == 'installed_ram_gb' else nonempty(value)
-                if value is not None and not valid:
-                    raise ValueError('malformed deferred device detail: ' + platform + '/' + field)
-            continue
-        for field in DEVICE_FIELDS:
-            if field != 'installed_ram_gb' and not nonempty(device[field]):
-                raise ValueError('missing device detail: ' + platform + '/' + field)
-        floor = 4
-        if type(device['installed_ram_gb']) is not int or device['installed_ram_gb'] != floor:
-            raise ValueError('qualification RAM class changed without amendment')
-        expected = 'iphone-11' if platform == 'ios' else 'galaxy-a14-4gb'
-        if device['qualification_class'] != expected or device['architecture'] != 'arm64':
-            raise ValueError('qualification class/architecture changed without amendment')
-        if not re.fullmatch(r'\d+(?:\.\d+)*', device['os_version']):
-            raise ValueError('device OS must be exact numeric version')
-        ver = tuple(int(n) for n in device['os_version'].split('.'))
-        padded = ver + (0,) * max(0, 3 - len(ver))
-        if padded < ((16, 4, 0) if platform == 'ios' else (10, 0, 0)):
-            raise ValueError('device OS below planning policy')
+        for field, value in device.items():
+            if stage == 'A1' and value is None:
+                continue
+            if not device_field_valid(platform, field, value):
+                raise ValueError('missing/invalid device detail: ' + platform + '/' + field)
     server = data['server']
     if type(server) is not dict or set(server) != {'model', 'os_build', 'cores', 'ram_gb'}:
         raise ValueError('incomplete server record')
@@ -148,7 +166,7 @@ def require_ready(data: dict, root: Path, stage: str = 'A2') -> None:
     for name, value in tools.items():
         if stage == 'A1' and name not in A1_TOOLS and value is None:
             continue
-        if not (type(value) is str and (re.fullmatch(r'\d+(?:\.\d+){0,3}(?:\+[a-zA-Z0-9.-]+)?', value) or digest(value, 40))):
+        if not exact_tool_version(name, value):
             raise ValueError('toolchain must use exact stable version/build: ' + name)
     lock = retained(data['toolchain_lock'], root)
     if not lock.strip():
@@ -193,11 +211,13 @@ def main() -> int:
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument('--check-template', action='store_true')
     mode.add_argument('--require-ready', type=Path)
-    parser.add_argument('--stage', choices=STAGES, default='A2',
+    parser.add_argument('--stage', default='A2',
                         help='A1 is semantic-only preparation; default A2 requires full native setup')
     parser.add_argument('--evidence-root', type=Path, default=ROOT)
     args = parser.parse_args()
     try:
+        if args.stage not in STAGES:
+            raise ValueError('unsupported readiness stage')
         if args.check_template:
             data = strict_json((ROOT / 'conformance/r1-run-manifest.template.json').read_text())
             check_template(data)

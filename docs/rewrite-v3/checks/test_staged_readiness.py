@@ -98,6 +98,84 @@ class StagedReadiness(unittest.TestCase):
         with self.assertRaises(ValueError):
             readiness.require_ready(data, self.root, 'A1')
 
+    def test_f1_valid_partial_inventory_does_not_require_other_native_fields(self):
+        for platform, minimum, target in (('ios', '16.4', 'iphone-11'),
+                                          ('android', '10', 'galaxy-a14-4gb')):
+            for field, value in (('qualification_class', target), ('installed_ram_gb', 4),
+                                 ('architecture', 'arm64'), ('os_version', minimum),
+                                 ('model', 'owner-reported partial inventory')):
+                data = self.setup_record()
+                data['devices'][platform][field] = value
+                self.bind(data, 'A1')
+                with self.subTest(platform=platform, field=field):
+                    readiness.require_ready(data, self.root, 'A1')
+
+    def test_f1_supplied_device_semantics_reject_even_after_review_rebinding(self):
+        for platform in ('ios', 'android'):
+            for field, value in (('qualification_class', 'iphone-se-2'),
+                                 ('installed_ram_gb', 3), ('installed_ram_gb', True),
+                                 ('architecture', 'x86_64'), ('os_version', 'latest'),
+                                 ('os_version', '9'), ('os_version', '16.x'),
+                                 ('os_version', 17), ('os_version', '１７.０')):
+                data = self.setup_record()
+                data['devices'][platform][field] = value
+                self.bind(data, 'A1')
+                with self.subTest(platform=platform, field=field, value=value):
+                    with self.assertRaisesRegex(ValueError, 'device detail'):
+                        readiness.require_ready(data, self.root, 'A1')
+        data = self.setup_record()
+        data['devices']['ios']['os_version'] = '16.3.9'
+        self.bind(data, 'A1')
+        with self.assertRaises(ValueError):
+            readiness.require_ready(data, self.root, 'A1')
+
+    def test_f2_full_runtime_versions_are_runtime_specific_at_both_stages(self):
+        versions = {'node': '24.21.0', 'typescript': '6.0.3',
+                    'elixir': '1.20.4', 'otp': '28.4'}
+        for stage in readiness.STAGES:
+            for tool, version in versions.items():
+                data = self.setup_record(stage, deferred=stage == 'A1')
+                data['toolchain'][tool] = version
+                self.bind(data, stage)
+                readiness.require_ready(data, self.root, stage)
+            for version in ('28.4.1', '28.4.1.2'):
+                data = self.setup_record(stage, deferred=stage == 'A1')
+                data['toolchain']['otp'] = version
+                self.bind(data, stage)
+                readiness.require_ready(data, self.root, stage)
+        data = self.setup_record()
+        data['toolchain']['elixir'] = '1.20.4+build.7'
+        self.bind(data, 'A1')
+        readiness.require_ready(data, self.root, 'A1')
+
+    def test_f2_partial_ranged_hash_and_malformed_runtime_identities_reject(self):
+        for stage in readiness.STAGES:
+            for tool in readiness.A1_TOOLS:
+                bad = ['latest', '^24.21.0', '1.2.x', '1.2.3-rc1', '1..2',
+                       'a' * 40, '1' * 40, '0' * 40, '', None, 28, '２８.４']
+                bad += ['28', '28.4**', '28.4+patched'] if tool == 'otp' else [
+                    '24', '1.20', '1.2.3.4', '01.2.3', '1.2.3+', '1.2.3+a..b']
+                for value in bad:
+                    data = self.setup_record(stage, deferred=stage == 'A1')
+                    data['toolchain'][tool] = value
+                    self.bind(data, stage)
+                    with self.subTest(stage=stage, tool=tool, value=value):
+                        with self.assertRaisesRegex(ValueError, 'exact stable version/build'):
+                            readiness.require_ready(data, self.root, stage)
+
+    def test_f3_invalid_explicit_stage_is_controlled_but_other_syntax_stays_argparse(self):
+        base = [sys.executable, str(readiness.ROOT / 'checks/readiness.py')]
+        for mode in (['--check-template'], ['--require-ready',
+                     str(readiness.ROOT / 'prep/after-pr-10/setup.pending.json')]):
+            for stage in ('A3', 'a1'):
+                result = subprocess.run(base + mode + ['--stage', stage],
+                                        capture_output=True, text=True)
+                self.assertEqual(result.returncode, 1, result.stderr)
+                self.assertIn('NOT READY: unsupported readiness stage', result.stderr)
+        syntax = subprocess.run(base + ['--check-template', '--unexpected'],
+                                capture_output=True, text=True)
+        self.assertEqual(syntax.returncode, 2)
+
     def test_a2_keeps_native_gate_and_explicit_iphone_11_class(self):
         data = self.setup_record('A2', deferred=False)
         readiness.require_ready(data, self.root)
@@ -144,7 +222,7 @@ class StagedReadiness(unittest.TestCase):
         a1 = subprocess.run(args + ['--stage', 'A1'], capture_output=True, text=True)
         self.assertEqual(a1.returncode, 0, a1.stderr)
         self.assertIn('A1 ONLY', a1.stdout)
-        self.assertNotEqual(subprocess.run(args + ['--stage', 'A3'], capture_output=True).returncode, 0)
+        self.assertEqual(subprocess.run(args + ['--stage', 'A3'], capture_output=True).returncode, 1)
 
 
 if __name__ == '__main__':
