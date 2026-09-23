@@ -9,7 +9,7 @@
   "inputs": [
     {
       "path": "r1-acceptance-envelope.md",
-      "sha256": "cb4ecf8c0aa3906d6380dc29597059df4abe52d75720dcab5671c388f71abe2c"
+      "sha256": "11a81f8e4ce4d9c8d4614e08a99469c4f28d086452c87015066516a2889dd5f6"
     },
     {
       "path": "conformance/numeric-profile.md",

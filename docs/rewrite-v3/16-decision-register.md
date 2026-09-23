@@ -151,7 +151,7 @@ Offline competitive/economic state is not trusted as MMO authority.
 
 **Status:** Provisional
 
-Preferred direction: one portable deterministic kernel shared by offline mobile and online BEAM hosts.
+One portable deterministic semantic contract serves offline mobile and online BEAM hosts. ADR-068 tests dual implementations of it first; a single shared kernel remains a candidate.
 
 R1 compares three candidates against a pre-registered envelope: (A) one TypeScript kernel native in React Native and reached from BEAM through a Port; (B) one Rust kernel behind a pre-registered NIF/isolated-worker BEAM boundary and native mobile bindings; (C) dual Elixir/TypeScript implementations with golden-vector conformance and randomized differential testing. ADR-068 sets the order C, then B, then A.
 

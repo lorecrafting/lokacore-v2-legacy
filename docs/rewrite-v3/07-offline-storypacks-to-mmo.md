@@ -518,7 +518,7 @@ Prove:
 9. a deliberately injected mismatch is caught by conformance CI;
 10. chosen mobile integration approach has a credible Expo/EAS build, upgrade, crash-debugging, and maintenance story.
 
-The procedure for comparing the three candidates is `r1-acceptance-envelope.md` §§2–3 and §11; candidate C, dual Elixir/TypeScript implementations with mandatory golden-vector parity, is the fallback, not the first choice.
+The procedure for comparing the three candidates is `r1-acceptance-envelope.md` §§2–3 and §11; candidate C, dual Elixir/TypeScript implementations with mandatory golden-vector parity and randomized differential testing, is tested first (ADR-068).
 
 ## 15. Campaigns, sequels, and single-player expansions
 

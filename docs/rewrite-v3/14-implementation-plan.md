@@ -105,10 +105,10 @@ Owner approval on 2026-09-22 adopts ADR-064–067's recommendations for this ame
 | PREP-01 Contract closure | Review this amendment | 04 initial order/conflict/budget contracts; 05/06 operation/objective/continuation rules; 10/23 run defaults; preserved Tiny oracle; both Lantern traces and adverse cases. Record remaining independent review, do not label self-review independent. |
 | PREP-02 Setup and oracle freeze | PREP-01, R0 acceptance record | Two stage-specific freezes using existing records: A1 requires accepted contract, exact seven inputs, independent oracle review and reproducible reviewed Node/TypeScript/Elixir/full-OTP host/lock evidence; A2 adds complete native locks, physical qualification inventory and approved common host. `--require-ready --stage A1` is semantic-only; default/explicit `--stage A2` stays full-native. No synthetic acceptance or inventory. |
 | PREP-03 Download representation review | PREP-01; parallel with setup/R1 | Exact permitted payload/capability surface, sample package and policy review notes, unresolved risks, owner disposition before production content scaling; final store gate remains 10 §27. |
-| R1-A1 Semantic candidate | PREP-02 A1 freeze | One TypeScript package, stateless prepared definitions, Tiny/per-step known answers and bounded composition fixtures. No production compiler. |
-| R1-A2 Actual host adapters | R1-A1, PREP-02 A2 freeze | Hermes physical iOS/Android and isolated Node/BEAM Port; actual SQLite commit, recovery and byte parity. |
-| R1-A3 Fault/load evidence | R1-A2 | Full envelope, synthetic generators, worker death, scheduler interference, backlog/overload and mobile interruption/response tests. |
-| R1-A4 Reviewed selection | R1-A3 | Retained raw evidence, exact manifests, limits/failures and ADR-004/005 disposition. Passing A stops comparison; failure authorizes B then C with the same contract. |
+| R1-A1 Semantic candidate | PREP-02 A1 freeze | Candidate C: stateless Elixir and TypeScript implementations over prepared definitions, Tiny/per-step known answers, bounded composition fixtures and randomized differential testing between them (ADR-068). No production compiler. |
+| R1-A2 Actual host adapters | R1-A1, PREP-02 A2 freeze | Hermes physical iOS/Android and the native Elixir server adapter (an isolated runner or declared boundary only for B or A); actual SQLite commit, recovery and byte parity. |
+| R1-A3 Fault/load evidence | R1-A2 | Full envelope, synthetic generators, worker death where a candidate has one, scheduler interference, backlog/overload and mobile interruption/response tests. |
+| R1-A4 Reviewed selection | R1-A3 | Retained raw evidence, exact manifests, limits/failures and ADR-004/005 disposition. Passing C stops comparison; failure authorizes B then A with the same contract. |
 | R1-A5 Production handoff | R1-A4, R0, PREP-03 investment disposition | R2 sole-source cutover, selected architecture, retained fixtures; deliberately reimplement production rather than carry accidental spike scaffolding. |
 
 The detailed runnable handoff is [r1-work-package.md](r1-work-package.md). It is subordinate to this plan and the envelope. New document headings do not create new top-level R IDs. R3A freezes constitutional schemas; R3B/feature schemas still wait for implementation evidence at the relevant slices.
@@ -138,7 +138,7 @@ Create a versioned R1 acceptance-envelope artifact that fixes at least:
 - crash/fault containment and recovery expectations for native failures;
 - Expo/EAS build, local debugging, symbolication/crash-reporting, upgrade, and CI maintenance criteria;
 - third-party binding/toolchain dependency risk that would count as unacceptable operational fragility;
-- the comparison procedure against the dual-implementation fallback.
+- the comparison procedure, which tests the dual implementation first (ADR-068).
 
 The exact numeric thresholds are an R1 planning artifact rather than permanent architecture prose, but they must be committed/reviewed before the benchmark implementation is tuned. Do not redefine "acceptable" after seeing the result merely to preserve a favored technology choice.
 
@@ -193,7 +193,12 @@ Commands:
 
 ### Rejection criteria
 
-Reject a shared-kernel candidate (A or B) if:
+Reject candidate C if:
+
+- the Elixir and TypeScript implementations cannot be kept byte-identical under the known-answer fixtures and randomized differential testing;
+- two-implementation maintenance cost is unreasonable for the chapter-one rule surface.
+
+Reject a shared-kernel candidate (B or A) if:
 
 - iOS/Android build/release maintenance is unreasonably fragile;
 - deterministic representation cannot be stabilized;
@@ -201,11 +206,11 @@ Reject a shared-kernel candidate (A or B) if:
 - debugging across host boundaries is materially worse than dual implementation;
 - Expo distribution workflow becomes unacceptable.
 
-### Fallback
+### Candidate C is tested first
 
-Pure Elixir online + TypeScript offline implementations with one semantic schema/golden-vector suite.
+Pure Elixir online + TypeScript offline implementations with one semantic schema, the golden-vector suite and randomized differential testing (ADR-068).
 
-Fallback requires explicit acceptance of ongoing dual-implementation cost.
+Selecting C requires explicit acceptance of ongoing dual-implementation cost.
 
 ### Gate R1
 

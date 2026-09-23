@@ -39,9 +39,10 @@ recommendations and accepted separating A1 from A2 setup. See the retained
 [owner instruction](prep/after-pr-10/owner-instruction-2026-09-23.md).
 No exact machine/phone OS or runtime installation has been inspected by this record.
 
-A1 is headless semantic work, not a UI milestone: stateless TypeScript on Node
-against reviewed known answers; Elixir/OTP runs isolated specification tooling.
-The actual BEAM Port/Hermes/native SQLite integration remains A2. Expo Go,
+A1 is headless semantic work, not a UI milestone: stateless Elixir and TypeScript
+implementations against reviewed known answers and each other, through randomized
+differential testing. The actual Hermes, Elixir server and native SQLite
+integration remains A2. Expo Go,
 development clients, iOS Simulator and Android Emulator may support later UI
 iteration, but preview success never establishes mobile release qualification.
 Do not expand A1 into screens, accounts, navigation or native app construction.
