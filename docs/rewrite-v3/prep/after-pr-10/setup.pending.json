@@ -86,7 +86,7 @@
   ],
   "r0_acceptance": {
     "path": "prep/after-pr-10/r0-acceptance.pending.json",
-    "sha256": "df83c809f97318919c08f02b78f5ed269aa5b439ca87088e121275233e5eeadd"
+    "sha256": "7519d07add60b70d8fc6f8210f1c485fb29a1cb910c3b2ee93eec1db26de7f0c"
   },
   "oracle_review": {
     "path": "prep/after-pr-10/oracle-review.pending.json",
@@ -94,6 +94,6 @@
   },
   "setup_review": {
     "path": "prep/after-pr-10/setup-review.pending.json",
-    "sha256": "86d1cc3ee9f21627016756c571fd643c722c708e8ba43e5fde3632e698b094eb"
+    "sha256": "43b8971b246e25fdedd947cd0d61ff2ea58e56b5f01147b6a8bf7c60781711f5"
   }
 }
