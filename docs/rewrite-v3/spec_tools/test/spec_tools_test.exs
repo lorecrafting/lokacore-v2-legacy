@@ -391,7 +391,8 @@ defmodule LokaSpec.ReadinessTest do
     devices =
       for platform <- ~w(ios android),
           {field, value, valid} <- [
-            {"qualification_class", if(platform == "ios", do: "iphone-11", else: "galaxy-a14-4gb"), true},
+            {"qualification_class",
+             if(platform == "ios", do: "iphone-11", else: "galaxy-a14-4gb"), true},
             {"installed_ram_gb", 4, true},
             {"architecture", "arm64", true},
             {"os_version", if(platform == "ios", do: "16.4", else: "10"), true},
@@ -410,21 +411,50 @@ defmodule LokaSpec.ReadinessTest do
 
     versions =
       for stage <- ~w(A1 A2),
-          {tool, version} <- [{"node", "24.21.0"}, {"typescript", "6.0.3"}, {"elixir", "1.20.4"}, {"otp", "28.4"}],
+          {tool, version} <- [
+            {"node", "24.21.0"},
+            {"typescript", "6.0.3"},
+            {"elixir", "1.20.4"},
+            {"otp", "28.4"}
+          ],
           do: {stage, ["toolchain", tool], version, true}
 
     invalid =
       for stage <- ~w(A1 A2),
           tool <- ~w(node typescript elixir otp),
-          value <- ["latest", "^24.21.0", "1.2.x", "1.2.3-rc1", "1..2", String.duplicate("a", 40), String.duplicate("1", 40), "", nil, 28, "２８.４"],
+          value <- [
+            "latest",
+            "^24.21.0",
+            "1.2.x",
+            "1.2.3-rc1",
+            "1..2",
+            String.duplicate("a", 40),
+            String.duplicate("1", 40),
+            "",
+            nil,
+            28,
+            "２８.４"
+          ],
           do: {stage, ["toolchain", tool], value, false}
 
     partial =
       for stage <- ~w(A1 A2),
-          {tool, value} <- [{"node", "24"}, {"typescript", "6"}, {"elixir", "1.20"}, {"otp", "28"}, {"node", "01.2.3"}, {"elixir", "1.2.3+a..b"}, {"otp", "28.4**"}, {"otp", "28.4+patched"}],
+          {tool, value} <- [
+            {"node", "24"},
+            {"typescript", "6"},
+            {"elixir", "1.20"},
+            {"otp", "28"},
+            {"node", "01.2.3"},
+            {"elixir", "1.2.3+a..b"},
+            {"otp", "28.4**"},
+            {"otp", "28.4+patched"}
+          ],
           do: {stage, ["toolchain", tool], value, false}
 
-    devices ++ versions ++ invalid ++ partial ++
+    devices ++
+      versions ++
+      invalid ++
+      partial ++
       [
         {"A1", ["devices", "ios", "os_version"], "16.3.9", false},
         {"A1", ["toolchain", "otp"], "28.4.1", true},
@@ -444,7 +474,8 @@ defmodule LokaSpec.ReadinessTest do
   test "F1 F2 supplied semantics and complete runtime identities survive rebinding", %{root: root} do
     for {stage, path, value, valid} <- correction_cases() do
       data = corrected_record(root, stage, path, value)
-      assert (Readiness.validate(data, root, stage) == :ok) == valid,
+
+      assert Readiness.validate(data, root, stage) == :ok == valid,
              inspect({stage, path, value, valid})
     end
   end
@@ -466,10 +497,20 @@ defmodule LokaSpec.ReadinessTest do
       File.write!(manifest, Codec.encode(data))
 
       {output, exit} =
-        System.cmd("python3", [Path.join(Readiness.root(), "checks/readiness.py"), "--require-ready", manifest, "--evidence-root", root, "--stage", stage], stderr_to_stdout: true)
+        System.cmd(
+          "python3",
+          [
+            Path.join(Readiness.root(), "checks/readiness.py"),
+            "--require-ready",
+            manifest,
+            "--evidence-root",
+            root,
+            "--stage",
+            stage
+          ], stderr_to_stdout: true)
 
       assert exit == if(valid, do: 0, else: 1), output
-      assert (Readiness.validate(data, root, stage) == :ok) == valid
+      assert Readiness.validate(data, root, stage) == :ok == valid
     end
   end
 
