@@ -1,0 +1,5 @@
+node=v24.21.0
+npm=11.19.0
+elixir=Elixir 1.20.4 (compiled with Erlang/OTP 28)
+otp=28.4
+typescript=6.0.3

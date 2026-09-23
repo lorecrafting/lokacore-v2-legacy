@@ -148,6 +148,15 @@ class StagedReadiness(unittest.TestCase):
         self.bind(data, 'A1')
         readiness.require_ready(data, self.root, 'A1')
 
+    def test_non_a1_tool_rejects_non_ascii_digits_like_elixir(self):
+        for value in ('٢٨', '１６.２'):
+            data = self.setup_record('A2', deferred=False)
+            data['toolchain']['xcode'] = value
+            self.bind(data, 'A2')
+            with self.subTest(value=value):
+                with self.assertRaisesRegex(ValueError, 'exact stable version/build'):
+                    readiness.require_ready(data, self.root, 'A2')
+
     def test_f2_partial_ranged_hash_and_malformed_runtime_identities_reject(self):
         for stage in readiness.STAGES:
             for tool in readiness.A1_TOOLS:
