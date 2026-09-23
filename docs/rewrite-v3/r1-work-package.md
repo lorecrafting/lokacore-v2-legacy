@@ -4,6 +4,12 @@
 
 **Status:** owner-approved readiness direction, 2026-09-22; amendment review/merge, R0 acceptance, exact setup and measurements pending. This is a bounded work package under document 14, not another architecture authority, completed experiment or authorization to modify the legacy engine.
 
+The post-PR #10 [preparation handoff](prep/after-pr-10/README.md) records current
+blockers and retained pending artifacts. Use the isolated [Elixir tooling project](spec_tools/README.md)
+for continuing readiness/numeric checks; Python remains temporary comparison and
+abstract-model tooling, not production gameplay. This does not select an
+all-Elixir kernel, candidate C, or a different candidate order.
+
 ## Goal and non-goals
 
 Build one disposable semantic/host experiment. Determine whether candidate A—one TypeScript semantic package on Hermes and an isolated Node runner reached through a BEAM Port—satisfies the approved envelope. A passing A ends the comparison. Only a documented failure justifies B, then C. No language or native binding is preselected.
@@ -27,7 +33,19 @@ PREP-01 model work and inventory gathering may happen now. PREP-02 records actua
 
 ## Preparation commands
 
-From the repository root:
+Continuing tooling (no Phoenix, Ecto or database):
+
+```sh
+cd docs/rewrite-v3/spec_tools
+mix format --check-formatted
+mix compile --warnings-as-errors
+mix test --include comparison
+mix loka.readiness --check-template
+# Expected to FAIL until real independent approvals and inventory exist:
+mix loka.readiness --require-ready ../prep/after-pr-10/setup.pending.json --evidence-root ..
+```
+
+Retained comparison/model/document checks, from the repository root:
 
 ```sh
 python3 -m unittest discover -s docs/rewrite-v3/checks -p 'test_*.py' -v

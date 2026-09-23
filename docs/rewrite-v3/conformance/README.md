@@ -2,6 +2,10 @@
 
 **Status:** executable specification examples, pending normal packet acceptance. Not a production v3 engine, R1 candidate, full cartridge compiler, mobile build, or release certificate.
 
+Continuing readiness/numeric tooling uses [isolated Mix/ExUnit](../spec_tools/README.md).
+The Python commands below remain the temporary comparison and abstract-model suite,
+not a production runtime. Coverage mapping and retirement boundaries are explicit.
+
 Run from the repository root:
 
 ```sh
