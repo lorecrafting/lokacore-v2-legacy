@@ -125,7 +125,7 @@ def exact_tool_version(name: str, value) -> bool:
         pattern = r'[0-9]+(?:\.[0-9]+){1,3}'
     else:
         # Preserve the existing non-A1 tool/build-ID interface.
-        pattern = r'\d+(?:\.\d+){0,3}(?:\+[a-zA-Z0-9.-]+)?'
+        pattern = r'[0-9]+(?:\.[0-9]+){0,3}(?:\+[a-zA-Z0-9.-]+)?'  # ASCII, like Elixir
         if digest(value, 40):
             return True
     return bool(re.fullmatch(pattern, value))
