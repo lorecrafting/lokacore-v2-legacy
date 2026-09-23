@@ -49,9 +49,9 @@ Read [08 — Builder/factory](08-builder-api-ai-factory.md), then [09 — Lab/ce
 
 ### Pass 5 — What must a player be able to trust?
 
-Read [10 — App/commerce/release](10-mobile-commerce-release.md) and [11 — Security/observability/operations](11-security-observability-operations.md).
+Read [23 — Accounts/progress/admission](23-accounts-progress-admission.md), [10 — App/commerce/release](10-mobile-commerce-release.md), and [11 — Security/observability/operations](11-security-observability-operations.md).
 
-**Review questions:** Does offline ownership work as promised? Are save compatibility and recovery explicit? Which release requires purchase infrastructure? Which operational sections belong to later Realm hosting? Store policy and toolchain research must be reverified at their recorded evidence gates, not assumed current because the prose is still here.
+**Review questions:** Are accounts available at the first free launch without turning installed play always-online? Can accepted offline reports unlock onboarding but not competitive value? Is progress sync distinct from full-save backup? Does offline ownership work as promised? Are save compatibility and recovery explicit? Which release requires purchase infrastructure? Which operational sections belong to later Realm hosting? Store policy and toolchain research must be reverified at their recorded evidence gates, not assumed current because the prose is still here.
 
 ### Pass 6 — What gets implemented, and what remains undecided?
 
@@ -69,9 +69,9 @@ These are dated evidence. Some historical reviews intentionally describe decisio
 
 | Label | Meaning | Example |
 |---|---|---|
-| `00`–`22`, including `00a` | Stable document numbers, not phases. | Document 14 contains the phase plan. |
+| `00`–`23`, including `00a` | Stable document numbers, not phases. | Document 14 contains the phase plan. |
 | `R0`–`R22`, plus `R6P`, `R9C` | Rebuild milestones. | R6P is the early playable proof. |
-| `R3A`, `R3B` | Two parts of R3, not additional top-level releases. | Constitutional contracts versus feature envelopes. |
+| `R3A`, `R3B`, `R12A` | Subdivisions, not additional top-level releases. | R3 contracts; R12A launch accounts/progress. |
 | `L0`–`L6` | Architectural/authoring layers in document 21. | L0 is authority; L6 is finished content. |
 | `ADR-…` | Architecture decisions in document 16. | ADR-018 records LokaScript's deferral. |
 | `DET-…`, `OFF-…`, `QST-…`, etc. | Acceptance scenario IDs in document 15. | DET-02 concerns cross-host equivalence. |

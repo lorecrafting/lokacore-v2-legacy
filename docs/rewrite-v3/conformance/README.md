@@ -48,3 +48,8 @@ Separate portable-rule parity, persistence/authority faults, and player-facing c
 ## Adoption from the Ink study
 
 Use small implementation-neutral fixtures, separate immutable definitions from mutable saves, compare hidden state as well as transcript, and version numeric/save/artifact semantics separately. Do not embed Ink or copy its runtime architecture. See `../22-ink-runtime-lessons.md` for the pinned prior-art study and its limitations.
+
+
+## Account/progress model scope
+
+`checks/account_progress_model.py` and `test_account_progress.py` exercise document 23's local queue, authenticated-principal boundary, run/release binding, report replay/conflicts, evidence policy, multi-device membership, deletion and current admission rules. Principals and transaction fault outcomes are supplied by the test harness. In-memory assignment is not actual SQLite/PostgreSQL atomicity, token verification, or a mobile background uploader. ACCOUNT-01–12 require those real integrations at R12A/R14; these tests cannot mark them complete.

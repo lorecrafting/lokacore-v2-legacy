@@ -2,7 +2,7 @@
 
 **Reading aid, not a new implementation contract.** [Document 14](14-implementation-plan.md) owns the detailed tasks, dependencies, and gates. [Back to the review guide](REVIEW-GUIDE.md).
 
-“R” labels identify rebuild milestones. They do not identify documents, releases, completed work, or mandatory calendar order. This guide contains all **25 named milestones**: R0–R22 plus R6P and R9C. R3A/R3B are the two parts of R3, explained below.
+“R” labels identify rebuild milestones. They do not identify documents, releases, completed work, or mandatory calendar order. This guide contains all **25 named milestones**: R0–R22 plus R6P and R9C. R3A/R3B are parts of R3; R12A is the launch-account subdivision of R12, explained below.
 
 **The intended first chapter remains 57 rooms, 10 quests, and two endings.** The earlier R6P proof is a separate, smaller engineering/player-feedback step on the new engine.
 
@@ -31,7 +31,7 @@ Follow the foundation to the early proof and full chapter. Then distinguish Stor
 |---|---|---|---|
 | [R4](14-implementation-plan.md#r4--cartridge-compiler-v1) | **Compile cartridge content** | Turn authored source into a validated, immutable cartridge with stable references and a deterministic hash. | The same source produces the same artifact; invalid references and capabilities fail clearly. |
 | [R5](14-implementation-plan.md#r5--portable-world-rules-foundation) | **Build reusable world rules** | Implement the required world, containment, movement, facts, targeting, policies, actions, time, and randomness primitives. | Known-answer scenarios agree across the selected host paths. |
-| [R6](14-implementation-plan.md#r6--offline-authority-and-save-system) | **Make offline play durable** | Add local authority, serialized admission, SQLite persistence, command receipts, save slots, installed content, and recovery. | A tiny world survives airplane-mode play, interrupted actions, app termination, and resume. |
+| [R6](14-implementation-plan.md#r6--offline-authority-and-save-system) | **Make offline play durable** | Add local authority, SQLite, receipts, saves, recovery, and atomic milestone/pending-sync records with host-side account binding. | A tiny world survives airplane-mode play, interrupted actions, app termination, and resume. |
 | [R6P](14-implementation-plan.md#r6p--early-fresh-engine-playable-proof) | **Play a small piece of the fresh engine** | Build The Ferryman's Lantern: four places, one quest, a schedule, and a consequential touch-driven choice using selected early R7/R8 slices. | Human-readable, restart-safe device play before the full release. This does not shrink chapter one. |
 
 ## 3. Complete chapter-one mechanics and prove the game
@@ -49,15 +49,15 @@ Follow the foundation to the early proof and full chapter. Then distinguish Stor
 | Milestone | In ordinary language | What is built or decided | What it proves |
 |---|---|---|---|
 | [R11](14-implementation-plan.md#r11--builder-api-v1-and-script-surface-generalization) | **Build the typed authoring tools** | Generalize demonstrated authoring operations into the Builder API, CLI/terminal/MCP adapters, capability discovery, and safe review/escalation surfaces. | Humans or agents can author representative content and fix validation problems through the API rather than editing engine source. |
-| [R12](14-implementation-plan.md#r12--loka-app-production-story-mode) | **Finish the player-facing app** | Polish Story navigation, content installation, saves, touch-first presentation, accessibility, settings, and offline feedback. | A non-developer can install, play, finish, and resume the free chapter without developer tooling. |
-| [R13](14-implementation-plan.md#r13--commerce-and-entitlement) | **Enable paid ownership and restoration** | Add purchase verification, canonical entitlements, offline grants, download integrity, restore, and refund/reconnection handling. | Real store-sandbox purchase/restore evidence before paid releases; not a prerequisite for R6P. |
+| [R12](14-implementation-plan.md#r12--loka-app-production-story-mode) | **Finish the player-facing app** | Polish Story UI and offline saves; include R12A accounts, recovery/deletion and completion sync in the first public release. | A non-developer plays/resumes offline, then synchronizes completion to the account; outages never block installed Story play. |
+| [R13](14-implementation-plan.md#r13--commerce-and-entitlement) | **Enable paid ownership and restoration** | Extend the R12A account/platform foundation with purchases, entitlements, offline grants, download integrity, restore and refunds. | Real store-sandbox purchase/restore evidence before paid releases; not a prerequisite for R6P. |
 | [R16](14-implementation-plan.md#r16--repeatable-ai-factory) | **Prove repeatable AI-assisted production** | Combine Builder and Lab workflows with context retrieval, semantic review, corrections, and packaging. Use later Ashmere chapters plus a small unrelated cartridge to test growth and reuse. | Measured repeatability without hidden engine changes. LLM assistance is allowed earlier; production Realm is not a prerequisite. |
 
 ## 5. Add Realm hosting, cooperation, and a shared world
 
 | Milestone | In ordinary language | What is built or decided | What it proves |
 |---|---|---|---|
-| [R14](14-implementation-plan.md#r14--beam-online-authority--realm-mode-skeleton) | **Build online authority** | Host the rules under BEAM with PostgreSQL commits, receipts, fencing, effects, generated protocol, and reconnect/resync. | Online/offline semantic agreement for portable content and recovery at real server commit boundaries. |
+| [R14](14-implementation-plan.md#r14--beam-online-authority--realm-mode-skeleton) | **Build online authority** | Host rules under BEAM with transactional storage/protocol/recovery; enforce account prologue requirements at Realm admission. | Online/offline semantic agreement for portable content and recovery at real server commit boundaries. |
 | [R15](14-implementation-plan.md#r15--online-private-deployment) | **Offer private online adventures** | Make an individually hosted, cloud-authoritative cartridge available from the same app, with online saves and account links. | The same portable adventure can be offered locally or online without confusing their authorities. |
 | [R17](14-implementation-plan.md#r17--partyco-op-instances) | **Add party/cooperative adventures** | Define party progress, membership changes, rewards, loot, shared decisions, and concurrent interactions. | Party-specific race, reconnect, scope, and fault tests pass. |
 | [R18](14-implementation-plan.md#r18--realm-mode-persistent-social-shell) | **Create a persistent social hub** | Add a single shared-hub authority, presence/social features, personal overlays, and shared-service contention. | Players coexist without leaking private state or allocating the same scarce slot twice; generalized sharding is not yet required. |
@@ -81,3 +81,7 @@ Follow the foundation to the early proof and full chapter. Then distinguish Stor
 **R19 vs. R20 vs. R21:** geographic entry into private adventures, multi-owner world partitioning, and adapting content for shared-world use.
 
 For a full human review, continue with [REVIEW-GUIDE.md](REVIEW-GUIDE.md). For actual implementation, return to the linked phase and its governing contracts rather than implementing from this summary alone.
+
+## R12A: accounts exist at public Story launch
+
+**[R12A](14-implementation-plan.md#r12a--launch-accounts-and-story-progress) — Launch accounts and Story progress.** This subdivision can begin in parallel with local-engine/content work. It provides registration/sign-in, recovery/deletion, real platform storage and authenticated milestone acceptance/readback before the first free public release. R6P uses a fake adapter; R13 adds purchases later. [Document 23](23-accounts-progress-admission.md) distinguishes client-reported onboarding completion from verified play or competitive rewards. Optional guest-first UX and optional full-save backup do not make launch account support optional.

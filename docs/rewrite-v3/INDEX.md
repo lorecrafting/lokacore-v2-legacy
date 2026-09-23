@@ -17,6 +17,7 @@ Use the vocabulary and invariant links to reach governing sections. Phase summar
 - [5. Chapter ladder](#5-chapter-ladder)
 - [6. Phase gates](#6-phase-gates)
 - [7. Open evidence gates](#7-open-evidence-gates)
+- [8. Account onboarding extension](#8-account-onboarding-extension)
 
 </details>
 <!-- packet-navigation:end -->
@@ -28,7 +29,7 @@ The R0 compact architecture and invariant index (README §12). This is a routing
 | Item | Value |
 |---|---|
 | Packet state | Audit-corrected draft; R0 acceptance pending. See README status and the exact reviewed Git commit. |
-| Normative architecture | docs 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 19, 21; accepted ADRs in doc 16 (README §8) |
+| Normative architecture | docs 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 19, 21, 23; accepted ADRs in doc 16 (README §8) |
 | Normative content pull list | doc 00 (§11 ladder), doc 00a (chapter one) |
 | Normative gates | doc 14 (phases), doc 15 (scenarios) |
 | Informative/reference | docs 12, 13, 17, 18, 20, 22; index summaries do not override governing contracts |
@@ -238,8 +239,8 @@ Source: 14. Sizing values are historical estimates, not promises or acceptance c
 | R9 Lab v1 (09 §1a minimum) | every injected failure yields a one-command repro; a broken mini-cartridge is caught; coverage and evidence bundle export | R9 + R9C: 4 to 6 weeks |
 | R9C Conformance cartridge | synthetic cartridge passes `offline_private` conformance, crash/retry, coverage; becomes the standing regression corpus | (with R9) |
 | R10 Chapter one | full `offline_private` certificate per 09 §1a and 00a §11, plus developer-harness device smoke; authoring pain recorded for R11 | 6 to 10 weeks |
-| R12 Production Story Mode | a non-developer installs, plays in airplane mode, finishes, resumes after restart, uses save UX | 6 to 10 weeks |
-| R13 Commerce | store sandbox on both platforms: purchase, download, airplane, reinstall/restore, second device, refund | 3 to 5 weeks |
+| R12 Production Story Mode | includes R12A accounts/progress before public release; non-developer plays offline, resumes, then synchronizes completion | evidence-gated; re-estimate account work |
+| R13 Commerce | extend R12A platform; store sandbox on both platforms: purchase, download, airplane, reinstall/restore, second device, refund | 3 to 5 weeks |
 | **Full free chapter one in the store** | R10 + R12 + applicable release gates; R13 before paid commerce | historical estimate; recalibrate after R6P |
 | R11 Builder v1 | an agent recreates R10 content through Builder tools only | 4 to 8 weeks |
 | R16 Factory/reuse | R11 plus Story authoring/certification; chapters two/three and unrelated reuse fixture; no Realm dependency | measured authoring evidence |
@@ -252,3 +253,7 @@ Implementation MUST NOT treat these as settled.
 - **R1 / ADR-004 / ADR-005** — portable kernel strategy and mobile binding; decided by the spike against the frozen envelope.
 - **ADR-035** — App Store treatment of downloadable rule content; a store-review position is required before first submission. Chapter one is declarative data only (ADR-018 deferred).
 - **R20 / ADR-025 / ADR-048 / ADR-058** — ownership placement, fencing, handoff, and migration-stable receipt routing for partitioned Realm play; not needed before chapter one ships.
+
+## 8. Account onboarding extension
+
+[Document 23](23-accounts-progress-admission.md) / ADR-063 adds a host/platform account-progress contract, not a gameplay scope or a change to the 39-concept core vocabulary. The first public release includes accounts and evidence-labeled completion synchronization. Account-wide onboarding prerequisites may accept offline reports; competitive Realm state and purchases may not. Installed Story play is independent of active login. R12A delivers the real service; R6P uses a fake adapter; R14/R15 enforce server admission. See ACCOUNT-01–12.

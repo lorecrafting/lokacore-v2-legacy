@@ -22,6 +22,7 @@ Read the pitch, then section 11. Full-campaign mechanics and goals are not all c
 - [10. Open questions](#10-open-questions)
 - [11. Release ladder: three chapters, one world](#11-release-ladder-three-chapters-one-world)
 - [12. Mechanics not yet in document 21](#12-mechanics-not-yet-in-document-21)
+- [13. Launch account continuity](#13-launch-account-continuity)
 
 </details>
 <!-- packet-navigation:end -->
@@ -702,3 +703,7 @@ These rows were marked NEW above. Each needs a capability entry with schema, por
 | Track | `track@1` skill + trail facts | trail decays via derived time |
 | Pose | extend speech/narration | persists in room projection |
 | Performance / songs | `performance@1` ActionRecipe pattern | room-scoped timed status |
+
+## 13. Launch account continuity
+
+The full chapter-one scope remains unchanged. The first public release includes accounts and accepted Story milestone tracking under [document 23](23-accounts-progress-admission.md). Either intended chapter-one ending reaches `prologue_completed` after the terminal dawn consequence. Loka's account remembers accepted completion across devices and later uses designated prologue milestones for Realm onboarding. Account access does not import offline character value, and installed play does not require a live login. Full cloud-save backup is optional; R12A, not R13/R14, owns launch identity/progress.

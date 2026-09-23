@@ -52,6 +52,7 @@ Quests/actions: sections 1-22. Custom events/scenes: 30-38 and 41-42. LokaScript
 - [40. Multiplayer scene semantics](#40-multiplayer-scene-semantics)
 - [41. Journal, reveal, hints, and story readability](#41-journal-reveal-hints-and-story-readability)
 - [42. Narrative robustness and certification](#42-narrative-robustness-and-certification)
+- [43. Terminal milestones are game facts, not account writes](#43-terminal-milestones-are-game-facts-not-account-writes)
 
 </details>
 <!-- packet-navigation:end -->
@@ -1388,3 +1389,7 @@ ActionInvocation
 ~~~
 
 This makes complex authored story behavior explainable and reproducible rather than opaque script execution.
+
+## 43. Terminal milestones are game facts, not account writes
+
+Quest/scene terminal consequences may reach a declared cartridge milestone through registered narrative operations. Both intended chapter-one endings reach `prologue_completed` after the final `dawn_on_the_green` consequence. Rules cannot upload reports, inspect account authentication, or directly grant Realm access. The local authority adapter commits the pending synchronization record atomically with the milestone; [document 23](23-accounts-progress-admission.md) owns account association and platform acceptance. Readable completion feedback must survive a crash before credits or final narration is displayed.

@@ -35,6 +35,7 @@ Distinguish always-needed integrity/recovery from later online operations. LokaS
 - [23. Supply chain](#23-supply-chain)
 - [24. SLO candidates](#24-slo-candidates)
 - [25. Incident principle](#25-incident-principle)
+- [26. Account progress is low-trust input, durable product state](#26-account-progress-is-low-trust-input-durable-product-state)
 
 </details>
 <!-- packet-navigation:end -->
@@ -477,3 +478,9 @@ Correctness over availability for authoritative mutations.
 If runtime cannot prove a command committed safely, return/recover/retry rather than inventing success.
 
 Ambient presentation may degrade; money/items/quest progression must not.
+
+## 26. Account progress is low-trust input, durable product state
+
+[Document 23](23-accounts-progress-admission.md) defines first-release account progress and onboarding-only acceptance. Authenticate the principal, enforce immutable run binding and input budgets, and assign evidence class only at the trusted ingestion boundary. A signed cartridge, a device claim, or an LLM opinion is not proof of human completion. Replay and server-authoritative evidence may be introduced later through separate trusted workflows.
+
+Progress acceptance and admission use durable platform records, not sampled analytics. Account deletion must serialize against ingestion, revoke credentials and prevent old queues from recreating deleted state. Minimize private data and implement per-account access control, secure credential storage and abuse limits before public launch. Account outage never converts Realm to local authority and never blocks installed offline Story play.

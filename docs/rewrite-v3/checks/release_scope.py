@@ -11,8 +11,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def validate(data: dict, root: Path = ROOT) -> None:
     required = {'schema_version','status','release_order','chapter_one','always_gates',
-                'release_gates','gates','capabilities','features','deferred_new_capabilities','notes'}
-    if (set(data) != required or type(data['schema_version']) is not int or data['schema_version'] != 1
+                'release_gates','platform_gates','gates','capabilities','features','deferred_new_capabilities','notes'}
+    if (set(data) != required or type(data['schema_version']) is not int or data['schema_version'] != 2
             or data['status'] != 'proposed-planning-not-release-certificate'):
         raise ValueError('unknown or missing release-scope fields/version')
     order = data['release_order']
@@ -49,6 +49,9 @@ def validate(data: dict, root: Path = ROOT) -> None:
         raise ValueError('always-required planning gates changed')
     if set(data['release_gates']) != {'DEVICE','HUMAN'}:
         raise ValueError('device/human evidence cannot disappear')
+    expected_platform = {tier: ([] if tier == 'proof' else ['ACCOUNT']) for tier in order}
+    if data['platform_gates'] != expected_platform or 'ACCOUNT' not in gates:
+        raise ValueError('launch account gate missing or incorrectly blocks proof')
     if not set(data['always_gates'] + data['release_gates']) <= set(gates):
         raise ValueError('unknown mandatory gate')
 
@@ -57,7 +60,7 @@ def applicable(data: dict, release: str) -> tuple[list[dict], list[dict], list[s
     order = data['release_order']; level = order.index(release)
     caps = [c for c in data['capabilities'] if order.index(c['first_required']) <= level]
     features = [f for f in data['features'] if order.index(f['first_required']) <= level]
-    gates = set(data['always_gates'] + data['release_gates'])
+    gates = set(data['always_gates'] + data['release_gates'] + data['platform_gates'][release])
     for item in caps + features:
         gates.update(item['gates'])
     return caps, features, sorted(gates)
@@ -73,7 +76,11 @@ def render(data: dict) -> str:
         caps,features,gates=applicable(data,release)
         lines += [f'## {release}', '', '| Capability | First slice | Phase | Gates |', '|---|---|---|---|']
         lines += [f"| `{c['id']}` | {c['first_required']} | {c['phase']} | {', '.join(c['gates'])} |" for c in caps]
-        lines += ['', '**Required planning gates:** '+', '.join(gates)+'.', '']
+        engine_gates = [g for g in gates if g not in data['platform_gates'][release]]
+        lines += ['', '**Engine/device/human planning gates:** '+', '.join(engine_gates)+'.', '']
+        if data['platform_gates'][release]:
+            lines += ['**Additional public-app/platform gates (not pure cartridge certification):** '
+                      + ', '.join(data['platform_gates'][release]) + '.', '']
     lines += ['## Feature-level applicability', '', '| Feature | Capability | First need | Phase | Evidence |', '|---|---|---|---|---|']
     lines += [f"| {f['id']} | `{f['capability']}` | {f['first_required']} | {f['phase']} | {f['reason']} Gates: {', '.join(f['gates'])}. |" for f in data['features']]
     lines += ['', '## Gate meanings', '']

@@ -39,6 +39,7 @@ Separate offline play, free release, paid entitlements and later Realm. Review s
 - [27. Store-review gate for downloadable rule content](#27-store-review-gate-for-downloadable-rule-content)
 - [28. App/kernel upgrades must not strand offline saves](#28-appkernel-upgrades-must-not-strand-offline-saves)
 - [29. Account, entitlement, and mode boundary](#29-account-entitlement-and-mode-boundary)
+- [30. First-public-release account gate](#30-first-public-release-account-gate)
 
 </details>
 <!-- packet-navigation:end -->
@@ -51,7 +52,7 @@ The app has two strict gameplay modes:
 
 ### Story Mode
 
-Offline-first cartridge play. Uses `LocalStorySession`, the portable-kernel bridge, local SQLite, save slots, cartridge library, campaigns, and offline entitlement proof.
+Offline-first cartridge play. Uses `LocalStorySession`, the portable-kernel bridge, local SQLite, save slots, cartridge library, campaigns, and offline entitlement proof. First-release accounts and durable Story milestone synchronization are a separate host/platform feature under [document 23](23-accounts-progress-admission.md); no active login is required for installed offline play.
 
 ### Realm Mode
 
@@ -171,7 +172,8 @@ The Loka binary contains the Story runtime foundation from launch:
 - local authority + SQLite save support;
 - supported render/action capabilities;
 - catalog/purchase/download UI;
-- optional account/cloud-backup adapters.
+- first-release account/progress synchronization adapters;
+- optional full cloud-save backup adapter.
 
 Cartridges are separately downloadable data/assets/bounded portable rule IR compatible with installed kernel/client features.
 
@@ -373,14 +375,9 @@ Later, an online-private cartridge mode may intentionally use the authoritative 
 
 ## 19. Narrative continuity
 
-Optional account-level “memories” may sync:
+Account-level Story completion tracking is required in the first public Story release. It uses authenticated, retry-safe milestone submissions and accepted platform records as specified in [document 23](23-accounts-progress-admission.md). Optional richer memories such as ending details, journal/lore or cosmetics are separate product policies.
 
-- story completed;
-- ending choice;
-- journal/lore;
-- cosmetic badge.
-
-Treat locally asserted memories as non-competitive unless verified by an online-authoritative run.
+Locally asserted milestones may satisfy explicitly designated onboarding requirements only. They do not prove honest device state or human comprehension and cannot grant competitive Realm value.
 
 ## 20. Release environments
 
@@ -540,10 +537,17 @@ One app removes the need for cross-app purchase portability, but it does not rem
 
 Default rules:
 
-- Story Mode MAY work without a logged-in Loka account after legitimate acquisition/download.
+- The first public Story release MUST provide accounts, recovery/deletion, and durable completion synchronization.
+- Story Mode remains playable without an active account session after legitimate acquisition/download; offline-first does not mean account-free.
 - Realm Mode requires an authenticated online identity.
 - canonical cartridge entitlement may be cached locally for offline Story access and also known server-side when purchase evidence has been verified;
-- editable Story save contents never grant authoritative Realm gold, items, levels, or progression;
+- editable Story save contents never grant authoritative Realm gold, items, levels, or competitive progression; designated account onboarding unlocks are separately authorized under document 23;
 - owning a Story cartridge MAY unlock a Realm adventure, cosmetic, badge, or account feature only through an explicit server-side product rule—not because Realm reads the local save.
 
-A user may link Story cloud backup/purchases to the same Loka account used by Realm, which simplifies UX while preserving authority separation.
+A user uses the same Loka identity for accepted Story milestones and later Realm admission. Full-save backup and purchases remain separate features. Pending reports stay bound to their originating account/profile; signing into another account cannot relabel them. Guest claiming, when offered, is explicit. See document 23 for deletion, multi-device and admission behavior.
+
+## 30. First-public-release account gate
+
+R12A delivers authentication/recovery/deletion, platform persistence, run binding, milestone acceptance/readback, pending/synced player feedback and a minimal administrative progress view. Test offline finish then reconnect, duplicate delivery, stale reports, account switching, deleted credentials and new-device readback. Unknown offline activity is not reported as failure to finish. Full-save restore is not implied by a completed-account badge.
+
+R6P uses a fake progress adapter and is not delayed by production identity. The free public release must pass R12A; paid purchase infrastructure remains R13; authoritative Realm admission is R14/R15. Exact requirements and trust limits are in [document 23](23-accounts-progress-admission.md).

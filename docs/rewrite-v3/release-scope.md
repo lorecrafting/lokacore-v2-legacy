@@ -29,7 +29,7 @@ This is planning applicability, not a release certificate or a frozen engine reg
 | `calendar@1` | proof | R8 | WORLD |
 | `narration@1` | proof | R7 | SCENE |
 
-**Required planning gates:** AUTHORITY, DETERMINISM, DEVICE, HUMAN, QUEST, RULES, SCENE, STATIC, TOPOLOGY, TRANSACTION, WORLD.
+**Engine/device/human planning gates:** AUTHORITY, DETERMINISM, DEVICE, HUMAN, QUEST, RULES, SCENE, STATIC, TOPOLOGY, TRANSACTION, WORLD.
 
 ## chapter_one
 
@@ -73,7 +73,9 @@ This is planning applicability, not a release certificate or a frozen engine reg
 | `narration@1` | proof | R7 | SCENE |
 | `sense_cue@1` | chapter_one | R8 | WORLD |
 
-**Required planning gates:** AUTHORITY, DETERMINISM, DEVICE, HUMAN, QUEST, RULES, SCENE, STATIC, TOPOLOGY, TRANSACTION, WORLD.
+**Engine/device/human planning gates:** AUTHORITY, DETERMINISM, DEVICE, HUMAN, QUEST, RULES, SCENE, STATIC, TOPOLOGY, TRANSACTION, WORLD.
+
+**Additional public-app/platform gates (not pure cartridge certification):** ACCOUNT.
 
 ## Feature-level applicability
 
@@ -109,6 +111,7 @@ This is planning applicability, not a release certificate or a frozen engine reg
 - **HUMAN:** Readability, discoverability, consequence comprehension and authoring feedback.
 - **INSTANCE:** Spatial instancing closure, entry/export/teardown/recovery before feature use.
 - **ESCROW:** Queued ServiceJob custody, capacity, retry/fault and reconciliation before use.
+- **ACCOUNT:** R12A first-public-app account lifecycle and real milestone sync; local capture/model adapter in proof; admission at R14/R15 (doc 23).
 
 ## Limits and later scope
 
@@ -116,5 +119,6 @@ The chapter-one lock is exhaustive; later entries are feature-planning examples,
 Production certification derives used features and transitive dependencies from the frozen compiled artifact and engine-owned registry; unknown applicability blocks/widens evidence.
 Native bindings, commercial purchase/review, hostile ingestion, compatibility and multiplayer gates also apply when those host/release risks exist; this planning list cannot waive them.
 R6P uses only each capability slice it exercises; a later feature of the same capability does not become an early dependency.
+ACCOUNT is a first-public-app/platform obligation, not an engine capability or a live-service prerequisite for pure cartridge certification. R6P tests a fake sync adapter.
 
 Later proposed new capability families: spell_words, stance, collection, identity_knowledge, pet, hunt, drives, mount, property, steal, law, mail, recognition, track, performance.

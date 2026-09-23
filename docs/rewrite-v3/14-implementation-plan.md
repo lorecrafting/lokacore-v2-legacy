@@ -49,7 +49,7 @@ Use the plain-English R guide first. Numbers are stable labels; R6P pulls select
 
 The full first release remains chapter one: **57 rooms, 10 quests, two endings**. LLM-assisted authoring and reasoning are part of the plan. A separate small **R6P playable proof** tests the from-scratch engine before that release; it is not a reduced chapter or a legacy-engine migration.
 
-[Plain-English milestone guide](R-MILESTONES.md) · [Human/LLM review guide](REVIEW-GUIDE.md). Phase numbers are stable identifiers, not a completion checklist or a strict sequence. R3A/R3B are parts of R3; R6P/R9C are additional named milestones.
+[Plain-English milestone guide](R-MILESTONES.md) · [Human/LLM review guide](REVIEW-GUIDE.md). Phase numbers are stable identifiers, not a completion checklist or a strict sequence. R3A/R3B are parts of R3; R12A is part of R12; R6P/R9C are additional named milestones.
 
 [release-scope.md](release-scope.md), generated from the reviewed [release-scope.json](release-scope.json), makes the chapter/proof capability and gate applicability explicit. Detailed catalogs remain design material; a later feature in a phase's catalog is NOT a prerequisite for an earlier release. Applicable safety gates cannot be waived. R0/R1 acceptance and R2 specification cutover remain required before production engine work.
 
@@ -279,7 +279,8 @@ These are foundational enough that later features must build on them rather than
 - portable GameView envelope/freshness contract;
 - portable-rules ABI/serialization contract selected by R1;
 - canonical serialization/hash/IdSource/RNG/numeric rules;
-- diagnostic/error registry.
+- diagnostic/error registry;
+- account/run binding, Story milestone reports/acceptances and admission requirement envelopes (document 23), separate from gameplay StateScope.
 
 ### R3B — Versioned feature envelopes
 
@@ -403,7 +404,8 @@ Make a tiny world fully playable offline.
 - save slots;
 - app kill/recovery;
 - play-time/real-elapsed reconciliation;
-- installed cartridge manager.
+- installed cartridge manager;
+- durable Story milestone + pending-report capture with local game commit; persistent account/profile binding outside portable hashes; fake synchronization adapter for R6P.
 
 ### Gate R6
 
@@ -624,6 +626,8 @@ The cartridge MUST still prove that quests and living-world systems interact thr
 
 Full applicable `offline_private` certification plus a **developer-harness physical-device smoke** using the minimal Expo/native integration established by R1/R2/R6. Polished non-developer product-shell acceptance belongs to R12.
 
+Its two intended endings emit the declared durable `prologue_completed` milestone after the final dawn consequence. Local pending-report capture is part of crash/retry evidence; the public account service is R12A.
+
 The cartridge should be authored primarily through source files/compiler/Lab at this stage. Record every repetitive, confusing, or error-prone authoring operation as evidence for the Builder API rather than prematurely generalizing it.
 
 ## R11 — Builder API v1 and script-surface generalization
@@ -660,7 +664,13 @@ Astra/another agent can recreate or extend representative R10 product content us
 
 ## R12 — Loka app: production Story Mode
 
-Can overlap late R10.
+Can overlap late R10. R12A may start in parallel with R6/content work; it is required before the first public Story release, not before the disposable kernel experiment or R6P.
+
+### R12A — Launch accounts and Story progress
+
+Build the minimal `loka_platform` service and PostgreSQL dev/test/runtime infrastructure for account creation/sign-in, recovery/deletion, authenticated run binding and milestone submission/readback, evidence-labeled acceptance and administrative last-reported progress. Persist local pending reports at R6; implement the real adapter here.
+
+Gate: real-service tests cover offline completion followed by reconnect, duplicate/lost acknowledgements, multi-device non-regression, account switching/guest claiming if supported, account deletion versus in-flight submissions, and new-device progress readback without pretending to restore a full save. Both chapter-one endings qualify. Actual authentication/storage/mobile evidence is required by [document 23](23-accounts-progress-admission.md), not just Python model tests.
 
 ### Build
 
@@ -677,14 +687,14 @@ Can overlap late R10.
 
 ### Gate R12
 
-Non-developer can install the polished build, enter airplane mode, play/finish the free cartridge, resume after app/device restart, and use production cartridge/save UX without developer tooling.
+Non-developer can install the polished build, enter airplane mode, play/finish the free cartridge, resume after app/device restart, and use production cartridge/save UX without developer tooling. R12A also passes: the player can sign in, finish offline, synchronize the completion and read it on the account. Expired credentials/service outages do not block installed gameplay. The first free public release includes accounts/progress; R13 is not required until paid commerce.
 
 ## R13 — Commerce and entitlement
 
 ### Build
 
-- introduce PostgreSQL dev/test/runtime infrastructure needed by platform services;
-- `loka_platform` account/catalog/entitlement application service boundary;
+- extend the PostgreSQL and account/progress foundation delivered at R12A;
+- add catalog/entitlement/purchase services within `loka_platform`;
 - catalog service;
 - canonical entitlement;
 - Apple/Google product mapping;
@@ -713,7 +723,8 @@ Run the same cartridge rules online under OTP.
 
 ### Build
 
-- Session→Account→Character;
+- Session→existing R12A Account→Character;
+- server-side onboarding admission from accepted prologue milestones under versioned deployment policy, never a client flag or save import (document 23);
 - InstanceRegistry/Supervisor;
 - WorldInstance;
 - R1-selected portable-rules adapter/implementation;
@@ -734,7 +745,7 @@ Run the same cartridge rules online under OTP.
 
 Same cartridge golden playthrough matches offline domain trace where host-specific effects are excluded.
 
-Chaos tests around every commit boundary pass.
+Chaos tests around every commit boundary pass. Where the deployment requires prologues, entry and re-entry enforce current account/progress/policy state on the server; duplicate reports, stale client unlock caches and withdrawn evidence cannot bypass admission.
 
 ## R15 — Online-private deployment
 
@@ -746,7 +757,7 @@ Offer same story as cloud-authoritative run.
 
 - deployment selection;
 - online saves;
-- persistent account links;
+- reuse the R12A account identity and server-side prologue requirements for admission;
 - online cartridge catalog launch;
 - optional online-authoritative achievements.
 
@@ -904,7 +915,7 @@ R0 -> R1 -> R2 -> minimal R3-R6 + selected early R7/R8 slices
                               -> R9 minimum + R9C -> R10 full chapter
 
 STORY RELEASE                       AUTHORING / REUSE
-R10 -> R12 + free-release gates      R10 authoring evidence -> R11 -> R16
+R10 -> R12 (incl. R12A) + free-release gates      R10 authoring evidence -> R11 -> R16
         -> R13 before paid release                            |
                                                      later Story content
 
@@ -918,7 +929,7 @@ R6P deliberately draws only selected early narrative/schedule slices forward. La
 capabilities still satisfy their own phase gates before content can depend on them.
 
 
-R12 may overlap R10. Platform persistence required by R14 can be introduced without waiting for purchase product work. R13 is mandatory before paid releases, not before the proof or an otherwise compliant free chapter release. Both free and paid releases require their applicable store, installation, signing, compatibility and human acceptance gates. Realm gates do not block offline content/Builder/factory work. Phase numbers are stable labels, not an implicit total order.
+R12 may overlap R10; R12A account/progress work may start in parallel with R6/content. Its real platform persistence/API is required before the first public Story release and is reused by R13/R14, independent of purchase product work. R13 is mandatory before paid releases, not before the proof or an otherwise compliant free chapter release. Both free and paid releases require their applicable store, installation, signing, compatibility and human acceptance gates. Realm gates do not block offline content/Builder/factory work. Phase numbers are stable labels, not an implicit total order.
 
 # Issue sizing rule
 
@@ -977,7 +988,7 @@ Historical ranges for one developer with agent assistance, following the chapter
 | R8 living world, chapter-one tier | 4 to 6 weeks |
 | R9 and R9C, minimum gates | 4 to 6 weeks |
 | R10 chapter one content | 6 to 10 weeks |
-| R12 app shell | 6 to 10 weeks |
+| R12 app shell + R12A accounts/progress | Re-estimate added platform work; old shell-only range was 6 to 10 weeks |
 | R13 commerce and entitlement | 3 to 5 weeks |
 | **Full free chapter one in the store** | Re-estimate after R6P; R10/R12 and applicable release gates |
 | R11 Builder v1 | 4 to 8 weeks |
@@ -991,6 +1002,6 @@ Realm development is not sized here and may run alongside later chapters. R16 is
 
 Prove a small playable experience at R6P, then ship the full chapter rather than build every future catalog feature first.
 
-The first free product gate spans **R10 + R12 plus applicable installation, signing, compatibility, store and human gates**. The first paid cartridge additionally requires R13 purchase/restore/entitlement evidence. Free experience validation and paid-product validation are different, explicit milestones.
+The first free product gate spans **R10 + R12 (including R12A accounts/progress) plus applicable installation, signing, compatibility, store and human gates**. The first paid cartridge additionally requires R13 purchase/restore/entitlement evidence. Free experience validation and paid-product validation are different, explicit milestones.
 
 The MMORPG path exists in the architecture so that work compounds, not so it blocks shipping.

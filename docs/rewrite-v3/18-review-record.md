@@ -45,6 +45,7 @@ Historical findings may describe superseded drafts. Read current contracts for i
 - [33. Contradictions surfaced while drafting the R1 envelope and the R0 index](#33-contradictions-surfaced-while-drafting-the-r1-envelope-and-the-r0-index)
 - [34. Audit follow-through and owner scope clarification — 2026-09-22](#34-audit-follow-through-and-owner-scope-clarification--2026-09-22)
 - [35. Human/LLM reading preparation — 2026-09-22](#35-humanllm-reading-preparation--2026-09-22)
+- [36. Owner amendment: accounts and prologue progress at launch](#36-owner-amendment-accounts-and-prologue-progress-at-launch)
 
 </details>
 <!-- packet-navigation:end -->
@@ -1469,3 +1470,9 @@ A structural/readability pass covered all numbered documents and the implementat
 The pass reconciles stale packet-status wording, the previously unindexed Ink study, companion classifications, the visually ambiguous roadmap branch drawing, and retained LokaScript sections that could be mistaken for current scope. The chapter ladder now places escort with chapter one, matching Q2/S3 and the existing release matrix; this is not a new mechanic.
 
 Two content defects are explicitly left for review rather than guessed away: the full-campaign quest total (five main plus 28 side versus a summary of 28) and the two-novice 14:00 fixture versus Hale's schedule. They are flagged beside source text and in the reading guide. No gate is declared passed by this housekeeping. Detailed validation and limitations are in [the housekeeping record](reviews/2026-09-22-reader-housekeeping.md).
+
+## 36. Owner amendment: accounts and prologue progress at launch
+
+On 2026-09-22 the owner requested and approved early accounts to remember offline cartridge completion and require introductory prologues before Realm. Document 23 and ADR-063 make accounts/progress mandatory at the first public Story release; installed gameplay remains offline and authentication-independent. Offline reports qualify only for explicit onboarding policy, not competitive value or verified-human-play claims.
+
+R12A brings the minimal platform account/progress service forward; R13 adds commerce and R14/R15 enforce server admission. R6/R7 produce durable milestones and pending sync; R6P uses a fake adapter. No top-level phase is renumbered and no chapter-one content is cut. ACCOUNT-01–12 state recovery, binding, replay, multi-device, deletion and policy obligations. The corresponding model checks do not establish production authentication, database, device or Realm readiness.

@@ -37,6 +37,7 @@ Locate the scenario family for a claim. A listed scenario is a requirement/examp
 - [Y. Quest scenes, dreams, cutscenes, and scripted world events](#y-quest-scenes-dreams-cutscenes-and-scripted-world-events)
 - [Z. Release assurance and orchestrated role boundaries](#z-release-assurance-and-orchestrated-role-boundaries)
 - [Audit follow-through acceptance cases](#audit-follow-through-acceptance-cases)
+- [Account and prologue progress acceptance](#account-and-prologue-progress-acceptance)
 
 </details>
 <!-- packet-navigation:end -->
@@ -1130,7 +1131,7 @@ The Story save still opens through the documented portable-rules/rule-IR compati
 
 A legitimately acquired cartridge remains playable in Story Mode while signed out/offline.
 
-Entering Realm Mode requires authenticated online identity.
+Entering Realm Mode requires authenticated online identity and server-checked prologue prerequisites where configured. The historical title refers to an optional active login during installed Story play, not optional account support in the first public release. R12A/ACCOUNT-01–12 govern launch identity and completion tracking.
 
 ### BUILDTARGET-01 — Story rejects server-only capability
 
@@ -1821,3 +1822,55 @@ Immediate ferry/shop operations trigger transactional tests now; they do not tri
 ### TOPOLOGY-01 — Transport and conditional reachability
 
 The 57-room chapter's island is reachable through the ferry, not ordinary exits alone. Separately test payment, schedule, policy and return travel under declared scenarios. Do not label a structurally linked but unaffordable/never-available required target playable, or impose six-direction reciprocal exits on all future engine connections.
+
+## Account and prologue progress acceptance
+
+Governing contract: [document 23](23-accounts-progress-admission.md); ADR-063. These require real implementation evidence at their phase, not merely a specification-model pass.
+
+### ACCOUNT-01 — Launch identity and offline independence
+
+The first free public build offers accounts, recovery/deletion and completion synchronization. Finish/resume an installed story with expired credentials or an unavailable service. Only sync waits; local gameplay succeeds. R6P may use a fake adapter; it does not discharge the real R12A gate.
+
+### ACCOUNT-02 — Atomic completion and report capture
+
+For both chapter-one endings, crash before/during/after the terminal dawn commit. Either the outcome and milestone/pending report are all absent, or all durable. Credits display is not the trigger. A restored backup requeues safely. Test real local transactions; model atomic assignment is insufficient.
+
+### ACCOUNT-03 — Duplicate reports and lost acknowledgement
+
+Repeat the same authenticated report after server acceptance loses its response. Replay its stable receipt and credit once. Changed canonical payload under the same ID conflicts; a new ID for the same bound run/milestone also cannot credit twice. Conflicting terminal outcomes are visible conflicts.
+
+### ACCOUNT-04 — Authenticated binding and account switching
+
+Account A records a completion, signs out, and account B signs in. The pending upload remains bound to A; server rejects access/reassignment by B. Payload account IDs do not authenticate. Guest claiming, if offered, consumes an unclaimed run once and cannot transfer an already-bound run.
+
+### ACCOUNT-05 — Multi-device non-regression
+
+Accept completion on one run/device, then receive older starts/checkpoints from another and restore/reset/delete a local save. Account completion remains true. Separate run state from completed-at-least-once; client timestamps and last-write-wins do not determine completion.
+
+### ACCOUNT-06 — Onboarding-only evidence
+
+A known approved offline completion may satisfy an onboarding prerequisite. Unknown release/milestone/outcome, arbitrary unlock flags, oversized/unknown fields, caller-selected server evidence and currency/XP/purchase payloads fail. An offline report cannot satisfy a requirement restricted to stronger evidence.
+
+### ACCOUNT-07 — Equivalent prologues and account-wide admission
+
+Approved old/new prologue release milestones can satisfy one stable requirement. Both intended endings qualify without side-quest completion. The same account need not repeat onboarding for each Realm character. An unapproved R6P proof or arbitrary content-declared requirement grants nothing.
+
+### ACCOUNT-08 — Realm entry is server-owned
+
+Forge a client unlock cache; join/rejoin with a missing requirement, withdrawn evidence, unknown policy or stale progress version. Server denies or requests a fresh decision before attaching gameplay. Test progress/policy change at admission; do not trust the UI or bypass on resume.
+
+### ACCOUNT-09 — Deletion serializes against ingestion
+
+Delete the account while a report is queued or in flight. Revoke authentication, recheck lifecycle at acceptance commit, and prevent old reports/credentials recreating progress. A new account with the same email is distinct; old bound reports are not implicitly guest-claimed. Local save disposition is explicit.
+
+### ACCOUNT-10 — Synchronization is not save backup or analytics
+
+On a new device, read accepted completions without claiming the full game save is restored. Admin state distinguishes no report from known incomplete activity. Sampled/lost analytics cannot erase or grant admission; offline completion remains unknown until received.
+
+### ACCOUNT-11 — Withdrawn acceptance stays withdrawn on replay
+
+Explicitly withdraw a record through an authorized correction. Retry its old report: historical receipt may replay, but eligibility uses the current effective record and stays withdrawn. Ordinary cartridge updates, report order and save resets cannot implicitly revoke prior accepted completion.
+
+### ACCOUNT-12 — Launch scope cannot be deferred to paid or Realm phases
+
+Before public free Story release require R12A real authenticated sync/storage/lifecycle/device evidence. R13 reuses its database/accounts; R14/R15 add admission. Pure Lab and R6P do not require production identity, but both test local milestone/retry behavior. No account gameplay StateScope is introduced.
