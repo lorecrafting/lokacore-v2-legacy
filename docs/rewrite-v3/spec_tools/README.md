@@ -23,8 +23,9 @@ mix format --check-formatted
 mix compile --warnings-as-errors
 mix test
 mix loka.readiness --check-template
-# MUST fail until real records and approvals are supplied:
-mix loka.readiness --require-ready ../prep/after-pr-10/setup.pending.json --evidence-root ..
+# Both MUST fail until their real stage-specific records/approvals exist:
+mix loka.readiness --require-ready ../prep/after-pr-10/setup.pending.json --evidence-root .. --stage A1
+mix loka.readiness --require-ready ../prep/after-pr-10/setup.pending.json --evidence-root .. --stage A2
 # Temporary comparison ratchet, additionally requires Python 3:
 mix test --include comparison
 ```
@@ -37,6 +38,22 @@ sorts ASCII keys, retains scalar Unicode, rejects floats and bounds integers.
 This is the existing fixture codec, not general JSON canonicalization or a
 production hostile-cartridge decoder. The uniform sampler's callback seam exists
 only for controlled rejection/budget tests; ordinary calls use the fixed PRNG.
+
+## Staged preparation
+
+`--stage A1` permits deferred native/physical fields, never missing R0,
+independent oracle/A1 setup review, execution-host details, exact
+Node/TypeScript/Elixir/full-OTP identities or retained replayable locks.
+`--stage A2` (also the default) requires full native/physical qualification setup.
+A1 is semantic-only and cannot produce A2/R1/production authorization.
+
+`setup_digest(data, "A1")` prefixes canonical setup bytes with
+`loka-r1-a1-setup-v1` plus a NUL byte. The default/`"A2"` digest remains unchanged.
+Both exclude `status` and `setup_review`; all other supplied fields stay bound.
+Existing JSON schemas/records are reused. A changed stage requires a new genuine
+setup review, not status editing or rehashing. See [the corpus guide](../conformance/README.md).
+The authorized envelope amendment changes one of eleven preservation hashes;
+the other ten, including all gameplay/numeric/profile/template inputs, stay fixed.
 
 ## Bounded inventory and retirement map
 

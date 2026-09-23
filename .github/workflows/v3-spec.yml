@@ -64,14 +64,22 @@ jobs:
           mix test | tee "$GITHUB_WORKSPACE/v3-spec-elixir-default.log"
           mix test --include comparison | tee "$GITHUB_WORKSPACE/v3-spec-elixir.log"
           mix loka.readiness --check-template
-          for input in ../conformance/r1-run-manifest.template.json ../prep/after-pr-10/setup.pending.json; do
-            set +e
-            output=$(mix loka.readiness --require-ready "$input" --evidence-root .. 2>&1)
-            result=$?
-            set -e
-            printf '%s\n' "$output"
-            test "$result" -eq 1
-            grep -q 'NOT READY: preparation pending' <<< "$output"
+          for stage in A1 A2; do
+            for input in ../conformance/r1-run-manifest.template.json ../prep/after-pr-10/setup.pending.json; do
+              for checker in mix python; do
+                set +e
+                if [ "$checker" = mix ]; then
+                  output=$(mix loka.readiness --require-ready "$input" --evidence-root .. --stage "$stage" 2>&1)
+                else
+                  output=$(python3 ../checks/readiness.py --require-ready "$input" --evidence-root .. --stage "$stage" 2>&1)
+                fi
+                result=$?
+                set -e
+                printf '%s %s %s exit=%s\n%s\n' "$checker" "$stage" "$input" "$result" "$output"
+                test "$result" -eq 1
+                grep -q 'NOT READY: preparation pending' <<< "$output"
+              done
+            done
           done
           git diff --exit-code
       - name: Capture exact specification input for review

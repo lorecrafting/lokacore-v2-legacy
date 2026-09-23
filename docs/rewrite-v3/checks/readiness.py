@@ -21,6 +21,8 @@ INPUTS = (
 )
 TOOLS = ('expo', 'react_native', 'hermes', 'typescript', 'node', 'elixir', 'otp',
          'sqlite', 'sqlite_binding', 'xcode', 'ios_sdk', 'android_sdk', 'gradle', 'jdk')
+A1_TOOLS = ('typescript', 'node', 'elixir', 'otp')
+STAGES = ('A1', 'A2')
 DEVICE_FIELDS = ('qualification_class', 'model', 'sku', 'soc', 'installed_ram_gb',
                  'os_version', 'os_build', 'architecture', 'availability_record')
 NORMATIVE = ('01-core-principles.md', '02-beam-runtime-architecture.md',
@@ -57,10 +59,15 @@ def sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
-def setup_digest(manifest: dict) -> str:
+def setup_digest(manifest: dict, stage: str = 'A2') -> str:
     # External review hashes are excluded to avoid a self-referential hash cycle.
     value = {k: v for k, v in manifest.items() if k not in {'status', 'setup_review'}}
-    return sha256(canonical(value))
+    if stage not in STAGES:
+        raise ValueError('unsupported readiness stage')
+    # A1 approval cannot be reused as full-native A2 approval. Preserve the A2
+    # digest algorithm for existing records; status still is not authorization.
+    prefix = b'loka-r1-a1-setup-v1\x00' if stage == 'A1' else b''
+    return sha256(prefix + canonical(value))
 
 
 def nonempty(value) -> bool:
@@ -89,7 +96,9 @@ def retained(entry: dict, root: Path) -> bytes:
     return raw
 
 
-def require_ready(data: dict, root: Path) -> None:
+def require_ready(data: dict, root: Path, stage: str = 'A2') -> None:
+    if stage not in STAGES:
+        raise ValueError('unsupported readiness stage')
     if type(data) is not dict or set(data) != set(template()):
         raise ValueError('unknown/missing manifest fields')
     if type(data['schema_version']) is not int or data['schema_version'] != 1:
@@ -106,13 +115,20 @@ def require_ready(data: dict, root: Path) -> None:
     for platform, device in data['devices'].items():
         if type(device) is not dict or set(device) != set(DEVICE_FIELDS):
             raise ValueError('incomplete device inventory')
+        if stage == 'A1':
+            # Deferred does not mean malformed records or invented placeholders.
+            for field, value in device.items():
+                valid = (type(value) is int and value > 0) if field == 'installed_ram_gb' else nonempty(value)
+                if value is not None and not valid:
+                    raise ValueError('malformed deferred device detail: ' + platform + '/' + field)
+            continue
         for field in DEVICE_FIELDS:
             if field != 'installed_ram_gb' and not nonempty(device[field]):
                 raise ValueError('missing device detail: ' + platform + '/' + field)
-        floor = 3 if platform == 'ios' else 4
+        floor = 4
         if type(device['installed_ram_gb']) is not int or device['installed_ram_gb'] != floor:
             raise ValueError('qualification RAM class changed without amendment')
-        expected = 'iphone-se-2' if platform == 'ios' else 'galaxy-a14-4gb'
+        expected = 'iphone-11' if platform == 'ios' else 'galaxy-a14-4gb'
         if device['qualification_class'] != expected or device['architecture'] != 'arm64':
             raise ValueError('qualification class/architecture changed without amendment')
         if not re.fullmatch(r'\d+(?:\.\d+)*', device['os_version']):
@@ -124,12 +140,14 @@ def require_ready(data: dict, root: Path) -> None:
     server = data['server']
     if type(server) is not dict or set(server) != {'model', 'os_build', 'cores', 'ram_gb'}:
         raise ValueError('incomplete server record')
-    if any(not nonempty(server[k]) for k in ('model', 'os_build')) or any(type(server[k]) is not int or server[k] < 1 for k in ('cores', 'ram_gb')) or server['ram_gb'] < 16:
+    if any(not nonempty(server[k]) for k in ('model', 'os_build')) or any(type(server[k]) is not int or server[k] < 1 for k in ('cores', 'ram_gb')) or (stage == 'A2' and server['ram_gb'] < 16):
         raise ValueError('missing server details or RAM floor')
     tools = data['toolchain']
     if type(tools) is not dict or set(tools) != set(TOOLS):
         raise ValueError('incomplete toolchain')
     for name, value in tools.items():
+        if stage == 'A1' and name not in A1_TOOLS and value is None:
+            continue
         if not (type(value) is str and (re.fullmatch(r'\d+(?:\.\d+){0,3}(?:\+[a-zA-Z0-9.-]+)?', value) or digest(value, 40))):
             raise ValueError('toolchain must use exact stable version/build: ' + name)
     lock = retained(data['toolchain_lock'], root)
@@ -166,7 +184,7 @@ def require_ready(data: dict, root: Path) -> None:
             raise ValueError('missing subject-author separation: ' + name)
         if name == 'oracle_review' and canonical(review.get('inputs')) != canonical(inputs):
             raise ValueError('oracle review does not bind exact inputs')
-        if name == 'setup_review' and review.get('setup_digest') != setup_digest(data):
+        if name == 'setup_review' and review.get('setup_digest') != setup_digest(data, stage):
             raise ValueError('setup review does not bind exact configuration')
 
 
@@ -175,6 +193,8 @@ def main() -> int:
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument('--check-template', action='store_true')
     mode.add_argument('--require-ready', type=Path)
+    parser.add_argument('--stage', choices=STAGES, default='A2',
+                        help='A1 is semantic-only preparation; default A2 requires full native setup')
     parser.add_argument('--evidence-root', type=Path, default=ROOT)
     args = parser.parse_args()
     try:
@@ -184,8 +204,10 @@ def main() -> int:
             print('PASS: incomplete template preserved; NOT ready for candidate implementation')
         else:
             data = strict_json(args.require_ready.read_text())
-            require_ready(data, args.evidence_root)
-            print('PASS: retained preparation records complete; NOT R1 acceptance or authenticated evidence')
+            require_ready(data, args.evidence_root, args.stage)
+            print('PASS: R1-' + args.stage + ' preparation records complete; NOT R1 acceptance or authenticated evidence')
+            if args.stage == 'A1':
+                print('A1 ONLY: no native/physical qualification, A2 authorization or runtime selection')
     except (OSError, ValueError, TypeError, KeyError, UnicodeError) as exc:
         print('NOT READY:', exc, file=sys.stderr)
         return 1

@@ -66,6 +66,26 @@ Use small implementation-neutral fixtures, separate immutable definitions from m
 
 Required real candidate adapters still emit the full fixture files listed above, including per-step StateDelta/events/effects, hidden state and continuation bytes. Lantern's small model state/transcript is not a substitute for those candidate-produced artifacts. No test here certifies SQLite, Node/BEAM/Hermes, physical devices, mobile UI, backup or store release.
 
+## Stage-bound preparation (2026-09-23 amendment)
+
+Both checkers accept `--stage A1` for the reviewed semantic execution setup and
+`--stage A2` for full native/physical preparation. Omitting it retains A2's
+strict requirements. Both permanent blank and actual pending records fail both.
+The existing schema/version, field set, seven inputs and author-separation rules
+remain. Unknown native/phone details may be null at A1, not A2; supplied details
+remain typed and included in the setup digest. A1 must still have actual host,
+Node/TypeScript/Elixir/full-OTP versions, retained reproducible locks and genuine
+contract/oracle/setup approvals. These are not CI-provided owner attestations.
+
+A2's digest stays SHA-256 of the canonical manifest excluding `status` and
+`setup_review`. A1 prefixes those canonical bytes with UTF-8
+`loka-r1-a1-setup-v1` followed by one NUL byte before SHA-256. Reviewers must bind
+the requested stage, so reusing an A1 receipt for A2 fails even with complete
+inventory. Changing fields or stage requires genuine renewed setup review.
+Only the envelope input changes under this authorized amendment; gameplay,
+numeric, composition and Lantern expected bytes remain unchanged. Historical
+v0.3 envelope hash is retained in the amendment's review record.
+
 ## Preparation review provenance (post-PR #10 amendment)
 
 For both `oracle_review` and `setup_review`, retained receipts must now identify

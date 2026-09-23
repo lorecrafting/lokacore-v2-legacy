@@ -7,6 +7,7 @@ defmodule LokaSpec.Readiness do
   @max_bytes 8 * 1024 * 1024
   @inputs ~w(r1-acceptance-envelope.md conformance/numeric-profile.md conformance/numeric-vectors.json conformance/cases.json conformance/composition-profile.json conformance/composition-cases.json conformance/lantern-traces.json)
   @tools ~w(expo react_native hermes typescript node elixir otp sqlite sqlite_binding xcode ios_sdk android_sdk gradle jdk)
+  @a1_tools ~w(typescript node elixir otp)
   @device ~w(qualification_class model sku soc installed_ram_gb os_version os_build architecture availability_record)
   @normative ~w(01-core-principles.md 02-beam-runtime-architecture.md 03-domain-state-persistence.md 04-command-event-effect-protocol.md 05-cartridges-content-capabilities.md 06-quests-dialogue-actions-scripting.md 07-offline-storypacks-to-mmo.md 08-builder-api-ai-factory.md 09-cartridge-lab-certification.md 10-mobile-commerce-release.md 11-security-observability-operations.md 14-implementation-plan.md 15-acceptance-scenarios.md 16-decision-register.md 19-quest-sharing-instancing-capacity.md 21-composable-world-primitives.md 23-accounts-progress-admission.md)
 
@@ -46,13 +47,17 @@ defmodule LokaSpec.Readiness do
     end)
   end
 
-  @spec setup_digest(manifest()) :: String.t()
-  def setup_digest(data),
-    do: data |> Map.drop(~w(status setup_review)) |> Codec.encode() |> Codec.sha256()
+  @spec setup_digest(manifest(), String.t()) :: String.t()
+  def setup_digest(data, stage \\ "A2") do
+    ensure!(stage in ~w(A1 A2), "unsupported readiness stage")
+    prefix = if stage == "A1", do: "loka-r1-a1-setup-v1\0", else: ""
+    raw = data |> Map.drop(~w(status setup_review)) |> Codec.encode()
+    Codec.sha256(prefix <> raw)
+  end
 
-  @spec validate(Codec.value(), String.t()) :: result()
-  def validate(data, root) do
-    controlled(fn -> validate!(data, root) end)
+  @spec validate(Codec.value(), String.t(), String.t()) :: result()
+  def validate(data, root, stage \\ "A2") do
+    controlled(fn -> validate!(data, root, stage) end)
   end
 
   @spec read_json(String.t()) :: Codec.value()
@@ -86,7 +91,8 @@ defmodule LokaSpec.Readiness do
     raw
   end
 
-  defp validate!(data, root) do
+  defp validate!(data, root, stage) do
+    ensure!(stage in ~w(A1 A2), "unsupported readiness stage")
     ensure!(keys?(data, Map.keys(template())), "unknown/missing manifest fields")
     ensure!(data["schema_version"] === 1, "unknown manifest version")
 
@@ -104,13 +110,20 @@ defmodule LokaSpec.Readiness do
       "both physical qualification records required"
     )
 
-    Enum.each(~w(ios android), &device!(data["devices"][&1], &1))
+    Enum.each(~w(ios android), fn platform ->
+      if stage == "A2" do
+        device!(data["devices"][platform], platform)
+      else
+        deferred_device!(data["devices"][platform], platform)
+      end
+    end)
+
     server = data["server"]
     ensure!(keys?(server, ~w(model os_build cores ram_gb)), "incomplete server record")
 
     ensure!(
       nonempty?(server["model"]) and nonempty?(server["os_build"]) and positive?(server["cores"]) and
-        positive?(server["ram_gb"]) and server["ram_gb"] >= 16,
+        positive?(server["ram_gb"]) and (stage == "A1" or server["ram_gb"] >= 16),
       "missing server details or RAM floor"
     )
 
@@ -120,9 +133,10 @@ defmodule LokaSpec.Readiness do
       value = data["toolchain"][name]
 
       ensure!(
-        is_binary(value) and
-          (Regex.match?(~r/\A\d+(?:\.\d+){0,3}(?:\+[a-zA-Z0-9.-]+)?\z/, value) or
-             digest?(value, 40)),
+        (stage == "A1" and name not in @a1_tools and is_nil(value)) or
+          (is_binary(value) and
+             (Regex.match?(~r/\A\d+(?:\.\d+){0,3}(?:\+[a-zA-Z0-9.-]+)?\z/, value) or
+                digest?(value, 40))),
         "toolchain must use exact stable version/build: " <> name
       )
     end)
@@ -174,13 +188,26 @@ defmodule LokaSpec.Readiness do
         )
       else
         ensure!(
-          review["setup_digest"] == setup_digest(data),
+          review["setup_digest"] == setup_digest(data, stage),
           "setup review does not bind exact configuration"
         )
       end
     end)
 
     :ok
+  end
+
+  defp deferred_device!(device, platform) do
+    ensure!(keys?(device, @device), "incomplete device inventory")
+
+    Enum.each(device, fn {field, value} ->
+      valid = if field == "installed_ram_gb", do: positive?(value), else: nonempty?(value)
+
+      ensure!(
+        is_nil(value) or valid,
+        "malformed deferred device detail: " <> platform <> "/" <> field
+      )
+    end)
   end
 
   defp device!(device, platform) do
@@ -192,7 +219,7 @@ defmodule LokaSpec.Readiness do
 
     {ram, class, minimum} =
       if platform == "ios",
-        do: {3, "iphone-se-2", [16, 4, 0]},
+        do: {4, "iphone-11", [16, 4, 0]},
         else: {4, "galaxy-a14-4gb", [10, 0, 0]}
 
     ensure!(
@@ -295,7 +322,12 @@ defmodule Mix.Tasks.Loka.Readiness do
   def run(args) do
     {opts, rest, invalid} =
       OptionParser.parse(args,
-        strict: [check_template: :boolean, require_ready: :string, evidence_root: :string]
+        strict: [
+          check_template: :boolean,
+          require_ready: :string,
+          evidence_root: :string,
+          stage: :string
+        ]
       )
 
     modes = Keyword.take(opts, [:check_template, :require_ready])
@@ -303,6 +335,9 @@ defmodule Mix.Tasks.Loka.Readiness do
     if rest != [] or invalid != [] or length(modes) != 1 or
          not (opts[:check_template] === true or is_binary(opts[:require_ready])),
        do: Mix.raise("choose --check-template or --require-ready PATH")
+
+    stage = opts[:stage] || "A2"
+    if stage not in ~w(A1 A2), do: Mix.raise("NOT READY: unsupported readiness stage")
 
     {result, message} =
       if opts[:check_template] == true do
@@ -316,13 +351,22 @@ defmodule Mix.Tasks.Loka.Readiness do
       else
         data = Readiness.read_json(opts[:require_ready])
 
-        {Readiness.validate(data, opts[:evidence_root] || Readiness.root()),
-         "retained preparation records complete; NOT R1 acceptance or authenticated evidence"}
+        {Readiness.validate(data, opts[:evidence_root] || Readiness.root(), stage),
+         "R1-#{stage} preparation records complete; NOT R1 acceptance or authenticated evidence"}
       end
 
     case result do
-      :ok -> Mix.shell().info("PASS: " <> message)
-      {:error, reason} -> Mix.raise("NOT READY: " <> reason)
+      :ok ->
+        Mix.shell().info("PASS: " <> message)
+
+        if stage == "A1" and is_binary(opts[:require_ready]),
+          do:
+            Mix.shell().info(
+              "A1 ONLY: no native/physical qualification, A2 authorization or runtime selection"
+            )
+
+      {:error, reason} ->
+        Mix.raise("NOT READY: " <> reason)
     end
   rescue
     error in [ArgumentError, File.Error] -> Mix.raise("NOT READY: " <> Exception.message(error))

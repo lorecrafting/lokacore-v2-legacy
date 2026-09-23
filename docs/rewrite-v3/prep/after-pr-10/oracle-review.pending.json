@@ -5,11 +5,11 @@
   "independent_of_candidate_authorship": null,
   "subject_author_ids": [],
   "independent_of_subject_authorship": null,
-  "note": "Independent review not obtained. Authorship roster and authenticated approval must be supplied; this assistant self-review does not qualify.",
+  "note": "Fable on Claude Code was nominated by the owner, not authenticated or approved. Review the amended envelope and unchanged six semantic inputs; actual author separation and R0 acceptance remain pending.",
   "inputs": [
     {
       "path": "r1-acceptance-envelope.md",
-      "sha256": "c404127e08ed1965bad6cece6f707b45641d787791edc650d056a67baa6ea345"
+      "sha256": "c7748647761bcc9b6f1de4c965e50d6135b9e0a14aba4a95f30a75c728742df5"
     },
     {
       "path": "conformance/numeric-profile.md",

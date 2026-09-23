@@ -182,8 +182,8 @@ defmodule LokaSpec.ReadinessTest do
         override =
           if platform == "ios",
             do: %{
-              "qualification_class" => "iphone-se-2",
-              "installed_ram_gb" => 3,
+              "qualification_class" => "iphone-11",
+              "installed_ram_gb" => 4,
               "os_version" => "16.4"
             },
             else: %{
@@ -256,6 +256,133 @@ defmodule LokaSpec.ReadinessTest do
     row = data[name]
     record = Readiness.read_json(Path.join(root, row["path"])) |> change.()
     Map.put(data, name, retain(root, row["path"], Codec.encode(record)))
+  end
+
+  defp staged(root, stage, deferred \\ true) do
+    data = synthetic(root)
+
+    data =
+      if deferred do
+        data
+        |> Map.put("devices", Readiness.template()["devices"])
+        |> Map.put(
+          "toolchain",
+          Map.new(data["toolchain"], fn {key, value} ->
+            {key, if(key in ~w(typescript node elixir otp), do: value, else: nil)}
+          end)
+        )
+        |> put_in(["server", "ram_gb"], 8)
+      else
+        data
+      end
+
+    edit_receipt(data, root, "setup_review", fn review ->
+      Map.put(review, "setup_digest", Readiness.setup_digest(data, stage))
+    end)
+  end
+
+  test "A1 defers native inventory but A2 remains the strict default", %{root: root} do
+    data = staged(root, "A1")
+    assert :ok == Readiness.validate(data, root, "A1")
+    assert {:error, _} = Readiness.validate(data, root)
+    assert {:error, _} = Readiness.validate(data, root, "A2")
+    assert {:error, _} = Readiness.validate(data, root, "A3")
+  end
+
+  test "stage-bound setup approval cannot be relabeled even with complete inventory", %{
+    root: root
+  } do
+    for {reviewed, requested} <- [{"A1", "A2"}, {"A2", "A1"}] do
+      data = staged(root, reviewed, false)
+      assert :ok == Readiness.validate(data, root, reviewed)
+      assert {:error, reason} = Readiness.validate(data, root, requested)
+      assert reason =~ "exact configuration"
+    end
+  end
+
+  test "A1 keeps runtime, retained evidence and author separation requirements", %{root: root} do
+    for tool <- ~w(typescript node elixir otp) do
+      data = staged(root, "A1") |> put_in(["toolchain", tool], nil)
+      assert {:error, _} = Readiness.validate(data, root, "A1")
+    end
+
+    for field <- ~w(r0_acceptance oracle_review setup_review toolchain_lock) do
+      data = staged(root, "A1") |> put_in([field, "sha256"], String.duplicate("f", 64))
+      assert {:error, _} = Readiness.validate(data, root, "A1")
+    end
+
+    for field <- ~w(oracle_review setup_review) do
+      data = staged(root, "A1")
+
+      data =
+        edit_receipt(data, root, field, &Map.put(&1, "reviewer_id", "synthetic-subject-author"))
+
+      assert {:error, reason} = Readiness.validate(data, root, "A1")
+      assert reason =~ "subject-author"
+    end
+  end
+
+  test "deferred inventory stays typed and native A2 retains the amended exact class", %{
+    root: root
+  } do
+    for {path, value} <- [
+          {["devices", "ios", "installed_ram_gb"], true},
+          {["devices", "ios", "sku"], %{}},
+          {["toolchain", "xcode"], "latest"}
+        ] do
+      data = staged(root, "A1") |> put_in(path, value)
+      assert {:error, _} = Readiness.validate(data, root, "A1")
+    end
+
+    for {path, value} <- [
+          {["devices", "ios", "qualification_class"], "iphone-se-2"},
+          {["devices", "ios", "installed_ram_gb"], 3},
+          {["toolchain", "xcode"], nil}
+        ] do
+      data = staged(root, "A2", false) |> put_in(path, value)
+      assert {:error, _} = Readiness.validate(data, root, "A2")
+    end
+  end
+
+  test "stage digest domain is exact and pending records reject both stages" do
+    data = Readiness.template()
+    raw = data |> Map.drop(~w(status setup_review)) |> Codec.encode()
+    assert Readiness.setup_digest(data) == Codec.sha256(raw)
+    assert Readiness.setup_digest(data, "A1") == Codec.sha256("loka-r1-a1-setup-v1\0" <> raw)
+
+    for path <- ~w(conformance/r1-run-manifest.template.json prep/after-pr-10/setup.pending.json),
+        stage <- ~w(A1 A2) do
+      data = Readiness.read_json(Path.join(Readiness.root(), path))
+      assert {:error, _} = Readiness.validate(data, Readiness.root(), stage)
+    end
+  end
+
+  @tag :comparison
+  test "both language CLIs agree on A1, A2 and cross-stage receipt rejection", %{root: root} do
+    for {reviewed, requested, deferred} <- [
+          {"A1", "A1", true},
+          {"A1", "A2", true},
+          {"A1", "A2", false},
+          {"A2", "A1", false},
+          {"A2", "A2", false}
+        ] do
+      data = staged(root, reviewed, deferred)
+      path = Path.join(root, "stage-manifest.json")
+      File.write!(path, Codec.encode(data))
+
+      args = [
+        Path.join(Readiness.root(), "checks/readiness.py"),
+        "--require-ready",
+        path,
+        "--evidence-root",
+        root,
+        "--stage",
+        requested
+      ]
+
+      {_, exit} = System.cmd("python3", args, stderr_to_stdout: true)
+      assert exit == 0 == (Readiness.validate(data, root, requested) == :ok)
+    end
   end
 
   defp changes do

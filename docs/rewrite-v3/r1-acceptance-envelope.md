@@ -26,7 +26,7 @@ Read semantic versus synthetic workloads, measurement methods, fault classes and
 </details>
 <!-- packet-navigation:end -->
 
-**Version:** 0.3 — owner-approved target criteria (2026-09-22, ADR-064), pending amendment review/merge and exact setup freeze. **No candidate has been selected, benchmarked, or accepted.** Freeze the accepted envelope bytes, reviewed fixtures and actual device/toolchain manifest before candidate implementation; preparation of fixtures and setup may proceed now. Amendments after measurement must identify the earlier measurements and reason; never tune the acceptance rule to rescue a favorite candidate.
+**Version:** 0.4 — original numerical criteria retained; owner-approved staged preparation and delegated hardware selection, 2026-09-23 (ADR-064). Amendment review/merge, R0, setup reviews and measurements remain pending. **No candidate has been selected, benchmarked, or accepted.** Freeze accepted envelope bytes, reviewed fixtures and the reproducible A1 execution setup before semantic implementation. Freeze complete native/physical setup and obtain new stage-bound review before A2; preparation may proceed now. Amendments after measurement must identify the earlier measurements and reason; never tune the acceptance rule to rescue a favorite candidate.
 
 R1 is a disposable feasibility experiment in a separate workspace. It is not the production engine or a requirement to implement chapter one twice. The 57-room first release remains unchanged. `pre-release-proof.md` defines a later, small player-facing proof of the fresh engine; that proof is not the R1 microbenchmark.
 
@@ -79,18 +79,28 @@ Run 1,000 warm-up inputs, then at least 10,000 measured inputs in each of three 
 | Class | Approved target hardware | Evidence |
 |---|---|---|
 | Development/server host | Apple Silicon M1-or-later, 16 GB | Exact model, OS, runtime, cores and load recorded; common server tests use the same host |
-| Minimum iOS candidate | iPhone SE (2nd generation, A13, 3 GB) | Confirm actual support and availability before freeze; pin iOS and release-build toolchain |
+| Initial iOS qualification candidate | iPhone 11 (A13, planned 4 GB class) | Owner reports physical availability; actual RAM/SKU/OS and release-build toolchain still need verification before A2 |
 | Minimum Android candidate | Galaxy A14, 4 GB | Confirm exact variant, OS and release-build toolchain before freeze |
 
 These are owner-approved qualification classes, not claims about current Expo minimum support, measured support or actual device availability. Record exact Expo/React Native/Hermes, Node/Elixir/OTP, Rust/bindings if used, OS and build identifiers. Use release builds, stable thermal conditions and recorded battery/power state. A simulator or development machine cannot substitute for physical-device acceptance. Cold install/load/restore is measured separately from warm decisions.
 
+The 2026-09-23 owner instruction reports an M1 MacBook Air/16 GB, iPhone 11,
+old Pixel of unknown model and BOOX Palma 2, and delegates minimum-target choice.
+The selected iOS planning baseline changes from SE 2/3 GB to the available
+iPhone 11/4 GB class; no measurements exist to invalidate or conceal. This is a
+narrower support claim, not evidence that 3 GB iPhones pass. The Android A14/4 GB
+class remains; determine the Pixel SKU/SoC/RAM/OS before considering substitution.
+Palma 2 is an optional e-paper usability device, not a replacement phone or new
+mandatory platform. Simulators/emulators are development/compatibility tools,
+not physical latency or memory qualification. Numerical gates below are unchanged.
+
 ### 4.1 Support policy and recorded setup
 
-Qualification targets: physical iPhone SE (2nd generation, A13); an exactly identified Galaxy A14-class 4 GB Android phone, preferably an A14 5G variant; Android arm64 initially. Record actual SKU/SoC/RAM/OS rather than treating all A14 variants or an iPhone 11 as interchangeable. Target iOS 16.4+ and Android 10+ for the initial product planning matrix; recheck the exact native dependencies and distribution constraints at setup freeze and release. These OS choices do not certify every installable device or promise security support for obsolete systems.
+Qualification targets: physical iPhone 11 (A13, planned 4 GB class); an exactly identified Galaxy A14-class 4 GB Android phone, preferably an A14 5G variant; Android arm64 initially. Record actual SKU/SoC/RAM/OS rather than treating all A14 variants or an iPhone SE 2 as interchangeable. Target iOS 16.4+ and Android 10+ for the initial product planning matrix; recheck the exact native dependencies and distribution constraints at setup freeze and release. These OS choices do not certify every installable device or promise security support for obsolete systems.
 
 Minimum-hardware performance, lowest-target-OS compatibility and latest-stable-OS release smoke are separate coverage rows. Simulators supplement OS compatibility but never replace physical-device timing. The plain readable/touch-first UI must work on the floor; page curls, particles, shaders and 3D transitions are optional enhancements with identical gameplay. R1 adds no consumer-web or advanced graphics milestone.
 
-[The setup manifest template](conformance/r1-run-manifest.template.json) intentionally leaves unknown real devices, toolchain pins, accepted commit and reviewer receipts empty. `checks/readiness.py --require-ready MANIFEST --evidence-root DIR` must fail until actual setup records and hash-bound inputs/reviews exist. Its pass validates preparation records only, not genuine hardware use, timing accuracy or R1 acceptance. Never fill nulls with invented measurements. Build hashes, temperatures/battery and per-run environment go into actual result manifests after implementation; they cannot exist before the candidate is built.
+[The setup manifest template](conformance/r1-run-manifest.template.json) intentionally leaves unknown real devices, toolchain pins, accepted commit and reviewer receipts empty. `checks/readiness.py --require-ready MANIFEST --evidence-root DIR --stage A1` must fail until actual A1 host/runtime/lock evidence and hash-bound contract/input/review records exist. The default or explicit `--stage A2` additionally requires complete native toolchain and physical qualification inventory. Stage-specific review digests prevent reusing A1 approval as A2 approval. Its pass validates preparation records only, not genuine hardware use, timing accuracy or R1 acceptance. Never fill nulls with invented measurements. Build hashes, temperatures/battery and per-run environment go into actual result manifests after implementation; they cannot exist before the candidate is built.
 
 Current official references, rechecked 2026-09-22: [Expo SDK reference](https://docs.expo.dev/versions/latest/) for dependency/OS compatibility and [React Native performance](https://reactnative.dev/docs/performance) for release-build/JS-response distinctions. The reference tables are not a lockfile. Freeze exact stable patches and native module versions, not `latest`, canary or an invented tested version. A necessary support change requires a reviewed amendment, not a silent relaxation after a failed measurement.
 
@@ -186,6 +196,6 @@ R1 cannot approve R0, the production engine, a store submission, or chapter one.
 
 [The work package](r1-work-package.md) tracks PREP-01–03 then R1-A1–A5. Owner approval fixes this envelope's targets; it does not populate the physical inventory, approve independent expected values, complete R0 or choose A. The initial setup manifest has status `preparation_pending` and no results. Do not call a template, a Python model pass or matching headless transcripts a passing experiment.
 
-Hash the retained exact envelope, numeric vectors/profile, composition profile/cases and admitted fixture set in an external setup bundle. Do not put the hash of a self-containing envelope into itself. Record the accepted spec commit and reviewed manifest identity before building candidate semantics. Candidate A starts stateless. Any retained-cache/boundary variant is declared before tuning and receives the same safety/load gates; a new variant does not get to revise expected semantics.
+Hash the retained exact envelope, numeric vectors/profile, composition profile/cases and admitted fixture set in an external setup bundle. Do not put the hash of a self-containing envelope into itself. Record the accepted spec commit and stage-bound A1 manifest review before building candidate semantics; native/physical identities and a new A2 setup approval precede actual-host integration. A1 requires Node, TypeScript, Elixir/full OTP and a retained reproducible execution-host/lock bundle; deferred native fields may be null. All supplied fields remain typed and included in the review digest. Candidate A starts stateless. Any retained-cache/boundary variant is declared before tuning and receives the same safety/load gates; a new variant does not get to revise expected semantics.
 
 R1 acceptance still requires every applicable MUST result, raw retained per-step bytes, independent expected-value review, exact build/device manifests and a reviewed decision report. Failed/missing rows cannot be reclassified as N/A merely to select a favorite implementation. B/C remain unmeasured unless A/B fail in order. No PostgreSQL/Realm/production-engine or store-approval claim follows from R1.

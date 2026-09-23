@@ -5,6 +5,6 @@
   "independent_of_candidate_authorship": null,
   "subject_author_ids": [],
   "independent_of_subject_authorship": null,
-  "note": "Digest binds this incomplete configuration only, not approval. Replace after actual setup facts/locks are frozen and independently reviewed.",
-  "setup_digest": "3ac484c71e4ae2a9606dd2bc74cac39ca391a13023f46ffd5cd8601e77a07ab5"
+  "note": "Pending A1 execution-setup review; stage A1 domain-separated digest. Owner-reported devices are not an inspected/native-qualified setup. A2 requires complete native inventory/locks and a new full-setup digest/approval.",
+  "setup_digest": "bd2b9e2f476885cf401fec30213cc34d0472f52cba71c7a045a1bb2f617e67c6"
 }
