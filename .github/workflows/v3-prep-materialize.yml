@@ -19,6 +19,9 @@ jobs:
         with:
           otp-version: '28.4'
           elixir-version: '1.20.4'
+          version-type: strict
+          install-hex: false
+          install-rebar: false
       - name: Apply bounded patches in a clean main worktree
         shell: bash
         run: |
@@ -39,6 +42,7 @@ jobs:
           git reset --hard "$FIX"
           echo "$FIX" > "$GITHUB_WORKSPACE/prep-semantic-head.txt"
           git apply --index /tmp/v3-prep-patches/tooling.patch
+          git apply "$GITHUB_WORKSPACE/.prep-transfer/fix.patch"
           git diff --cached --name-only | grep -vE '^(docs/rewrite-v3/|\.github/workflows/v3-spec.yml$)' > /tmp/unexpected-paths || true
           test ! -s /tmp/unexpected-paths
       - name: Test and format specification tools only
@@ -52,9 +56,10 @@ jobs:
           python3 docs/rewrite-v3/checks/readiness.py --check-template
           cd docs/rewrite-v3/spec_tools
           elixir --version | tee "$GITHUB_WORKSPACE/prep-toolchain.log"
+          cat "$INSTALL_DIR_FOR_OTP/releases/28/OTP_VERSION" | tee -a "$GITHUB_WORKSPACE/prep-toolchain.log"
           mix format
           mix format --check-formatted
-          mix compile --warnings-as-errors
+          mix compile --warnings-as-errors 2>&1 | tee "$GITHUB_WORKSPACE/prep-compile.log"
           mix test --include comparison 2>&1 | tee "$GITHUB_WORKSPACE/prep-elixir.log"
           mix loka.readiness --check-template
           for input in ../conformance/r1-run-manifest.template.json ../prep/after-pr-10/setup.pending.json; do

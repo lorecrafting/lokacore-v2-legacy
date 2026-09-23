@@ -1,0 +1,12 @@
+--- a/docs/rewrite-v3/spec_tools/test/spec_tools_test.exs
++++ b/docs/rewrite-v3/spec_tools/test/spec_tools_test.exs
+@@ -224,7 +224,8 @@
+     for candidate <- candidates do
+       path = Path.join(root, "manifest.json")
+       File.write!(path, Codec.encode(candidate))
+-      {_, exit} = System.cmd("python3", [Path.join(Readiness.root(), "checks/readiness.py"), "--require-ready", path, "--evidence-root", root], stderr_to_stdout: true)
++      args = [Path.join(Readiness.root(), "checks/readiness.py"), "--require-ready", path, "--evidence-root", root]
++      {_, exit} = System.cmd("python3", args, stderr_to_stdout: true)
+       assert (exit == 0) == (Readiness.validate(candidate, root) == :ok)
+     end
+   end
