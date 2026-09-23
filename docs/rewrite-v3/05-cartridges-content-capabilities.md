@@ -36,6 +36,7 @@ Follow definitions, compilation, versioning and immutable releases. Deployment/e
 - [24. Realm-native cartridges and portable Story reuse](#24-realm-native-cartridges-and-portable-story-reuse)
 - [25. Composable world-primitive contract](#25-composable-world-primitive-contract)
 - [27. Cartridge completion milestones](#27-cartridge-completion-milestones)
+- [28. Operation ownership and recipe expansion](#28-operation-ownership-and-recipe-expansion)
 
 </details>
 <!-- packet-navigation:end -->
@@ -699,3 +700,11 @@ The compiler should reject contradictory duplicated mutable barrier definitions 
 A source manifest may declare versioned milestone keys with rule-owned triggers and allowed outcomes. Chapter one's `prologue_completed` covers either intended ending after the durable terminal scene consequence, not a client credits-screen event. The compiler validates declarations and their narrative-capability dependencies when the R3/R7 schema freezes. Milestone events use the normal typed decision/commit pipeline.
 
 A cartridge declaration does not grant an account entitlement or authorize Realm admission. An independently administered platform mapping selects approved exact release/milestone/outcome combinations for onboarding requirements. See [document 23 sections 3 and 7](23-accounts-progress-admission.md#3-declare-completion-once-independently-of-the-platform-unlock).
+
+## 28. Operation ownership and recipe expansion
+
+For the initial composition profile (04 §5.2–5.4), every registered operation declares versioned input/result types, canonical target identity, permitted scope, preconditions, read/write footprint, failure modes, generated-event permissions, deterministic cost and invariant obligations. Distinct custom namespaces do not grant permission to impersonate engine-owned events. A schema-valid `item_transferred` payload is not evidence of conserved transfer unless its owning capability produced it.
+
+Recipe/template expansion is compile-time, deterministic and source-mapped. Non-semantic file/map reordering leaves canonical artifacts unchanged; explicit sequence order and semantic ordering IDs remain hashed semantics. Store authored-source → expanded-node → operation mappings for actionable diagnostics. An ActionRecipe composes supported operations; it cannot invent a persistence/concurrency model or call a generic component-path setter.
+
+Facts should represent distinct narrative truth, not shadow canonical containment, quest/scene lifecycle, entitlements or platform admission. Query an owning capability or derive prose/actions when no independent history is required. Knowledge, testimony and physical truth use distinct typed meanings when admitted by content. This does not add new capability families to the chapter-one lock.

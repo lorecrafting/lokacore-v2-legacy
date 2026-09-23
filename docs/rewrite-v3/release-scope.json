@@ -38,7 +38,8 @@
     "HUMAN": "Readability, discoverability, consequence comprehension and authoring feedback.",
     "INSTANCE": "Spatial instancing closure, entry/export/teardown/recovery before feature use.",
     "ESCROW": "Queued ServiceJob custody, capacity, retry/fault and reconciliation before use.",
-    "ACCOUNT": "R12A first-public-app account lifecycle and real milestone sync; local capture/model adapter in proof; admission at R14/R15 (doc 23)."
+    "ACCOUNT": "R12A first-public-app account lifecycle and real milestone sync; local capture/model adapter in proof; admission at R14/R15 (doc 23).",
+    "RUN": "R12 first-public-Story bookmarks, pinned-save compatibility, rollback-safe migrations and bounded manual export/import (doc 10 sections 31-33, RUN-01-05). Optional backup has separate RUN-06 evidence when delivered."
   },
   "capabilities": [
     {
@@ -509,18 +510,22 @@
     "Production certification derives used features and transitive dependencies from the frozen compiled artifact and engine-owned registry; unknown applicability blocks/widens evidence.",
     "Native bindings, commercial purchase/review, hostile ingestion, compatibility and multiplayer gates also apply when those host/release risks exist; this planning list cannot waive them.",
     "R6P uses only each capability slice it exercises; a later feature of the same capability does not become an early dependency.",
-    "ACCOUNT is a first-public-app/platform obligation, not an engine capability or a live-service prerequisite for pure cartridge certification. R6P tests a fake sync adapter."
+    "ACCOUNT is a first-public-app/platform obligation, not an engine capability or a live-service prerequisite for pure cartridge certification. R6P tests a fake sync adapter.",
+    "RUN is a public Story app/recovery obligation, not a portable capability, a cloud-backup requirement, or an extra R1/R6P implementation dependency. Realm gameplay does not inherit offline save-import authority."
   ],
   "platform_gates": {
     "proof": [],
     "chapter_one": [
-      "ACCOUNT"
+      "ACCOUNT",
+      "RUN"
     ],
     "chapter_two": [
-      "ACCOUNT"
+      "ACCOUNT",
+      "RUN"
     ],
     "chapter_three": [
-      "ACCOUNT"
+      "ACCOUNT",
+      "RUN"
     ],
     "realm": [
       "ACCOUNT"

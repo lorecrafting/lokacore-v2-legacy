@@ -1,0 +1,1148 @@
+{
+  "fixture_version": 1,
+  "profile": "initial-composition-r1@1",
+  "evidence_class": "specification-known-answers-not-host-results",
+  "cases": [
+    {
+      "id": "explicit-sequence",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "fact.set",
+          "fact": "flag",
+          "value": 1
+        },
+        {
+          "op": "fact.set",
+          "fact": "flag",
+          "value": 2
+        }
+      ],
+      "rules": [],
+      "expected": {
+        "kind": "accepted",
+        "code": "ok",
+        "state": {
+          "facts": {
+            "flag": 2,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "root-before-reactions",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [
+          "observe"
+        ],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "event.emit",
+          "event": "proof.signal",
+          "payload": {
+            "value": 1
+          }
+        },
+        {
+          "op": "fact.set",
+          "fact": "flag",
+          "value": 2
+        }
+      ],
+      "rules": [
+        {
+          "id": "observe",
+          "event": "proof.signal",
+          "guard": {
+            "source": "overlay",
+            "key": "flag",
+            "equals": 2
+          },
+          "ops": [
+            {
+              "op": "fact.set",
+              "fact": "seen",
+              "value": 1
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "kind": "accepted",
+        "code": "ok",
+        "state": {
+          "facts": {
+            "flag": 2,
+            "seen": 1,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [
+            "observe"
+          ],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [
+          {
+            "type": "proof.signal",
+            "payload": {
+              "value": 1
+            },
+            "position": 1,
+            "time": 6
+          }
+        ],
+        "deliveries": [
+          "1:observe"
+        ]
+      }
+    },
+    {
+      "id": "emission-eligibility",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "event.emit",
+          "event": "proof.signal",
+          "payload": {
+            "value": 1
+          }
+        },
+        {
+          "op": "subscription.activate",
+          "rule": "observe"
+        }
+      ],
+      "rules": [
+        {
+          "id": "observe",
+          "event": "proof.signal",
+          "guard": null,
+          "ops": [
+            {
+              "op": "fact.set",
+              "fact": "seen",
+              "value": 1
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "kind": "accepted",
+        "code": "ok",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [
+            "observe"
+          ],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [
+          {
+            "type": "proof.signal",
+            "payload": {
+              "value": 1
+            },
+            "position": 1,
+            "time": 6
+          }
+        ],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "activation-before-emission",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "subscription.activate",
+          "rule": "observe"
+        },
+        {
+          "op": "event.emit",
+          "event": "proof.signal",
+          "payload": {
+            "value": 1
+          }
+        }
+      ],
+      "rules": [
+        {
+          "id": "observe",
+          "event": "proof.signal",
+          "guard": null,
+          "ops": [
+            {
+              "op": "fact.set",
+              "fact": "seen",
+              "value": 1
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "kind": "accepted",
+        "code": "ok",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 1,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [
+            "observe"
+          ],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [
+          {
+            "type": "proof.signal",
+            "payload": {
+              "value": 1
+            },
+            "position": 1,
+            "time": 6
+          }
+        ],
+        "deliveries": [
+          "1:observe"
+        ]
+      }
+    },
+    {
+      "id": "independent-conflict",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [
+          "a",
+          "b"
+        ],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "event.emit",
+          "event": "proof.signal",
+          "payload": {
+            "value": 1
+          }
+        }
+      ],
+      "rules": [
+        {
+          "id": "a",
+          "event": "proof.signal",
+          "guard": null,
+          "ops": [
+            {
+              "op": "fact.set",
+              "fact": "flag",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "id": "b",
+          "event": "proof.signal",
+          "guard": null,
+          "ops": [
+            {
+              "op": "fact.set",
+              "fact": "flag",
+              "value": 2
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "kind": "fault",
+        "code": "conflicting_write",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [
+            "a",
+            "b"
+          ],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "identical-independent-conflict",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [
+          "a",
+          "b"
+        ],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "event.emit",
+          "event": "proof.signal",
+          "payload": {
+            "value": 1
+          }
+        }
+      ],
+      "rules": [
+        {
+          "id": "a",
+          "event": "proof.signal",
+          "guard": null,
+          "ops": [
+            {
+              "op": "fact.set",
+              "fact": "flag",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "id": "b",
+          "event": "proof.signal",
+          "guard": null,
+          "ops": [
+            {
+              "op": "fact.set",
+              "fact": "flag",
+              "value": 1
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "kind": "fault",
+        "code": "conflicting_write",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [
+            "a",
+            "b"
+          ],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "fifo-not-depth-first",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [
+          "a",
+          "b"
+        ],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "event.emit",
+          "event": "proof.signal",
+          "payload": {
+            "value": 1
+          }
+        },
+        {
+          "op": "event.emit",
+          "event": "proof.followup",
+          "payload": {
+            "value": 2
+          }
+        }
+      ],
+      "rules": [
+        {
+          "id": "b",
+          "event": "proof.followup",
+          "guard": null,
+          "ops": []
+        },
+        {
+          "id": "a",
+          "event": "proof.signal",
+          "guard": null,
+          "ops": [
+            {
+              "op": "event.emit",
+              "event": "proof.followup",
+              "payload": {
+                "value": 3
+              }
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "kind": "accepted",
+        "code": "ok",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [
+            "a",
+            "b"
+          ],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [
+          {
+            "type": "proof.signal",
+            "payload": {
+              "value": 1
+            },
+            "position": 1,
+            "time": 6
+          },
+          {
+            "type": "proof.followup",
+            "payload": {
+              "value": 2
+            },
+            "position": 2,
+            "time": 6
+          },
+          {
+            "type": "proof.followup",
+            "payload": {
+              "value": 3
+            },
+            "position": 3,
+            "time": 6
+          }
+        ],
+        "deliveries": [
+          "1:a",
+          "2:b",
+          "3:b"
+        ]
+      }
+    },
+    {
+      "id": "canonical-registry-order",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [
+          "a",
+          "b"
+        ],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "event.emit",
+          "event": "proof.signal",
+          "payload": {
+            "value": 1
+          }
+        }
+      ],
+      "rules": [
+        {
+          "id": "b",
+          "event": "proof.signal",
+          "guard": null,
+          "ops": [
+            {
+              "op": "fact.set",
+              "fact": "seen",
+              "value": 2
+            }
+          ]
+        },
+        {
+          "id": "a",
+          "event": "proof.signal",
+          "guard": null,
+          "ops": [
+            {
+              "op": "fact.set",
+              "fact": "flag",
+              "value": 1
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "kind": "accepted",
+        "code": "ok",
+        "state": {
+          "facts": {
+            "flag": 1,
+            "seen": 2,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [
+            "a",
+            "b"
+          ],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [
+          {
+            "type": "proof.signal",
+            "payload": {
+              "value": 1
+            },
+            "position": 1,
+            "time": 6
+          }
+        ],
+        "deliveries": [
+          "1:a",
+          "1:b"
+        ]
+      }
+    },
+    {
+      "id": "payload-not-overlay",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [
+          "a"
+        ],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "event.emit",
+          "event": "proof.signal",
+          "payload": {
+            "value": 1
+          }
+        },
+        {
+          "op": "fact.set",
+          "fact": "flag",
+          "value": 2
+        }
+      ],
+      "rules": [
+        {
+          "id": "a",
+          "event": "proof.signal",
+          "guard": {
+            "source": "event",
+            "key": "value",
+            "equals": 1
+          },
+          "ops": [
+            {
+              "op": "fact.set",
+              "fact": "seen",
+              "value": 1
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "kind": "accepted",
+        "code": "ok",
+        "state": {
+          "facts": {
+            "flag": 2,
+            "seen": 1,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [
+            "a"
+          ],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [
+          {
+            "type": "proof.signal",
+            "payload": {
+              "value": 1
+            },
+            "position": 1,
+            "time": 6
+          }
+        ],
+        "deliveries": [
+          "1:a"
+        ]
+      }
+    },
+    {
+      "id": "unknown-policy",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "event.emit",
+          "event": "proof.signal",
+          "payload": {
+            "value": 1
+          }
+        }
+      ],
+      "rules": [
+        {
+          "id": "a",
+          "event": "proof.signal",
+          "guard": {
+            "source": "guess",
+            "key": "flag",
+            "equals": 1
+          },
+          "ops": []
+        }
+      ],
+      "expected": {
+        "kind": "fault",
+        "code": "unknown_policy",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "cannot-forge-engine-event",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "event.emit",
+          "event": "engine.item_transferred",
+          "payload": {
+            "value": 1
+          }
+        }
+      ],
+      "rules": [],
+      "expected": {
+        "kind": "fault",
+        "code": "forbidden_event",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "all-or-nothing-capacity",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "item.transfer",
+          "item": "lantern",
+          "source": "hero",
+          "destination": "bag"
+        },
+        {
+          "op": "item.transfer",
+          "item": "stone",
+          "source": "room",
+          "destination": "bag"
+        }
+      ],
+      "rules": [],
+      "expected": {
+        "kind": "fault",
+        "code": "capacity_exceeded",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "containment-cycle",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "item.transfer",
+          "item": "bag",
+          "source": "hero",
+          "destination": "bag"
+        }
+      ],
+      "rules": [],
+      "expected": {
+        "kind": "fault",
+        "code": "containment_cycle",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "zero-delay-scheduling",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "job.schedule",
+          "id": "spin",
+          "due": 6
+        }
+      ],
+      "rules": [],
+      "expected": {
+        "kind": "fault",
+        "code": "nonfuture_job",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "future-scheduling",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "job.schedule",
+          "id": "next",
+          "due": 7
+        }
+      ],
+      "rules": [],
+      "expected": {
+        "kind": "accepted",
+        "code": "ok",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [],
+          "clock": 6,
+          "jobs": {
+            "next": 7
+          }
+        },
+        "events": [],
+        "deliveries": []
+      }
+    }
+  ]
+}

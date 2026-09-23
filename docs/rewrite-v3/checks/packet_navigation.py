@@ -25,7 +25,7 @@ DOCUMENTS = {
     '04-command-event-effect-protocol.md': ('Design contract: decisions and projections', 'Read sections 1-10 for semantic execution. Network protocol sections apply when Realm transport is introduced.'),
     '05-cartridges-content-capabilities.md': ('Design contract: content format and capability boundary', 'Follow definitions, compilation, versioning and immutable releases. Deployment/extension details have their own applicability.'),
     '06-quests-dialogue-actions-scripting.md': ('Design contract: narrative and interaction', 'Quests/actions: sections 1-22. Custom events/scenes: 30-38 and 41-42. LokaScript sections 23-27 and 29 remain deferred; multiplayer scenes are later.'),
-    '07-offline-storypacks-to-mmo.md': ('Design contract: two authority modes and portability', 'Read sections 1-14 for the shared boundary, then continuity and Realm reuse. The experiment envelope remains proposed.'),
+    '07-offline-storypacks-to-mmo.md': ('Design contract: two authority modes and portability', 'Read sections 1-14 for the shared boundary, then continuity and Realm reuse. The target envelope is owner-approved; exact setup and measured acceptance remain pending.'),
     '08-builder-api-ai-factory.md': ('Design contract: authoring plane', 'Tools and agent permissions are separate from gameplay authority. General Builder/factory work follows demonstrated authoring needs.'),
     '09-cartridge-lab-certification.md': ('Design contract: applicable assurance', 'Start with section 1a for chapter one. The wider catalog does not require every gate for every profile.'),
     '10-mobile-commerce-release.md': ('Design contract: app and release', 'Separate offline play, free release, paid entitlements and later Realm. Review save compatibility and downloaded-content gates explicitly.'),
@@ -42,8 +42,8 @@ DOCUMENTS = {
     '21-composable-world-primitives.md': ('Design boundaries plus capability catalog', 'Read sections 1-3 and 24-26 for composition/graduation. Check release scope before treating a catalog entry or candidate as current work.'),
     '22-ink-runtime-lessons.md': ('Informative pinned prior-art study', 'Read the conclusions alongside the current conformance corpus and R1 envelope; proposed adaptations here are not automatically accepted.'),
     '23-accounts-progress-admission.md': ('Design contract: first-release accounts and onboarding', 'Start with the journey and three authorities. Completion sync is mandatory at public launch, full-save backup is optional, and offline reports are onboarding-only evidence.'),
-    'pre-release-proof.md': ('Proposed R6P work package', 'Four-place proof on the fresh engine before the full chapter; not a reduced release or completed build.'),
-    'r1-acceptance-envelope.md': ('Proposed R1 experiment and thresholds', 'Read semantic versus synthetic workloads, measurement methods, fault classes and acceptance procedure. Numbers are not measured or accepted yet.'),
+    'pre-release-proof.md': ('R6P work package; readiness direction approved', 'Four-place proof on the fresh engine before the full chapter; not a reduced release or completed build.'),
+    'r1-acceptance-envelope.md': ('R1 approved targets; setup and results pending', 'Read semantic versus synthetic workloads, measurement methods, fault classes and acceptance procedure. Targets are owner-approved; actual setup and measurements are not complete.'),
     'INDEX-cut-candidates.md': ('Informative pruning suggestions', 'Listing a section does not approve deleting it or dropping its invariants. Recheck suggestions against current contracts.'),
 }
 

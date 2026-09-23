@@ -52,6 +52,7 @@ Start with section 1a for chapter one. The wider catalog does not require every 
 - [39. Area-level assurance: isolate, then mount](#39-area-level-assurance-isolate-then-mount)
 - [40. Change-impact analysis accelerates feedback but cannot shrink release truth](#40-change-impact-analysis-accelerates-feedback-but-cannot-shrink-release-truth)
 - [41. Release-candidate soak and long-horizon simulation](#41-release-candidate-soak-and-long-horizon-simulation)
+- [42. Readiness evidence is not host evidence](#42-readiness-evidence-is-not-host-evidence)
 
 </details>
 <!-- packet-navigation:end -->
@@ -1283,3 +1284,11 @@ drifting permanently out of schedule, or events that never clean up.
 
 Soak success is still bounded evidence. The certificate records duration/seeds/state
 coverage rather than claiming proof over infinite time.
+
+## 42. Readiness evidence is not host evidence
+
+The added composition and Lantern fixtures extend `conformance/`, using independent explicit expected values rather than candidate-generated baselines. Preserve the existing Tiny strict-event and state-credit cases; Lantern is a separate content-intent fixture, not a replacement oracle. Run known-bad variants for queue ordering, activation snapshots, conflicting writes and restored narration alongside ordinary examples. Any expected-value amendment is separately reviewed against the governing contract, not regenerated to make a candidate green.
+
+R1 preparation validation checks a reviewed manifest and retained artifact hashes. It does not establish that devices were used, measurements are genuine or a store will accept the app. R1 acceptance additionally requires actual per-step adapters, release builds, physical iOS/Android, SQLite faults, Node/BEAM load and mismatch sensitivity under the accepted envelope. R6P adds human comprehension and both durable choice paths. Keep these evidence classes distinct in reports and certificates.
+
+Run-lifetime gates (10 §31–33) add released-save fixtures, package-retention references, interrupted migration, explicit fork lineage and bounded untrusted import tests at R6/R12. Optional backup tests become applicable only when the backup feature is delivered. Local specification-model passes cannot mark those integrations complete.

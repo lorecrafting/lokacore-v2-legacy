@@ -53,3 +53,11 @@ Use small implementation-neutral fixtures, separate immutable definitions from m
 ## Account/progress model scope
 
 `checks/account_progress_model.py` and `test_account_progress.py` exercise document 23's local queue, authenticated-principal boundary, run/release binding, report replay/conflicts, evidence policy, multi-device membership, deletion and current admission rules. Principals and transaction fault outcomes are supplied by the test harness. In-memory assignment is not actual SQLite/PostgreSQL atomicity, token verification, or a mobile background uploader. ACCOUNT-01–12 require those real integrations at R12A/R14; these tests cannot mark them complete.
+
+## Readiness fixtures and manifest
+
+`composition-profile.json` fixes the bounded initial experiment profile; `composition-cases.json` fixes explicit queue/overlay/activation/conflict examples. `checks/composition_model.py` implements only those abstract contracts, not the production operation registry. `lantern-traces.json` extends the same corpus with the separate four-place current-possession proof; `checks/lantern_model.py` reuses the existing receipt/fault model rather than replacing Tiny's oracle. It is not a compiled YAML artifact or proof that a general compiler can author Lantern without engine edits.
+
+`r1-run-manifest.template.json` is deliberately incomplete. `checks/readiness.py` checks versioned setup structure and verifies retained local artifact/review hashes before `--require-ready` can pass. It cannot authenticate a reviewer, prove real hardware use, or measure anything. Tests fill synthetic temporary records solely to exercise this validator; those are never committed as experiment evidence.
+
+Required real candidate adapters still emit the full fixture files listed above, including per-step StateDelta/events/effects, hidden state and continuation bytes. Lantern's small model state/transcript is not a substitute for those candidate-produced artifacts. No test here certifies SQLite, Node/BEAM/Hermes, physical devices, mobile UI, backup or store release.

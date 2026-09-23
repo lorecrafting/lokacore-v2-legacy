@@ -39,6 +39,7 @@ Tools and agent permissions are separate from gameplay authority. General Builde
 - [27. Context routing follows role and escalation](#27-context-routing-follows-role-and-escalation)
 - [28. Agents-as-tools versus authority handoff](#28-agents-as-tools-versus-authority-handoff)
 - [29. Foundry is optional infrastructure](#29-foundry-is-optional-infrastructure)
+- [30. Small initial authoring surface](#30-small-initial-authoring-surface)
 
 </details>
 <!-- packet-navigation:end -->
@@ -1019,3 +1020,9 @@ review/correction and escalation, but Loka remains the source of truth for:
 - exact artifact identity.
 
 The orchestrator cannot redefine what a passing Loka certificate means.
+
+## 30. Small initial authoring surface
+
+Before generalizing Builder, support the proof through named typed recipes and the same evaluator used for play. Authors need four explanations: why an action is present/absent; what a recipe reads/writes and may trigger; where validation failed; and what unsupported capability blocks the intended mechanic. `explain`, `preview`, `validate`, `trace` and `why_not` are interface responsibilities, not frozen API spellings.
+
+Preview uses a disposable snapshot with isolated RNG and no publication handles. Source maps connect expanded operations to original input (05 §28). An LLM cannot fix a content conflict by broadening grants, changing expected baselines or editing the engine. Use the existing CapabilityProposal escalation. Human-readable proof traces and observed authoring/correction effort inform R11; generalized scripting, extra primitive catalogs and new proof-language toolchains are not R1 prerequisites.

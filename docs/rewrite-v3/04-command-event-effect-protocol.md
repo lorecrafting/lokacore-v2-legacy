@@ -284,6 +284,61 @@ StateDelta composition is a first-class deterministic contract, not "merge some 
 
 R3 freezes the generic delta algebra, target identity, conflict/composition rules, and canonical serialization. Individual capabilities may add versioned delta operators later, but they cannot invent a second mutation path.
 
+### 5.2 Initial immediate-composition profile
+
+ADR-065 fixes the following observation order for the initial portable profile. It refines §5.1 rather than introducing a second evaluator. Capabilities and later profiles may add versioned semantics, never silently change an existing lock.
+
+1. Authenticate receipt access and recognize matching intent before current-world action, target or freshness checks. Reconcile unknown commit outcomes before admitting any new decision. An existing receipt returns its historical outcome, not a replacement for current state.
+2. Serialize a new input. Drain already-due jobs according to the declared logical-time admission policy before NEW-action resolution; each job is a typed internal command through the same authority spine. No due-job work is required merely to replay a known receipt.
+3. Bind typed targets and pure eligibility queries against committed state. Construct an isolated proposal with explicit clock, RNG and deterministic IdSource. No live persistence, publication or platform/network handles enter evaluation.
+4. Execute the root's explicit ordered operation sequence against the proposal overlay. Each operation observes prior operations in that sequence. Append emitted events to a FIFO queue; do not recursively call subscribers from inside an operation.
+5. At **event emission**, record its monotonic causal position, bounded event-time payload, and eligible subscription identities. Eligibility includes lifecycle/activation at that position. At delivery, visit that captured set in canonical compiled registry order and evaluate each rule's declared guard against the current overlay and/or explicit event payload. A newly activated quest cannot receive an earlier event merely because delivery occurs later. An activation-trigger-counts exception must be declared by the quest capability, not inferred.
+6. Each eligible delivery executes one explicit sequence as a distinct writer group; append its emitted events to the same queue. Registry order uses compiled stable semantic IDs, not source-file enumeration, map iteration or host scheduling. Priorities exist only in a registered capability arbitration contract. Changing a semantic ordering ID requires a new certified artifact.
+7. Reach quiescence, validate composed operations and final aggregate invariants, and commit once with the result, receipt, RNG/time, required continuation/narration and durable outbox records. Budget/conflict/evaluator faults discard the **whole** uncommitted proposal; they are not ordinary failed rolls. Unknown COMMIT follows 03 §15.
+8. Only after commit may the host adopt state and publish/project accepted results. Rendering, localization, scrolling and historical narration replay are read-only. They never repeat consequences or consume RNG.
+
+A root sequence's order is semantic data. An unrelated subscriber's deterministic execution order is **not** permission to win a conflicting write. Event-time payload and current-overlay queries are distinct typed inputs; observers cannot assume an event subject still exists or remains at its event-time location. Capture only bounded required event data, not a full world copy per event.
+
+A state-based possession objective may evaluate on activation. This is not historical event replay. Strict acquisition objectives still require an eligible post-activation acquisition position, even inside one decision. The existing Tiny event/state fixtures retain these separate meanings; R6P's different content intent is explicit in its work package.
+
+### 5.3 Minimal operation and conflict matrix
+
+Operation names below are semantic contracts, not permission for content to call arbitrary database/component setters. Exact wire schemas freeze at R3A/R3B for the admitted subset. An explicit sequence carries a coordinator-assigned writer-group identity. Independent reaction deliveries cannot copy that identity to evade conflict detection; footprint checking resolves actual runtime targets and aggregate owners.
+
+| Operation family | Required reads and writes | Initial composition rule |
+|---|---|---|
+| Fact compare/assign | Declared typed fact key + scope + subject; expected value; allowed transition | Opposite or repeated independent assignments conflict. A same-group explicit sequence may perform successive legal transitions. No implicit same-value coalescing; a future idempotent ensure operator needs its own event/no-op contract. |
+| Conserved transfer | Stable item identity; current source; destination and containment/capacity ancestry | One independent owner of the transfer. Two destinations for the same item conflict. Validate custody, conservation, acyclic containment and destination capacity; different items do not waive aggregate constraints. |
+| Resource adjustment | Typed bounded resource; current value and bounds; declared integer arithmetic | Initial operators apply in explicit sequence, check every step, and never silently clamp. Independent writers conflict unless a versioned commutative operator explicitly specifies composite/intermediate bounds. |
+| Lifecycle transition | Owning quest/scene/barrier instance and current state; named legal transition | Only owner capability changes its internals. Explicit unlock-then-open may compose; two unrelated next-state choices conflict. |
+| Choice/continuation resolution | Stable instance, beat/occurrence, bound roles, pending choice and expected revision | Resolve exactly one pending choice through the owning capability; consequence, continuation and required narration join the same decision. |
+| Schedule/create/cancel job | Job identity, due time, declared time basis, lifecycle | Stable occurrence identity, explicit conflict/dedupe rule, bounded queue. Same-time recursive scheduling is forbidden in the initial authored profile. |
+| Event emission | Registered payload schema, emission permission, event-time data, causal position | Content may emit only declared custom events; it cannot forge engine-owned transfer/completion/account evidence. Events do not directly write state. |
+
+Pure selectors/policies cannot mutate, draw RNG, perform I/O, or trigger hidden historical replay. A selector that promises all matches fails explicitly on cardinality overflow; truncation is allowed only for an explicitly named bounded-selection operator with defined ordering. Unknown operations, policies, event types or scope grants fail validation, never default to permissive behavior.
+
+Footprints are conservative declared read/write sets plus actual target checks. They are not a general static theorem prover. Final invariants can reject combinations whose writes are disjoint. Domain details beyond the initial fixtures are frozen when their capabilities are implemented, not prebuilt for R1.
+
+### 5.4 Bounded causality and durable waiting
+
+One immediate decision shares aggregate operation/query/event/delivery/output budgets across root and all descendants. Reaction depth also remains bounded. Exhaustion returns a typed evaluation fault with source/causal diagnostics; do not commit a truncated chain. R1 records exact deterministic caps in [the composition profile](conformance/composition-profile.json). These are experiment safety limits, not measured production capacity or a mandate to support that many authored entities in every cartridge.
+
+Every wait becomes typed persisted state: stable definition/instance/beat IDs, bound roles, expected event/time, and declared missing-participant policy. No saved closures, sleeping process or timer reference is semantic state. A wait on an already-satisfied condition must either advance within the same remaining budget or use a legitimate later input; it is not an unlimited fresh-fuel yield.
+
+Admission also bounds pending jobs and automatic resumes. The initial authored profile requires a newly scheduled job to be strictly later than current logical time. Process due jobs in `(due_time, stable_job_id)` order. Resume/advance has a fixed total due-job allowance. Evaluate its entire due-job set in an isolated proposal; over-limit work discards the whole advance, including time and jobs. Choose smaller explicit advances or report a content/runtime fault. Do not starve player input behind an endless same-timestamp queue. Later catch-up batching needs a separately tested durable continuation/ordering contract.
+
+Action time costs are explicit operations. In the initial profile, an explicit advance snapshots its due set up to the requested target, evaluates those registered job commands in `(due_time, stable_job_id)` order inside the same proposal, then sets the target time. During that advance, newly scheduled jobs must be strictly later than its target, not merely later than a visited due timestamp. Events retain their causal position and visited logical time; reactions follow §5.2. This bounded profile may require smaller advances for recurring work, but may not silently skip jobs or partially commit time. Already-due jobs at ordinary input admission use serialized internal commands; they cannot mutate concurrently. R6P uses zero-time ordinary actions and explicit wait, so reading does not move Bram.
+
+The advance snapshot is a candidate list of `(job_id, occurrence_generation, due_time)`, not unconditional permission to execute every entry. Before each entry, re-read its lifecycle/generation in the current overlay. A prior job or reaction that cancelled, completed or rescheduled that occurrence makes the old entry ineligible; never resurrect it. Each admitted job runs its root sequence and drains its FIFO reactions to quiescence **before the next due job**, sharing the advance's aggregate budget and proposal. Distinct job roots/deliveries have distinct coordinator-assigned writer groups; a capability that needs repeated writes across those groups must declare a versioned composition/fold rule rather than relying on the queue order. Re-evaluate final invariants only at the whole-advance boundary, and commit that advance once. No job receipt or success escapes ahead of the enclosing commit. This does not change the separate serialized decisions used at ordinary admission.
+
+Host watchdog timeout is a runtime fault, not an alternate game result. Cooperative yielding may retain an isolated proposal under serialized ownership; it may not expose half-state or admit competing mutations.
+
+### 5.5 Explanation and evidence obligations
+
+Diagnostics retain source location, expanded recipe, bound targets, operation version, writer group, event position and the violated invariant/budget. Player messages must not expose private facts. `preview` evaluates an isolated snapshot through the same semantics; it cannot consume live RNG or promise that a sampled outcome is guaranteed. A missing capability produces a proposal/escalation, not an engine-write grant.
+
+[Composition cases](conformance/composition-cases.json) specify small known-answer queue/conflict/activation examples. Their Python model checks only those contracts. Actual selected-host byte parity, SQLite recovery, scheduler load, device responsiveness and human play remain the R1/R6P evidence obligations; a passing model is not a production proof.
+
 ## 6. Online hybrid decision coordination
 
 Realm commands may involve both portable capabilities and server-only Elixir capabilities. They MUST still form one logical decision.

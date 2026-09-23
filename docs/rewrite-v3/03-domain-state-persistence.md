@@ -36,6 +36,7 @@ Start with identities and scope, then sections 14-18 on receipts, commits, outbo
 - [24. Definition cache](#24-definition-cache)
 - [25. Offline save lineage and trust](#25-offline-save-lineage-and-trust)
 - [26. Story milestones and platform acceptance](#26-story-milestones-and-platform-acceptance)
+- [27. Initial run-lifetime persistence obligations](#27-initial-run-lifetime-persistence-obligations)
 
 </details>
 <!-- packet-navigation:end -->
@@ -824,3 +825,7 @@ Offline runtime state is user-controlled and MUST NOT be imported as authoritati
 ## 26. Story milestones and platform acceptance
 
 A rule-owned terminal milestone and its host-side pending report persist atomically with the local gameplay outcome. Report/account binding and delivery state survive recovery but are not portable gameplay inputs or part of the canonical gameplay hash. Platform acceptance is a separate authenticated, idempotent transaction; it cannot retroactively roll back local Story completion. Account/progress records arrive with R12A, not R13/R14. Record and lifecycle semantics are owned by [document 23](23-accounts-progress-admission.md); account is not an additional gameplay scope.
+
+## 27. Initial run-lifetime persistence obligations
+
+Document 10 §31–33 governs action-driven Story time, per-accepted-attempt durability, three manual bookmarks, immutable package references, rollback-safe migrations and bounded export/import. Keep current head, immutable restore points and migration staging distinct. Document 23 §11 governs inherited report provenance when restoring/forking; a new lineage is not a replay of all historical effects. Actual storage/fault evidence belongs at R6/R12; account acceptance remains a separate server record.

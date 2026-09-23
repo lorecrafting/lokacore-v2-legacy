@@ -1,0 +1,25 @@
+{
+  "profile_id": "initial-composition-r1@1",
+  "status": "owner-approved-targets-not-measured",
+  "governing_contract": "04-command-event-effect-protocol.md#52-initial-immediate-composition-profile",
+  "limits": {
+    "operations": 4096,
+    "query_steps": 32768,
+    "events": 4096,
+    "deliveries": 8192,
+    "reaction_depth": 32,
+    "selector_cardinality": 1024,
+    "created_jobs": 64,
+    "pending_jobs": 1024,
+    "due_jobs_per_advance": 1024,
+    "scene_auto_advances": 64,
+    "output_bytes": 1048576
+  },
+  "notes": [
+    "One shared aggregate budget per decision; children do not reset it.",
+    "Unknown operations and capability emission permissions fail closed.",
+    "During explicit advance, newly scheduled work must be later than the requested target.",
+    "The model tests only its admitted abstract operators. Actual adapters must enforce every relevant cap.",
+    "New profiles require reviewed versioned fixtures; these are not production throughput claims."
+  ]
+}

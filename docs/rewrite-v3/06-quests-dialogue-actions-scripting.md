@@ -53,6 +53,7 @@ Quests/actions: sections 1-22. Custom events/scenes: 30-38 and 41-42. LokaScript
 - [41. Journal, reveal, hints, and story readability](#41-journal-reveal-hints-and-story-readability)
 - [42. Narrative robustness and certification](#42-narrative-robustness-and-certification)
 - [43. Terminal milestones are game facts, not account writes](#43-terminal-milestones-are-game-facts-not-account-writes)
+- [43. Initial objective, choice and narration contracts](#43-initial-objective-choice-and-narration-contracts)
 
 </details>
 <!-- packet-navigation:end -->
@@ -1393,3 +1394,13 @@ This makes complex authored story behavior explainable and reproducible rather t
 ## 43. Terminal milestones are game facts, not account writes
 
 Quest/scene terminal consequences may reach a declared cartridge milestone through registered narrative operations. Both intended chapter-one endings reach `prologue_completed` after the final `dawn_on_the_green` consequence. Rules cannot upload reports, inspect account authentication, or directly grant Realm access. The local authority adapter commits the pending synchronization record atomically with the milestone; [document 23](23-accounts-progress-admission.md) owns account association and platform acceptance. Readable completion feedback must survive a crash before credits or final narration is displayed.
+
+## 43. Initial objective, choice and narration contracts
+
+The exact initial queue/overlay/activation boundary is 04 §5.2. Objectives declare evidence policy: strict post-activation events, current-state evaluation, or another explicitly registered policy. Delivery after activation does not retroactively qualify an earlier event. R6P's lantern objective is current possession; the Tiny acquisition-event fixture intentionally remains strict. A historically completed acquisition does not authorize giving an item the actor no longer owns.
+
+Persist stable scene/choice occurrence IDs, typed variables, current beat, bound participant identities, selected outcomes and wait state. Missing participants follow explicit wait/branch/failure/rebinding policy; name lookup must not silently bind a replacement. A stale NEW choice revalidates actual custody/presence. Replaying a committed choice first uses its receipt, even after the participant leaves. The player must be able to close an unavailable interaction without mutating its outcome or being trapped in a modal screen.
+
+Required narration is committed with its consequence as a stable record containing pinned text keys and bindings sufficient to redisplay it coherently. Read/scroll position is presentation state. Redisplay after a crash, history replay or presentation skipping never repeats consequences; skipping cannot omit required costs or state transitions. A retry may return historical narration plus a separately current GameView, but never resurrect a consumed choice. Repeatable scenes use distinct occurrence IDs rather than an unbounded forever-seen-event set.
+
+[The R6P work package](pre-release-proof.md) and its frozen expected traces exercise both outcomes, early acquisition, lost custody, participant movement, rejection/replay and interrupted presentation. They are content-specific examples over the shared contracts, not a separate narrative engine.
