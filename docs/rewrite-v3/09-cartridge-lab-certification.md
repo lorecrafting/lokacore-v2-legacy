@@ -1,5 +1,61 @@
 # 09 — Cartridge Lab and Certification
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Design contract: applicable assurance.
+
+Start with section 1a for chapter one. The wider catalog does not require every gate for every profile.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Objective](#1-objective)
+- [1a. R9 minimum: what chapter one actually requires](#1a-r9-minimum-what-chapter-one-actually-requires)
+- [2. Determinism contract](#2-determinism-contract)
+- [3. Virtual clock](#3-virtual-clock)
+- [4. Deterministic RNG](#4-deterministic-rng)
+- [5. Boot modes](#5-boot-modes)
+- [6. Snapshot and rewind](#6-snapshot-and-rewind)
+- [7. Trace viewer](#7-trace-viewer)
+- [8. Static certification gate](#8-static-certification-gate)
+- [9. Quest/dialogue model gate](#9-questdialogue-model-gate)
+- [10. Property-based tests](#10-property-based-tests)
+- [11. Autonomous world simulation](#11-autonomous-world-simulation)
+- [12. Bot personas](#12-bot-personas)
+- [13. Multiplayer race testing](#13-multiplayer-race-testing)
+- [14. Crash/chaos testing](#14-crashchaos-testing)
+- [15. Offline lifecycle testing](#15-offline-lifecycle-testing)
+- [16. Script fuzzing](#16-script-fuzzing)
+- [17. Performance certification](#17-performance-certification)
+- [18. Semantic review](#18-semantic-review)
+- [19. Human smoke](#19-human-smoke)
+- [20. Certification profiles and Builder targets](#20-certification-profiles-and-builder-targets)
+- [21. Release certificate](#21-release-certificate)
+- [22. Regression corpus](#22-regression-corpus)
+- [23. Shared-area promotion certification](#23-shared-area-promotion-certification)
+- [24. Certification pyramid: fast preflight to exact-hash release](#24-certification-pyramid-fast-preflight-to-exact-hash-release)
+- [25. Freeze first, certify the exact candidate](#25-freeze-first-certify-the-exact-candidate)
+- [26. Coverage manifest](#26-coverage-manifest)
+- [27. Static graph and model analysis](#27-static-graph-and-model-analysis)
+- [28. Bounded state exploration and path search](#28-bounded-state-exploration-and-path-search)
+- [29. Invariant registry](#29-invariant-registry)
+- [30. Mutation-sensitivity testing](#30-mutation-sensitivity-testing)
+- [31. Differential and metamorphic testing](#31-differential-and-metamorphic-testing)
+- [32. Adversarial gameplay generation](#32-adversarial-gameplay-generation)
+- [33. LLM semantic review as a separate evidence layer](#33-llm-semantic-review-as-a-separate-evidence-layer)
+- [34. Jev/System-One-style fast semantic triage](#34-jevsystem-one-style-fast-semantic-triage)
+- [35. Release blocker classes](#35-release-blocker-classes)
+- [36. Release evidence bundle](#36-release-evidence-bundle)
+- [37. Cartridge-authored tests are supplemental, not certification authority](#37-cartridge-authored-tests-are-supplemental-not-certification-authority)
+- [38. Regression ratchet](#38-regression-ratchet)
+- [39. Area-level assurance: isolate, then mount](#39-area-level-assurance-isolate-then-mount)
+- [40. Change-impact analysis accelerates feedback but cannot shrink release truth](#40-change-impact-analysis-accelerates-feedback-but-cannot-shrink-release-truth)
+- [41. Release-candidate soak and long-horizon simulation](#41-release-candidate-soak-and-long-horizon-simulation)
+
+</details>
+<!-- packet-navigation:end -->
+
 ## 1. Objective
 
 The Cartridge Lab is an executable test environment for a compiled cartridge or candidate shared area.
@@ -10,23 +66,25 @@ The Lab is a product feature for developers/agents, not merely an ExUnit helper.
 
 ## 1a. R9 minimum: what chapter one actually requires
 
-The rest of this document is the certification design for every profile and level. Chapter one of `00-first-cartridge-design.md` is an `offline_private` cartridge whose capability lock contains no scripts, no ServiceJobs, no commerce beyond one shop, no instancing, no party scope, and no cross-authority effects. Under the applicability classes in §20, its certificate requires only:
+The rest of this document is the certification design for every profile and level. Chapter one of `00-first-cartridge-design.md` is an `offline_private` cartridge whose capability lock contains no scripts, no ServiceJobs/escrow, no InstancePlan, no party scope, and no cross-authority effects. It DOES include immediate shop/inn/ferry transactions, a scoped-overlay dream, and durable schedule jobs. A broad capability ID alone cannot decide whether all its later feature gates apply. The reviewed planning matrix is `release-scope.json`; production applicability must derive from compiled features and transitive engine-registry dependencies, failing conservative on unknown use. Under the applicability classes in §20, its certificate requires only:
 
 | Gate | What it is for chapter one |
 |---|---|
 | Static | schema, references, unknown fields, template cycles, capability lock, portability check, localization keys, asset hashes |
-| Topology | every room reachable from `ferry_landing` under each ActivationGroup set the manifest declares; every exit reciprocal; barrier faces coherent; no required quest target unreachable |
+| Topology | all 57 rooms reachable under declared scenarios through exits AND transport (the ferry); validate admission/payment/schedule constraints separately from structural connectivity; Ashmere exits reciprocal; barrier faces coherent; no required quest target unreachable |
 | Quest/dialogue model | lifecycle transitions, activation/resolution validity, prerequisite cycles, terminal-outcome reachability for both endings, duplicate-event idempotency, reward-once, consequence scope |
 | Determinism | DET-01 through DET-10 on the R1-selected hosts; canonical ordering; RNG replay |
 | Crash/recovery | OFF-03 through OFF-07 at every commit boundary of every chapter-one command type |
-| Bot playthroughs | three deterministic bots: main path to each ending, a completionist, and a duplicate-tapper; coverage of every quest outcome, dialogue choice, and scene beat recorded |
+| Bot playthroughs | deterministic paths to both endings plus completionist and duplicate-tapper behaviors; record actual quest outcome/dialogue choice/scene beat coverage and explicit dispositions for uncovered surfaces |
 | Autonomous simulation | 30 logical days: schedules reach destinations, populations bounded, no reaction loops, tides and light replay identically |
-| Invariants | containment unique, no cycles, one Barrier state, revision monotonic, same command executes at most once |
+| Invariants | containment unique, no cycles, one Barrier state, revision monotonic, matching retries replay before freshness checks, accepted failed rolls advance RNG only once, immediate shop/inn/ferry payments and goods conserve under retry/crash |
 | Human smoke | developer-harness device smoke at R10; production-shell smoke at R12 |
 
 Not required for chapter one: CoverageManifest beyond the bot coverage above, mutation sensitivity, bounded state exploration, metamorphic tests, area-mounted closure, soak beyond 30 days, multiplayer interleavings, shard handoff, load, independent-reviewer lineage, Jev triage. Those gates attach when a later chapter's lock or profile triggers them.
 
-Building the Lab in this order, minimum first, is R9. Everything from §24 onward is the vision the registry grows into.
+Building the Lab in this order, minimum first, is R9. The later mechanisms grow as capabilities require them; current mandatory safety obligations cannot be disabled by candidate-authored exclusions. R6P uses its own smaller applicable corpus and never claims chapter-one certification.
+
+Chapter-one terminal milestones and atomic local report capture are tested with narrative/recovery gates now. The first public app release also requires the R12A account/progress gate from [document 23](23-accounts-progress-admission.md), including real authenticated synchronization. It is an app/platform gate, not permission to require a live account server in pure Lab simulations or R6P. A cartridge certificate alone cannot satisfy it.
 
 ## 2. Determinism contract
 

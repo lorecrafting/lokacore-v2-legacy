@@ -1,5 +1,47 @@
 # 15 — Adversarial Acceptance Scenarios
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Governing acceptance scenarios.
+
+Locate the scenario family for a claim. A listed scenario is a requirement/example for implementation evidence, not proof it has run.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [A. Portable rules and determinism](#a-portable-rules-and-determinism)
+- [B. Offline lifecycle](#b-offline-lifecycle)
+- [C. Containment and inventory](#c-containment-and-inventory)
+- [D. Quest correctness](#d-quest-correctness)
+- [E. Dialogue](#e-dialogue)
+- [F. Actions and policy](#f-actions-and-policy)
+- [G. Scripting](#g-scripting)
+- [H. Living world and time](#h-living-world-and-time)
+- [I. Cartridge/compiler](#i-cartridgecompiler)
+- [J. Builder/AI](#j-builderai)
+- [K. Mobile protocol](#k-mobile-protocol)
+- [L. Online transaction and recovery](#l-online-transaction-and-recovery)
+- [M. Session/account/character](#m-sessionaccountcharacter)
+- [N. Offline-to-MMO reconciliation](#n-offline-to-mmo-reconciliation)
+- [O. Commerce](#o-commerce)
+- [P. Operations](#p-operations)
+- [Q. Architecture tests](#q-architecture-tests)
+- [R. Definition of a regression](#r-definition-of-a-regression)
+- [S. Cartridge composition](#s-cartridge-composition)
+- [T. Long-lived offline compatibility and signing](#t-long-lived-offline-compatibility-and-signing)
+- [U. Receipt and platform boundaries](#u-receipt-and-platform-boundaries)
+- [V. Client mode and builder target separation](#v-client-mode-and-builder-target-separation)
+- [W. Quest sharing, phasing, and scarce services](#w-quest-sharing-phasing-and-scarce-services)
+- [X. Composable world primitives and classic-MUD conformance](#x-composable-world-primitives-and-classic-mud-conformance)
+- [Y. Quest scenes, dreams, cutscenes, and scripted world events](#y-quest-scenes-dreams-cutscenes-and-scripted-world-events)
+- [Z. Release assurance and orchestrated role boundaries](#z-release-assurance-and-orchestrated-role-boundaries)
+- [Audit follow-through acceptance cases](#audit-follow-through-acceptance-cases)
+- [Account and prologue progress acceptance](#account-and-prologue-progress-acceptance)
+
+</details>
+<!-- packet-navigation:end -->
+
 These scenarios turn architecture claims into observable behavior.
 
 They are intended to seed automated tests, Cartridge Lab repros, architecture reviews, and implementation issues.
@@ -1089,7 +1131,7 @@ The Story save still opens through the documented portable-rules/rule-IR compati
 
 A legitimately acquired cartridge remains playable in Story Mode while signed out/offline.
 
-Entering Realm Mode requires authenticated online identity.
+Entering Realm Mode requires authenticated online identity and server-checked prologue prerequisites where configured. The historical title refers to an optional active login during installed Story play, not optional account support in the first public release. R12A/ACCOUNT-01–12 govern launch identity and completion tracking.
 
 ### BUILDTARGET-01 — Story rejects server-only capability
 
@@ -1745,3 +1787,90 @@ merely because R9C exercises it.
 R10 certification selects the mandatory gates implied by its own frozen semantic surface,
 profile, and release level while shared engine invariants remain covered by the regression
 corpus.
+
+
+## Audit follow-through acceptance cases
+
+### RECEIPT-04 — Replay before current-world validation
+
+Commit take/choice/purchase, lose its response, then retry through an authorized new session/route with a stale view and consumed target/offer. Replay the original semantic outcome before current legality checks; no second mutation/RNG/effect. The current GameView remains current. Revoked/foreign actor access is denied before receipt disclosure.
+
+### RECEIPT-05 — Changed intent is not a retry
+
+Reuse invocation identity with changed actor/target order/input/price constraint or semantic continuation binding: integrity conflict. Changes only to connection, diagnostic sequence, routing and pure freshness metadata do not alter intent. A semantic offer token is not excluded merely because its name contains "token".
+
+### ATTEMPT-01 — Valid failed roll versus rejected attempt
+
+A valid 50% attempt that fails commits its next RNG state and failure receipt. Matching retry makes no draw; a new invocation follows the next deterministic draw. An unavailable action or definite rollback does not advance game RNG/time/resources. Retrying a receipted terminal rejection replays the chosen terminal result.
+
+### RECOVERY-01 — Missing acknowledgement does not prove rollback
+
+Lose COMMIT acknowledgement while the original transaction is still unresolved. Fence new decisions; an initially absent receipt is not permission to rerun. Test both eventual commit and eventual rollback on the real store. Committed disposition reloads and replays; only confirmed non-commit permits retry of the same identity.
+
+### QST-31 — Activation and knowledge are different from historical events
+
+The hello fixture activates before acquisition. Its negative control acquires before activation and receives no retroactive event credit; an explicit current-state variant does credit possession. In chapter one, Q2 consumes the knowledge/fact established by Q1 rather than demanding Q1's already-consumed dialogue event again.
+
+### PROOF-01 — Proof does not shrink the first release
+
+R6P is a separate cartridge/save lineage on the fresh engine. Its device/human evidence does not certify chapter one. The full release retains 57 rooms, ten quests and two endings and all applicable feature gates. Python specification checks alone cannot satisfy R6P/R1/R10.
+
+### SCOPE-02 — Capability families do not imply every later feature
+
+Immediate ferry/shop operations trigger transactional tests now; they do not trigger unimplemented ServiceJob escrow. Conversely, a future artifact that actually uses escrow or an unknown dynamic feature cannot skip its gate using chapter-one labels or candidate-controlled metadata.
+
+### TOPOLOGY-01 — Transport and conditional reachability
+
+The 57-room chapter's island is reachable through the ferry, not ordinary exits alone. Separately test payment, schedule, policy and return travel under declared scenarios. Do not label a structurally linked but unaffordable/never-available required target playable, or impose six-direction reciprocal exits on all future engine connections.
+
+## Account and prologue progress acceptance
+
+Governing contract: [document 23](23-accounts-progress-admission.md); ADR-063. These require real implementation evidence at their phase, not merely a specification-model pass.
+
+### ACCOUNT-01 — Launch identity and offline independence
+
+The first free public build offers accounts, recovery/deletion and completion synchronization. Finish/resume an installed story with expired credentials or an unavailable service. Only sync waits; local gameplay succeeds. R6P may use a fake adapter; it does not discharge the real R12A gate.
+
+### ACCOUNT-02 — Atomic completion and report capture
+
+For both chapter-one endings, crash before/during/after the terminal dawn commit. Either the outcome and milestone/pending report are all absent, or all durable. Credits display is not the trigger. A restored backup requeues safely. Test real local transactions; model atomic assignment is insufficient.
+
+### ACCOUNT-03 — Duplicate reports and lost acknowledgement
+
+Repeat the same authenticated report after server acceptance loses its response. Replay its stable receipt and credit once. Changed canonical payload under the same ID conflicts; a new ID for the same bound run/milestone also cannot credit twice. Conflicting terminal outcomes are visible conflicts.
+
+### ACCOUNT-04 — Authenticated binding and account switching
+
+Account A records a completion, signs out, and account B signs in. The pending upload remains bound to A; server rejects access/reassignment by B. Payload account IDs do not authenticate. Guest claiming, if offered, consumes an unclaimed run once and cannot transfer an already-bound run.
+
+### ACCOUNT-05 — Multi-device non-regression
+
+Accept completion on one run/device, then receive older starts/checkpoints from another and restore/reset/delete a local save. Account completion remains true. Separate run state from completed-at-least-once; client timestamps and last-write-wins do not determine completion.
+
+### ACCOUNT-06 — Onboarding-only evidence
+
+A known approved offline completion may satisfy an onboarding prerequisite. Unknown release/milestone/outcome, arbitrary unlock flags, oversized/unknown fields, caller-selected server evidence and currency/XP/purchase payloads fail. An offline report cannot satisfy a requirement restricted to stronger evidence.
+
+### ACCOUNT-07 — Equivalent prologues and account-wide admission
+
+Approved old/new prologue release milestones can satisfy one stable requirement. Both intended endings qualify without side-quest completion. The same account need not repeat onboarding for each Realm character. An unapproved R6P proof or arbitrary content-declared requirement grants nothing.
+
+### ACCOUNT-08 — Realm entry is server-owned
+
+Forge a client unlock cache; join/rejoin with a missing requirement, withdrawn evidence, unknown policy or stale progress version. Server denies or requests a fresh decision before attaching gameplay. Test progress/policy change at admission; do not trust the UI or bypass on resume.
+
+### ACCOUNT-09 — Deletion serializes against ingestion
+
+Delete the account while a report is queued or in flight. Revoke authentication, recheck lifecycle at acceptance commit, and prevent old reports/credentials recreating progress. A new account with the same email is distinct; old bound reports are not implicitly guest-claimed. Local save disposition is explicit.
+
+### ACCOUNT-10 — Synchronization is not save backup or analytics
+
+On a new device, read accepted completions without claiming the full game save is restored. Admin state distinguishes no report from known incomplete activity. Sampled/lost analytics cannot erase or grant admission; offline completion remains unknown until received.
+
+### ACCOUNT-11 — Withdrawn acceptance stays withdrawn on replay
+
+Explicitly withdraw a record through an authorized correction. Retry its old report: historical receipt may replay, but eligibility uses the current effective record and stays withdrawn. Ordinary cartridge updates, report order and save resets cannot implicitly revoke prior accepted completion.
+
+### ACCOUNT-12 — Launch scope cannot be deferred to paid or Realm phases
+
+Before public free Story release require R12A real authenticated sync/storage/lifecycle/device evidence. R13 reuses its database/accounts; R14/R15 add admission. Pure Lab and R6P do not require production identity, but both test local milestone/retry behavior. No account gameplay StateScope is introduced.

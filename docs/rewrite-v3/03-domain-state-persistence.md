@@ -1,5 +1,45 @@
 # 03 — Domain State and Persistence
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Design contract: state and durability.
+
+Start with identities and scope, then sections 14-18 on receipts, commits, outbox and snapshots. Online table sketches are not local-save requirements.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Core state model](#1-core-state-model)
+- [2. Definition identity](#2-definition-identity)
+- [3. Runtime entity identity](#3-runtime-entity-identity)
+- [4. Component state](#4-component-state)
+- [5. Persistent vs ephemeral state](#5-persistent-vs-ephemeral-state)
+- [6. State scopes](#6-state-scopes)
+- [7. Typed world facts and narrative memory](#7-typed-world-facts-and-narrative-memory)
+- [8. Persistence by authority host](#8-persistence-by-authority-host)
+- [9. Proposed online durable schema families](#9-proposed-online-durable-schema-families)
+- [10. World instance row](#10-world-instance-row)
+- [11. Runtime entity rows](#11-runtime-entity-rows)
+- [12. Quest instance rows](#12-quest-instance-rows)
+- [13. Scoped facts and durable ServiceJobs](#13-scoped-facts-and-durable-servicejobs)
+- [14. Command receipts and retry admission](#14-command-receipts-and-retry-admission)
+- [15. Transactional command commit and uncertain outcomes](#15-transactional-command-commit-and-uncertain-outcomes)
+- [16. Effect outbox](#16-effect-outbox)
+- [17. Event trace is not full event sourcing](#17-event-trace-is-not-full-event-sourcing)
+- [18. Snapshots](#18-snapshots)
+- [19. Optimistic concurrency](#19-optimistic-concurrency)
+- [20. Persistence adapters](#20-persistence-adapters)
+- [21. Migration rules](#21-migration-rules)
+- [22. Deletion semantics](#22-deletion-semantics)
+- [23. Inventory/location invariant](#23-inventorylocation-invariant)
+- [24. Definition cache](#24-definition-cache)
+- [25. Offline save lineage and trust](#25-offline-save-lineage-and-trust)
+- [26. Story milestones and platform acceptance](#26-story-milestones-and-platform-acceptance)
+
+</details>
+<!-- packet-navigation:end -->
+
 ## 1. Core state model
 
 Loka v3 separates four concepts that Lokacore often blurred:
@@ -7,7 +47,7 @@ Loka v3 separates four concepts that Lokacore often blurred:
 1. **Definition** — immutable content from a specific cartridge release.
 2. **Runtime entity** — mutable world instance created from a definition.
 3. **Scoped state** — state owned by player/party/instance/realm rather than a physical entity.
-4. **Durable platform state** — accounts, entitlements, release catalog, audit/certification metadata.
+4. **Durable platform state** — accounts, accepted Story milestones, onboarding policy, entitlements, release catalog, audit/certification metadata.
 
 These MUST have distinct identities and storage semantics.
 
@@ -336,6 +376,10 @@ Exact migrations are implementation work, but the logical model should include:
 
 ```text
 accounts
+story_run_bindings
+story_milestone_reports
+story_milestone_acceptances
+onboarding_requirement_policies
 characters
 entitlements
 catalog_entries
@@ -504,68 +548,94 @@ If input custody crosses an authority boundary—for example a realm-wide servic
 
 Capacity allocation must have a database/authority invariant sufficient to prevent double allocation under concurrent submissions.
 
-## 14. Command receipts
+## 14. Command receipts and retry admission
 
-Every authority-side state-changing Command carries a stable idempotency identity.
+Every admitted gameplay attempt has a stable invocation/command identity. An attempt may succeed or fail under the game rules; both outcomes are durable. A retry is delivery of that same attempt, not another roll.
 
-For external ActionInvocations, the authority MUST derive/reuse a stable Command ID from a **logical idempotency scope** plus the invocation ID, so a network retry cannot become a fresh mutation.
+### Authenticate, recognize a retry, then validate NEW gameplay
 
-The idempotency scope MUST outlive ephemeral connection/session identity and, where ownership may move, the current process/shard/owner identity. Representative scopes are a Story save lineage + controlled actor, or a Realm + controlled character. The same invocation retried after reconnecting through a new session **or after an authority handoff** must deduplicate against the original committed command. Session identity and current mutation-owner identity may authorize/route the request and be recorded for audit, but they are not semantic idempotency identity.
+The order is normative:
 
-If a command commits immediately before ownership moves, later routing MUST still be able to discover/replay that receipt. R20 may choose a realm-level receipt index, receipt migration, forwarding/tombstone records, or an equivalently durable mechanism; it MUST NOT mint a fresh command identity merely because the current owner changed.
+```text
+validate bounded request envelope; authenticate
+  -> authorize access to the logical lineage/actor and its receipts
+  -> derive trusted logical idempotency scope + invocation identity
+  -> compute canonical invocation-intent digest
+  -> lookup original receipt
+       matching intent -> replay original semantic outcome, no re-resolution
+       altered intent  -> idempotency/integrity conflict, no mutation
+       no receipt      -> resolve current action, freshness, targets and policies
+                          -> typed semantic Command -> decide -> commit
+```
 
-Internal scheduled/system commands carry their own stable job/command identity and follow the same rule when their owning authority can migrate.
+Current actor/account authorization still applies before any receipt is disclosed. Receipt authorization must not depend on a lantern still being on the ground, a consumed choice remaining available, or an old view still being fresh. Ordinary rate/size limits may protect this endpoint but must not mint a new mutation identity.
+
+A scope is a trusted logical gameplay lineage plus controlled actor, for example a Story save lineage/character or Realm/character. It outlives connection, session, process, shard, and owner placement. The same rule applies to registered internal commands using their durable job/command identity. A client cannot choose another actor's receipt namespace.
+
+After handoff, original receipts must remain discoverable. R20 chooses a durable index, migration, forwarding/tombstones, or an equivalent mechanism. Current routing/owner identity cannot turn one invocation into a fresh mutation.
+
+### Two digests, two responsibilities
+
+- **Invocation-intent digest:** canonical action key, actor, ordered semantic target bindings, validated input, and semantic constraints such as offer/choice/continuation identity or a maximum price. It is computed without resolving against changed world state. Unknown fields fail before normalization. Do not sort a target list whose order is meaningful.
+- **Semantic-command digest:** canonical resolved command originally admitted, with its pinned definition/capability context. Store the resolved command or a durable reference alongside this digest; do not recreate it using current world state during retry recognition.
+
+Intent normalization/version is explicit and retained with the receipt. A retry uses that original supported schema/digest contract, not current catalog defaults or display aliases. A deployment/app update must not reinterpret a pending invocation as different intent.
+
+Transport sequence, connection/session ID, routing/owner identity, receipt time, and diagnostic correlation fields do not change intent. A pure view-freshness token is admission metadata, not intent. A token that selects an offer, target, or narrative continuation IS semantic and must be included in the intent digest. Its role is declared by schema, never guessed from its field name.
+
+For an existing receipt, compare the incoming intent digest and replay the recorded semantic command/outcome. For an internal command that already has canonical semantics, also require the incoming semantic digest to match. Neither path recomputes an old command from a changed ActionSet.
+
+Logical receipt fields:
 
 ```text
 idempotency_scope_id
-origin_authority_id
+invocation_id or internal_command_id
 command_id
-invocation_id nullable
+origin_authority_id
 actor_id
-semantic_command_digest
-accepted_revision
-result_code
-committed_revision
+intent_schema_version / intent_digest_version
+invocation_intent_digest
+semantic_command_digest (nullable for a pre-command terminal rejection)
+resolved_command_payload_or_ref
+outcome_class / result_code
+committed_revision (unchanged for a terminal rejection)
 response_payload_or_ref
 result_digest
 created_at
 ```
 
-Unique key: `(idempotency_scope_id, command_id)`.
+Unique external lookup key: `(idempotency_scope_id, invocation_id)`. The derived command identity also has the existing `(idempotency_scope_id, command_id)` uniqueness constraint. Internal commands use their registered identity. A digest alone is not a replayable response.
 
-If the same command is retried with the same semantic command digest, runtime returns the prior committed result/ack rather than executing again. The receipt therefore MUST retain either the stable response payload required for retry or a durable reference from which that response can be reconstructed; a result digest alone is insufficient.
+A replay returns the original semantic outcome and its revision. A current GameView is projected separately with current stream sequencing; a replayed historical response must not roll the client back to an old snapshot. Replays never rerun effects, narration consequences, costs, RNG, or quest credit.
 
-If an already-used command/idempotency identity arrives with a **different semantic command digest**, the authority MUST reject it as an idempotency/integrity conflict. It must neither execute the new payload nor silently return the old result as though the requests were equivalent.
+An authenticated, structurally valid invocation that reaches a terminal gameplay rejection may be durably receipted without changing game revision/RNG/time; the chosen terminal result then replays. Malformed/unauthorized requests do not create gameplay receipts. Transient admission failures (`busy`, rate limiting, storage unavailable, or commit pending) are explicitly retryable and are not mistaken for durable terminal outcomes.
 
-## 15. Transactional command commit
+Receipt retention must preserve the no-reexecution guarantee. Evicting an old receipt and then accepting the same identity as new is forbidden; retention requires a safe high-water/tombstone/lineage policy or fail-closed admission. This does not require an unbounded in-memory ID set.
 
-For a command changing durable state:
+## 15. Transactional command commit and uncertain outcomes
+
+For a new admitted attempt:
 
 ```text
 BEGIN
-  lookup command receipt by idempotency_scope_id + command_id
-
-  if receipt exists:
-    require exact semantic_command_digest match
-    return/reconstruct prior committed response
-    perform NO state mutation
-
+  recheck unique invocation/command receipt
+  if present: compare original intent and replay; NO gameplay mutation
   else:
-    verify expected authority/instance revision if supplied
-    verify ownership/fencing generation where applicable
-    update affected runtime entities / quest instances
-    update owning authority revision + RNG/logical state
-    insert command receipt
-    insert event trace records required for diagnostics
-    insert durable effect_outbox entries
+    verify current authority revision and ownership/fencing generation
+    apply composed StateDelta (including a failed attempt's rule-defined changes)
+    update authority revision + RNG/logical state
+    insert receipt with original intent, resolved command and stable outcome
+    insert required diagnostic trace and durable effect_outbox records
 COMMIT
 ```
 
-The duplicate-command branch is an early replay path, not permission to continue the mutation transaction after a matching receipt is found.
+The ingress lookup in §14 improves correctness of retry admission; the transactional lookup and unique constraint remain necessary to close races. A receipted terminal rejection changes only receipt metadata, not gameplay state/revision. Two simultaneous deliveries cannot both apply a mutation.
 
-Only after commit does the in-memory owner adopt the committed state revision.
+Only after confirmed commit does the in-memory owner adopt the committed revision. Definitive rollback discards the proposal. Same-authority job creation and consequences remain inside this transaction, not asynchronous write paths.
 
-If commit fails, no authoritative in-memory advancement is allowed.
+**A timeout or broken connection during COMMIT is not proof of rollback.** While outcome is uncertain, fence further decisions from stale in-memory state. Reconcile against the authoritative durable store, not a stale replica: resolve the transaction outcome and original receipt, then reload committed state. Receipt present means replay/recover. Only confirmed non-commit permits retrying the original identity. An initially missing receipt while the original transaction may still commit is insufficient. No new command ID, second RNG draw, or duplicate reward may be used to hide uncertainty.
+
+Durability on every authoritative action does not require exporting, rereading, and hashing the whole Snapshot on every action. Whole-state or changed-row persistence may be selected by measurement. Benchmark decision, encoding, durable commit, projection, checkpoint export, and cold restore separately; whatever representation is chosen preserves this transaction contract.
 
 ## 16. Effect outbox
 
@@ -749,4 +819,8 @@ Offline save identity includes a lineage/ancestor revision so cloud backup can d
 
 Two independently advanced offline branches MUST NOT be auto-merged unless a cartridge provides an explicit deterministic merge strategy. Preserve both and ask the user to select.
 
-Offline runtime state is user-controlled and therefore MUST NOT be imported as authoritative MMO economy/progression state. Reuse cartridge definitions and low-stakes narrative metadata; online-authoritative state has a separate trust boundary.
+Offline runtime state is user-controlled and MUST NOT be imported as authoritative MMO economy/competitive progression. Designated milestone reports may satisfy non-competitive account onboarding prerequisites only under [document 23](23-accounts-progress-admission.md); they are not a save-state import or verified-human-play claim.
+
+## 26. Story milestones and platform acceptance
+
+A rule-owned terminal milestone and its host-side pending report persist atomically with the local gameplay outcome. Report/account binding and delivery state survive recovery but are not portable gameplay inputs or part of the canonical gameplay hash. Platform acceptance is a separate authenticated, idempotent transaction; it cannot retroactively roll back local Story completion. Account/progress records arrive with R12A, not R13/R14. Record and lifecycle semantics are owned by [document 23](23-accounts-progress-admission.md); account is not an additional gameplay scope.

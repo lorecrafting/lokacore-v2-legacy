@@ -1,6 +1,85 @@
 # 16 — Architecture Decision Register
 
-This register separates accepted direction from provisional choices that still require evidence.
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Decision register: status varies by entry.
+
+Accepted design direction is not R0 approval or implementation completion. Provisional and deferred decisions have separate checkpoints.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [Status vocabulary](#status-vocabulary)
+- [Decision checkpoints](#decision-checkpoints)
+- [ADR-001 — Clean-sheet rebuild](#adr-001--clean-sheet-rebuild)
+- [ADR-002 — BEAM/OTP online runtime](#adr-002--beamotp-online-runtime)
+- [ADR-003 — Offline-first single-player storypacks](#adr-003--offline-first-single-player-storypacks)
+- [ADR-004 — Shared portable deterministic rules kernel](#adr-004--shared-portable-deterministic-rules-kernel)
+- [ADR-005 — Mobile binding strategy](#adr-005--mobile-binding-strategy)
+- [ADR-006 — PostgreSQL online, SQLite offline](#adr-006--postgresql-online-sqlite-offline)
+- [ADR-007 — One online authority owner per world domain](#adr-007--one-online-authority-owner-per-world-domain)
+- [ADR-008 — Definition/runtime separation](#adr-008--definitionruntime-separation)
+- [ADR-009 — ActionInvocation / Command / StateDelta / DomainEvent / Effect / GameView separation](#adr-009--actioninvocation--command--statedelta--domainevent--effect--gameview-separation)
+- [ADR-010 — Transactional command receipts](#adr-010--transactional-command-receipts)
+- [ADR-011 — Full event sourcing](#adr-011--full-event-sourcing)
+- [ADR-012 — State scopes](#adr-012--state-scopes)
+- [ADR-013 — Capability registry](#adr-013--capability-registry)
+- [ADR-014 — Cartridge/deployment separation](#adr-014--cartridgedeployment-separation)
+- [ADR-015 — Campaign composition layer](#adr-015--campaign-composition-layer)
+- [ADR-016 — ActionSet algebra](#adr-016--actionset-algebra)
+- [ADR-017 — Quest reducer architecture](#adr-017--quest-reducer-architecture)
+- [ADR-018 — LokaScript](#adr-018--lokascript)
+- [ADR-019 — Builder API canonical authority](#adr-019--builder-api-canonical-authority)
+- [ADR-020 — Visual authoring UI](#adr-020--visual-authoring-ui)
+- [ADR-021 — AI runtime dependency](#adr-021--ai-runtime-dependency)
+- [ADR-022 — Cartridge release artifact](#adr-022--cartridge-release-artifact)
+- [ADR-023 — First monetization model](#adr-023--first-monetization-model)
+- [ADR-024 — Public user-authored scripting/content marketplace](#adr-024--public-user-authored-scriptingcontent-marketplace)
+- [ADR-025 — Distributed BEAM cluster](#adr-025--distributed-beam-cluster)
+- [ADR-026 — Shared MMO area model](#adr-026--shared-mmo-area-model)
+- [ADR-027 — Offline entitlement behavior](#adr-027--offline-entitlement-behavior)
+- [ADR-028 — Database schema granularity](#adr-028--database-schema-granularity)
+- [ADR-029 — Inventory relation](#adr-029--inventory-relation)
+- [ADR-030 — Runtime inheritance](#adr-030--runtime-inheritance)
+- [ADR-031 — Temporal model](#adr-031--temporal-model)
+- [ADR-032 — First shippable milestone](#adr-032--first-shippable-milestone)
+- [ADR-033 — Keep the portable kernel deliberately narrow](#adr-033--keep-the-portable-kernel-deliberately-narrow)
+- [ADR-034 — Cartridge composition uses explicit ports](#adr-034--cartridge-composition-uses-explicit-ports)
+- [ADR-035 — Downloaded rule representation is an App Store release gate](#adr-035--downloaded-rule-representation-is-an-app-store-release-gate)
+- [ADR-036 — Prove a real cartridge before generalizing authoring tools](#adr-036--prove-a-real-cartridge-before-generalizing-authoring-tools)
+- [ADR-037 — One mobile client, two strict gameplay modes](#adr-037--one-mobile-client-two-strict-gameplay-modes)
+- [ADR-038 — Builder has explicit story/realm targets](#adr-038--builder-has-explicit-storyrealm-targets)
+- [ADR-039 — One app simplifies entitlement UX without weakening trust](#adr-039--one-app-simplifies-entitlement-ux-without-weakening-trust)
+- [ADR-040 — Quests influence the world through typed consequences](#adr-040--quests-influence-the-world-through-typed-consequences)
+- [ADR-041 — Typed scoped facts coordinate narrative state](#adr-041--typed-scoped-facts-coordinate-narrative-state)
+- [ADR-042 — Prefer reactive/derived world responses over quest puppeteering](#adr-042--prefer-reactivederived-world-responses-over-quest-puppeteering)
+- [ADR-043 — Quest sharing uses independent dimensions](#adr-043--quest-sharing-uses-independent-dimensions)
+- [ADR-044 — Prefer shared world, then overlay, then instance](#adr-044--prefer-shared-world-then-overlay-then-instance)
+- [ADR-045 — Scarce services compose Capacity/Reservation/ServiceJob primitives](#adr-045--scarce-services-compose-capacityreservationservicejob-primitives)
+- [ADR-046 — State scope and physical authority placement are independent](#adr-046--state-scope-and-physical-authority-placement-are-independent)
+- [ADR-047 — Projection sequencing is not authority revisioning](#adr-047--projection-sequencing-is-not-authority-revisioning)
+- [ADR-048 — Online owners require fencing once ownership can move](#adr-048--online-owners-require-fencing-once-ownership-can-move)
+- [ADR-049 — Real-elapsed Story time enters through an idempotent authority input](#adr-049--real-elapsed-story-time-enters-through-an-idempotent-authority-input)
+- [ADR-050 — Closed semantics, open composition](#adr-050--closed-semantics-open-composition)
+- [ADR-051 — Target resolution, details, and coherent barriers are core world contracts](#adr-051--target-resolution-details-and-coherent-barriers-are-core-world-contracts)
+- [ADR-052 — Population, reactions, and behaviors compose living-world activity](#adr-052--population-reactions-and-behaviors-compose-living-world-activity)
+- [ADR-053 — Commerce is a typed composite contract](#adr-053--commerce-is-a-typed-composite-contract)
+- [ADR-054 — SceneSequence is reusable narrative orchestration](#adr-054--scenesequence-is-reusable-narrative-orchestration)
+- [ADR-055 — Quests are the narrative spine, not a second world authority](#adr-055--quests-are-the-narrative-spine-not-a-second-world-authority)
+- [ADR-056 — Authored geography is independent from Realm authority placement](#adr-056--authored-geography-is-independent-from-realm-authority-placement)
+- [ADR-057 — Scene sequencing and spatial instancing are orthogonal](#adr-057--scene-sequencing-and-spatial-instancing-are-orthogonal)
+- [ADR-058 — Retry identity survives authority migration](#adr-058--retry-identity-survives-authority-migration)
+- [ADR-059 — Decision output is provisional until authoritative commit](#adr-059--decision-output-is-provisional-until-authoritative-commit)
+- [ADR-060 — Capability semantic residency is explicit](#adr-060--capability-semantic-residency-is-explicit)
+- [ADR-061 — Conformance cartridge and first product cartridge have different jobs](#adr-061--conformance-cartridge-and-first-product-cartridge-have-different-jobs)
+- [ADR-062 — Accepted v3 specification cuts over to one implementation-era authority](#adr-062--accepted-v3-specification-cuts-over-to-one-implementation-era-authority)
+- [ADR-063 — Launch accounts and onboarding-only Story progress](#adr-063--launch-accounts-and-onboarding-only-story-progress)
+
+</details>
+<!-- packet-navigation:end -->
+
+This register separates accepted direction from provisional choices that still require evidence. **Accepted** describes a design decision within this draft packet; it does not mean that R0, implementation, tests, or a release gate have passed. Read the exact Git revision and each decision's status, not the age or position of its prose.
 
 ## Status vocabulary
 
@@ -69,7 +148,7 @@ Offline competitive/economic state is not trusted as MMO authority.
 
 Preferred direction: one portable deterministic kernel shared by offline mobile and online BEAM hosts.
 
-R1 compares three candidates against a pre-registered envelope: (A) one TypeScript kernel native in React Native and reached from BEAM through a Port; (B) one Rust kernel behind Rustler and native mobile bindings; (C) dual Elixir/TypeScript implementations with golden-vector conformance.
+R1 compares three candidates against a pre-registered envelope: (A) one TypeScript kernel native in React Native and reached from BEAM through a Port; (B) one Rust kernel behind a pre-registered NIF/isolated-worker BEAM boundary and native mobile bindings; (C) dual Elixir/TypeScript implementations with golden-vector conformance.
 
 Must pass the R1 feasibility spike before freeze. Whichever strategy is selected, the portable semantic contract and conformance obligation are the same.
 
@@ -676,7 +755,7 @@ ritual/trial spaces and other instanced gameplay. There is no separate DreamEngi
 
 Client-visible mutation idempotency is keyed by a stable logical gameplay lineage + invocation identity, not by the current session, process, shard, or other mutation-owner placement.
 
-If a command commits and ownership moves before its acknowledgement is observed, a retry after handoff MUST discover/replay the original receipt rather than execute under a fresh destination-owner namespace.
+If a command commits and ownership moves before its acknowledgement is observed, a retry after handoff MUST discover/replay the original receipt rather than execute under a fresh destination-owner namespace. Receipt access is authenticated before lookup; matching invocation intent is recognized BEFORE current-world action/freshness validation. The original resolved command and semantic outcome are retained, not re-derived from changed state (03 §14).
 
 R20 chooses the concrete durable mechanism—realm-level receipt index, receipt migration, forwarding/tombstones, or an equivalently strong design—but may not weaken this semantic invariant.
 
@@ -690,7 +769,7 @@ Proposed DomainEvents may drive deterministic in-decision reducers, but they MUS
 
 StateDelta composition uses registered typed operations, deterministic proposal-overlay ordering, canonical mutation targets, and explicit conflict/composition rules. Implicit authoritative last-writer-wins behavior is rejected.
 
-A rejected decision or failed commit discards the entire proposal.
+A rejected decision or definitive transaction rollback discards the entire proposal. An admitted failed roll is a committed attempt, not a rejection; unknown commit outcomes require durable reconciliation before reevaluation (03 §15; 04 §5.0).
 
 ## ADR-060 — Capability semantic residency is explicit
 
@@ -721,3 +800,13 @@ R0 records the exact accepted normative specification commit/file set. R2 import
 After cutover, implementation-era architecture amendments occur in the fresh repository through reviewed spec/ADR changes. Lokacore remains a read-only archaeology/reference corpus and MUST NOT evolve as a second normative specification.
 
 Normative implementation docs should be physically separated from historical review/research/reference material so humans and agents cannot mistake evidence for peer architectural authority.
+
+## ADR-063 — Launch accounts and onboarding-only Story progress
+
+**Status:** Accepted product direction by owner, 2026-09-22; implementation and R0 evidence pending.
+
+The first public Story release includes accounts and durable account-level completion tracking. Local milestone/pending-report capture is atomic with gameplay; later authenticated synchronization records evidence-labeled platform acceptance. Installed Story play does not require a live login or network. Account is not a new gameplay scope.
+
+Designated offline-client reports can satisfy account-wide prologue prerequisites under server-owned admission policy. They do not prove human comprehension and cannot grant currency, inventory, statistics, purchase entitlement or competitive Realm rewards. Requirement IDs are stable and map to approved release/milestone alternatives; a client cannot grant itself access. Both intended completed endings qualify by default.
+
+R12A brings the minimal account/platform database and progress API before the first free public release. R13 extends it with commerce; R14/R15 enforce actual Realm admission. R6P uses a fake sync adapter, not production identity. See [document 23](23-accounts-progress-admission.md) and ACCOUNT-01–12 for binding, deletion, idempotency and multi-device semantics. Mandatory sign-in before first acquisition versus guest-first UX is not decided by this ADR; after acquisition, installed offline play remains guaranteed under its entitlement policy.

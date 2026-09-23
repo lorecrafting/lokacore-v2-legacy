@@ -1,5 +1,25 @@
 # 01 — Core Principles and Non-Goals
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Design contract.
+
+Read authority, determinism and content principles before individual capabilities. Deferred features stay deferred.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Product principles](#1-product-principles)
+- [2. Architecture principles](#2-architecture-principles)
+- [3. BEAM/OTP principles](#3-beamotp-principles)
+- [4. Content principles](#4-content-principles)
+- [5. AI principles](#5-ai-principles)
+- [6. Non-goals for v3 foundation](#6-non-goals-for-v3-foundation)
+
+</details>
+<!-- packet-navigation:end -->
+
 ## 1. Product principles
 
 ### P1. One rules/content model, multiple authority hosts
@@ -65,6 +85,10 @@ If the author repeatedly needs a new behavior, the factory SHOULD propose a reus
 A touch action such as “Inspect altar” and a text command such as `look altar` MUST resolve to the same internal action/command contract.
 
 The active authority resolves currently available actions. In Story Mode that authority is local; in Realm Mode it is the BEAM server. Presentation code is never the rules authority.
+
+### P5. Launch accounts do not make Story gameplay online
+
+The first public Story release provides accounts and durable account-level completion tracking. Installed Story play remains local and usable without a live account session. The platform accepts designated offline milestone reports for onboarding eligibility only; they cannot import competitive Realm progression or purchase entitlement. See [23 — Accounts, Story Progress, and Realm Admission](23-accounts-progress-admission.md). This product principle does not add an account gameplay StateScope.
 
 ## 2. Architecture principles
 

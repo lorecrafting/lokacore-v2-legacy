@@ -1,5 +1,28 @@
 # 17 — Research Baseline and External References
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Informative dated external research.
+
+Preserve source dates. Recheck policy/toolchain facts at the relevant implementation or release gate.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Evennia](#1-evennia)
+- [2. Expo / React Native native code](#2-expo--react-native-native-code)
+- [3. Rust / BEAM](#3-rust--beam)
+- [4. Rust / React Native ecosystem](#4-rust--react-native-ecosystem)
+- [5. Apple App Store](#5-apple-app-store)
+- [6. Google Play](#6-google-play)
+- [7. Classic MUD architecture evidence](#7-classic-mud-architecture-evidence)
+- [8. Jev / System One semantic-assessor candidate](#8-jev--system-one-semantic-assessor-candidate)
+- [9. Source freshness rule](#9-source-freshness-rule)
+
+</details>
+<!-- packet-navigation:end -->
+
 **Verified:** 2026-09-19 unless otherwise noted.
 
 This appendix records external facts that influenced architecture decisions. It is not a substitute for rechecking fast-changing platform policies at implementation/release time.

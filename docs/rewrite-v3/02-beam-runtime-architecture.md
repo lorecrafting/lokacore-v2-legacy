@@ -1,5 +1,33 @@
 # 02 — BEAM Runtime Architecture
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Design contract: online host.
+
+Account/progress service arrives at R12A; gameplay hosting at R14. Review ownership and recovery without pulling shared-world work forward.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Proposed repository shape](#1-proposed-repository-shape)
+- [2. Supervision topology](#2-supervision-topology)
+- [3. Offline versus online authority](#3-offline-versus-online-authority)
+- [4. Session, account, character, instance](#4-session-account-character-instance)
+- [5. Online private/party world owner](#5-online-privateparty-world-owner)
+- [6. Why not one GenServer per entity by default](#6-why-not-one-genserver-per-entity-by-default)
+- [7. Shared MUD evolution](#7-shared-mud-evolution)
+- [8. BEAM distribution](#8-beam-distribution)
+- [9. Gateway/runtime separation](#9-gatewayruntime-separation)
+- [10. Restart behavior](#10-restart-behavior)
+- [11. Schedulers: use three temporal strategies](#11-schedulers-use-three-temporal-strategies)
+- [12. Backpressure and overload](#12-backpressure-and-overload)
+- [13. BEAM-specific review questions](#13-beam-specific-review-questions)
+- [14. Early platform service is not early Realm simulation](#14-early-platform-service-is-not-early-realm-simulation)
+
+</details>
+<!-- packet-navigation:end -->
+
 ## 1. Proposed repository shape
 
 Use a Mix umbrella to make dependency direction mechanically obvious.
@@ -14,7 +42,7 @@ loka/
 │   ├── loka_runtime/    # OTP world/session/scheduling authority
 │   ├── loka_builder/    # workspaces, Builder API, lab, certification
 │   └── loka_web/        # Phoenix HTTP/channels/admin/MCP adapter
-├── kernel/              # portable deterministic rules kernel (Rust; spike-gated)
+├── kernel/              # portable rules implementation (language and boundary selected by R1)
 ├── mobile/              # React Native / Expo + local authority/persistence
 ├── protocol/            # external machine-readable schemas/codegen
 ├── cartridges/          # first-party source cartridges in development
@@ -155,8 +183,9 @@ It SHOULD NOT block on slow external I/O while holding command serialization. Pe
 1 client ActionInvocation arrives
 2 gateway authenticates + validates transport/protocol
 3 invocation is routed to the owning WorldInstance/ZoneShard
-4 authority verifies actor control, re-resolves the current ActionSet, and constructs the typed Command
-5 authority checks idempotency identity and relevant expected authority revision
+4 authority verifies actor/receipt access and trusted logical retry identity
+5 matching intent replays its stored outcome BEFORE current ActionSet/freshness checks;
+  only NEW invocations resolve current actions/targets and construct the typed Command
 6 DecisionCoordinator evaluates portable + server-only rules into one proposal
 7 store transaction commits affected durable records + command receipt + effect outbox
 8 in-memory state advances to committed revision
@@ -164,7 +193,7 @@ It SHOULD NOT block on slow external I/O while holding command serialization. Pe
 10 durable outbox effects are dispatched/retried
 ```
 
-The exact transaction strategy may batch entity changes, but step 7 must prevent a crash from producing half a logical action.
+The exact transaction strategy may batch entity changes, but step 7 must prevent a crash from producing half a logical action. The transaction rechecks the receipt/unique identity. An uncertain COMMIT fences new decisions until durable reconciliation; see document 03 §§14–15. A replay returns its historical outcome without replacing the current GameView.
 
 ## 6. Why not one GenServer per entity by default
 
@@ -332,3 +361,7 @@ Every proposed process must answer:
 - Can this be a pure module instead?
 
 If the last answer is yes, prefer the pure module.
+
+## 14. Early platform service is not early Realm simulation
+
+R12A introduces the account lifecycle and Story progress service before the first public Story release, reusing the `loka_platform` boundary and PostgreSQL. R13 adds commerce to that foundation; R14 later adds WorldInstance gameplay hosting. Authentication, accepted account milestones and Realm admission policy never execute inside the portable rules kernel. Account/profile binding is host metadata. See [document 23](23-accounts-progress-admission.md).

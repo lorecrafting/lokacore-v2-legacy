@@ -1,7 +1,57 @@
 # Loka v3 Specification Review Record
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Informative cumulative review history.
+
+Historical findings may describe superseded drafts. Read current contracts for implementation; old closure conclusions are not current approval.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Rewrite versus port ambiguity](#1-rewrite-versus-port-ambiguity)
+- [2. Offline requirement contradicted original server-authoritative roadmap](#2-offline-requirement-contradicted-original-server-authoritative-roadmap)
+- [3. Shared kernel could undermine the BEAM-native goal](#3-shared-kernel-could-undermine-the-beam-native-goal)
+- [4. Rust/mobile bridge maturity was overstated](#4-rustmobile-bridge-maturity-was-overstated)
+- [5. “Same seed” was not a complete determinism contract](#5-same-seed-was-not-a-complete-determinism-contract)
+- [6. Native kernel state could become a hidden second authority](#6-native-kernel-state-could-become-a-hidden-second-authority)
+- [7. Cartridge expansion/composition was underspecified](#7-cartridge-expansioncomposition-was-underspecified)
+- [8. Single-player sequel continuity could become accidental MMO state](#8-single-player-sequel-continuity-could-become-accidental-mmo-state)
+- [9. App Store treatment of downloadable scripts was too optimistic](#9-app-store-treatment-of-downloadable-scripts-was-too-optimistic)
+- [10. General Builder API was scheduled before proving a real game](#10-general-builder-api-was-scheduled-before-proving-a-real-game)
+- [11. Event terminology was overloaded in Lokacore](#11-event-terminology-was-overloaded-in-lokacore)
+- [12. Definition and runtime entity were conflated historically](#12-definition-and-runtime-entity-were-conflated-historically)
+- [13. One-process-per-entity was not justified by the new product](#13-one-process-per-entity-was-not-justified-by-the-new-product)
+- [14. Temporal features could create timer/tick explosions](#14-temporal-features-could-create-timertick-explosions)
+- [15. Private story → MMORPG reuse needed more than a single “shared” switch](#15-private-story--mmorpg-reuse-needed-more-than-a-single-shared-switch)
+- [16. Mobile/server protocol drift must not recur](#16-mobileserver-protocol-drift-must-not-recur)
+- [17. CI and documentation authority](#17-ci-and-documentation-authority)
+- [18. Review conclusion](#18-review-conclusion)
+- [19. Self-review corrections after PR opening](#19-self-review-corrections-after-pr-opening)
+- [20. Adversarial review after self-review](#20-adversarial-review-after-self-review)
+- [21. Product-boundary interruption: separate Stories and Online clients](#21-product-boundary-interruption-separate-stories-and-online-clients)
+- [22. Review round two: revisit the two-client decision](#22-review-round-two-revisit-the-two-client-decision)
+- [23. Review round two: master-plan clarity](#23-review-round-two-master-plan-clarity)
+- [24. Review round two: quests as living-world participants](#24-review-round-two-quests-as-living-world-participants)
+- [25. Review round two: quest tracking, phasing, instancing, and bottlenecks](#25-review-round-two-quest-tracking-phasing-instancing-and-bottlenecks)
+- [26. Draft 0.3 spec-integrity audit of the complete merged packet](#26-draft-03-spec-integrity-audit-of-the-complete-merged-packet)
+- [27. Classic MUD / builder-expression / narrative-depth review](#27-classic-mud--builder-expression--narrative-depth-review)
+- [28. Scene-space, release-assurance, and Foundry portability review](#28-scene-space-release-assurance-and-foundry-portability-review)
+- [29. Post-composition self-review and adversarial review](#29-post-composition-self-review-and-adversarial-review)
+- [30. Final closure adversarial review](#30-final-closure-adversarial-review)
+- [31. Fresh post-closure architecture audit](#31-fresh-post-closure-architecture-audit)
+- [32. Independent review and the first-cartridge design](#32-independent-review-and-the-first-cartridge-design)
+- [33. Contradictions surfaced while drafting the R1 envelope and the R0 index](#33-contradictions-surfaced-while-drafting-the-r1-envelope-and-the-r0-index)
+- [34. Audit follow-through and owner scope clarification — 2026-09-22](#34-audit-follow-through-and-owner-scope-clarification--2026-09-22)
+- [35. Human/LLM reading preparation — 2026-09-22](#35-humanllm-reading-preparation--2026-09-22)
+- [36. Owner amendment: accounts and prologue progress at launch](#36-owner-amendment-accounts-and-prologue-progress-at-launch)
+
+</details>
+<!-- packet-navigation:end -->
+
 **Scope:** `docs/rewrite-v3/` plus the v3 reconciliation of `docs/product/CARTRIDGE-ROADMAP.md`  
-**Review state:** self-review and adversarial architecture review performed before opening the stacked specification PR.
+**Review state:** cumulative historical record, not a current approval or implementation-status ledger. Later sections describe later reviews; use current contracts and the exact candidate commit for implementation.
 
 This file records important challenges raised against the draft and the resulting corrections. It is evidence about the specification process, not a substitute for the normative contracts.
 
@@ -1399,3 +1449,30 @@ Recorded per README §8's conflict rule. All three were resolved by owner decisi
 `00-first-cartridge-design.md` §11 listed "barter with Sedge" in the chapter-one Economy cell while the same table's chapter-three cell and its "What each chapter buys" table listed "barter (formalized)", so the packet both did and did not ship barter in chapter one.
 
 **Resolution (2026-09-21):** barter is chapter three only. Chapter one loses it in doc 00 §11 (Economy row and the chapter-three capability cell, now plain "barter"), doc 00a §4 (Sedge's trainer cell) and §5 (the herb row's use column, now S9 only), and `INDEX.md` §5 (chapter-one ladder row); `INDEX-cut-candidates.md` records the decision on the doc 21 §28 `commerce@1` barter row. Doc 00 §2 (Sedge's cast row), §4.6 (the economy mechanics table) and §12 (the capability gap list) keep barter as full-design prose because they describe the whole game, not chapter one.
+
+
+## 34. Audit follow-through and owner scope clarification — 2026-09-22
+
+The owner reaffirmed the clean-sheet engine rebuild and full first-chapter scope (57 rooms, 10 quests, two endings), with powerful LLM-assisted creation/reasoning. The agreed smaller slice is an earlier fresh-engine proof, not a reduced first release or a legacy migration. PR #8 merged the planning record and CI scaffold while substantive work remained local; the follow-up carries the actual corrections.
+
+Corrections: receipt recognition precedes current ActionSet/freshness validation; incoming intent and resolved command have distinct digests; valid failed attempts commit their RNG/outcome; uncertain COMMIT requires reconciliation, not speculative rerun. The tiny fixture now activates before acquisition, with explicit negative/state-credit controls. Q2 uses already-established knowledge rather than repeating Q1's event. Index summaries no longer forbid provisional in-decision events or elevate Ashmere's six-direction convention into a universal engine rule.
+
+R1 now separates Tiny semantics from synthetic volume, decision/commit/checkpoint/restore timings, shared server load, UI responsiveness, and fault-class-specific recovery. All performance numbers and the numeric profile remain proposed until the evidence gate is accepted. The executable Python model is specification evidence only, not a kernel, database test, or mobile proof.
+
+The generated release matrix removes accidental later-feature prerequisites while keeping applicable first-release safety gates. R6P is a small touch-first proof in the fresh repository after R0/R1/R2. Story/Builder/factory work does not depend on production Realm. Paid commerce and free product proof are separate gates. The original outside/Fable report is not authenticated by this change; §32 remains the repository's outside-review summary, not independent approval of this follow-up.
+
+See `reviews/2026-09-22-audit-follow-through.md` for actual checks, review findings, corrections and remaining evidence. This change does not claim R0/R1 acceptance, completed native builds, App Review approval, or independent reviewer signoff.
+
+## 35. Human/LLM reading preparation — 2026-09-22
+
+A structural/readability pass covered all numbered documents and the implementation companions. It adds a thematic review guide, every R milestone in plain English, checked section menus and backlinks, and explicit role/status labels. Stable filenames, section numbers, scenario IDs, chapter-one scope and clean-room boundaries are retained. Navigation is generated; the specification bodies remain authored text.
+
+The pass reconciles stale packet-status wording, the previously unindexed Ink study, companion classifications, the visually ambiguous roadmap branch drawing, and retained LokaScript sections that could be mistaken for current scope. The chapter ladder now places escort with chapter one, matching Q2/S3 and the existing release matrix; this is not a new mechanic.
+
+Two content defects are explicitly left for review rather than guessed away: the full-campaign quest total (five main plus 28 side versus a summary of 28) and the two-novice 14:00 fixture versus Hale's schedule. They are flagged beside source text and in the reading guide. No gate is declared passed by this housekeeping. Detailed validation and limitations are in [the housekeeping record](reviews/2026-09-22-reader-housekeeping.md).
+
+## 36. Owner amendment: accounts and prologue progress at launch
+
+On 2026-09-22 the owner requested and approved early accounts to remember offline cartridge completion and require introductory prologues before Realm. Document 23 and ADR-063 make accounts/progress mandatory at the first public Story release; installed gameplay remains offline and authentication-independent. Offline reports qualify only for explicit onboarding policy, not competitive value or verified-human-play claims.
+
+R12A brings the minimal platform account/progress service forward; R13 adds commerce and R14/R15 enforce server admission. R6/R7 produce durable milestones and pending sync; R6P uses a fake adapter. No top-level phase is renumbered and no chapter-one content is cut. ACCOUNT-01–12 state recovery, binding, replay, multi-device, deletion and policy obligations. The corresponding model checks do not establish production authentication, database, device or Realm readiness.

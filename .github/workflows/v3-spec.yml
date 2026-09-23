@@ -22,22 +22,42 @@ jobs:
     name: V3 specification checks
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
-      - name: Check whitespace
-        run: git diff --check
+          fetch-depth: 0
+      - name: Check candidate whitespace
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          if [ -n "$BASE_SHA" ] && git cat-file -e "$BASE_SHA^{commit}" 2>/dev/null; then
+            git diff --check "$BASE_SHA" HEAD
+          else
+            git show --format= --check HEAD
+          fi
+      - name: Run executable specification checks
+        run: |
+          python3 -m unittest discover -s docs/rewrite-v3/checks -p 'test_*.py' -v 2>&1 | tee v3-spec-tests.log
+          python3 docs/rewrite-v3/checks/release_scope.py --check | tee v3-spec-scope.log
+          git diff --exit-code
       - name: Capture exact specification input for review
+        if: always()
         run: |
           git rev-parse HEAD > v3-spec-head.txt
           git archive --format=tar.gz --output=v3-spec-input.tar.gz HEAD docs .github/workflows AGENTS.md
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: v3-spec-input
           path: |
             v3-spec-head.txt
             v3-spec-input.tar.gz
+            v3-spec-tests.log
+            v3-spec-scope.log
           if-no-files-found: error
           retention-days: 7

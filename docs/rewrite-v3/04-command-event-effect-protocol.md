@@ -1,5 +1,40 @@
 # 04 — Action Invocations, Commands, State Deltas, Domain Events, Effects, and Client Protocol
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Design contract: decisions and projections.
+
+Read sections 1-10 for semantic execution. Network protocol sections apply when Realm transport is introduced.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Six concepts, six responsibilities](#1-six-concepts-six-responsibilities)
+- [2. Action invocation and command semantics](#2-action-invocation-and-command-semantics)
+- [3. Canonical command representation](#3-canonical-command-representation)
+- [4. Decision environment](#4-decision-environment)
+- [5. Decision result](#5-decision-result)
+- [6. Online hybrid decision coordination](#6-online-hybrid-decision-coordination)
+- [7. Game error taxonomy](#7-game-error-taxonomy)
+- [8. Domain event envelope](#8-domain-event-envelope)
+- [9. Event processing model](#9-event-processing-model)
+- [10. Effect types](#10-effect-types)
+- [11. Causation and correlation](#11-causation-and-correlation)
+- [12. Protocol source of truth for online transport](#12-protocol-source-of-truth-for-online-transport)
+- [13. Version negotiation](#13-version-negotiation)
+- [14. Client projection](#14-client-projection)
+- [15. Portable game-view projection](#15-portable-game-view-projection)
+- [16. Snapshot, projection sequence, and freshness model](#16-snapshot-projection-sequence-and-freshness-model)
+- [17. Text commands](#17-text-commands)
+- [18. Search/target resolution](#18-searchtarget-resolution)
+- [19. Action availability](#19-action-availability)
+- [20. Protocol tests](#20-protocol-tests)
+- [21. Offline command conformance](#21-offline-command-conformance)
+
+</details>
+<!-- packet-navigation:end -->
+
 ## 1. Six concepts, six responsibilities
 
 Loka v3 MUST distinguish:
@@ -118,7 +153,7 @@ Portable gameplay may resolve to the same logical Command types offline and onli
 
 The ActionSet/GameView is the affordance contract: it advertises valid action keys, target/input schema, labels, and relevant presentation hints.
 
-Authority always revalidates because the GameView can be stale.
+Authority revalidates NEW attempts because the GameView can be stale. It first authenticates and authorizes receipt access, then recognizes an existing invocation by trusted lineage/actor identity and canonical intent digest. A matching retry replays the prior semantic outcome before current-world ActionSet, target-presence, or freshness validation. It never reruns a consumed action. Altered intent under an existing identity is an integrity conflict. Document 03 §14 defines the two-digest contract and §15 the transactional recheck and uncertain-COMMIT recovery.
 
 ### External Realm gameplay envelope
 
@@ -212,6 +247,14 @@ or:
 
 Expected gameplay failure is data, not exception control flow.
 
+### 5.0 Rejection is not a failed attempt
+
+A **rejection** means the action was not admitted (for example no eligible target or insufficient resources). It consumes no gameplay RNG, time, or costs. A terminal rejection receipt may be recorded without advancing game revision (03 §14).
+
+An **admitted attempt with an unsuccessful game outcome** (miss, failed luck check, resisted spell) returns an accepted Decision with a typed failure outcome. Its declared RNG consumption, time, costs, narration record, and other state changes commit exactly like a successful attempt. Inventory need not change. Retrying the same invocation replays that failed attempt; a genuinely new invocation makes a new attempt against the advanced RNG state. Do not implement a failed roll as `{:reject, ...}` and restore the RNG.
+
+A **definitive transaction rollback** discards the entire proposal. An **unknown commit outcome** instead fences admission and reconciles the original receipt and durable state before any reevaluation (03 §15). Neither case permits a new ID to evade retry identity.
+
 ### 5.1 Proposal-state semantics and StateDelta composition
 
 Decision output is **provisional** until the authority commit succeeds.
@@ -223,7 +266,7 @@ Before commit succeeds:
 - proposed DomainEvents MAY drive deterministic in-decision reducers;
 - proposed DomainEvents MUST NOT be published to Phoenix PubSub, client transports, external workers, analytics, or another authority as though they already happened;
 - ephemeral presentation derived from the proposal MUST NOT escape in a form the client can treat as authoritative success;
-- a rejected decision or failed persistence commit discards its StateDelta, proposed DomainEvents, Effects, RNG/logical-time advancement, and projection hints.
+- a rejected decision or definitively rolled-back persistence transaction discards its StateDelta, proposed DomainEvents, Effects, RNG/logical-time advancement, and projection hints; an uncertain commit is reconciled under 03 §15, not presumed rolled back.
 
 After commit succeeds, the same accepted event values become committed DomainEvents and may be traced, projected, and fanned out according to their registered policy. Cross-authority/external work still leaves through typed Effects/outbox semantics rather than direct event publication during evaluation.
 

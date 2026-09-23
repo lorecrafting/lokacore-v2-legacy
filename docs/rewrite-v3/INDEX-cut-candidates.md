@@ -1,6 +1,36 @@
 # INDEX cut candidates
 
-Sections of the normative packet that INDEX.md could not state. Listing is not deletion; each entry needs a human decision. Built from INDEX.md at the same commit.
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Informative pruning suggestions.
+
+Listing a section does not approve deleting it or dropping its invariants. Recheck suggestions against current contracts.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [01 — Core principles](#01--core-principles)
+- [02 — BEAM runtime architecture](#02--beam-runtime-architecture)
+- [03 — Domain state and persistence](#03--domain-state-and-persistence)
+- [04 — Command, event, effect protocol](#04--command-event-effect-protocol)
+- [05 — Cartridges, content, capabilities](#05--cartridges-content-capabilities)
+- [06 — Quests, dialogue, actions, scripting](#06--quests-dialogue-actions-scripting)
+- [07 — Offline storypacks to MMO](#07--offline-storypacks-to-mmo)
+- [08 — Builder API and AI factory](#08--builder-api-and-ai-factory)
+- [09 — Cartridge Lab and certification](#09--cartridge-lab-and-certification)
+- [10 — Mobile, commerce, release](#10--mobile-commerce-release)
+- [11 — Security, observability, operations](#11--security-observability-operations)
+- [14 — Implementation plan](#14--implementation-plan)
+- [15 — Acceptance scenarios](#15--acceptance-scenarios)
+- [19 — Quest sharing, instancing, capacity](#19--quest-sharing-instancing-capacity)
+- [21 — Composable world primitives](#21--composable-world-primitives)
+- [Summary](#summary)
+
+</details>
+<!-- packet-navigation:end -->
+
+Sections of the normative packet that INDEX.md could not state. Listing is not deletion; each entry needs review. Missing an index summary does not make an invariant optional. In particular, error/numeric/receipt/causation/activation semantics cannot be cut as mere implementation detail; follow the corrected governing contracts and release matrix. Built from INDEX.md at the same commit.
 
 ## 01 — Core principles
 
@@ -15,7 +45,7 @@ Sections of the normative packet that INDEX.md could not state. Listing is not d
 | §1 | Proposed repository shape | implementation choice | Directory layout; the R2 gate only requires green CI. |
 | §2 | Supervision topology | implementation choice | OTP tree shape for the online host. |
 | §3 | Offline versus online authority | duplicate | Restates A9 and 07 §2. |
-| §4 | Session, account, character, instance | later phase | R14; Story has one local character, no account. |
+| §4 | Session, account, character, instance | later phase | Realm character/session detail is R14; launch account/progress is R12A (doc 23), not removable. |
 | §5 | Online private/party world owner | later phase | R14 and R17. |
 | §6 | Why not one GenServer per entity by default | rationale | Argument against a design v3 does not adopt. |
 | §7 | Shared MUD evolution | later phase | R18 through R22. |
@@ -209,7 +239,7 @@ Sections of the normative packet that INDEX.md could not state. Listing is not d
 | §16 | Local package management | later phase | R13 multi-release installs. |
 | §17 | Cloud backup | later phase | Optional convenience after R12. |
 | §18 | Offline versus online characters | later phase | R14; P7 already states the no-import rule. |
-| §19 | Narrative continuity | later phase | Account-level memory sync after R14. |
+| §19 | Narrative continuity | later phase | Optional richer memories only; required launch completion sync is R12A (doc 23). |
 | §20 | Release environments | implementation choice | Channel setup for dev, stage, production. |
 | §21 | Cartridge rollout | later phase | R13 staged rollout. |
 | §23 | Mobile CI | implementation choice | Job selection; the R2 gate states green CI. |
@@ -217,7 +247,7 @@ Sections of the normative packet that INDEX.md could not state. Listing is not d
 | §25 | Privacy/data minimization | duplicate | 07 §28; no upload path in chapter one. |
 | §26 | Current technology feasibility note | rationale | Dated research note; doc 17 holds the baseline. |
 | §27 | Store-review gate for downloadable rule content | duplicate | Index §7 records ADR-035 as an open gate. |
-| §29 | Account, entitlement, and mode boundary | later phase | R14 accounts; M4 covers entitlement now. |
+| §29 | Account, entitlement, and mode boundary | later phase | Account/progress boundary is required at R12A; Realm-specific mechanics remain R14. |
 
 ## 11 — Security, observability, operations
 
@@ -279,7 +309,7 @@ Sections of the normative packet that INDEX.md could not state. Listing is not d
 | J | Builder/AI | later phase | BLD-01–09: R11 Builder v1. |
 | K | Mobile protocol | later phase | PROTO-02, 05: online version negotiation, R14. |
 | L | Online transaction and recovery | later phase | ONL-01, 02, 03, 05, 06: R14. |
-| M | Session/account/character | later phase | SES-01, 02, 03: R14 accounts. |
+| M | Session/account/character | later phase | SES-01, 02, 03: Realm session/character detail; do not defer R12A accounts or ACCOUNT-01–12. |
 | N | Offline-to-MMO reconciliation | later phase | MMO-01, 02, 05–09: R19 through R21. |
 | O | Commerce | later phase | PAY-05: server SKU mapping, R13 backend. |
 | P | Operations | later phase | OPS-01–05: R14 server operations. |

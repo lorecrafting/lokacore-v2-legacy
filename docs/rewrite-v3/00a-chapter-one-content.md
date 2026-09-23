@@ -1,5 +1,31 @@
 # 00a — Chapter One Content Specification: The Missing Child
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Product scope: chapter one.
+
+Review the 57-room content, manifest, quests and scenarios. YAML field shapes remain illustrative until their schema gate.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Manifest](#1-manifest)
+- [2. Rooms](#2-rooms)
+- [3. Activation groups](#3-activation-groups)
+- [4. NPCs](#4-npcs)
+- [5. Items](#5-items)
+- [6. Facts](#6-facts)
+- [7. Quests](#7-quests)
+- [8. Dialogue](#8-dialogue)
+- [9. Scenes](#9-scenes)
+- [10. Reactions](#10-reactions)
+- [11. Chapter-one certification](#11-chapter-one-certification)
+- [12. Hello-world fixture](#12-hello-world-fixture)
+
+</details>
+<!-- packet-navigation:end -->
+
 **Status:** Draft 0.1 — exact content for the R10 cartridge, chapter one of The Fox of Ashmere. Prose is placeholder; structure is the deliverable.
 **Purpose:** be the thing the compiler compiles. Every room, NPC, item, fact, quest, and scene here is real content the R4 compiler, R5–R8 capabilities, and R9 minimum gates are built against. §12 is the hello-world subset used as the first R4 fixture.
 **Reads with:** `00-first-cartridge-design.md` §11 (the ladder), `05-cartridges-content-capabilities.md` (envelope formats), `06-quests-dialogue-actions-scripting.md` (quest and dialogue grammar), `09-cartridge-lab-certification.md` §1a (the gates this content must pass).
@@ -19,6 +45,7 @@ chapter: 1
 requires:
   kernel_api: ">=1.0 <2.0"
   content_schema: 1
+  rule_ir: 1
   capabilities:
     - movement@1
     - barrier@1
@@ -31,6 +58,7 @@ requires:
     - fact@1
     - resource@1
     - attributes@1
+    - position@1
     - skills@1
     - status@1
     - check@1
@@ -207,6 +235,8 @@ Sixteen named NPCs in chapter one. Schedules are hour ranges in world time; prof
 
 Two novices in the same room from 12–18 is the target-ambiguity fixture.
 
+> **Open content reconciliation:** the table puts Ash in the cloister at 14:00 but Hale in the kitchen garden, while §11 requires both novices in the cloister at 14:00. Choose a schedule or fixture-time/location correction before certifying that scenario; this housekeeping pass does not change either NPC's intended schedule.
+
 ### Populations
 
 | Plan | Bundle | Area | Count | Scope | Respawn | Behavior |
@@ -307,7 +337,8 @@ resolution: { mode: turn_in, targets: [npcs/elspeth, npcs/bram] }
 objectives:
   all:
     - id: learn_name
-      event: { type: dialogue_node_reached, target: npcs/elspeth, node: tells_name }
+      # Q1 already observed tells_name before activating Q2: current knowledge, not replay.
+      state: { fact_equals: { key: village.arrived, value: true } }
     - id: find_tracks
       event: { type: discovered, target: details/reed_bank.tracks }
     - id: cross_mire
@@ -416,7 +447,7 @@ Chapter one ends when both Q2 and Q3 are resolved: a ReactionRule on the second 
 | S10 a_room_at_the_lantern | automatic on first rest at inn_rooms / automatic | `event: rested` at inn_rooms | player.slept_at_lantern; scene dream_of_the_fen; export player.dream_seen |
 | S27 a_night_in_the_marsh | discovered at hound_run after 20:00 / automatic | `survive: { window: 20:00–06:00, room_tag: fen }` with `optional: shelter at drowned_oak` | fen.night_survived; sedge profile warm; sedge teaches swim; faction −1 (Priory disapproves) |
 
-Every side quest has a declared failure state: S1 none; S2 expiry; S3 tobin dies (Bram gives an alternate turn-in); S4 answering wrong three times (wisp leaves until the next night); S9 none; S10 none; S27 death (ghost respawn at isle_shrine, quest resets).
+Every side quest has a declared failure state: S1 none; S2 expiry; S3 tobin dies (Bram gives an alternate turn-in); S4 answering wrong three times (wisp leaves until the next night); S9 none; S10 none; S27 death (ordinary shrine respawn at isle_shrine, quest resets; ghost-walk is chapter two).
 
 ## 8. Dialogue
 
@@ -450,6 +481,8 @@ Topics discoverable in chapter one: wren, fox, bell, ward, ferry, rumors, room, 
 | dawn_on_the_green | Q2 and Q3 both resolved | current_world at village_green | narrate ×3 (variant by child_status × allegiance), await_ack, consequence exports, end | modal |
 
 All five have a checkpoint before every consequence beat and are tested by SCENE-01 and SCENE-02.
+
+The committed terminal consequence of `dawn_on_the_green` reaches the cartridge milestone `prologue_completed` for either intended ending. It does not require all side quests or a preferred ending. The local host durably records a pending progress report with that commit; account synchronization and Realm qualification remain [document 23](23-accounts-progress-admission.md) platform policy. This is a milestone declaration for the R3/R7 schema, not a client credits-screen callback.
 
 ## 10. Reactions
 
@@ -493,7 +526,8 @@ version: 0.0.1
 requires:
   kernel_api: ">=1.0 <2.0"
   content_schema: 1
-  capabilities: [movement@1, containment@1, inspectable_detail@1, equipment@1, fact@1, quest@1, dialogue@1, topics@1, check@1, behavior@1, schedule@1]
+  rule_ir: 1
+  capabilities: [movement@1, containment@1, inspectable_detail@1, description_variant@1, equipment@1, fact@1, policy@1, target_resolution@1, narration@1, quest@1, dialogue@1, topics@1, check@1, behavior@1, schedule@1]
 supported_profiles: [offline_private]
 time_policy: play_time
 entry: { room: rooms/ferry_landing }
@@ -640,4 +674,8 @@ dialogue.common.leave: "Good day."
 narration.lantern_slips: The handle turns slick in your fingers and the lantern rolls back into the weeds.
 ```
 
-The fixture proves, in order: compile to an artifact hash twice with identical output (CAR-04); `look`, `north`, `take lantern`, `south`, `talk bram`, choose, resolve; `village.arrived` flips once; the green's description variant changes; a duplicate `take lantern` invocation is rejected; the take check's RNG outcome, pass or fail, replays identically from the same seed and the same restored save, and a retry after a failed check is a new command rather than a duplicate (DET-03); `wait` to hour 19 moves Bram to the green through a durable scheduled job that survives save and restore (WORLD-01); save, kill, restore at every step (OFF-03, OFF-04). Under any R1 strategy this is the golden trace the hosts must match, and the fixture now matches the `14-implementation-plan.md` R1 tiny model exactly: 2 rooms, 1 exit, 1 NPC, 1 item, 1 player, 1 typed fact, 1 quest, 1 scheduled job, 1 RNG check.
+The positive fixture activates the quest **before** the acquisition it observes: `look`, `talk bram`, choose `accept`, `north`, `take lantern`, then return/inspect. The seeded take may fail as an admitted attempt; that failure commits its RNG state, and another attempt uses a NEW invocation ID. A matching duplicate replays the original success or failure rather than rejecting or rolling again. `village.arrived` flips once on successful post-activation acquisition and the green's derived description changes.
+
+Separate required cases prove: acquisition before activation gives no event credit; an explicitly state-predicate quest may credit an already-held lantern; changed intent under the same ID conflicts; a stale-view retry after success replays its receipt; definite rollback consumes nothing; uncertain commit is reconciled before retry. `wait` to hour 19 moves Bram through a durable scheduled command, and save/restore preserves jobs and RNG.
+
+`conformance/README.md` defines the executable small-contract examples and the full R1 host-adapter evidence they do NOT yet supply. The R1 golden corpus must include source/prepared definitions, initial snapshot, exact commands, per-step decision/event/state bytes, and RNG states; this prose is not itself a passing golden trace. The two-room fixture remains independent of the larger R6P playable proof and the full 57-room release.

@@ -1,5 +1,48 @@
 # 12 — Evennia Design Review: What Loka v3 Should Learn
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Informative prior-art evidence.
+
+Read as dated reasoning behind decisions, not as instructions to import Evennia or implement every listed feature.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Summary](#1-summary)
+- [2. Portal/Server separation](#2-portalserver-separation)
+- [3. Typeclasses, Attributes, and Components](#3-typeclasses-attributes-and-components)
+- [4. CmdSets are highly relevant to touch-first Loka](#4-cmdsets-are-highly-relevant-to-touch-first-loka)
+- [5. Locks and fail-closed policy](#5-locks-and-fail-closed-policy)
+- [6. Sessions, Accounts, and puppeting](#6-sessions-accounts-and-puppeting)
+- [7. Tags and aliases](#7-tags-and-aliases)
+- [8. Search is a feature, not a utility afterthought](#8-search-is-a-feature-not-a-utility-afterthought)
+- [9. Prototypes and OLC](#9-prototypes-and-olc)
+- [10. Protfuncs: controlled power for builders](#10-protfuncs-controlled-power-for-builders)
+- [11. Scripts, tickers, tasks, and OnDemandHandler](#11-scripts-tickers-tasks-and-ondemandhandler)
+- [12. Commands and automatic help](#12-commands-and-automatic-help)
+- [13. Batch processors](#13-batch-processors)
+- [14. Contrib ecosystem](#14-contrib-ecosystem)
+- [15. Evennia ideas useful later](#15-evennia-ideas-useful-later)
+- [16. Core contrast: Evennia object-centric vs Loka instance-centric](#16-core-contrast-evennia-object-centric-vs-loka-instance-centric)
+- [17. Extended rooms: details without entity explosion](#17-extended-rooms-details-without-entity-explosion)
+- [18. Safe barter/trade is worth adopting later](#18-safe-bartertrade-is-worth-adopting-later)
+- [19. Independent escape/adventure instances validate the cartridge model](#19-independent-escapeadventure-instances-validate-the-cartridge-model)
+- [20. Wilderness virtualization](#20-wilderness-virtualization)
+- [21. XYZ-grid and route finding](#21-xyz-grid-and-route-finding)
+- [22. RP recognition and language systems](#22-rp-recognition-and-language-systems)
+- [23. Traits/buffs/cooldowns support the typed component direction](#23-traitsbuffscooldowns-support-the-typed-component-direction)
+- [24. Crafting recipe/tool model](#24-crafting-recipetool-model)
+- [25. Auditing and reports](#25-auditing-and-reports)
+- [26. Batch processing validates source-controlled world building](#26-batch-processing-validates-source-controlled-world-building)
+- [27. Contrib architecture validates capability packs—but not dynamic plugin chaos](#27-contrib-architecture-validates-capability-packsbut-not-dynamic-plugin-chaos)
+- [28. Evennia feature ideas triage](#28-evennia-feature-ideas-triage)
+- [29. Sources reviewed](#29-sources-reviewed)
+
+</details>
+<!-- packet-navigation:end -->
+
 **Review baseline:** current Evennia documentation and main-branch architecture reviewed 2026-09-17.
 
 Evennia is a mature Python/Twisted MUD/MU* framework. Loka v3 should not clone it, but its long operational history makes it valuable evidence about which abstractions survive years of text-world development.

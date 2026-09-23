@@ -1,5 +1,50 @@
 # 07 — Offline Storypacks and the Path to the MMORPG
 
+<!-- packet-navigation:start -->
+[Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
+
+**Reader context:** Design contract: two authority modes and portability.
+
+Read sections 1-14 for the shared boundary, then continuity and Realm reuse. The experiment envelope remains proposed.
+
+<details>
+<summary>Sections in this document</summary>
+
+- [1. Requirement](#1-requirement)
+- [2. One client, two strict authority modes](#2-one-client-two-strict-authority-modes)
+- [3. Execution profiles](#3-execution-profiles)
+- [4. Portable rules contract and R1 candidates](#4-portable-rules-contract-and-r1-candidates)
+- [5. Portable rules boundary](#5-portable-rules-boundary)
+- [6. Portable state and commit boundary](#6-portable-state-and-commit-boundary)
+- [7. Server execution](#7-server-execution)
+- [8. Offline execution](#8-offline-execution)
+- [9. Offline persistence](#9-offline-persistence)
+- [10. Offline time](#10-offline-time)
+- [11. Offline scripts](#11-offline-scripts)
+- [12. Capability portability classification](#12-capability-portability-classification)
+- [13. Conformance suite](#13-conformance-suite)
+- [14. Architecture spike gate](#14-architecture-spike-gate)
+- [15. Campaigns, sequels, and single-player expansions](#15-campaigns-sequels-and-single-player-expansions)
+- [16. Cartridge versus deployment](#16-cartridge-versus-deployment)
+- [17. Three ways a single-player cartridge enters the MMO](#17-three-ways-a-single-player-cartridge-enters-the-mmo)
+- [18. Quest design for future reuse](#18-quest-design-for-future-reuse)
+- [19. Shared NPC versus personal narrative](#19-shared-npc-versus-personal-narrative)
+- [20. Death and permanence](#20-death-and-permanence)
+- [21. Economy boundary](#21-economy-boundary)
+- [22. What may transfer from offline](#22-what-may-transfer-from-offline)
+- [23. Online-authoritative cartridge mode](#23-online-authoritative-cartridge-mode)
+- [24. Cloud save for offline storypacks](#24-cloud-save-for-offline-storypacks)
+- [25. Offline entitlement](#25-offline-entitlement)
+- [26. Cartridge update while offline](#26-cartridge-update-while-offline)
+- [27. Offline download/package integrity](#27-offline-downloadpackage-integrity)
+- [28. Local privacy](#28-local-privacy)
+- [29. Why this still uses BEAM's strengths](#29-why-this-still-uses-beams-strengths)
+- [30. Product progression](#30-product-progression)
+- [31. Prologue-to-Realm journey](#31-prologue-to-realm-journey)
+
+</details>
+<!-- packet-navigation:end -->
+
 ## 1. Requirement
 
 First-generation single-player cartridges SHOULD be fully playable offline after installation/download.
@@ -32,7 +77,8 @@ Responsibilities:
 - offline local authority;
 - local SQLite saves;
 - campaigns/sequels/expansions;
-- optional cloud backup/account linking;
+- first-release accounts and account-level Story milestone synchronization;
+- optional cloud-save backup, separate from progress tracking;
 - portable GameView rendering.
 
 Ordinary Story play MUST NOT require:
@@ -156,10 +202,10 @@ The preferred implementation for R1 is one shared portable kernel, candidate A o
 R1 compares three candidates against the pre-registered acceptance envelope in `r1-acceptance-envelope.md`. **None is selected before the spike.** `14-implementation-plan.md` R1 and ADR-004 are the authority for the candidate set.
 
 - **A. One TypeScript kernel** — one TypeScript package run natively in React Native's JavaScript engine, reached from BEAM through an Erlang Port to an isolated runner.
-- **B. One Rust kernel** — one deterministic Rust library behind Rustler on BEAM and behind native iOS and Android React Native bindings.
+- **B. One Rust kernel** — one deterministic Rust library behind a declared BEAM boundary (Rustler NIF or explicitly evaluated isolated worker) and native iOS/Android React Native bindings. Language selection does not silently select a crash-isolation boundary.
 - **C. Dual Elixir/TypeScript** — pure Elixir online plus TypeScript offline, held to one semantic schema and a golden-vector parity suite.
 
-The comparison procedure builds A first; B is evaluated only if A fails a MUST row, and C only if B also fails (`r1-acceptance-envelope.md` §12).
+The comparison procedure builds A first; B is evaluated only if A fails a MUST row, and C only if B also fails (`r1-acceptance-envelope.md` §2).
 
 Candidate B additionally depends on a mobile binding strategy. Current React Native/Expo supports custom native modules, React Native provides typed TurboModule/JSI native integration, and Rustler provides an Elixir/Rust NIF bridge. Rust-to-React-Native binding generators also exist, but at least one prominent reviewed option describes itself as early-development and not yet recommended for production. Therefore **both of candidate B's host-binding strategies remain provisional until R1**, and the architecture must not depend on any one third-party binding generator.
 
@@ -244,12 +290,13 @@ portable rules decide(committed state/view, semantic command, env)
 authority transactionally persists delta + receipt
         |
 on success: adopt/apply committed result in memory
-on failure: discard proposal
+on definitive rollback: discard proposal
+on uncertain COMMIT: fence admission, reconcile receipt and reload
 ```
 
 The portable rules layer MUST NOT irreversibly advance hidden authoritative state before host commit succeeds.
 
-If R1 selects a shared native implementation, the spike must decide how state crosses the FFI boundary without pathological full-world copies and benchmark at least:
+For any candidate with a host boundary, begin with the simplest strategy and measure actual bytes/copy/latency. Compare more complex alternatives only if the simple strategy fails the reviewed envelope; record correctness reasons for any exclusion:
 
 - stateless serialized state-in/state-out;
 - long-lived native state handle + non-mutating decision/delta;
@@ -370,6 +417,8 @@ Use on-demand derivation and process due durable jobs on resume. Device wall tim
 
 ## 11. Offline scripts
 
+> **Deferred design:** ADR-018 defers LokaScript until a demonstrated composition gap is admitted. This retained design is not a chapter-one build requirement; it constrains that feature if admitted.
+
 Offline-capable cartridges may use only **portable LokaScript** and portable bindings.
 
 Therefore LokaScript cannot depend on Elixir runtime execution.
@@ -432,9 +481,9 @@ After R1 selects the execution strategy, CI runs golden vectors through every re
 - the iOS Story authority path;
 - the Android Story authority path.
 
-Under candidate A these concretely become the TypeScript kernel plus an Erlang Port runner and the React Native JavaScript engine on both devices; under candidate B, a Rust core plus Rustler and iOS/Android native bindings. If R1 selects candidate C, the documented dual-implementation fallback, the same conformance obligation applies to the accepted Elixir and mobile implementations instead.
+Under candidate A these concretely become the TypeScript kernel plus an Erlang Port runner and the React Native JavaScript engine on both devices; under candidate B, a Rust core plus its declared BEAM boundary and iOS/Android native bindings. If R1 selects candidate C, the documented dual-implementation fallback, the same conformance obligation applies to the accepted Elixir and mobile implementations instead.
 
-Any divergence blocks release.
+Any semantic divergence blocks release. Retain and compare per-step canonical state, decision, event/effect and RNG bytes as well as hashes; see `conformance/README.md`. Final transcript/hash agreement alone is insufficient.
 
 ## 14. Architecture spike gate
 
@@ -459,17 +508,17 @@ Commands:
 Prove:
 
 1. the candidate kernel runs the exact scenario;
-2. the BEAM host produces the canonical trace hash (an Erlang Port runner for candidate A, Rustler for candidate B, the native Elixir implementation for candidate C);
-3. for candidate B only, at least two viable mobile binding strategies are evaluated (for example direct platform wrappers around a stable C ABI versus TurboModule/JSI generation);
+2. the BEAM host produces the canonical trace hash (an Erlang Port runner for candidate A, the explicitly selected NIF/isolated-worker boundary for candidate B, the native Elixir implementation for candidate C);
+3. for candidate B, pre-register its mobile and BEAM boundaries, demonstrate the simplest sufficient build/debug path, and document why alternatives were or were not implemented;
 4. iOS React Native host produces same trace hash;
 5. Android React Native host produces same trace hash;
 6. local SQLite save/reload preserves hash;
-7. BEAM/PostgreSQL save/reload preserves hash;
+7. the BEAM spike adapter preserves canonical state across export/reload using its declared test store; real PostgreSQL transaction/recovery proof remains mandatory at R14, not an unbuilt R1 prerequisite;
 8. 10,000 deterministic command runs show acceptable latency;
 9. a deliberately injected mismatch is caught by conformance CI;
 10. chosen mobile integration approach has a credible Expo/EAS build, upgrade, crash-debugging, and maintenance story.
 
-The procedure for comparing the three candidates is `r1-acceptance-envelope.md` §12; candidate C, dual Elixir/TypeScript implementations with mandatory golden-vector parity, is the fallback, not the first choice.
+The procedure for comparing the three candidates is `r1-acceptance-envelope.md` §§2–3 and §11; candidate C, dual Elixir/TypeScript implementations with mandatory golden-vector parity, is the fallback, not the first choice.
 
 ## 15. Campaigns, sequels, and single-player expansions
 
@@ -906,15 +955,15 @@ Recommended evolution:
 
 ### Stage 1
 
-Offline private storypacks.
+Offline private storypacks with first-release accounts and durable Story milestone tracking (R12A). Installed play remains offline.
 
 ### Stage 2
 
-Optional account/catalog/cloud backup.
+Optional cloud-save backup and richer catalog/continuity features. Completion synchronization is already required at Stage 1; it does not imply full-save backup.
 
 ### Stage 3
 
-Online private versions of same packs.
+Online private versions of same packs, with server-side prologue prerequisites where declared.
 
 ### Stage 4
 
@@ -937,3 +986,7 @@ Selected cartridges promoted to certified shared areas.
 Persistent modern text MMORPG where the cartridge pipeline continuously supplies new adventures and regions.
 
 At no stage is the original cartridge investment discarded.
+
+## 31. Prologue-to-Realm journey
+
+[Document 23](23-accounts-progress-admission.md) requires account-level prologue progress from the first public Story release. Offline completion is recorded locally and synchronized later. The platform labels accepted reports with their real evidence source and maps approved milestones to account-wide onboarding requirements. Realm checks those requirements on the server. This narrow admission policy is not permission to import offline items, gold, levels or competitive rewards. Account-service outages and expired login sessions cannot disable installed local play.
