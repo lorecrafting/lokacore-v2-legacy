@@ -26,7 +26,7 @@ Read semantic versus synthetic workloads, measurement methods, fault classes and
 </details>
 <!-- packet-navigation:end -->
 
-**Version:** 0.4 — original numerical criteria retained; owner-approved staged preparation and delegated hardware selection, 2026-09-23 (ADR-064). Amendment review/merge, R0, setup reviews and measurements remain pending. **No candidate has been selected, benchmarked, or accepted.** Freeze accepted envelope bytes, reviewed fixtures and the reproducible A1 execution setup before semantic implementation. Freeze complete native/physical setup and obtain new stage-bound review before A2; preparation may proceed now. Amendments after measurement must identify the earlier measurements and reason; never tune the acceptance rule to rescue a favorite candidate.
+**Version:** 0.5 — original numerical criteria retained; owner-approved staged preparation and delegated hardware selection, 2026-09-23 (ADR-064); proposed A1-only hosted execution host, 2026-09-23 (§4). Amendment review/merge, R0, setup reviews and measurements remain pending. **No candidate has been selected, benchmarked, or accepted.** Freeze accepted envelope bytes, reviewed fixtures and the reproducible A1 execution setup before semantic implementation. Freeze complete native/physical setup and obtain new stage-bound review before A2; preparation may proceed now. Amendments after measurement must identify the earlier measurements and reason; never tune the acceptance rule to rescue a favorite candidate.
 
 R1 is a disposable feasibility experiment in a separate workspace. It is not the production engine or a requirement to implement chapter one twice. The 57-room first release remains unchanged. `pre-release-proof.md` defines a later, small player-facing proof of the fresh engine; that proof is not the R1 microbenchmark.
 
@@ -79,6 +79,7 @@ Run 1,000 warm-up inputs, then at least 10,000 measured inputs in each of three 
 | Class | Approved target hardware | Evidence |
 |---|---|---|
 | Development/server host | Apple Silicon M1-or-later, 16 GB | Exact model, OS, runtime, cores and load recorded; common server tests use the same host |
+| A1 semantic execution host (A1 only) | Identified GitHub-hosted Linux runner | Runner label, observed image version, run/attempt, source commit, OS, architecture, cores, RAM and actual runtime versions retained in a checksum-indexed bundle. Correctness and lock replay only: no timing, load or A2 evidence, and the row above still governs common server tests |
 | Initial iOS qualification candidate | iPhone 11 (A13, planned 4 GB class) | Owner reports physical availability; actual RAM/SKU/OS and release-build toolchain still need verification before A2 |
 | Minimum Android candidate | Galaxy A14, 4 GB | Confirm exact variant, OS and release-build toolchain before freeze |
 

@@ -94,6 +94,24 @@ has **not** been changed to a hosted runner, and no actual setup observation or
 approval is replaced by this preference. CI specification checks can run now;
 candidate A1 still needs the accepted, explicitly amended/reviewed host setup.
 
+## Hosted A1 execution evidence (proposed envelope v0.5)
+
+Envelope v0.5 proposes one A1-only row: an identified GitHub-hosted Linux runner
+may be the A1 execution host. It carries no timing, load or A2 weight, and the M1
+row still governs common server tests. The amendment needs review; the refreshed
+envelope hash in `setup.pending.json`, `oracle-review.pending.json` and
+`spec_tools/preserved-inputs.json` renews nobody's consent.
+
+[Bundle](a1-host-evidence/) came from `.github/workflows/v3-a1-host.yml`, run
+35901131399 attempt 1 at source `e9a7bd626a7bf963776ba1fbb04cc2fca9d9aff0`,
+image ubuntu24/20260920.314.1, x86_64, 4 cores, MemTotal 16372436 KiB, recorded
+as `ram_gb: 16`. It observed Node 24.21.0, npm 11.19.0, TypeScript 6.0.3,
+Elixir 1.20.4 and OTP 28.4. Replay commands all exited 0 and the lock bytes were
+unchanged. `toolchain_lock` points at its `SHA256SUMS`, and
+`SHA256SUMS.verify.txt` sits outside that index. `server` now describes this
+runner. A2 must restore the actual common host under its own review. Rerun the
+workflow for fresh evidence; a later image version is a new observation.
+
 ## Retained dependency evidence: reuse, do not resolve again
 
 [Manifest](dependency-evidence/package.json) · [JavaScript lock](dependency-evidence/package-lock.json)

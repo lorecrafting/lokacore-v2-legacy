@@ -29,9 +29,9 @@
     }
   },
   "server": {
-    "model": "MacBook Air M1",
-    "os_build": null,
-    "cores": null,
+    "model": "GitHub-hosted runner ubuntu-24.04, image ubuntu24/20260920.314.1, Intel Xeon Platinum 8573C, x86_64",
+    "os_build": "Ubuntu 24.04.5 LTS, kernel 6.17.0-1022-azure",
+    "cores": 4,
     "ram_gb": 16
   },
   "toolchain": {
@@ -40,8 +40,8 @@
     "hermes": null,
     "typescript": "6.0.3",
     "node": "24.21.0",
-    "elixir": null,
-    "otp": null,
+    "elixir": "1.20.4",
+    "otp": "28.4",
     "sqlite": null,
     "sqlite_binding": "57.0.3",
     "xcode": null,
@@ -51,13 +51,13 @@
     "jdk": null
   },
   "toolchain_lock": {
-    "path": null,
-    "sha256": null
+    "path": "prep/after-pr-10/a1-host-evidence/SHA256SUMS",
+    "sha256": "6f237db660d5eea066d40e2cc4eb7c8d9b90f699658c33f3f114b6d4dc3f4cd9"
   },
   "inputs": [
     {
       "path": "r1-acceptance-envelope.md",
-      "sha256": "c7748647761bcc9b6f1de4c965e50d6135b9e0a14aba4a95f30a75c728742df5"
+      "sha256": "b45304df08b97d635c8d2eccc8a950c02892eca222238ecf5bb527977c8f4847"
     },
     {
       "path": "conformance/numeric-profile.md",
@@ -90,7 +90,7 @@
   },
   "oracle_review": {
     "path": "prep/after-pr-10/oracle-review.pending.json",
-    "sha256": "e2a2f38ba40d7ae8eb838a8bf5ba76cfd1fe88aae750a6b638a46ec065608f4a"
+    "sha256": "cc39aa919dd2d78ce451fd896f8aa880bd20a60aa7f56bde0180c08104909a66"
   },
   "setup_review": {
     "path": "prep/after-pr-10/setup-review.pending.json",
