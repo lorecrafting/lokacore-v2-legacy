@@ -1,0 +1,10 @@
+{
+  "name": "rules_probe_assets",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@swmansion/popcorn": "0.4.0-next.0",
+    "esbuild": "0.25.12",
+    "playwright": "1.62.0"
+  }
+}

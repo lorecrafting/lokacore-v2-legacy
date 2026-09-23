@@ -1,0 +1,7 @@
+hermes_commit=3477757eb2475555cf8d8df24bfb1deb0613880d
+tag=hermes-v250829098.0.17
+LLVM (http://llvm.org/):
+  LLVH version 8.0.0svn
+  Optimized build
+
+Hermes JavaScript compiler and Virtual Machine.

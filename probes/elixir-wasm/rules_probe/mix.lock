@@ -1,0 +1,3 @@
+%{
+  "popcorn": {:hex, :popcorn, "0.4.0-next.0", "ab715813423ea412d65db982d8b0c303d96918c34a1ec7d039417e7b4b359fbc", [:mix], [{:req, ">= 0.5.0", [hex: :req, repo: "hexpm", optional: true]}], "hexpm", "c75d90d956462778040f73fd8c34a80b5337c8dfcfd4a6646a1005f4fb1dab2c"},
+}

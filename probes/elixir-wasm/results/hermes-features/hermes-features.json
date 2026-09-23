@@ -1,0 +1,13 @@
+{
+  "WebAssembly": false,
+  "SharedArrayBuffer": false,
+  "Atomics": false,
+  "Worker": false,
+  "TextDecoder": false,
+  "TextEncoder": true,
+  "queueMicrotask": false,
+  "eval": true,
+  "new_Function": true,
+  "wasm_instantiate": "fails: ReferenceError: Property 'WebAssembly' doesn't exist",
+  "HermesInternal_version": "1.0.0"
+}

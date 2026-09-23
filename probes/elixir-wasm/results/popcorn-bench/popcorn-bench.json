@@ -1,0 +1,66 @@
+{
+  "files": {
+    "beam.emu.mjs": 71956,
+    "beam.mjs": 71956,
+    "beam.wasm": 2441821,
+    "index.html": 189,
+    "index.js": 38995,
+    "otp/bin/vm.boot": 7021,
+    "otp/lib/compiler.tar": 1226752,
+    "otp/lib/compiler.tar.gz": 642500,
+    "otp/lib/elixir.tar": 2887680,
+    "otp/lib/elixir.tar.gz": 1217348,
+    "otp/lib/kernel.tar": 1153024,
+    "otp/lib/kernel.tar.gz": 583034,
+    "otp/lib/logger.tar": 82944,
+    "otp/lib/logger.tar.gz": 35283,
+    "otp/lib/popcorn.tar": 31744,
+    "otp/lib/popcorn.tar.gz": 13434,
+    "otp/lib/rules_probe.tar": 9216,
+    "otp/lib/rules_probe.tar.gz": 3098,
+    "otp/lib/stdlib.tar": 2614272,
+    "otp/lib/stdlib.tar.gz": 1252467,
+    "otp/manifest.json": 533,
+    "worker.mjs": 25493
+  },
+  "runs": {
+    "cpu_1x": {
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36",
+      "crossOriginIsolated": true,
+      "bootMs": 632.1749999999884,
+      "parity": {
+        "steps": 1000,
+        "mismatches": 0,
+        "loopFinalMatchesJs": true
+      },
+      "roundTripMs": {
+        "n": 10000,
+        "p50": 0.28999999997904524,
+        "p95": 0.34500000000116415,
+        "p99": 0.41000000000349246,
+        "max": 6.399999999994179
+      },
+      "kernelInVmUsPerDecision": 1.4749,
+      "plainJsUsPerDecision": 0.06499999999941793
+    },
+    "cpu_4x": {
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36",
+      "crossOriginIsolated": true,
+      "bootMs": 674.789999999979,
+      "parity": {
+        "steps": 1000,
+        "mismatches": 0,
+        "loopFinalMatchesJs": true
+      },
+      "roundTripMs": {
+        "n": 10000,
+        "p50": 0.8999999999941792,
+        "p95": 1.5650000000023283,
+        "p99": 2.209999999991851,
+        "max": 20.705000000016298
+      },
+      "kernelInVmUsPerDecision": 1.6259,
+      "plainJsUsPerDecision": 0.4235000000015134
+    }
+  }
+}

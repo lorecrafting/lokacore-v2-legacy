@@ -1,0 +1,90 @@
+name: Probe Elixir rules on phone JS engines
+
+# Feasibility probe, not R1 evidence. Answers two questions:
+# 1. Can React Native's Hermes (the version in our retained lock) run Popcorn's
+#    BEAM-in-WebAssembly directly?
+# 2. What does one Elixir rules decision cost through Popcorn in a browser engine
+#    (the hidden-WebView path), and do Elixir and JS agree step by step?
+on:
+  workflow_dispatch:
+  push:
+    branches: ['probe/elixir-wasm']
+    paths:
+      - '.github/workflows/probe-elixir-wasm.yml'
+      - 'probes/elixir-wasm/**'
+
+permissions:
+  contents: read
+
+jobs:
+  hermes:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Build Hermes CLI at the lock's hermes-compiler version
+        run: |
+          set -euo pipefail
+          sudo apt-get update -q && sudo apt-get install -yq cmake ninja-build libicu-dev
+          git init -q "$RUNNER_TEMP/hermes"
+          cd "$RUNNER_TEMP/hermes"
+          # tag hermes-v250829098.0.17
+          git fetch -q --depth 1 https://github.com/facebook/hermes.git 3477757eb2475555cf8d8df24bfb1deb0613880d
+          git checkout -q FETCH_HEAD
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --target hermes
+      - name: Report engine capabilities
+        run: |
+          set -euo pipefail
+          mkdir -p out
+          H="$RUNNER_TEMP/hermes/build/bin/hermes"
+          { echo "hermes_commit=3477757eb2475555cf8d8df24bfb1deb0613880d"; echo "tag=hermes-v250829098.0.17"; "$H" --version | head -5; } > out/hermes-version.txt
+          "$H" probes/elixir-wasm/hermes-features.js | tee out/hermes-features.json
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: hermes-features
+          path: out
+          retention-days: 90
+
+  popcorn:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: probes/elixir-wasm/rules_probe
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124
+        with:
+          otp-version: '29.0.5'
+          elixir-version: '1.20.4'
+          version-type: strict
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: '24.21.0'
+      - name: Build
+        run: |
+          set -euo pipefail
+          mix deps.get && mix compile
+          cd assets && npm ci --no-audit --no-fund && npx playwright install --with-deps chromium && node build.mjs
+      - name: Benchmark in headless Chromium
+        run: |
+          set -euo pipefail
+          mkdir -p ../out
+          {
+            echo "source_commit=$GITHUB_SHA"; echo "run_id=$GITHUB_RUN_ID"; echo "run_attempt=$GITHUB_RUN_ATTEMPT"
+            echo "ImageVersion=${ImageVersion:-unavailable}"; echo "nproc=$(nproc)"
+            echo "cpu_model=$(grep -m1 'model name' /proc/cpuinfo | cut -d: -f2- | sed 's/^ //')"
+            echo "elixir=$(elixir --version | tail -n 1)"; echo "node=$(node -v)"
+          } > ../out/host.txt
+          node assets/bench.mjs dist ../out/popcorn-bench.json
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: popcorn-bench
+          path: probes/elixir-wasm/out
+          retention-days: 90
