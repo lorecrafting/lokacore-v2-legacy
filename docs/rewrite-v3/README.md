@@ -417,3 +417,7 @@ The owner requested implementation of the readiness recommendations on 2026-09-2
 Start with [the R1 work package](r1-work-package.md). Governing additions live in the existing contracts: 04 §5.2–5.5 (composition), 05 §28 (operation metadata), 06 §43 (continuations/objectives), 10 §31–33 (run lifetime/recovery), 14 (readiness dependencies), and 23 §11 (forked/restored report provenance). The new fixtures extend the existing conformance corpus; they are not a second engine or oracle source.
 
 Do not continue expanding the primitive catalog, build generalized scripting, or require Foundry/general Builder/Realm before testing the selected slice. Full chapter one remains 57 rooms, 10 quests, two endings. The first code assignment is a disposable R1 experiment, then the fresh-repository foundation and R6P—not the entire platform.
+
+Post-PR #10: [focused preparation and remaining inputs](prep/after-pr-10/README.md),
+[Elixir specification tooling](spec_tools/README.md), and [correction/review provenance](reviews/2026-09-22-prep-followup.md).
+These records do not establish R0 acceptance, independent review or an R1 result.

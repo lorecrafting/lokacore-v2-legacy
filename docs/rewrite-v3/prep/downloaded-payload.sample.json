@@ -1,0 +1,20 @@
+{
+  "representation_status": "Policy-review specimen only; NOT a production schema, compiled cartridge, accepted fixture or R1 result",
+  "payload_kind": "immutable first-party story definitions and presentation assets",
+  "pre_shipped_feature_references": ["typed facts", "item custody", "dialogue choice", "quest outcome"],
+  "definitions": {
+    "story_id": "ferrymans-lantern-policy-specimen",
+    "places": ["landing", "green", "reed_bank", "shelter"],
+    "choice": {
+      "id": "bram-search-plan",
+      "options": [
+        {"id": "carry", "label": "Carry the lantern", "consequences": {"lantern_holder": "hero", "search_plan": "player_led"}},
+        {"id": "leave", "label": "Leave it with Bram", "consequences": {"lantern_holder": "bram", "search_plan": "party_led"}}
+      ]
+    },
+    "presentation": {"title": "The Ferryman's Lantern", "asset_references": []}
+  },
+  "downloaded_executable_modules": [],
+  "native_api_exports_to_content": [],
+  "external_network_callbacks": []
+}

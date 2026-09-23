@@ -1,0 +1,36 @@
+{
+  "observed_baseline_commit": "864ed383de7657107914502a919491dd8ff9f705",
+  "accepted_spec_commit": null,
+  "disposition": "pending",
+  "reviewer_id": null,
+  "normative_files": [
+    "01-core-principles.md",
+    "02-beam-runtime-architecture.md",
+    "03-domain-state-persistence.md",
+    "04-command-event-effect-protocol.md",
+    "05-cartridges-content-capabilities.md",
+    "06-quests-dialogue-actions-scripting.md",
+    "07-offline-storypacks-to-mmo.md",
+    "08-builder-api-ai-factory.md",
+    "09-cartridge-lab-certification.md",
+    "10-mobile-commerce-release.md",
+    "11-security-observability-operations.md",
+    "14-implementation-plan.md",
+    "15-acceptance-scenarios.md",
+    "16-decision-register.md",
+    "19-quest-sharing-instancing-capacity.md",
+    "21-composable-world-primitives.md",
+    "23-accounts-progress-admission.md"
+  ],
+  "adr_state_review": null,
+  "unresolved_evidence_gates": [
+    "PREP-02 inventory and independent reviews",
+    "R1 measurement/selection",
+    "PREP-03 investment disposition",
+    "R2 cutover"
+  ],
+  "architecture_index": "INDEX.md",
+  "amendment_authority": null,
+  "cutover_destination": null,
+  "note": "Merge/direction approval is not acceptance of this exact contract. Owner must select and explicitly accept a commit and complete cutover/ADR fields."
+}

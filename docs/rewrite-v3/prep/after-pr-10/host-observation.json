@@ -1,0 +1,35 @@
+{
+  "observed_at_utc": "2026-09-23T07:14:57.998972+00:00",
+  "scope": "Assistant editing container, NOT owner inventory or R1 qualification host",
+  "os": {
+    "PRETTY_NAME": "\"Debian GNU/Linux 13 (trixie)\"",
+    "NAME": "\"Debian GNU/Linux\"",
+    "VERSION_ID": "\"13\"",
+    "VERSION": "\"13 (trixie)\"",
+    "VERSION_CODENAME": "trixie",
+    "DEBIAN_VERSION_FULL": "13.3",
+    "ID": "debian",
+    "HOME_URL": "\"https://www.debian.org/\"",
+    "SUPPORT_URL": "\"https://www.debian.org/support\"",
+    "BUG_REPORT_URL": "\"https://bugs.debian.org/\""
+  },
+  "architecture": "x86_64",
+  "kernel": "6.18.44",
+  "available_tools": {
+    "git": "git version 2.47.3",
+    "python": "Python 3.13.5",
+    "node": "v22.16.0",
+    "elixir": null,
+    "otp": null,
+    "mix": null
+  },
+  "qualifying_server": false,
+  "physical_ios_device": null,
+  "physical_android_device": null,
+  "local_beam_execution": false,
+  "tooling_pin_not_candidate_selection": {
+    "elixir": "1.20.4",
+    "otp": "28.4",
+    "execution_evidence": "CI must establish actual installed versions; local executables absent"
+  }
+}

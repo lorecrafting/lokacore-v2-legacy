@@ -174,7 +174,7 @@ class LocalJournal:
         if milestone in self.state['milestones']:
             return self.state['milestones'][milestone]
         revision = self.state['revision'] + 1
-        rid = hashlib.sha256(f'{self.run}:{milestone}:{revision}'.encode()).hexdigest()
+        rid = hashlib.sha256(canonical([self.run, milestone, revision]).encode()).hexdigest()
         raw = canonical({'report_id': rid, 'run_id': self.run, 'release_hash': self.release,
                          'milestone': milestone, 'outcome': outcome, 'revision': revision})
         state = deepcopy(self.state)

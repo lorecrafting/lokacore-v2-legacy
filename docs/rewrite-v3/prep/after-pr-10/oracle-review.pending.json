@@ -1,0 +1,39 @@
+{
+  "accepted_spec_commit": null,
+  "disposition": "pending",
+  "reviewer_id": null,
+  "independent_of_candidate_authorship": null,
+  "subject_author_ids": [],
+  "independent_of_subject_authorship": null,
+  "note": "Independent review not obtained. Authorship roster and authenticated approval must be supplied; this assistant self-review does not qualify.",
+  "inputs": [
+    {
+      "path": "r1-acceptance-envelope.md",
+      "sha256": "c404127e08ed1965bad6cece6f707b45641d787791edc650d056a67baa6ea345"
+    },
+    {
+      "path": "conformance/numeric-profile.md",
+      "sha256": "2fad2bfcb6fe0840b58e9fdcce049b4d441a1be4b9d9d2e82e0879a24c69aa1f"
+    },
+    {
+      "path": "conformance/numeric-vectors.json",
+      "sha256": "85472ae4e7626ca7326b881766e21ae23dd253c82b5c9d4c8d0c86f89ee168c9"
+    },
+    {
+      "path": "conformance/cases.json",
+      "sha256": "fa4969066ed86de5c26c10d23c069d7928f90e8b5064ff751597d30c0c787bcb"
+    },
+    {
+      "path": "conformance/composition-profile.json",
+      "sha256": "f812bf42c97c8b9731da8783dce1ade1e6f6c9fea9b6eab5beb297d4bab5dcdd"
+    },
+    {
+      "path": "conformance/composition-cases.json",
+      "sha256": "26a9fe8f84125477a0c4e340f19355eaf0c3422c2b1c215b370f5dcd435f22ee"
+    },
+    {
+      "path": "conformance/lantern-traces.json",
+      "sha256": "e5aaf947a7978520752f2aeee9665d171a917b97311952b3c347167faf392a89"
+    }
+  ]
+}

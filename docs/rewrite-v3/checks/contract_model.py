@@ -67,7 +67,7 @@ def divide(a: int, b: int) -> tuple[int, int]:
 
 def rng_next(words: list[int]) -> tuple[int, list[int]]:
     """xoshiro128** 1.1; four explicit uint32 words, no implicit seed expansion."""
-    if (len(words) != 4 or any(type(v) is not int or not 0 <= v <= U32 for v in words)
+    if (type(words) is not list or len(words) != 4 or any(type(v) is not int or not 0 <= v <= U32 for v in words)
             or not any(words)):
         raise ValueError("invalid_rng_state")
     def rotl(v: int, n: int) -> int:
@@ -87,6 +87,11 @@ def rng_next(words: list[int]) -> tuple[int, list[int]]:
 def uniform(words: list[int], bound: int, max_draws: int = 1024) -> tuple[int, list[int]]:
     if type(bound) is not int or not 1 <= bound <= (1 << 32):
         raise ValueError("invalid_bound")
+    if type(max_draws) is not int or max_draws < 0:
+        raise ValueError("invalid_rng_budget")
+    if (type(words) is not list or len(words) != 4
+            or any(type(v) is not int or not 0 <= v <= U32 for v in words) or not any(words)):
+        raise ValueError("invalid_rng_state")
     limit = (1 << 32) - ((1 << 32) % bound)
     next_words = list(words)
     for _ in range(max_draws):

@@ -1,0 +1,13 @@
+{
+  "00a-chapter-one-content.md": "85aba34f031ec590cb5b68b4f12352a26183199bb38b8016285213a491748d42",
+  "conformance/cases.json": "fa4969066ed86de5c26c10d23c069d7928f90e8b5064ff751597d30c0c787bcb",
+  "conformance/composition-cases.json": "26a9fe8f84125477a0c4e340f19355eaf0c3422c2b1c215b370f5dcd435f22ee",
+  "conformance/composition-profile.json": "f812bf42c97c8b9731da8783dce1ade1e6f6c9fea9b6eab5beb297d4bab5dcdd",
+  "conformance/contract-links.json": "e3b653e583a0a784d4a978a324ba8c2406a98f71c0d4adb46946d1077cd8078c",
+  "conformance/lantern-traces.json": "e5aaf947a7978520752f2aeee9665d171a917b97311952b3c347167faf392a89",
+  "conformance/numeric-profile.md": "2fad2bfcb6fe0840b58e9fdcce049b4d441a1be4b9d9d2e82e0879a24c69aa1f",
+  "conformance/numeric-vectors.json": "85472ae4e7626ca7326b881766e21ae23dd253c82b5c9d4c8d0c86f89ee168c9",
+  "conformance/r1-run-manifest.template.json": "d1b40fc1ddc7c57c63eb077c902484e4ebc209274331968d0f7a2ac3fe8d3340",
+  "r1-acceptance-envelope.md": "c404127e08ed1965bad6cece6f707b45641d787791edc650d056a67baa6ea345",
+  "release-scope.json": "3e44ad12522f06d5af470ea1c77651df37c11a2bee6f2808c04534ce1accdbd9"
+}

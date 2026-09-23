@@ -20,8 +20,8 @@ permissions:
 jobs:
   spec:
     name: V3 specification checks
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
     defaults:
       run:
         shell: bash
@@ -44,6 +44,35 @@ jobs:
         run: |
           python3 -m unittest discover -s docs/rewrite-v3/checks -p 'test_*.py' -v 2>&1 | tee v3-spec-tests.log
           python3 docs/rewrite-v3/checks/release_scope.py --check | tee v3-spec-scope.log
+          python3 docs/rewrite-v3/checks/packet_navigation.py --check
+          python3 docs/rewrite-v3/checks/readiness.py --check-template
+          git diff --exit-code
+      - uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124
+        with:
+          otp-version: '28.4'
+          elixir-version: '1.20.4'
+          version-type: strict
+          install-hex: false
+          install-rebar: false
+      - name: Run isolated Elixir specification checks
+        working-directory: docs/rewrite-v3/spec_tools
+        run: |
+          elixir --version | tee "$GITHUB_WORKSPACE/v3-spec-toolchain.log"
+          cat "$INSTALL_DIR_FOR_OTP/releases/28/OTP_VERSION" | tee -a "$GITHUB_WORKSPACE/v3-spec-toolchain.log"
+          mix format --check-formatted
+          mix compile --warnings-as-errors
+          mix test | tee "$GITHUB_WORKSPACE/v3-spec-elixir-default.log"
+          mix test --include comparison | tee "$GITHUB_WORKSPACE/v3-spec-elixir.log"
+          mix loka.readiness --check-template
+          for input in ../conformance/r1-run-manifest.template.json ../prep/after-pr-10/setup.pending.json; do
+            set +e
+            output=$(mix loka.readiness --require-ready "$input" --evidence-root .. 2>&1)
+            result=$?
+            set -e
+            printf '%s\n' "$output"
+            test "$result" -eq 1
+            grep -q 'NOT READY: preparation pending' <<< "$output"
+          done
           git diff --exit-code
       - name: Capture exact specification input for review
         if: always()
@@ -59,5 +88,8 @@ jobs:
             v3-spec-input.tar.gz
             v3-spec-tests.log
             v3-spec-scope.log
+            v3-spec-toolchain.log
+            v3-spec-elixir.log
+            v3-spec-elixir-default.log
           if-no-files-found: error
           retention-days: 7

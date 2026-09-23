@@ -123,3 +123,6 @@ Use **“unresolved”** for questions you have not decided. A review note is no
 ### Readiness handoff (2026-09-22)
 
 Read [the R1 work package](r1-work-package.md) and ADR-064–067. The R1 numerical/device-class **targets are now owner-approved**, not measured. Actual setup/independent oracle review, R0 acceptance, R1 selection and R2 cutover remain gates. The composition, Lantern intent and run-lifetime amendments live in their existing governing documents, not in the earlier standalone discussion proposal.
+
+For work after merged PR #10, read the [bounded preparation handoff](prep/after-pr-10/README.md)
+and [tooling coverage map](spec_tools/README.md). No new milestone or production authorization is implied.

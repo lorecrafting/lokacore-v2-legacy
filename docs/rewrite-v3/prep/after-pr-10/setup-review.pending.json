@@ -1,0 +1,10 @@
+{
+  "accepted_spec_commit": null,
+  "disposition": "pending",
+  "reviewer_id": null,
+  "independent_of_candidate_authorship": null,
+  "subject_author_ids": [],
+  "independent_of_subject_authorship": null,
+  "note": "Digest binds this incomplete configuration only, not approval. Replace after actual setup facts/locks are frozen and independently reviewed.",
+  "setup_digest": "9824697443fe016f092ec6b19273ffdad92289efa4124b4014068c70bc90aa3e"
+}

@@ -47,6 +47,12 @@ def template() -> dict:
             'setup_review': {'path': None, 'sha256': None}}
 
 
+def check_template(data: dict) -> None:
+    # Python structural equality conflates JSON booleans and integers (True == 1).
+    if canonical(data) != canonical(template()):
+        raise ValueError('template drift or fabricated preparation entries')
+
+
 def sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
@@ -151,7 +157,14 @@ def require_ready(data: dict, root: Path) -> None:
                 or review.get('disposition') != 'approved' or not nonempty(review.get('reviewer_id'))
                 or review['reviewer_id'] in authors or review.get('independent_of_candidate_authorship') is not True):
             raise ValueError('missing independent ' + name)
-        if name == 'oracle_review' and review.get('inputs') != inputs:
+        subject_authors = review.get('subject_author_ids')
+        if (type(subject_authors) is not list or not subject_authors
+                or any(not nonempty(author) for author in subject_authors)
+                or len(set(subject_authors)) != len(subject_authors)
+                or review['reviewer_id'] in subject_authors
+                or review.get('independent_of_subject_authorship') is not True):
+            raise ValueError('missing subject-author separation: ' + name)
+        if name == 'oracle_review' and canonical(review.get('inputs')) != canonical(inputs):
             raise ValueError('oracle review does not bind exact inputs')
         if name == 'setup_review' and review.get('setup_digest') != setup_digest(data):
             raise ValueError('setup review does not bind exact configuration')
@@ -167,8 +180,7 @@ def main() -> int:
     try:
         if args.check_template:
             data = strict_json((ROOT / 'conformance/r1-run-manifest.template.json').read_text())
-            if data != template():
-                raise ValueError('template drift or fabricated preparation entries')
+            check_template(data)
             print('PASS: incomplete template preserved; NOT ready for candidate implementation')
         else:
             data = strict_json(args.require_ready.read_text())

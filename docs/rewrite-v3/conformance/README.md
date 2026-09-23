@@ -2,6 +2,10 @@
 
 **Status:** executable specification examples, pending normal packet acceptance. Not a production v3 engine, R1 candidate, full cartridge compiler, mobile build, or release certificate.
 
+Continuing readiness/numeric tooling uses [isolated Mix/ExUnit](../spec_tools/README.md).
+The Python commands below remain the temporary comparison and abstract-model suite,
+not a production runtime. Coverage mapping and retirement boundaries are explicit.
+
 Run from the repository root:
 
 ```sh
@@ -61,3 +65,18 @@ Use small implementation-neutral fixtures, separate immutable definitions from m
 `r1-run-manifest.template.json` is deliberately incomplete. `checks/readiness.py` checks versioned setup structure and verifies retained local artifact/review hashes before `--require-ready` can pass. It cannot authenticate a reviewer, prove real hardware use, or measure anything. Tests fill synthetic temporary records solely to exercise this validator; those are never committed as experiment evidence.
 
 Required real candidate adapters still emit the full fixture files listed above, including per-step StateDelta/events/effects, hidden state and continuation bytes. Lantern's small model state/transcript is not a substitute for those candidate-produced artifacts. No test here certifies SQLite, Node/BEAM/Hermes, physical devices, mobile UI, backup or store release.
+
+## Preparation review provenance (post-PR #10 amendment)
+
+For both `oracle_review` and `setup_review`, retained receipts must now identify
+`subject_author_ids` (a nonempty, duplicate-free list) and explicitly assert
+`independent_of_subject_authorship: true`. The reviewer must not be in that list
+or in `candidate_author_ids`. For the oracle, the subject authors are the authors
+of the expected answers, including material revisions; for setup, they are the
+preparers of the configuration/inventory being reviewed. A candidate author list
+alone cannot establish independent expected-answer review. This strengthens
+receipt validation without changing manifest schema 1 or any frozen fixture.
+
+Names and boolean declarations remain unauthenticated claims to be checked by
+the owner. Another language, a new session, or a changed agent role does not make
+an author independent. See the [focused correction record](../reviews/2026-09-22-prep-followup.md).
