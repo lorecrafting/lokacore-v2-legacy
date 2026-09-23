@@ -1,0 +1,119 @@
+name: V3 A1 hosted execution evidence
+
+# Produces the retained A1 execution bundle on a GitHub-hosted runner.
+# The bundle is evidence for setup review, never an approval.
+on:
+  workflow_dispatch:
+  push:
+    branches: ['prep/v3-hosted-a1']
+    paths:
+      - '.github/workflows/v3-a1-host.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  a1-host:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: '24.21.0'
+      - uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124
+        with:
+          otp-version: '28.4'
+          elixir-version: '1.20.4'
+          version-type: strict
+          install-hex: false
+          install-rebar: false
+      - name: Pin npm
+        run: |
+          npm install -g npm@11.19.0 --ignore-scripts --no-audit --no-fund
+          test "$(npm -v)" = 11.19.0
+      - name: Verify retained dependency evidence
+        working-directory: docs/rewrite-v3/prep/after-pr-10/dependency-evidence
+        run: sha256sum -c SHA256SUMS
+      - name: Record host and tools
+        run: |
+          set -euo pipefail
+          B="$RUNNER_TEMP/a1-host-evidence"
+          mkdir -p "$B"
+          {
+            echo "observed_at_utc=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            echo "source_commit=$GITHUB_SHA"
+            echo "repository=$GITHUB_REPOSITORY"
+            echo "workflow_ref=$GITHUB_WORKFLOW_REF"
+            echo "run_id=$GITHUB_RUN_ID"
+            echo "run_attempt=$GITHUB_RUN_ATTEMPT"
+            echo "runner_label=ubuntu-24.04"
+            echo "ImageOS=${ImageOS:-unavailable}"
+            echo "ImageVersion=${ImageVersion:-unavailable}"
+            echo "RUNNER_OS=$RUNNER_OS"
+            echo "RUNNER_ARCH=$RUNNER_ARCH"
+            echo "RUNNER_ENVIRONMENT=${RUNNER_ENVIRONMENT:-unavailable}"
+            echo "uname=$(uname -a)"
+            echo "nproc=$(nproc)"
+            echo "cpu_model=$(grep -m1 'model name' /proc/cpuinfo | cut -d: -f2- | sed 's/^ //')"
+            echo "mem_total_kib=$(awk '/MemTotal/ {print $2}' /proc/meminfo)"
+            sed 's/^/os_release./' /etc/os-release
+          } > "$B/host.txt"
+          {
+            echo "node=$(node -v)"
+            echo "npm=$(npm -v)"
+            echo "elixir=$(elixir --version | tail -n 1)"
+            echo "otp=$(cat "$INSTALL_DIR_FOR_OTP/releases/28/OTP_VERSION")"
+          } > "$B/tools.txt"
+          cat "$B/host.txt" "$B/tools.txt"
+      - name: Replay retained lock
+        run: |
+          set -uo pipefail
+          B="$RUNNER_TEMP/a1-host-evidence"
+          W="$RUNNER_TEMP/replay"
+          E=docs/rewrite-v3/prep/after-pr-10/dependency-evidence
+          mkdir -p "$W"
+          cp "$E/package.json" "$E/package-lock.json" "$B/"
+          cp "$E/package.json" "$E/package-lock.json" "$W/"
+          status=0
+          run() {
+            echo "\$ $*"
+            (cd "$W" && "$@")
+            rc=$?
+            echo "exit=$rc"
+            [ "$rc" -eq 0 ] || status=1
+          }
+          {
+            run env npm_config_engine_strict=true npm ci --ignore-scripts --no-audit --no-fund
+            run npm ls --all
+            run env CI=1 EXPO_NO_TELEMETRY=1 node node_modules/expo/bin/cli install --check
+            run node node_modules/typescript/bin/tsc --version
+          } > "$B/replay.log" 2>&1
+          echo "typescript=$(cd "$W" && node node_modules/typescript/bin/tsc --version | awk '{print $2}')" >> "$B/tools.txt"
+          {
+            echo "retained_lock_sha256=$(sha256sum "$E/package-lock.json" | cut -d' ' -f1)"
+            echo "post_install_lock_sha256=$(sha256sum "$W/package-lock.json" | cut -d' ' -f1)"
+            if cmp "$E/package-lock.json" "$W/package-lock.json"; then echo "lock_unchanged_by_replay=true"; else echo "lock_unchanged_by_replay=false"; status=1; fi
+            if cmp "$E/package.json" "$W/package.json"; then echo "manifest_unchanged_by_replay=true"; else echo "manifest_unchanged_by_replay=false"; status=1; fi
+          } > "$B/comparison.txt"
+          cat "$B/replay.log" "$B/comparison.txt"
+          exit "$status"
+      - name: Index and verify bundle
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/a1-host-evidence"
+          sha256sum package.json package-lock.json host.txt tools.txt replay.log comparison.txt > SHA256SUMS
+          sha256sum -c SHA256SUMS | tee "$RUNNER_TEMP/SHA256SUMS.verify.txt"
+          mv "$RUNNER_TEMP/SHA256SUMS.verify.txt" .
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: a1-host-evidence
+          path: ${{ runner.temp }}/a1-host-evidence
+          if-no-files-found: error
+          retention-days: 90
