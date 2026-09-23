@@ -86,7 +86,7 @@
   ],
   "r0_acceptance": {
     "path": "prep/after-pr-10/r0-acceptance.pending.json",
-    "sha256": "81077123c6df068e3e8599ca48f650906578765f3722ed2b8d44ee4bd68b6a24"
+    "sha256": "fcc10a504b988530786e616df99b4547eaa781051fcf19324f998d31f69995de"
   },
   "oracle_review": {
     "path": "prep/after-pr-10/oracle-review.pending.json",
