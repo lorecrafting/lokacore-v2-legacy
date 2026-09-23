@@ -79,3 +79,69 @@ actual persistence-fault evidence or store approval.
 **PREP-01 source review/corrections complete; PREP-02 remains blocked;
 PREP-03 representation/policy analysis prepared with owner disposition pending.
 R1-A1 has NOT started and is NOT authorized by this validation.**
+
+## Post-PR-11 continuation — exact main reproduced before edits
+
+Observed and proposed R0 source: `9567117404f635c803373d9957050fd8ec50f334`.
+PR #11 is merged; its reviewed head
+`c06034b4643a6c259f385084d996ebabd1d151b9` and current main both have tree
+`1af0a5df20aebef25444dbd593dcff1339bca9f0`. No later PR or explicit R0
+approval was found in repository records or the #10/#11 discussions; #11 has
+no inline review threads. Earlier paragraphs are historical execution records,
+not current "awaiting merge" status or a substitute for this reproduction.
+
+The retained PR #11 source archive was downloaded and verified against SHA-256
+`62dfbc3e7cdad78cd122898b9a16b6941263cf1c278e1e64aa534c66da674268`.
+Its head marker matches the reviewed source; upstream Git trees establish byte
+identity with the current main baseline. Local Python reran all **98 tests**
+before edits. Scope/navigation/template checks passed; both blank and pending
+real manifests returned controlled readiness exit **1**.
+
+Because this editing container has no `mix`, `elixir` or `erl`, the existing
+read-only specification job was rerun, not replaced with a synthetic result:
+[main run 35835903786, attempt 2](https://github.com/lorecrafting/lokacore/actions/runs/35835903786/attempts/2),
+job `107104301783`, completed successfully on 2026-09-23 at 08:30 UTC
+(2026-09-22 Hawaii). Its checkout is the exact main SHA above. Decoded job logs
+show **98 Python tests**, **18 default ExUnit tests with one comparison excluded**,
+and **19 ExUnit tests with comparison**. Formatting, warnings-as-errors
+compilation, scope/navigation and both template checks passed. Both Mix negative
+checks returned exit 1 with the expected pending diagnostic. Installed Elixir
+was **1.20.4**, full `OTP_VERSION` was **28.4**, and ERTS was **16.3**.
+The job retained artifact `10739447868`, reported archive digest
+`139e44db41c9936ea3dc713467b49dfb97d14ddf125600b582d019baaf3a4641`;
+this continuation inspected the decoded logs, not the bytes of that new archive.
+
+The commands are the existing table's Python/scope/navigation/template and Mix
+commands, plus separate `mix test` and the local Python `--require-ready` checks
+on both manifests with `--evidence-root docs/rewrite-v3`. After the proposal and
+pending-binding edits, the same local Python suite again passed **98 tests**;
+scope/navigation/template checks passed and both negative checks returned the
+same controlled exit 1. The follow-up PR's exact-head CI is checked separately
+and reported in its review comment; this main run is baseline evidence only.
+
+### Focused self-review and corrections
+
+One implementing assistant performed review and adversarial self-review;
+**neither is independent expected-answer or setup approval**. Review retained
+the content-versus-architecture authority distinction and every qualifier in
+all 67 ADR statuses, and kept `accepted_spec_commit`, identities, devices and
+candidate locks empty. It corrected a broad tooling-availability statement:
+Java exists locally, but Elixir/OTP/Mix, Xcode, adb/sdkmanager and Gradle do not.
+The compatibility note was qualified for SDK 57's Xcode 27/iOS 27 scene-support
+requirement; documentation minima are not actual native-build evidence.
+
+Programmatic local review verified all **11 preserved input hashes**, the exact
+seven input entries/order, all three retained evidence-reference hashes, the
+recomputed setup digest, 19 existing normative paths and all 67 source ADR
+status strings without promotion or omission. An in-memory status-only relabel
+of the real pending setup was rejected for missing accepted specification
+commit; tampering with each retained review/reference hash was also rejected.
+Those challenges used copies, not fabricated approvals in the real records.
+
+Only the existing handoff README, R0 proposal, pending setup/setup-review bindings
+and this validation record change. Checkers, tests, tooling pins, workflow,
+fixtures, envelope, public chapter and legacy/production code do not change.
+Publication uses GitHub tree/commit/ref APIs because local GitHub DNS resolution
+failed; this is not a claim of a local `git push`. The new branch starts from the
+main SHA above; no merged branch is resumed and no production repository is made.
+**R0/PREP-02 stay pending; R1-A1 has not started.**
