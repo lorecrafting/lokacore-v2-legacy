@@ -1,6 +1,22 @@
+diff --git a/docs/rewrite-v3/spec_tools/lib/readiness.ex b/docs/rewrite-v3/spec_tools/lib/readiness.ex
+index bc93d4b..bca1783 100644
+--- a/docs/rewrite-v3/spec_tools/lib/readiness.ex
++++ b/docs/rewrite-v3/spec_tools/lib/readiness.ex
+@@ -127,7 +127,8 @@ defmodule LokaSpec.Readiness do
+   # The bundle is locally retained review input, not an active adversarial filesystem.
+   defp real_path(path, budget \\ 40) do
+     ensure!(budget > 0, "evidence symlink cycle")
+-    path |> Path.expand() |> Path.split() |> Enum.reduce("", fn part, parent ->
++    [anchor | parts] = path |> Path.expand() |> Path.split()
++    Enum.reduce(parts, anchor, fn part, parent ->
+       current = Path.join(parent, part)
+       case File.read_link(current) do
+         {:ok, target} -> real_path(Path.expand(target, Path.dirname(current)), budget - 1)
+diff --git a/docs/rewrite-v3/spec_tools/test/spec_tools_test.exs b/docs/rewrite-v3/spec_tools/test/spec_tools_test.exs
+index fb16ab4..93edf6d 100644
 --- a/docs/rewrite-v3/spec_tools/test/spec_tools_test.exs
 +++ b/docs/rewrite-v3/spec_tools/test/spec_tools_test.exs
-@@ -224,7 +224,8 @@
+@@ -224,7 +224,8 @@ defmodule LokaSpec.ReadinessTest do
      for candidate <- candidates do
        path = Path.join(root, "manifest.json")
        File.write!(path, Codec.encode(candidate))
