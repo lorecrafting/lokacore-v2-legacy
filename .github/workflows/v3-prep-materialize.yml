@@ -1,0 +1,101 @@
+name: Disposable v3 preparation validation
+on:
+  push:
+    branches: [prep/v3-elixir-materialize]
+permissions:
+  contents: write
+jobs:
+  prepare:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    env:
+      BASE: 864ed383de7657107914502a919491dd8ff9f705
+      TARGET: prep/v3-elixir-handoff
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+      - uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124
+        with:
+          otp-version: '28.4'
+          elixir-version: '1.20.4'
+      - name: Apply bounded patches in a clean main worktree
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git ls-remote origin refs/heads/main | cut -f1)" = "$BASE"
+          test "$(git ls-remote origin refs/heads/$TARGET | cut -f1)" = "$BASE"
+          cat .prep-transfer/*.b64 | base64 --decode > /tmp/v3-prep-payload.tgz
+          echo '5c5135b08a0259e93ce3d5bee1613f5e0d2fab97c472ba3e5e4369cd826a4187  /tmp/v3-prep-payload.tgz' | sha256sum --check
+          mkdir -p /tmp/v3-prep-patches
+          tar -xzf /tmp/v3-prep-payload.tgz -C /tmp/v3-prep-patches
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git worktree add --detach /tmp/v3-prep-clean "$BASE"
+          cd /tmp/v3-prep-clean
+          python3 -m unittest discover -s docs/rewrite-v3/checks -p 'test_*.py' -v 2>&1 | tee "$GITHUB_WORKSPACE/prep-baseline.log"
+          git apply --index /tmp/v3-prep-patches/semantic.patch
+          FIX=$(git commit-tree "$(git write-tree)" -p "$BASE" -m 'fix(v3): close preparation review and typed identity counterexamples')
+          git reset --hard "$FIX"
+          echo "$FIX" > "$GITHUB_WORKSPACE/prep-semantic-head.txt"
+          git apply --index /tmp/v3-prep-patches/tooling.patch
+          git diff --cached --name-only | grep -vE '^(docs/rewrite-v3/|\.github/workflows/v3-spec.yml$)' > /tmp/unexpected-paths || true
+          test ! -s /tmp/unexpected-paths
+      - name: Test and format specification tools only
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd /tmp/v3-prep-clean
+          python3 -m unittest discover -s docs/rewrite-v3/checks -p 'test_*.py' -v 2>&1 | tee "$GITHUB_WORKSPACE/prep-python.log"
+          python3 docs/rewrite-v3/checks/release_scope.py --check
+          python3 docs/rewrite-v3/checks/packet_navigation.py --check
+          python3 docs/rewrite-v3/checks/readiness.py --check-template
+          cd docs/rewrite-v3/spec_tools
+          elixir --version | tee "$GITHUB_WORKSPACE/prep-toolchain.log"
+          mix format
+          mix format --check-formatted
+          mix compile --warnings-as-errors
+          mix test --include comparison 2>&1 | tee "$GITHUB_WORKSPACE/prep-elixir.log"
+          mix loka.readiness --check-template
+          for input in ../conformance/r1-run-manifest.template.json ../prep/after-pr-10/setup.pending.json; do
+            set +e
+            output=$(mix loka.readiness --require-ready "$input" --evidence-root .. 2>&1)
+            result=$?
+            set -e
+            printf '%s\n' "$output"
+            test "$result" -eq 1
+            grep -q 'NOT READY: preparation pending' <<< "$output"
+          done
+      - name: Publish clean source commits, never transport scaffolding
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd /tmp/v3-prep-clean
+          # CI workflow update is published separately through the GitHub connector.
+          git restore --source="$BASE" --staged --worktree .github/workflows/v3-spec.yml
+          git add docs/rewrite-v3
+          git diff --cached --check
+          HEAD=$(git commit-tree "$(git write-tree)" -p "$(cat "$GITHUB_WORKSPACE/prep-semantic-head.txt")" -m 'chore(v3): add isolated Elixir checks and pending experiment handoff')
+          git reset --hard "$HEAD"
+          test "$(git ls-remote origin refs/heads/main | cut -f1)" = "$BASE"
+          test "$(git ls-remote origin refs/heads/$TARGET | cut -f1)" = "$BASE"
+          git push origin "$HEAD:refs/heads/$TARGET"
+          echo "$HEAD" > "$GITHUB_WORKSPACE/prep-published-head.txt"
+          git diff --stat "$BASE" "$HEAD"
+      - name: Retain exact source and validation logs
+        if: always()
+        shell: bash
+        run: |
+          if [ -d /tmp/v3-prep-clean/docs/rewrite-v3 ]; then
+            tar --exclude='__pycache__' --exclude='_build' --exclude='deps' -czf prep-source.tar.gz -C /tmp/v3-prep-clean docs/rewrite-v3
+          fi
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: v3-prep-validation
+          path: |
+            prep-*.log
+            prep-*-head.txt
+            prep-source.tar.gz
+          if-no-files-found: error
+          retention-days: 7
