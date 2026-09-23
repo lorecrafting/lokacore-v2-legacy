@@ -507,7 +507,9 @@ defmodule LokaSpec.ReadinessTest do
             root,
             "--stage",
             stage
-          ], stderr_to_stdout: true)
+          ],
+          stderr_to_stdout: true
+        )
 
       assert exit == if(valid, do: 0, else: 1), output
       assert Readiness.validate(data, root, stage) == :ok == valid
