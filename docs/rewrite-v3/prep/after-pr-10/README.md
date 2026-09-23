@@ -1,9 +1,9 @@
 # R0 / PREP-02: staged preparation after PR #13
 
 Starting main: `037e6513f882b25512928aab5883f8545b58fc84` (merged PR #13).
-The R0 proposal now targets `aaadaffff02e459dbf04e71d6ddc81d75eacf986`,
+The accepted R0 contract is `aaadaffff02e459dbf04e71d6ddc81d75eacf986`,
 retargeted at the owner's request (via `e1e0177` and `74832d8`) from the unaccepted historical base
-`9567117404f635c803373d9957050fd8ec50f334`; its record is not acceptance.
+`9567117404f635c803373d9957050fd8ec50f334`; see [R0 accepted](#r0-accepted).
 Unlike PR #13's dependency-only evidence, this follow-up deliberately amends
 normative sequencing and the initial iOS qualification target. An eventual R0
 acceptance for the new A1 path must explicitly cover the amended revision; do
@@ -33,26 +33,23 @@ and policy work remain parallel; its investment disposition is due at A5/R2,
 not an extra A1 gate. Production remains clean-room at R2; the public chapter is
 57 rooms, ten quests and two endings, with the four-place R6P still later.
 
-## R0 decision remains separate
+## R0 accepted
 
-The [R0 proposal](r0-acceptance.pending.json) names the 19 normative files and
-preserves all 67 qualified ADR dispositions, unchanged from the historical base.
-Its decision, quoted below, has not been adopted in the inspected evidence:
+The owner accepted `aaadaffff02e459dbf04e71d6ddc81d75eacf986` as the R0
+contract on 2026-09-23. The [R0 record](r0-acceptance.pending.json) keeps the
+file name it had while pending. It names the 19 normative files and all 68 ADR
+dispositions at that commit, and quotes the owner's decision in
+`owner_decision_source`. The accepted commit includes the staged A1/A2
+amendment, envelope v0.5's A1-only hosted host row and ADR-068's candidate
+order C, B, A with envelope v0.6's randomized differential testing.
 
-> I accept `aaadaffff02e459dbf04e71d6ddc81d75eacf986` as the R0 contract under
-> the normative file set, qualified ADR dispositions, remaining gates,
-> amendment authority and fresh-repository cutover rule proposed in
-> `prep/after-pr-10/r0-acceptance.pending.json`. Provisional, deferred and
-> rejected decisions keep those dispositions. This does not approve an R1
-> result, qualification hardware, expected answers/setup, store submission or
-> production implementation.
-
-The proposed commit includes the staged A1/A2 amendment, envelope v0.5 and
-ADR-068's candidate order C, B, A with envelope v0.6's differential testing.
-Retain explicit owner acceptance of that exact commit when given. Until then its `disposition`,
-`accepted_spec_commit`, `reviewer_id` and `owner_decision_source` stay pending/null.
-Do not retarget the old proposal merely because evidence or a PR was merged.
-The exact fresh production URL/import commit is an R2 record, not needed now.
+Acceptance approves no R1 result, qualification hardware, expected answers,
+setup, store submission or production implementation. `setup.pending.json` now
+binds the accepted commit. The oracle and setup review records stay pending
+until genuinely independent reviewers approve them. Normative text at the
+accepted commit that still says R0 is pending is superseded by this record;
+change it only through a reviewed amendment. The exact fresh production
+URL/import commit is an R2 record, not needed now.
 
 ## Hardware and preview workflow
 
@@ -176,7 +173,7 @@ it. Full prior execution/provenance is in
 
 | Contributor | Existing artifact / fields | Evidence needed |
 |---|---|---|
-| Owner | `r0-acceptance.pending.json`, accepted commit and source; setup's R0 binding | Explicit acceptance of the reviewed amended contract, keeping provisional/deferred/rejected ADRs and later gates. The sequencing instruction alone does not provide this |
+| Owner | `r0-acceptance.pending.json`, accepted commit and source; setup's R0 binding | Done 2026-09-23: accepted `aaadaff`, recorded with the owner's words; setup binds it |
 | Setup preparer | `setup.pending.json`: host, authors, stage-required toolchain and `toolchain_lock`; later complete devices/native fields | Actual A1 environment/replayed locks first; native configuration and physical qualification inventory before A2. Preserve unknowns, owner-report provenance and explicit substitution decisions |
 | Independent expected-answer reviewer | `oracle-review.pending.json`: author separation, disposition, accepted revision and exact seven inputs | State/result bytes and adverse cases; numeric outputs AND next states; ordering/conflicts/invariants/budgets/receipts/rollback/unknown commit; both Lantern outcomes/early possession; documented scheduler and save-fork/restore limitations. Fable is nominated, not pre-approved |
 | Independent setup reviewer | `setup-review.pending.json`: author separation, disposition and stage-specific digest | Actual stage-complete evidence and identity/provenance review. Reviewing A1 does not approve A2; preparing setup does not authorize self-review |

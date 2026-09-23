@@ -2,7 +2,7 @@
   "schema_version": 1,
   "status": "preparation_pending",
   "candidate": "C",
-  "accepted_spec_commit": null,
+  "accepted_spec_commit": "aaadaffff02e459dbf04e71d6ddc81d75eacf986",
   "candidate_author_ids": [],
   "devices": {
     "ios": {
@@ -86,7 +86,7 @@
   ],
   "r0_acceptance": {
     "path": "prep/after-pr-10/r0-acceptance.pending.json",
-    "sha256": "fcc10a504b988530786e616df99b4547eaa781051fcf19324f998d31f69995de"
+    "sha256": "93d18d1d992454c7bfaa2aa875b711c3e2d87af5387f9f86f6a1c1c563f26f38"
   },
   "oracle_review": {
     "path": "prep/after-pr-10/oracle-review.pending.json",
