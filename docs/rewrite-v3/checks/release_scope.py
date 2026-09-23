@@ -49,9 +49,9 @@ def validate(data: dict, root: Path = ROOT) -> None:
         raise ValueError('always-required planning gates changed')
     if set(data['release_gates']) != {'DEVICE','HUMAN'}:
         raise ValueError('device/human evidence cannot disappear')
-    expected_platform = {tier: ([] if tier == 'proof' else ['ACCOUNT']) for tier in order}
-    if data['platform_gates'] != expected_platform or 'ACCOUNT' not in gates:
-        raise ValueError('launch account gate missing or incorrectly blocks proof')
+    expected_platform = {tier: ([] if tier == 'proof' else ['ACCOUNT'] if tier == 'realm' else ['ACCOUNT', 'RUN']) for tier in order}
+    if data['platform_gates'] != expected_platform or not {'ACCOUNT', 'RUN'} <= set(gates):
+        raise ValueError('public account/run gate missing or incorrectly blocks proof/Realm')
     if not set(data['always_gates'] + data['release_gates']) <= set(gates):
         raise ValueError('unknown mandatory gate')
 

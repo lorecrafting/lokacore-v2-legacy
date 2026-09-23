@@ -40,6 +40,9 @@ Separate offline play, free release, paid entitlements and later Realm. Review s
 - [28. App/kernel upgrades must not strand offline saves](#28-appkernel-upgrades-must-not-strand-offline-saves)
 - [29. Account, entitlement, and mode boundary](#29-account-entitlement-and-mode-boundary)
 - [30. First-public-release account gate](#30-first-public-release-account-gate)
+- [31. Initial player-run lifetime defaults](#31-initial-player-run-lifetime-defaults)
+- [32. Content pins, upgrades and continuity](#32-content-pins-upgrades-and-continuity)
+- [33. Recovery and optional backup scope](#33-recovery-and-optional-backup-scope)
 
 </details>
 <!-- packet-navigation:end -->
@@ -341,7 +344,7 @@ A save references exact hash.
 
 Garbage collection may remove a cartridge release only when:
 
-- no save requires it;
+- no active save, manual bookmark, recovery copy or pending validated restore requires it;
 - no active download/reference requires it;
 - replacement migration is complete.
 
@@ -476,7 +479,7 @@ As of this spec's 2026-09-17 research baseline:
 - Rustler provides a mature Rust/BEAM NIF bridge;
 - Rust-to-React-Native generator projects exist, but current ecosystem maturity varies and at least one prominent option warns against production use today.
 
-Therefore a shared Rust kernel is feasible enough to justify a spike, but **neither Rust nor a particular React Native binding generator is frozen by this document**. The spike must prove build/release ergonomics, crash/debug behavior, Expo/EAS integration, upgrade burden, and deterministic cross-host parity first.
+These dated observations justify keeping native candidate B available, not prioritizing it. **R1 tests TypeScript candidate A first; neither Rust nor any binding generator is selected by this document**. The spike must prove build/release ergonomics, crash/debug behavior, Expo/EAS integration, upgrade burden, and deterministic cross-host parity first.
 
 
 ## 27. Store-review gate for downloadable rule content
@@ -485,7 +488,7 @@ Apple's current Guideline 2.5.2 says apps may not download/install/execute code 
 
 Therefore the architecture MUST NOT assume that calling a downloaded payload “bytecode” or “script” makes it acceptable.
 
-Before the first App Store submission, run a dedicated review-position spike:
+Begin the representation/review-position work alongside R1 and resolve it before scaling production content investment; final current-policy and exact-implementation review remains mandatory before the first App Store submission, including the free release. This is separate from runtime-selection evidence:
 
 1. characterize cartridge rule content as bounded game data/rules over pre-shipped capabilities;
 2. ensure it cannot expose new native APIs or general computation;
@@ -517,7 +520,7 @@ Allowed strategies for an older installed save/package:
 2. **explicit deterministic migration** — package/save is migrated locally with rollback-safe backup;
 3. **bundled compatibility interpreter** — retain an older rule-IR interpreter path when practical.
 
-The implementation MAY define a supported compatibility window, but it must be long enough for commercial offline ownership expectations and must be visible in release policy.
+The initial v3 policy keeps valid public v3 saves openable on supported app/platform versions through compatible execution or certified local migration. A rolling "latest two app versions" expiration is not the initial policy. Support and end-of-service limits must be published before paid launch and cannot be shortened to hide a missing migration.
 
 Before removing old kernel/rule-IR support:
 
@@ -551,3 +554,42 @@ A user uses the same Loka identity for accepted Story milestones and later Realm
 R12A delivers authentication/recovery/deletion, platform persistence, run binding, milestone acceptance/readback, pending/synced player feedback and a minimal administrative progress view. Test offline finish then reconnect, duplicate delivery, stale reports, account switching, deleted credentials and new-device readback. Unknown offline activity is not reported as failure to finish. Full-save restore is not implied by a completed-account badge.
 
 R6P uses a fake progress adapter and is not delayed by production identity. The free public release must pass R12A; paid purchase infrastructure remains R13; authoritative Realm admission is R14/R15. Exact requirements and trust limits are in [document 23](23-accounts-progress-admission.md).
+
+## 31. Initial player-run lifetime defaults
+
+ADR-066 sets the initial Story product contract. Installed stories remain playable offline under their entitlement policy; accepted consequential actions are saved before success is presented. A valid failed roll is also an accepted saved attempt. A write failure cannot be shown as saved success. No periodic timer or app-close callback is the sole durability mechanism.
+
+Default Story time is action-driven logical time: declared costs, waits and transitions advance it; reading, changing font size, backgrounding and being away do not. Deadlines are visible game-time rules. A future real-elapsed cartridge needs an explicit disclosed profile and the idempotent resume-input contract. Realm time remains separately server-owned.
+
+Provide one current autosaved position and **three named manual bookmarks per playthrough** at the first public Story release. A bookmark is an immutable restore point, not a full world serialization on every action. Retain bounded internal recovery checkpoints and a pre-migration recovery copy under a documented quota. Never discard the only working/unbacked save merely to meet a quota.
+
+Restoring an older semantic branch creates a new run/branch identity and causal parent. Same-state crash recovery, receipt replay and redelivery are not new branches. Restore the saved RNG; neither unlimited undo, ironman anti-reload nor a cloud branch editor is required. Account binding and inherited milestone delivery provenance follow 23 §11, not the currently signed-in profile.
+
+## 32. Content pins, upgrades and continuity
+
+Active runs pin exact immutable cartridge release and capability lock plus save/IR/numeric/RNG versions. New runs normally use the latest approved release. An app update is not permission to silently replace an old run's definitions. Keep shared immutable packages referenced by current saves, bookmarks and recovery copies; do not duplicate assets into every save.
+
+| Change | Required handling |
+|---|---|
+| New story, balance, choices or rules | New immutable release; old runs stay pinned unless a tested explicit upgrade is offered. |
+| Prose/art correction | New immutable artifact too; a presentation-only compatibility path must be defined/tested, never rewrite bytes under a published hash. |
+| Save schema migration | Local staging, recovery copy, validation, then atomic head adoption. Preserve choices; interruption leaves the old head usable. |
+| Game-blocking content fix | Narrow certified repair/migration with pre-repair recovery and explanation of material changes; no unrestricted agent live-save editor. |
+| Breaking capability version | Retain required execution or certify migration before shipping the breaking app. Do not retain every whole historical executable indefinitely. |
+| Missing required package | Preserve the current working state; report missing dependency rather than adopting an unusable restored/migrated head. |
+
+Launch with one public semantic major and released-save fixtures including mid-quest, pending choice/job, RNG and queued milestone states. Prefer data migrations plus limited compatibility readers over accumulating whole engine binaries. Current semantics plus a temporary predecessor path is a maintenance goal, not permission to strand unmigrated players. Block a breaking release when its support path is incomplete.
+
+Completion-at-least-once is account-wide. The canonical branch chosen for continuing a campaign is separate from the last ending uploaded. Carry only declared versioned campaign exports into later chapters, not arbitrary old entities; Realm has separate authoritative characters/economy. Both intended chapter-one endings qualify for onboarding. The proof's terminal milestone is not a production prologue.
+
+Publish support/end-of-service policy before paid launch without promising perpetual new-device compatibility or store re-download availability. A service sunset must not add a login dependency to installed offline play within the supported environment.
+
+## 33. Recovery and optional backup scope
+
+Account recovery, purchase recovery, completion recovery and exact-save recovery are separate promises. **Manual versioned export/import is required by the first public Story release (R12).** Production cloud-save backup remains an optional later feature, not an R1/R6P dependency or a new R13 hard gate. Mandatory R12A milestone synchronization is unchanged.
+
+Export includes the versioned snapshot, exact dependency manifest, run/branch lineage and report provenance; never tokens or a fabricated entitlement. Treat import as hostile input: bound bytes/collections, reject unknown or malformed versions/references, validate isolation and compatibility before head adoption. A checksum detects corruption, not honest play. A blank new device needs both the save and its compatible app/packages; acquisition may require network before offline restoration is possible.
+
+When offered, backup stores authenticated/encrypted immutable whole snapshots. Coalesce uploads when connected and retain a small disclosed set. Update a latest pointer using causal parent/version checks; preserve divergent offline branches rather than last-writer-wins or semantic merging. The user explicitly chooses the continuation. Show pending status; background delivery is not guaranteed. A backup outage/quota error must not stop local play.
+
+Deletion/replacement and account lifecycle must prevent stale uploads from resurrecting removed backups or reassigning bound history. Import/restore cannot relabel an inherited report to the current account. Private shared-device access and account-deletion rules remain in document 23. R12 tests must distinguish a recovered completion badge from an actually recovered game save.

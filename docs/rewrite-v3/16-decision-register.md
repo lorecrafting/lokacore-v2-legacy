@@ -75,6 +75,10 @@ Accepted design direction is not R0 approval or implementation completion. Provi
 - [ADR-061 — Conformance cartridge and first product cartridge have different jobs](#adr-061--conformance-cartridge-and-first-product-cartridge-have-different-jobs)
 - [ADR-062 — Accepted v3 specification cuts over to one implementation-era authority](#adr-062--accepted-v3-specification-cuts-over-to-one-implementation-era-authority)
 - [ADR-063 — Launch accounts and onboarding-only Story progress](#adr-063--launch-accounts-and-onboarding-only-story-progress)
+- [ADR-064 — Approved R1 targets, A-first, explicit preparation gate](#adr-064--approved-r1-targets-a-first-explicit-preparation-gate)
+- [ADR-065 — Precise initial composition and content evidence](#adr-065--precise-initial-composition-and-content-evidence)
+- [ADR-066 — Initial run lifetime and local recovery](#adr-066--initial-run-lifetime-and-local-recovery)
+- [ADR-067 — Bounded start, early representation review, no speculative expansion](#adr-067--bounded-start-early-representation-review-no-speculative-expansion)
 
 </details>
 <!-- packet-navigation:end -->
@@ -810,3 +814,31 @@ The first public Story release includes accounts and durable account-level compl
 Designated offline-client reports can satisfy account-wide prologue prerequisites under server-owned admission policy. They do not prove human comprehension and cannot grant currency, inventory, statistics, purchase entitlement or competitive Realm rewards. Requirement IDs are stable and map to approved release/milestone alternatives; a client cannot grant itself access. Both intended completed endings qualify by default.
 
 R12A brings the minimal account/platform database and progress API before the first free public release. R13 extends it with commerce; R14/R15 enforce actual Realm admission. R6P uses a fake sync adapter, not production identity. See [document 23](23-accounts-progress-admission.md) and ACCOUNT-01–12 for binding, deletion, idempotency and multi-device semantics. Mandatory sign-in before first acquisition versus guest-first UX is not decided by this ADR; after acquisition, installed offline play remains guaranteed under its entitlement policy.
+
+## ADR-064 — Approved R1 targets, A-first, explicit preparation gate
+
+**Status:** Owner-approved readiness direction, 2026-09-22; amendment review/merge, setup freeze, independent oracle review and R1 measurements remain pending.
+
+Use envelope v0.3's existing numerical ceilings and qualification targets. Test TypeScript candidate A first, Rust B only after A fails, then dual C if B fails. Stop at the simplest sufficient passing candidate. No language is preselected. Exact real device/SKU/OS/toolchain and retained oracle/approval manifests must be recorded before candidate semantics are implemented; missing evidence fails preparation/acceptance as applicable. R0 acceptance and R2 production cutover remain separate. See `r1-work-package.md`.
+
+## ADR-065 — Precise initial composition and content evidence
+
+**Status:** Owner-approved readiness direction, 2026-09-22; executable specification examples, not measured engine evidence.
+
+04 §5.2–5.5 defines root sequence then FIFO proposed-event dispatch, emission-time subscription eligibility, current-overlay guards, explicit writer groups/conflicts, aggregate validation and bounded durable waiting. 05/06/08 supply operation ownership, source maps, objective/continuation and author explanations. Only the admitted subset is frozen; do not create a general theorem prover, scripting language or future capability catalog for R1.
+
+The Ferryman's Lantern uses a current-possession objective to support finding the lantern before accepting. Both choices resolve the quest with different typed outcomes; actual custody/presence is checked at each NEW choice. Tiny's strict acquisition-event case stays unchanged. Conformance cases are extended, never replaced by candidate-generated expectations.
+
+## ADR-066 — Initial run lifetime and local recovery
+
+**Status:** Owner-approved product/readiness direction, 2026-09-22; implementation and release evidence pending.
+
+Story defaults to action-driven time, durable accepted-attempt autosave, three manual bookmarks and exact release/capability pins. Valid public v3 saves remain openable on supported environments through compatibility or certified rollback-safe local migration; no rolling latest-two-app expiration. Old-branch continuation creates explicit lineage; receipt/crash recovery does not. Campaign branch choice is independent of account completion.
+
+Manual bounded export/import is part of R12's first public release. Whole-save cloud backup remains optional later, separate from mandatory R12A progress sync and not a new hard R13 gate. Support/end-of-service promises are published before paid launch without promising perpetual new-platform or store availability. See 10 §31–33 and 23 §11.
+
+## ADR-067 — Bounded start, early representation review, no speculative expansion
+
+**Status:** Owner-approved sequencing direction, 2026-09-22; R0 acceptance not asserted.
+
+Close the readiness checklist, freeze setup/oracles, run disposable R1, then R2 and the minimal production slices leading to R6P. Full chapter one remains 57 rooms, 10 quests and two endings. No production engine work in legacy Lokacore; no generalized Builder/Foundry/Realm/scripting/proof-language prerequisite. Begin exact downloadable-representation review alongside R1 and resolve its investment risk before scaling production content; retain current-policy/exact-app review before the first public store release. A green portability or model test is not store approval.

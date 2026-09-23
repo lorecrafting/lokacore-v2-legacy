@@ -3,9 +3,9 @@
 <!-- packet-navigation:start -->
 [Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
 
-**Reader context:** Proposed R1 experiment and thresholds.
+**Reader context:** R1 approved targets; setup and results pending.
 
-Read semantic versus synthetic workloads, measurement methods, fault classes and acceptance procedure. Numbers are not measured or accepted yet.
+Read semantic versus synthetic workloads, measurement methods, fault classes and acceptance procedure. Targets are owner-approved; actual setup and measurements are not complete.
 
 <details>
 <summary>Sections in this document</summary>
@@ -21,11 +21,12 @@ Read semantic versus synthetic workloads, measurement methods, fault classes and
 - [9. Fault classes and recovery (MUST)](#9-fault-classes-and-recovery-must)
 - [10. Build, debug, dependencies (MUST unless RECORD)](#10-build-debug-dependencies-must-unless-record)
 - [11. Decision report and remaining gates](#11-decision-report-and-remaining-gates)
+- [12. Setup, implementation and acceptance are distinct](#12-setup-implementation-and-acceptance-are-distinct)
 
 </details>
 <!-- packet-navigation:end -->
 
-**Version:** 0.2 — proposed audit correction. **Every numeric threshold remains proposed, Raymond to confirm.** No candidate has been selected, benchmarked, or accepted by this document. Freeze a reviewed envelope and exact device/toolchain manifest before collecting candidate performance results. Amendments after measurement must identify the earlier measurements and reason; never tune the acceptance rule to rescue a favorite candidate.
+**Version:** 0.3 — owner-approved target criteria (2026-09-22, ADR-064), pending amendment review/merge and exact setup freeze. **No candidate has been selected, benchmarked, or accepted.** Freeze the accepted envelope bytes, reviewed fixtures and actual device/toolchain manifest before candidate implementation; preparation of fixtures and setup may proceed now. Amendments after measurement must identify the earlier measurements and reason; never tune the acceptance rule to rescue a favorite candidate.
 
 R1 is a disposable feasibility experiment in a separate workspace. It is not the production engine or a requirement to implement chapter one twice. The 57-room first release remains unchanged. `pre-release-proof.md` defines a later, small player-facing proof of the fresh engine; that proof is not the R1 microbenchmark.
 
@@ -35,7 +36,7 @@ R1 is a disposable feasibility experiment in a separate workspace. It is not the
 
 **R1B — scaling and interaction proof.** Scale data volume and bounded work using the same semantic vocabulary. Add one small reaction-chain and one durable scene-consequence fixture, not the full narrative/population/commerce system. Use synthetic objects, subscriptions, dirty sets, and pending jobs to stress copying, fan-out, serialization, scheduling, and restore. Publish the fixture generator, seed, and exact artifacts; all candidates receive identical inputs.
 
-| Model | Proposed volume | Semantic work |
+| Model | Approved target volume | Semantic work |
 |---|---|---|
 | Tiny | Two rooms, one NPC, one item, one player; one quest/fact/job | Corrected hello trace and explicit negative cases |
 | Medium synthetic | 300 runtime entities, 100 typed facts, 100 pending jobs; representative small and large dirty sets | Tiny semantics plus bounded chain/scene fixtures; no requirement to author 57 rooms or ten quests |
@@ -75,13 +76,23 @@ Run 1,000 warm-up inputs, then at least 10,000 measured inputs in each of three 
 
 ## 4. Physical devices and reproducible setup
 
-| Class | Proposed hardware | Evidence |
+| Class | Approved target hardware | Evidence |
 |---|---|---|
 | Development/server host | Apple Silicon M1-or-later, 16 GB | Exact model, OS, runtime, cores and load recorded; common server tests use the same host |
 | Minimum iOS candidate | iPhone SE (2nd generation, A13, 3 GB) | Confirm actual support and availability before freeze; pin iOS and release-build toolchain |
 | Minimum Android candidate | Galaxy A14, 4 GB | Confirm exact variant, OS and release-build toolchain before freeze |
 
-These are proposed test classes, not claims about current Expo minimum support or device availability. Record exact Expo/React Native/Hermes, Node/Elixir/OTP, Rust/bindings if used, OS and build identifiers. Use release builds, stable thermal conditions and recorded battery/power state. A simulator or development machine cannot substitute for physical-device acceptance. Cold install/load/restore is measured separately from warm decisions.
+These are owner-approved qualification classes, not claims about current Expo minimum support, measured support or actual device availability. Record exact Expo/React Native/Hermes, Node/Elixir/OTP, Rust/bindings if used, OS and build identifiers. Use release builds, stable thermal conditions and recorded battery/power state. A simulator or development machine cannot substitute for physical-device acceptance. Cold install/load/restore is measured separately from warm decisions.
+
+### 4.1 Support policy and recorded setup
+
+Qualification targets: physical iPhone SE (2nd generation, A13); an exactly identified Galaxy A14-class 4 GB Android phone, preferably an A14 5G variant; Android arm64 initially. Record actual SKU/SoC/RAM/OS rather than treating all A14 variants or an iPhone 11 as interchangeable. Target iOS 16.4+ and Android 10+ for the initial product planning matrix; recheck the exact native dependencies and distribution constraints at setup freeze and release. These OS choices do not certify every installable device or promise security support for obsolete systems.
+
+Minimum-hardware performance, lowest-target-OS compatibility and latest-stable-OS release smoke are separate coverage rows. Simulators supplement OS compatibility but never replace physical-device timing. The plain readable/touch-first UI must work on the floor; page curls, particles, shaders and 3D transitions are optional enhancements with identical gameplay. R1 adds no consumer-web or advanced graphics milestone.
+
+[The setup manifest template](conformance/r1-run-manifest.template.json) intentionally leaves unknown real devices, toolchain pins, accepted commit and reviewer receipts empty. `checks/readiness.py --require-ready MANIFEST --evidence-root DIR` must fail until actual setup records and hash-bound inputs/reviews exist. Its pass validates preparation records only, not genuine hardware use, timing accuracy or R1 acceptance. Never fill nulls with invented measurements. Build hashes, temperatures/battery and per-run environment go into actual result manifests after implementation; they cannot exist before the candidate is built.
+
+Current official references, rechecked 2026-09-22: [Expo SDK reference](https://docs.expo.dev/versions/latest/) for dependency/OS compatibility and [React Native performance](https://reactnative.dev/docs/performance) for release-build/JS-response distinctions. The reference tables are not a lockfile. Freeze exact stable patches and native module versions, not `latest`, canary or an invented tested version. A necessary support change requires a reviewed amendment, not a silent relaxation after a failed measurement.
 
 ## 5. Decision and user-visible latency (MUST)
 
@@ -95,7 +106,7 @@ Decision timing includes NEW-invocation re-resolution, kernel work and any bound
 
 Medium end-to-end authoritative response (admission + decision + actual SQLite commit + projection): p95 <=100 ms, p99 <=200 ms. Reaction/scene decision p99 may be up to 3x the corresponding row, but not by waiving end-to-end or UI responsiveness gates.
 
-During movement, long reactions, time advancement, saving and loading, measure actual input-to-feedback latency and JS-thread responsiveness. Proposed gates: p95 input-to-visible-pending-feedback <=100 ms; no continuous JS unresponsiveness >100 ms on the warm supported workload. A pending indicator is not authoritative success. Record frame stalls, cold-load responsiveness, and p99 feedback. Unchanged animation alone is not evidence that touch processing remained responsive.
+During movement, long reactions, time advancement, saving and loading, measure actual input-to-feedback latency and JS-thread responsiveness. Approved target gates: p95 input-to-visible-pending-feedback <=100 ms; no continuous JS unresponsiveness >100 ms on the warm supported workload. A pending indicator is not authoritative success. Record frame stalls, cold-load responsiveness, and p99 feedback. Unchanged animation alone is not evidence that touch processing remained responsive.
 
 Reference: [React Native performance overview](https://reactnative.dev/docs/performance). Sharing TypeScript code does not itself prove a responsive mobile integration.
 
@@ -110,7 +121,7 @@ All candidates receive the same server workload on the same development/server h
 - one budget-exhausting instance competing with ordinary instances;
 - bounded queues, explicit busy/retry responses and no silent loss or duplicate application.
 
-Proposed server ceilings, including admission/queueing/boundary/decision/projection but excluding PostgreSQL (not built until R14): steady p95 <=25 ms, p99 <=75 ms; burst p99 <=500 ms, no accepted input stranded after the burst drains. Report busy/rejected input counts; overload rejection cannot disguise an inability to sustain the steady workload. Default proposed queue cap: 100 pending inputs per instance. Runtime pool size, runner concurrency and memory footprint are part of the evidence.
+Approved target server ceilings, including admission/queueing/boundary/decision/projection but excluding PostgreSQL (not built until R14): steady p95 <=25 ms, p99 <=75 ms; burst p99 <=500 ms, no accepted input stranded after the burst drains. Report busy/rejected input counts; overload rejection cannot disguise an inability to sustain the steady workload. Default approved target queue cap: 100 pending inputs per instance. Runtime pool size, runner concurrency and memory footprint are part of the evidence.
 
 For B with NIFs, no normal-scheduler call may exceed 1 ms at Stress; longer work requires an appropriate boundary. Under the same load, an unrelated BEAM heartbeat's p99 delay may degrade by no more than 10% relative to its recorded baseline. Test scheduler impact for A/C too. Dirty scheduling is not process isolation.
 
@@ -120,7 +131,7 @@ This is a portability-host load test, not R14 PostgreSQL certification, R20 shar
 
 Time these separately: decision; dirty-state encoding; atomic SQLite write including receipt; projection; checkpoint serialization/write; cold read/deserialize/rebuild; integrity hashing. Persist every accepted attempt, including failed rolls. Do not implement a full export/readback/hash round trip per action unless it is the measured simplest passing design.
 
-| Mutable checkpoint | Proposed size guide (RECORD) | Proposed complete checkpoint round trip ceiling (MUST) |
+| Mutable checkpoint | Approved target size guide (RECORD) | Approved target complete checkpoint round trip ceiling (MUST) |
 |---|---|---|
 | Tiny | 8 KB | 10 ms |
 | Medium | 256 KB | 50 ms |
@@ -128,13 +139,13 @@ Time these separately: decision; dirty-state encoding; atomic SQLite write inclu
 
 The round trip reads and validates what was written; its canonical state must equal the pre-save state. It is separate from the ordinary command-commit cost in §5. Immutable definitions/assets are not duplicated into every save. Report durable receipt/trace/job sizes separately; do not omit state needed for recovery to meet a size guide. Test disk-full/write-failure and confirmed rollback as well as lost COMMIT acknowledgement.
 
-Proposed cold Medium restore-to-interactive ceiling: 3 seconds after application launch/resume begins. Record package verification and other startup costs separately and together. No claim is made that a mobile OS will automatically relaunch a killed application.
+Approved target cold Medium restore-to-interactive ceiling: 3 seconds after application launch/resume begins. Record package verification and other startup costs separately and together. No claim is made that a mobile OS will automatically relaunch a killed application.
 
 ## 8. Memory and retention (MUST / RECORD)
 
 Record process RSS, attributable live/retained heap, shared runtime baseline, per-instance cache, and disk growth over 10,000 inputs after warm-up. Report A's Node runner as a whole as well as incremental hosted-instance cost; do not divide away fixed overhead.
 
-Proposed live-state/caches ceilings on minimum devices: Medium 32 MB, Stress 96 MB; retained growth above explained durable working-set growth <=5 MB / <=10 MB. Repeated load/unload and snapshot/restore must show no unbounded live-object retention. RSS/allocator high-water marks and GC diagnostics are RECORD, not proof of a leak or mandatory production-GC behavior. Where heap measurement is unavailable, record a justified alternative and obtain review before accepting the row.
+Approved target live-state/caches ceilings on minimum devices: Medium 32 MB, Stress 96 MB; retained growth above explained durable working-set growth <=5 MB / <=10 MB. Repeated load/unload and snapshot/restore must show no unbounded live-object retention. RSS/allocator high-water marks and GC diagnostics are RECORD, not proof of a leak or mandatory production-GC behavior. Where heap measurement is unavailable, record a justified alternative and obtain review before accepting the row.
 
 Bounded caches/jobs and receipt-retention semantics are checked independently. Erasing receipts to make a memory graph flat is a correctness failure.
 
@@ -147,7 +158,7 @@ Bounded caches/jobs and receipt-retention semantics are checked independently. E
 | Caught evaluator exception/budget failure | Discard uncommitted proposal; no externally committed events; preserve/rebuild authority |
 | Definite persistence rollback | Prior durable state remains; same identity may retry without a hidden RNG advance |
 | COMMIT acknowledgement unknown | Fence new decisions; resolve original transaction/receipt on authoritative storage; no speculative retry |
-| Isolated runner death | Detect and reconstruct from committed state; proposed state is not authoritative; proposed Tiny worker recovery target <=1 second |
+| Isolated runner death | Detect and reconstruct from committed state; proposed state is not authoritative; approved target Tiny worker recovery target <=1 second |
 | Fatal native process/BEAM VM failure | Explicitly report blast radius; durable state survives, recovery occurs through process/service restart, not an imaginary in-process exception handler |
 | Mobile process kill/OS memory termination | Recover on actual relaunch/resume, within cold-restore budget; no self-relaunch promise |
 
@@ -163,10 +174,18 @@ Clean development and production builds on both mobile platforms must pass with 
 
 For candidate B, record binding ownership, unsafe code, panic behavior, ABI/versioning and upgrade costs. An experimental generator is not accepted merely because a demo compiles; choose a maintained boundary with demonstrated builds/debugging or reject it. For C, report the actual duplicate semantic implementation and test maintenance.
 
-Separate fast semantic CI (proposed <=30 minutes) from clean platform release builds (duration RECORD); queued CI wait time is recorded separately. Do not require a full four-host native release inside a contradictory fast-test budget. Inject one host mismatch and prove the adapter oracle catches it.
+Separate fast semantic CI (approved target <=30 minutes) from clean platform release builds (duration RECORD); queued CI wait time is recorded separately. Do not require a full four-host native release inside a contradictory fast-test budget. Inject one host mismatch and prove the adapter oracle catches it.
 
 ## 11. Decision report and remaining gates
 
 For every applicable row: threshold, exact input/build/device identity, observed value, sample count, pass/fail/unmeasured, and evidence location. Hashes supplement retained canonical bytes; unknowns are not passes. Compare maintenance and fault containment as well as speed. Record why untested candidates were skipped under the A-first sufficiency rule.
 
 R1 cannot approve R0, the production engine, a store submission, or chapter one. Store-rule representation remains ADR-035; physical product proof is R6P; full chapter and certification are R10/R12. Keep only reviewed fixtures, evidence and deliberately reusable work from the disposable spike.
+
+## 12. Setup, implementation and acceptance are distinct
+
+[The work package](r1-work-package.md) tracks PREP-01–03 then R1-A1–A5. Owner approval fixes this envelope's targets; it does not populate the physical inventory, approve independent expected values, complete R0 or choose A. The initial setup manifest has status `preparation_pending` and no results. Do not call a template, a Python model pass or matching headless transcripts a passing experiment.
+
+Hash the retained exact envelope, numeric vectors/profile, composition profile/cases and admitted fixture set in an external setup bundle. Do not put the hash of a self-containing envelope into itself. Record the accepted spec commit and reviewed manifest identity before building candidate semantics. Candidate A starts stateless. Any retained-cache/boundary variant is declared before tuning and receives the same safety/load gates; a new variant does not get to revise expected semantics.
+
+R1 acceptance still requires every applicable MUST result, raw retained per-step bytes, independent expected-value review, exact build/device manifests and a reviewed decision report. Failed/missing rows cannot be reclassified as N/A merely to select a favorite implementation. B/C remain unmeasured unless A/B fail in order. No PostgreSQL/Realm/production-engine or store-approval claim follows from R1.

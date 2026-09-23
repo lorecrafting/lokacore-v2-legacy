@@ -23,6 +23,7 @@ Start with the review guide and milestone guide; section 8 defines the document 
 - [11. Specification change discipline](#11-specification-change-discipline)
 - [12. R0 cutover and implementation-facing specification organization](#12-r0-cutover-and-implementation-facing-specification-organization)
 - [13. Launch identity and the prologue journey](#13-launch-identity-and-the-prologue-journey)
+- [14. Implementation-readiness amendment](#14-implementation-readiness-amendment)
 
 </details>
 <!-- packet-navigation:end -->
@@ -201,7 +202,7 @@ The rebuild MUST use the strengths of Elixir/OTP intentionally:
 
 The rebuild MUST NOT turn every room, item, quest, or NPC into a GenServer merely because the BEAM makes processes cheap.
 
-The online authority/orchestration layer SHOULD remain idiomatic Elixir/OTP. Rules that must execute both offline and online MUST follow the portable deterministic semantic contract selected by R1. A shared native kernel is the working hypothesis; if R1 selects the documented dual-implementation fallback, golden conformance preserves the same contract. Server-only orchestration and capability adapters remain Elixir.
+The online authority/orchestration layer SHOULD remain idiomatic Elixir/OTP. Rules that must execute both offline and online MUST follow the portable deterministic semantic contract selected by R1. R1 tests A (one TypeScript kernel) first, B (one Rust kernel) only if A fails, and C (dual Elixir/TypeScript) if B fails. No execution strategy is selected before its applicable gates pass; golden conformance preserves the same semantic contract for every candidate. Server-only orchestration and capability adapters remain Elixir.
 
 ## 6. Working top-level decisions
 
@@ -246,7 +247,7 @@ Implementation MUST NOT treat either provisional choice as settled before its ev
 | Core architecture | [01 — Principles](01-core-principles.md), [07 — Story/Realm and portability](07-offline-storypacks-to-mmo.md), [02 — Online runtime](02-beam-runtime-architecture.md), [03 — State and persistence](03-domain-state-persistence.md), [04 — Decision and protocol contracts](04-command-event-effect-protocol.md) |
 | Content and mechanics | [05 — Cartridge/capability contracts](05-cartridges-content-capabilities.md), [21 — Composition vocabulary](21-composable-world-primitives.md), [06 — Narrative and actions](06-quests-dialogue-actions-scripting.md), [19 — Sharing, instances, capacity](19-quest-sharing-instancing-capacity.md) |
 | Authoring and release assurance | [08 — Builder/factory](08-builder-api-ai-factory.md), [09 — Lab/certification](09-cartridge-lab-certification.md), [10 — App/commerce/release](10-mobile-commerce-release.md), [11 — Security/operations](11-security-observability-operations.md) |
-| Decisions, plan and evidence gates | [16 — Decision register](16-decision-register.md), [14 — Implementation plan](14-implementation-plan.md), [15 — Acceptance scenarios](15-acceptance-scenarios.md), [R1 — Proposed experiment envelope](r1-acceptance-envelope.md) |
+| Decisions, plan and evidence gates | [16 — Decision register](16-decision-register.md), [14 — Implementation plan](14-implementation-plan.md), [15 — Acceptance scenarios](15-acceptance-scenarios.md), [R1 — Approved targets, pending setup/evidence](r1-acceptance-envelope.md) |
 | Reference evidence, not current implementation instructions | [12 — Evennia](12-evennia-lessons.md), [20 — Classic MUDs](20-classic-mud-lessons.md), [22 — Ink](22-ink-runtime-lessons.md), [13 — Legacy inventory](13-lokacore-feature-inventory.md), [17 — Research baseline](17-research-baseline.md), [18 — Review history](18-review-record.md) |
 
 For implementation, use [INDEX.md](INDEX.md) to locate governing contracts, not to replace them. The [planning matrix](release-scope.json) generates the release checklist; the [contract corpus](conformance/README.md) explains the small executable specification model and the separate future host-evidence obligations. [Index cut candidates](INDEX-cut-candidates.md) are review suggestions, not approved deletions or permissions to omit invariants.
@@ -307,7 +308,7 @@ These explain why decisions were made but do not override normative contracts.
 
 ### Companion status
 
-`pre-release-proof.md` is the proposed R6P work package referenced by document 14. `release-scope.json` is reviewed planning input; `release-scope.md` is generated from it, not a runtime capability registry or certificate. The proposed R1 envelope and numeric profile still require their recorded acceptance gates. `checks/` and `conformance/` are specification-model tooling and fixtures, not the production engine.
+`pre-release-proof.md` is the R6P work package referenced by document 14, with owner-approved readiness direction and implementation still pending. `release-scope.json` is reviewed planning input; `release-scope.md` is generated from it, not a runtime capability registry or certificate. The R1 target envelope is owner-approved under ADR-064; exact setup/oracle freeze and measured acceptance remain separate gates. The numeric profile remains subject to recorded oracle review. `checks/` and `conformance/` are specification-model tooling and fixtures, not the production engine.
 
 `REVIEW-GUIDE.md`, `R-MILESTONES.md`, per-document navigation, and `INDEX.md` are reading aids. They do not introduce new requirements, resolve contradictions by precedence, or mark any gate complete. Dated `reviews/` records and `INDEX-cut-candidates.md` are informative.
 
@@ -408,3 +409,11 @@ This organization is intended to make the architecture **harder to misimplement*
 ## 13. Launch identity and the prologue journey
 
 Read [23 — Accounts, Story Progress, and Realm Admission](23-accounts-progress-admission.md) alongside mobile/state/security contracts. Accounts and milestone tracking arrive at the first public Story release, including the free chapter. Installed local gameplay survives offline/auth outages; accepted low-stakes reports satisfy explicitly mapped account onboarding prerequisites, never Realm currency/items/stats or purchase entitlement. R12A is a subdivision of R12; all existing top-level R IDs and the full first-chapter scope remain unchanged.
+
+## 14. Implementation-readiness amendment
+
+The owner requested implementation of the readiness recommendations on 2026-09-22. This approves the bounded direction and target criteria in ADR-064–067; it does **not** certify R1, accept the entire packet at R0, or authorize production work in legacy Lokacore. Merge/review of this amendment remains necessary. Current independent review, exact setup, candidate measurements and R2 cutover are not represented as complete.
+
+Start with [the R1 work package](r1-work-package.md). Governing additions live in the existing contracts: 04 §5.2–5.5 (composition), 05 §28 (operation metadata), 06 §43 (continuations/objectives), 10 §31–33 (run lifetime/recovery), 14 (readiness dependencies), and 23 §11 (forked/restored report provenance). The new fixtures extend the existing conformance corpus; they are not a second engine or oracle source.
+
+Do not continue expanding the primitive catalog, build generalized scripting, or require Foundry/general Builder/Realm before testing the selected slice. Full chapter one remains 57 rooms, 10 quests, two endings. The first code assignment is a disposable R1 experiment, then the fresh-repository foundation and R6P—not the entire platform.

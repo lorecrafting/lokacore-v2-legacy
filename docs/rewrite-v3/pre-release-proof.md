@@ -3,7 +3,7 @@
 <!-- packet-navigation:start -->
 [Review guide](REVIEW-GUIDE.md) · [R milestones](R-MILESTONES.md) · [Packet home](README.md)
 
-**Reader context:** Proposed R6P work package.
+**Reader context:** R6P work package; readiness direction approved.
 
 Four-place proof on the fresh engine before the full chapter; not a reduced release or completed build.
 
@@ -20,7 +20,7 @@ Four-place proof on the fresh engine before the full chapter; not a reduced rele
 </details>
 <!-- packet-navigation:end -->
 
-**Status:** proposed implementation work package; not a completed build or R0/R1 acceptance.
+**Status:** owner-approved readiness direction (2026-09-22), pending amendment review/merge; not a completed build or R0/R1 acceptance.
 
 ## Scope stays intact
 
@@ -44,13 +44,25 @@ R6P needs the constitutional contracts, the minimal compiler/local authority/SQL
 
 Use a separate pre-release cartridge ID and save lineage, with four connected places (landing, green, reed bank, lantern shelter), Bram, one lantern, one offered quest, one schedule, and one consequential choice. This is a proof fixture, not a revision to Ashmere's chapter-one map or canon.
 
-The player talks to Bram, accepts before the acquisition objective, retrieves the lantern, and chooses whether to carry it along the bank or leave it with Bram's search party. Both outcomes visibly alter a typed fact, a description, and available dialogue. Bram's schedule provides one time-dependent interaction without a population/commerce framework. A simple barrier can exercise an unavailable action. The proof uses real, short, readable prose and touch actions, not only a debug command prompt.
+The player talks to Bram, accepts a current-possession objective, retrieves the lantern (or already has it), returns to talk, and chooses whether to carry it along the bank or leave it with Bram's search party. The quest remains active until that choice resolves it. Both choices require current lantern custody and Bram's presence; carrying is a declared terminal commitment, not proof of a later unmodeled journey. Both outcomes visibly alter a typed fact, a description, and available dialogue. Bram's schedule provides one time-dependent interaction without a population/commerce framework. A simple barrier can exercise an unavailable action. The proof uses real, short, readable prose and touch actions, not only a debug command prompt.
 
 Illustrative opening text (replace through ordinary content review):
 
 > Bram steadies the ferry with his boot. Across the water, a lantern swings once between the reeds and goes dark. "Mine is up at the shelter," he says. "Bring it down. Then tell me whether you are coming with us."
 
 No new general scripting, dream-space runtime, combat, economy, or party system is required for this proof. Those chapter-one features still arrive before their full-release gate. Reuse is earned through typed capabilities, not a special `FerrymanEngine`.
+
+### Fixed content intent and expected traces
+
+[Lantern traces](conformance/lantern-traces.json) define prepared four-place examples and full per-step projected semantic state/outcome expectations. These are retained explicit expected values reviewed during the amendment, not a candidate-generated oracle or compiled production cartridge. This assistant authored and self-reviewed them; genuinely independent oracle approval remains PREP-02. The separate two-room Tiny case retains its strict acquisition event and failed-roll semantics.
+
+Ordinary proof actions cost zero logical time; explicit `wait` advances it. Bram is at landing from 06:00 to 19:00 and at green otherwise. This bounded fixture starts at 06:00 and admits waits only through 23:00; it does not claim full multi-day scheduler support. Landing connects north to green, green east to reed bank, reed bank east to lantern shelter, with reciprocal routes. The lantern starts at the shelter. A deliberately blocked west exit at landing advertises unavailable feedback without another room.
+
+Both paths: accept → travel to shelter → take → return → talk → choose. `carry` retains custody and sets `search_plan=player_led`; `leave` transfers to Bram and sets `search_plan=party_led`. Each atomically resolves the quest/choice and stores stable required narration plus a **proof-only** terminal milestone. This is not an account-authorized production onboarding grant.
+
+Adverse paths: acquire before acceptance (state credit); drop after opening choice (custody rejection); wait until Bram moves (presence rejection with close/return path); retry consumed choice after a stale view (receipt replay); alter choice under same ID (integrity conflict); conflict/budget fault (no partial proposal); rollback/unknown COMMIT/after-commit display interruption (durable reconciliation). Local account/report binding is tested with the fake adapter, never with invented authentication evidence.
+
+P4 must integrate the shared operation/reaction evaluator: the deliberately small Python Lantern model is only a specification example and cannot be copied as a special FerrymanEngine. P6 compares actual adapter bytes, narrative continuity and human comprehension against the frozen examples.
 
 ## Implementation tickets and dependency graph
 

@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "status": "preparation_pending",
+  "candidate": "A",
+  "accepted_spec_commit": null,
+  "candidate_author_ids": [],
+  "devices": {
+    "ios": {
+      "qualification_class": null,
+      "model": null,
+      "sku": null,
+      "soc": null,
+      "installed_ram_gb": null,
+      "os_version": null,
+      "os_build": null,
+      "architecture": null,
+      "availability_record": null
+    },
+    "android": {
+      "qualification_class": null,
+      "model": null,
+      "sku": null,
+      "soc": null,
+      "installed_ram_gb": null,
+      "os_version": null,
+      "os_build": null,
+      "architecture": null,
+      "availability_record": null
+    }
+  },
+  "server": {
+    "model": null,
+    "os_build": null,
+    "cores": null,
+    "ram_gb": null
+  },
+  "toolchain": {
+    "expo": null,
+    "react_native": null,
+    "hermes": null,
+    "typescript": null,
+    "node": null,
+    "elixir": null,
+    "otp": null,
+    "sqlite": null,
+    "sqlite_binding": null,
+    "xcode": null,
+    "ios_sdk": null,
+    "android_sdk": null,
+    "gradle": null,
+    "jdk": null
+  },
+  "toolchain_lock": {
+    "path": null,
+    "sha256": null
+  },
+  "inputs": [
+    {
+      "path": "r1-acceptance-envelope.md",
+      "sha256": null
+    },
+    {
+      "path": "conformance/numeric-profile.md",
+      "sha256": null
+    },
+    {
+      "path": "conformance/numeric-vectors.json",
+      "sha256": null
+    },
+    {
+      "path": "conformance/cases.json",
+      "sha256": null
+    },
+    {
+      "path": "conformance/composition-profile.json",
+      "sha256": null
+    },
+    {
+      "path": "conformance/composition-cases.json",
+      "sha256": null
+    },
+    {
+      "path": "conformance/lantern-traces.json",
+      "sha256": null
+    }
+  ],
+  "r0_acceptance": {
+    "path": null,
+    "sha256": null
+  },
+  "oracle_review": {
+    "path": null,
+    "sha256": null
+  },
+  "setup_review": {
+    "path": null,
+    "sha256": null
+  }
+}

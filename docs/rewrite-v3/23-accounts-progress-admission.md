@@ -20,6 +20,7 @@ Start with the journey and three authorities. Completion sync is mandatory at pu
 - [8. Multiple devices, progress views and analytics](#8-multiple-devices-progress-views-and-analytics)
 - [9. Recovery, deletion and privacy](#9-recovery-deletion-and-privacy)
 - [10. Roadmap and acceptance](#10-roadmap-and-acceptance)
+- [11. Restored and forked run provenance](#11-restored-and-forked-run-provenance)
 
 </details>
 <!-- packet-navigation:end -->
@@ -146,3 +147,11 @@ The launch plan includes secure token storage, revocation/recovery handling, aut
 All existing top-level R labels remain stable. R12A is a subdivision, not a new release or permission to move Realm earlier. The free release requires account/progress evidence as well as R10/R12 game/device evidence; R13 still gates paid commerce.
 
 The governing scenario family is [ACCOUNT-01 through ACCOUNT-12](15-acceptance-scenarios.md#account-and-prologue-progress-acceptance). The specification-model tests exercise policy, receipt and queue invariants only. Production authentication, real storage transactions/races, devices, privacy workflows and live Realm admission require separate implementation evidence.
+
+## 11. Restored and forked run provenance
+
+A semantic restore/fork creates a distinct run identity with an explicit parent snapshot and immutable account/release binding. It does not turn every inherited milestone into a new completion report. Preserve the original milestone occurrence/report identity and originating run/account lifecycle; retry already-pending historical reports under that identity, and read back existing acceptance instead of manufacturing a new grant. New milestones reached after the fork use the new run's identity.
+
+Ordinary crash recovery and matching retries continue the same run. A migration changes only declared schema/release lineage under a reviewed migration policy; it cannot mint platform evidence or rebind an account. A guest claim consumes an actually unclaimed lineage once; an imported account-bound save cannot be claimed by another account merely because it was copied. The server's binding/lifecycle checks remain authoritative.
+
+Completion-at-least-once persists despite local rollback/reset. Forked outcomes are separate playthrough history, not an integrity conflict within one run or an instruction to semantic-merge world state. Campaign continuation uses the player's selected branch, not report arrival order. Account deletion/withdrawal still wins over stale restored queues; restoration never resurrects eligibility. These rules complement the local export/bookmark contract in 10 §31–33 without treating offline reports as honest-play proof.

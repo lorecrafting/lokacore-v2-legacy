@@ -1,0 +1,727 @@
+{
+  "fixture_version": 1,
+  "evidence_class": "specification-known-answers-not-host-results",
+  "content_intent": "current-possession; quest resolves only on choice; ordinary actions cost zero time",
+  "initial_state": {
+    "revision": 0,
+    "room": "landing",
+    "lantern": "shelter",
+    "quest": "absent",
+    "choice": null,
+    "search_plan": "undecided",
+    "clock": 6,
+    "bram_room": "landing",
+    "rng": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "narration": [],
+    "milestone": null
+  },
+  "traces": [
+    {
+      "id": "lantern-carry",
+      "steps": [
+        {
+          "request": {
+            "id": "accept",
+            "actor": "hero",
+            "action": "activate"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "activated",
+            "revision": 1,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 1,
+            "room": "landing",
+            "lantern": "shelter",
+            "quest": "active",
+            "choice": null,
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "out-1",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "north"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 2,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "shelter",
+            "quest": "active",
+            "choice": null,
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "out-2",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "east"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 3,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 3,
+            "room": "reed_bank",
+            "lantern": "shelter",
+            "quest": "active",
+            "choice": null,
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "out-3",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "east"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 4,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 4,
+            "room": "shelter",
+            "lantern": "shelter",
+            "quest": "active",
+            "choice": null,
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "take",
+            "actor": "hero",
+            "action": "take"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "taken",
+            "revision": 5,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 5,
+            "room": "shelter",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": null,
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "back-1",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "west"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 6,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 6,
+            "room": "reed_bank",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": null,
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "back-2",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "west"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 7,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 7,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": null,
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "back-3",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "south"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 8,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 8,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": null,
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "talk",
+            "actor": "hero",
+            "action": "talk"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "choice_opened",
+            "revision": 9,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 9,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": "proof-choice:talk",
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "resolve",
+            "actor": "hero",
+            "action": "choose",
+            "input": {
+              "choice_id": "carry",
+              "continuation_id": "proof-choice:talk"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "resolved_carry",
+            "revision": 10,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 10,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "resolved",
+            "choice": null,
+            "search_plan": "player_led",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [
+              {
+                "id": "proof-choice:talk:outcome",
+                "text_key": "proof.carry",
+                "bindings": {
+                  "actor": "hero",
+                  "bram": "bram",
+                  "lantern": "lantern"
+                }
+              }
+            ],
+            "milestone": {
+              "key": "proof.terminal",
+              "occurrence": "proof-choice:talk",
+              "outcome": "carry"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lantern-leave",
+      "steps": [
+        {
+          "request": {
+            "id": "accept",
+            "actor": "hero",
+            "action": "activate"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "activated",
+            "revision": 1,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 1,
+            "room": "landing",
+            "lantern": "shelter",
+            "quest": "active",
+            "choice": null,
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "out-1",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "north"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 2,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "shelter",
+            "quest": "active",
+            "choice": null,
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "out-2",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "east"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 3,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 3,
+            "room": "reed_bank",
+            "lantern": "shelter",
+            "quest": "active",
+            "choice": null,
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "out-3",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "east"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 4,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 4,
+            "room": "shelter",
+            "lantern": "shelter",
+            "quest": "active",
+            "choice": null,
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "take",
+            "actor": "hero",
+            "action": "take"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "taken",
+            "revision": 5,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 5,
+            "room": "shelter",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": null,
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "back-1",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "west"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 6,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 6,
+            "room": "reed_bank",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": null,
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "back-2",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "west"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 7,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 7,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": null,
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "back-3",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "south"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 8,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 8,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": null,
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "talk",
+            "actor": "hero",
+            "action": "talk"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "choice_opened",
+            "revision": 9,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 9,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": "proof-choice:talk",
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "resolve",
+            "actor": "hero",
+            "action": "choose",
+            "input": {
+              "choice_id": "leave",
+              "continuation_id": "proof-choice:talk"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "resolved_leave",
+            "revision": 10,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 10,
+            "room": "landing",
+            "lantern": "bram",
+            "quest": "resolved",
+            "choice": null,
+            "search_plan": "party_led",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [
+              {
+                "id": "proof-choice:talk:outcome",
+                "text_key": "proof.leave",
+                "bindings": {
+                  "actor": "hero",
+                  "bram": "bram",
+                  "lantern": "lantern"
+                }
+              }
+            ],
+            "milestone": {
+              "key": "proof.terminal",
+              "occurrence": "proof-choice:talk",
+              "outcome": "leave"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

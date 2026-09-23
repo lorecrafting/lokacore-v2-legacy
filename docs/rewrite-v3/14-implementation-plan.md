@@ -40,6 +40,7 @@ Use the plain-English R guide first. Numbers are stable labels; R6P pulls select
 - [Agent workflow](#agent-workflow)
 - [Sizing](#sizing)
 - [Shipping rule](#shipping-rule)
+- [Readiness amendment implementation notes](#readiness-amendment-implementation-notes)
 
 </details>
 <!-- packet-navigation:end -->
@@ -94,6 +95,23 @@ No unresolved contradiction about:
 - mobile Story session/GameView boundary and the fact that Realm transport is intentionally deferred;
 - cartridge versioning.
 - specification source-of-truth/cutover rules once the fresh implementation repository exists.
+
+### Readiness closure and authorization boundaries
+
+Owner approval on 2026-09-22 adopts ADR-064–067's recommendations for this amendment. It does not substitute for the accepted R0 commit/cutover record, genuinely independent review, actual setup or measured R1 results. The preparation work may proceed now; substantive candidate semantics require the frozen reviewed setup/contract below. Production still waits for R0/R1/R2.
+
+| Work item | Dependencies | Deliverable / stop condition |
+|---|---|---|
+| PREP-01 Contract closure | Review this amendment | 04 initial order/conflict/budget contracts; 05/06 operation/objective/continuation rules; 10/23 run defaults; preserved Tiny oracle; both Lantern traces and adverse cases. Record remaining independent review, do not label self-review independent. |
+| PREP-02 Setup and oracle freeze | PREP-01, R0 acceptance record | Real device/SKU/OS inventory, exact stable toolchain/lock data, artifact hashes and oracle/manifest review receipts. `--require-ready` rejects incomplete manifests. No synthetic device entries or fabricated acceptance hash. |
+| PREP-03 Download representation review | PREP-01; parallel with setup/R1 | Exact permitted payload/capability surface, sample package and policy review notes, unresolved risks, owner disposition before production content scaling; final store gate remains 10 §27. |
+| R1-A1 Semantic candidate | PREP-02 | One TypeScript package, stateless prepared definitions, Tiny/per-step known answers and bounded composition fixtures. No production compiler. |
+| R1-A2 Actual host adapters | R1-A1 | Hermes physical iOS/Android and isolated Node/BEAM Port; actual SQLite commit, recovery and byte parity. |
+| R1-A3 Fault/load evidence | R1-A2 | Full envelope, synthetic generators, worker death, scheduler interference, backlog/overload and mobile interruption/response tests. |
+| R1-A4 Reviewed selection | R1-A3 | Retained raw evidence, exact manifests, limits/failures and ADR-004/005 disposition. Passing A stops comparison; failure authorizes B then C with the same contract. |
+| R1-A5 Production handoff | R1-A4, R0, PREP-03 investment disposition | R2 sole-source cutover, selected architecture, retained fixtures; deliberately reimplement production rather than carry accidental spike scaffolding. |
+
+The detailed runnable handoff is [r1-work-package.md](r1-work-package.md). It is subordinate to this plan and the envelope. New document headings do not create new top-level R IDs. R3A freezes constitutional schemas; R3B/feature schemas still wait for implementation evidence at the relevant slices.
 
 ## R1 — Disposable portable-kernel feasibility spike
 
@@ -1005,3 +1023,9 @@ Prove a small playable experience at R6P, then ship the full chapter rather than
 The first free product gate spans **R10 + R12 (including R12A accounts/progress) plus applicable installation, signing, compatibility, store and human gates**. The first paid cartridge additionally requires R13 purchase/restore/entitlement evidence. Free experience validation and paid-product validation are different, explicit milestones.
 
 The MMORPG path exists in the architecture so that work compounds, not so it blocks shipping.
+
+## Readiness amendment implementation notes
+
+At R6, implement action-driven default time, durable accepted-attempt save, bookmark/fork lineage and referenced-package retention before UI depends on them. R6P uses both Lantern choice traces, early-possession behavior and adverse paths, including required narration recovery. Do not interpret these specification-model tests as completed P1–P6 work.
+
+At R12, include three-bookmark UX, manual export/import, released-save migration/retention fixtures and clearly separated recovery promises (10 §31–33). At R12A, include restored-report/account-lifecycle provenance (23 §11). Optional whole-save backup is not pulled into R1/R6P or made a new mandatory R13 subsystem. R13 still gates paid commerce and published support/sunset policy. The 37-capability chapter-one lock stays unchanged. The generated planning checklist now also carries the RUN public-Story gate for the newly adopted local recovery/export obligations; it does not add those UX requirements to R1/R6P or grant Realm save-import authority.

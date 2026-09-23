@@ -257,3 +257,7 @@ Implementation MUST NOT treat these as settled.
 ## 8. Account onboarding extension
 
 [Document 23](23-accounts-progress-admission.md) / ADR-063 adds a host/platform account-progress contract, not a gameplay scope or a change to the 39-concept core vocabulary. The first public release includes accounts and evidence-labeled completion synchronization. Account-wide onboarding prerequisites may accept offline reports; competitive Realm state and purchases may not. Installed Story play is independent of active login. R12A delivers the real service; R6P uses a fake adapter; R14/R15 enforce server admission. See ACCOUNT-01–12.
+
+### Readiness handoff (2026-09-22)
+
+Read [the R1 work package](r1-work-package.md) and ADR-064–067. The R1 numerical/device-class **targets are now owner-approved**, not measured. Actual setup/independent oracle review, R0 acceptance, R1 selection and R2 cutover remain gates. The composition, Lantern intent and run-lifetime amendments live in their existing governing documents, not in the earlier standalone discussion proposal.

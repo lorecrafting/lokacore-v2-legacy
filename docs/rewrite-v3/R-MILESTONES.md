@@ -85,3 +85,7 @@ For a full human review, continue with [REVIEW-GUIDE.md](REVIEW-GUIDE.md). For a
 ## R12A: accounts exist at public Story launch
 
 **[R12A](14-implementation-plan.md#r12a--launch-accounts-and-story-progress) — Launch accounts and Story progress.** This subdivision can begin in parallel with local-engine/content work. It provides registration/sign-in, recovery/deletion, real platform storage and authenticated milestone acceptance/readback before the first free public release. R6P uses a fake adapter; R13 adds purchases later. [Document 23](23-accounts-progress-admission.md) distinguishes client-reported onboarding completion from verified play or competitive rewards. Optional guest-first UX and optional full-save backup do not make launch account support optional.
+
+### Readiness handoff (2026-09-22)
+
+Read [the R1 work package](r1-work-package.md) and ADR-064–067. The R1 numerical/device-class **targets are now owner-approved**, not measured. Actual setup/independent oracle review, R0 acceptance, R1 selection and R2 cutover remain gates. The composition, Lantern intent and run-lifetime amendments live in their existing governing documents, not in the earlier standalone discussion proposal.

@@ -55,9 +55,9 @@ Read [23 — Accounts/progress/admission](23-accounts-progress-admission.md), [1
 
 ### Pass 6 — What gets implemented, and what remains undecided?
 
-Read [16 — Decisions](16-decision-register.md), [14 — Plan](14-implementation-plan.md), [15 — Acceptance scenarios](15-acceptance-scenarios.md), and the proposed [R1 envelope](r1-acceptance-envelope.md). Cross-check using [INDEX](INDEX.md) and the [contract-corpus explanation](conformance/README.md).
+Read [16 — Decisions](16-decision-register.md), [14 — Plan](14-implementation-plan.md), [15 — Acceptance scenarios](15-acceptance-scenarios.md), and the owner-approved target [R1 envelope](r1-acceptance-envelope.md). Cross-check using [INDEX](INDEX.md) and the [contract-corpus explanation](conformance/README.md).
 
-**Review questions:** Are the dependencies justified? Does a scenario actually test the claimed invariant? Are proposed thresholds distinguished from measurements? Record any missing gate rather than treating a prose example as a test result.
+**Review questions:** Are the dependencies justified? Does a scenario actually test the claimed invariant? Are approved targets distinguished from actual setup and measurements? Record any missing gate rather than treating a prose example as a test result.
 
 ### Pass 7 — Read the supporting evidence last
 
@@ -119,3 +119,7 @@ These are unresolved content findings, not new engine requirements. They are als
 For each issue, record the source revision; file and heading; the claim or behavior you are questioning; whether it is product intent, ambiguity, contradiction, missing evidence, or presentation; the smallest proposed correction; and the affected gate or decision.
 
 Use **“unresolved”** for questions you have not decided. A review note is not automatically a new requirement. Preserve stable IDs when proposing edits so existing references and acceptance cases remain traceable. The conflict rule is unchanged: conflicting normative statements require reconciliation, not silent precedence.
+
+### Readiness handoff (2026-09-22)
+
+Read [the R1 work package](r1-work-package.md) and ADR-064–067. The R1 numerical/device-class **targets are now owner-approved**, not measured. Actual setup/independent oracle review, R0 acceptance, R1 selection and R2 cutover remain gates. The composition, Lantern intent and run-lifetime amendments live in their existing governing documents, not in the earlier standalone discussion proposal.

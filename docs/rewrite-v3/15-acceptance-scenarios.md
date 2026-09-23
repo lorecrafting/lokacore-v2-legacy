@@ -38,6 +38,7 @@ Locate the scenario family for a claim. A listed scenario is a requirement/examp
 - [Z. Release assurance and orchestrated role boundaries](#z-release-assurance-and-orchestrated-role-boundaries)
 - [Audit follow-through acceptance cases](#audit-follow-through-acceptance-cases)
 - [Account and prologue progress acceptance](#account-and-prologue-progress-acceptance)
+- [Readiness closure: initial composition and run lifetime](#readiness-closure-initial-composition-and-run-lifetime)
 
 </details>
 <!-- packet-navigation:end -->
@@ -1874,3 +1875,68 @@ Explicitly withdraw a record through an authorized correction. Retry its old rep
 ### ACCOUNT-12 — Launch scope cannot be deferred to paid or Realm phases
 
 Before public free Story release require R12A real authenticated sync/storage/lifecycle/device evidence. R13 reuses its database/accounts; R14/R15 add admission. Pure Lab and R6P do not require production identity, but both test local milestone/retry behavior. No account gameplay StateScope is introduced.
+
+## Readiness closure: initial composition and run lifetime
+
+These scenarios extend existing RECEIPT/ATTEMPT/QST/COMPAT/ACCOUNT families without replacing their known answers. The new Python examples cover only the explicitly listed abstract contracts; all host/UI/save evidence remains required at its owning milestone.
+
+### COMPOSE-01 — Root sequence, FIFO and semantic ordering
+
+Emit an event then change the root overlay. A current-overlay guard observes the completed root sequence; an event-payload guard observes the earlier payload. Child events append behind already queued events. Reordering source files/rule input order does not change canonical registry dispatch; reversing an explicit operation sequence does change semantics. Two distinct events are not deduped as one transaction delivery. Evidence: composition known answers now; selected-host bytes at R1, compiled expansion/source maps at R3/R4.
+
+### COMPOSE-02 — Activation position precedes credit
+
+Emit acquisition before activation, then activate before dispatch. Strict event credit is denied. Activate then emit permits credit. Explicit current-possession credit recognizes an earlier-acquired item without replaying history. Preserve Tiny's separate event/state cases and R6P's declared possession intent. Evidence: model cases now; actual narrative/reaction integration at R7/R6P.
+
+### COMPOSE-03 — Independent conflicts and aggregate invariants
+
+Opposite or identical independent assignments cannot use registry order as last-writer-wins. Explicit same-group legal transitions may compose. Competing destinations cannot duplicate an item; different items still obey container capacity and acyclic containment. A mid-sequence fault leaves all input state unchanged and publishes no provisional event. Source-map diagnostics identify both writers. Evidence: bounded model examples now; actual operation registry, conservation properties and SQLite commit faults at R3/R5/R6.
+
+### COMPOSE-04 — Shared fuel and legitimate waiting
+
+A child reaction cannot reset aggregate fuel. Immediate cycles exhaust a declared cap with full rollback. Selector all-matches overflow fails, never silently truncates. New jobs must be later than current time, or later than the requested target during a bounded advance. Pending jobs, due jobs, created jobs and automatic scene advances each have caps; an already-true wait cannot escape to fresh fuel forever. Legitimate cycles across new external inputs still work. Evidence: selected abstract budget/job/selector cases now; real advance/scene/scheduler and fairness cases at R1/R7/R8.
+
+### COMPOSE-05 — Engine events and author authority
+
+Unknown operation/policy/event/scope fails closed. Declaring the schema of an engine-owned event does not grant emission permission. Unknown capability produces an actionable escalation, not generic state writes or engine-source access. Preview leaves live RNG/state unchanged and private-state diagnostics are redacted. Evidence: abstract unknown-operation/policy/emission checks now; compiler/grants/preview/security at R3/R4/R11.
+
+### COMPOSE-06 — Lantern choice recovery
+
+Run both frozen four-place traces. Test early pickup, dropping the item, Bram moving, closing a stale interaction, duplicate/altered choice IDs and stale NEW views. Crash before commit, after commit before memory, and before narrative display. Recover one coherent narration/milestone without repeating transfer or resurrecting a consumed choice. General evaluator integration must match the hand-authored cases; a special story-specific Python model is not P4/P6 completion. Evidence: model examples now; real compiler/SQLite/mobile/human proof at R6P.
+
+### RUN-01 — Reading and absence do not advance default Story time
+
+Read slowly, resize text, view history, background and return after a week. Default Story clock/RNG/consequences do not advance. Explicit action costs/wait do; a later real-elapsed profile is disclosed and separately certified. Evidence: abstract look check now; actual lifecycle/UI at R6/R12.
+
+### RUN-02 — Bookmarks and package retention
+
+Create three named bookmarks, update the app, and run package garbage collection offline. Current save, bookmarks and recovery copies retain every required release/capability dependency. A deliberate old-branch restore creates a new lineage; same-state recovery/retry does not. A completed-account badge is not treated as a backup. Evidence: real storage/package/UI integration at R6/R12, not implemented by this model amendment.
+
+### RUN-03 — Interrupted migration and missing dependency
+
+Inject failure before/after migration staging, validation and atomic head adoption. The original save remains recoverable; no partial new head is used. Missing packages or unsupported versions preserve the working run and produce a precise recovery error. Every released public save/continuation shape has a fixture before breaking app release. Evidence: real local migration/release compatibility tests at R6/R12.
+
+### RUN-04 — Hostile export import and privacy
+
+Export contains no tokens or purchase grant. Import malformed/oversized/unknown-version/cross-account payloads in isolation; no live head changes before validation. A valid checksum is not honest-play evidence. A blank device lacking the cartridge receives a dependency error rather than a false offline-restore promise. Evidence: real import/security tests before first public Story release at R12.
+
+### RUN-05 — Forked milestones retain provenance
+
+Restore a bookmark with already accepted or pending milestone history. Preserve the original occurrence/report/run/account identity for inherited history; genuinely new post-fork occurrences use the new run. Do not regrant, rebind, resurrect deleted accounts/withdrawn eligibility or let report order choose the campaign branch. Extend ACCOUNT-01–12 with actual restore/fork integration at R6/R12A; existing account-model passes alone are insufficient.
+
+### RUN-06 — Optional snapshot backup divergence
+
+Only when backup is delivered: concurrently continue two offline snapshots, upload out of order, delete/replace a backup and replay stale uploads. Preserve divergent branches and use causal latest-pointer checks; no last-writer-wins world merge or resurrection. Quota/outage does not erase the only working local state or disable offline play. Evidence: optional-backup integration/release tests, not an R1/R6P prerequisite.
+
+### READY-01 — Incomplete setup cannot authorize candidate work
+
+The checked-in empty setup template must fail `--require-ready`. Missing real device/SKU/OS/toolchain pins, accepted R0 commit/cutover, exact retained inputs or independent review receipts fail preparation. Reject changed hashes, different setup after review, unknown fields/statuses, version ranges and candidate-author self-review presented as independent. A complete synthetic temporary record tests structure only; it is not hardware, identity or R1 evidence. Evidence: manifest validator cases now; actual reviewed setup at PREP-02.
+
+### READY-02 — Gate separation and candidate selection
+
+Owner-approved thresholds plus green Python checks cannot become selected runtime, production-repository authorization, physical-device pass, store approval or chapter release. A receives all applicable actual-host gates. Failures remain visible; B/C are evaluated only in order and unmeasured candidates are not ranked. R0/R1/R2 records are distinct, with exact cutover authority. Evidence: reviewed setup/result/selection/cutover records at PREP-02/R1/R2.
+
+
+### COMPOSE-07 — Due-set cancellation and reaction visibility
+
+An explicit advance includes job A followed by job B. A's reaction cancels B's snapshotted occurrence or reschedules it beyond the target. The authority drains A's reactions before testing B's current occurrence/generation; B's stale snapshot entry does not run. Also test a later job reading a fact established by an earlier job's reaction, shared budget exhaustion after an earlier job, and conflicting independent writes. Faults preserve the entire pre-advance state/time and expose no partial receipt. Evidence: actual scheduler/capability conformance at R1/R6/R8 as applicable; the current Python scheduling-operation example does not implement this scheduler.

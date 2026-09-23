@@ -38,6 +38,7 @@ Read sections 1-3 and 24-26 for composition/graduation. Check release scope befo
 - [26. Choosing the right composition shape](#26-choosing-the-right-composition-shape)
 - [27. Additional immersive-world capability candidates](#27-additional-immersive-world-capability-candidates)
 - [28. Capabilities graduated by the first cartridge](#28-capabilities-graduated-by-the-first-cartridge)
+- [29. Readiness subset and author decision guide](#29-readiness-subset-and-author-decision-guide)
 
 </details>
 <!-- packet-navigation:end -->
@@ -1631,3 +1632,9 @@ Two rules apply to every row:
 
 1. none of these introduce a second mutation path; each is Actions, ReactionRules, Behaviors, Services, or derived state over existing authority contracts;
 2. a later cartridge that does not pull a capability here does not pay for it; the certification registry's capability-triggered class (document 09 §20) scopes its gates to cartridges whose lock includes it.
+
+## 29. Readiness subset and author decision guide
+
+The initial executable subset follows 04 §5.2–5.5, not the entire candidate catalog above. Use a pure query/derived description when nothing must be remembered; a typed fact for distinct narrative history; an ActionRecipe for one bounded immediate verb; a reaction for a registered event; a quest/scene/job for persisted continuation. Reuse a named source-mapped recipe before requesting a new capability. R6P's two choices exercise the same registered transfers, lifecycle transitions and facts. A shrine offering or witness testimony can be a paper-level second composition example; a scarce smithy queue still waits for its actual capacity/job capability rather than being faked with generic setters.
+
+Capabilities graduate on demonstrated need, coherent reusable semantics, bounded execution, clear ownership, migration/invariant fixtures and author diagnostics. This amendment does not expand the chapter-one capability lock or make any future catalog family an R1 prerequisite.

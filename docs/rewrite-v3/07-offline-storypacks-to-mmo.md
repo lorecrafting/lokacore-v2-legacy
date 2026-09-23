@@ -5,7 +5,7 @@
 
 **Reader context:** Design contract: two authority modes and portability.
 
-Read sections 1-14 for the shared boundary, then continuity and Realm reuse. The experiment envelope remains proposed.
+Read sections 1-14 for the shared boundary, then continuity and Realm reuse. The target envelope is owner-approved; exact setup and measured acceptance remain pending.
 
 <details>
 <summary>Sections in this document</summary>
