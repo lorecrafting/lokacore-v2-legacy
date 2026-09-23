@@ -145,3 +145,137 @@ Publication uses GitHub tree/commit/ref APIs because local GitHub DNS resolution
 failed; this is not a claim of a local `git push`. The new branch starts from the
 main SHA above; no merged branch is resumed and no production repository is made.
 **R0/PREP-02 stay pending; R1-A1 has not started.**
+
+## Post-PR-12 dependency evidence
+
+Starting main: `4a9f60c9040b3582fa79c39916307eab15c76e1b`; reviewed #12 head:
+`367274e0c7ef942dd1c11e8b2eb79058cce24040`. GitHub comparison reports identical
+files/trees. The proposed R0 contract stays
+`9567117404f635c803373d9957050fd8ec50f334`; its proposal bytes and the oracle
+record are unchanged. No later PR, separate R0 acceptance or actual device/setup
+approval was found in the inspected records/discussions. The explicit owner
+merge confirmation is not an acceptance record.
+
+### Baseline execution versus inspected historical CI
+
+The #12 source artifact `10740930231` was downloaded and checked against archive
+SHA-256 `a7a97b3a4c1106520492db0ec1b864e7f78d8f0304ffb62f5b51f859897bcbfc`.
+Its exact head marker and the no-file-change comparison establish the editing
+baseline. Local Python reproduced **98 passing tests before edits**; scope,
+navigation and blank-template integrity checks passed. Both the blank and real
+pending manifests returned controlled readiness exit **1** separately.
+
+The already completed [#12 run 35838639056](https://github.com/lorecrafting/lokacore/actions/runs/35838639056),
+job `107108111450`, was inspected, not rerun or described as a new local result.
+Its retained logs show 98 Python tests, 18 default ExUnit tests with one
+comparison excluded, and 19 with comparison enabled; formatting, compilation,
+template checks and the two expected Mix rejections passed on tooling-only
+Elixir 1.20.4 / full OTP 28.4 / ERTS 16.3.
+
+This editing environment was reassessed: Python 3.13.5, Node 22.16.0, npm 10.9.2
+and Java are available; Mix/Elixir/OTP, Xcode, adb/sdkmanager and Gradle are not.
+Direct GitHub/npm DNS resolution fails locally. Local native, Mix and online
+npm commands are **unavailable**, not passing. Hosted resolution below uses a
+different, explicitly recorded Node version. No local qualification is claimed.
+
+### Actual hosted dependency resolution and retained bytes
+
+[Capture run 35840888616](https://github.com/lorecrafting/lokacore/actions/runs/35840888616)
+completed successfully: resolver job `107115388625` and retention job
+`107115659050`. Capture source commit:
+`b16ab5508248bec53ae98765f950e4ad8178bd37`. The retention job performed a real
+`git push` to its bounded temporary branch, yielding evidence commit
+`00971d3ebb7b9688d894b690292e0443251de2c9`. Neither temporary commit is a parent
+of the focused follow-up; only the verified evidence blobs are imported.
+
+Artifact `10741271537` was downloaded, verified against archive SHA-256
+`0896d8544eaa146fb615a51f9605116d736a9c1ab8116968187de58a2bf5d429`, and its
+nine file hashes checked. The ten retained files include those nine inputs plus
+`SHA256SUMS`. Package manifest SHA-256:
+`fb8f8395be872f7ff0fbfc76a6bb9e644c552daa9bfa9770c8272a839098d9d3`.
+Package lock SHA-256:
+`18ac7c91f854dcd55480dea15b57c52afa0d674863ce4d620221926b99644359`.
+Both files are byte-identical to the first capture, before the excerpt fix below.
+
+The full [resolution transcript](dependency-evidence/resolution.log),
+[executed capture source](dependency-evidence/capture-workflow.yml.txt),
+[upstream template](dependency-evidence/expo-template-package.json),
+[SDK recommendations](dependency-evidence/expo-bundledNativeModules.json),
+[runtime output](dependency-evidence/runtime.txt) and
+[installed top-level graph](dependency-evidence/npm-ls.json) are retained, not
+reconstructed from remembered versions. The lock is format 3 with 479 package
+entries including the root; the Linux installs each reported 468 packages.
+
+| Executed hosted command / check | Result |
+|---|---|
+| SDK 57 template and Expo package metadata capture; range-to-exact `npm view` resolution | Pass; direct dependencies match captured SDK recommendations and template ranges |
+| `npm install --package-lock-only --ignore-scripts --no-audit --no-fund` | Pass; actual lock generated with Node 24.21.0 / npm 11.19.0 |
+| `npm ci --ignore-scripts --no-audit --no-fund` in each of two clean directories | Both pass; no package lifecycle scripts run |
+| `npm ls --all` and `node node_modules/expo/bin/cli install --check` in each directory | Both pass; full graph command exits 0; full tree stdout discarded, top-level JSON retained |
+| `node node_modules/typescript/bin/tsc --version` | 6.0.3 |
+| Lock SHA-256 check after first install; `cmp` after clean replay | Identical bytes |
+| Fixed file-set, regular-file/size checks and `sha256sum -c SHA256SUMS` before retention | Pass |
+| Hosted `git diff --cached --check` and temporary-branch push | Pass after the excerpt-format correction |
+
+No app was generated and no gameplay/BEAM adapter, native project, native
+lockfile, release build, database transaction or physical measurement was run.
+The default SQLite and SQLCipher header versions, Hermes variant labels and
+Android Gradle Plugin metadata are only source observations, not executed engine
+or toolchain identities. `uuid@7.0.3`'s deprecation warning is preserved; no
+vulnerability audit was run. No dependency override hides the warning.
+
+### Failure retained rather than counted as success
+
+The first [capture run 35840456743](https://github.com/lorecrafting/lokacore/actions/runs/35840456743)
+had a successful resolver job `107114001453`, but retention job `107114260140`
+failed `git diff --cached --check` (exit 2): numbered blank source lines ended
+with a space. No commit/push occurred in that job. The excerpt printer now trims
+trailing whitespace from the displayed numbered lines. SHA-256 values still
+identify the original source bytes, and the package manifest/lock did not change.
+The second run above repeated resolution, both installs and publication
+successfully. The first run as a whole is **not** reported as a pass.
+
+### Post-edit checks, binding update and review limits
+
+Local post-edit commands: the same 98-test Python suite, scope/navigation and
+`readiness.py --check-template` pass; each `--require-ready` probe on the blank
+and real pending setup separately returns exit 1 with the pending diagnostic.
+`git diff --check` includes the newly added evidence files. The follow-up's
+exact-head hosted specification CI is separate from the historical #12 run and
+is reported on the PR; it is not replaced by the dependency capture.
+
+Programmatic self-review verifies all 11 preserved hashes, the exact seven
+setup inputs/order, three evidence-reference hashes and the setup digest.
+The five populated fields exactly match the retained package/lock/runtime
+outputs; the other nine and the complete-lock reference remain null. New digest:
+`3ac484c71e4ae2a9606dd2bc74cac39ca391a13023f46ffd5cd8601e77a07ab5`.
+The pending setup-review reference hash is
+`8f20cd0cdbae98430bbf5f8ac83b107f8fd55e7a624bb08d48097b5a4a549b2d`.
+This rebinding does not create or renew an approval.
+
+Adversarial self-review checks a status-only relabel of the actual pending setup
+(still rejected for missing accepted commit), wrong retained-reference hashes
+(rejected), a changed populated version (changes the setup digest), and mutated
+lock bytes (fail the retained checksum). These use copies or in-memory values;
+no synthetic acceptance, hardware or approval is written into the real records.
+Direct package versions have no ranges; lock entries use registry HTTPS tarball
+URLs with integrity fields. The package has no app entrypoint or lifecycle
+scripts. No native/plugin configuration was inferred from this absence.
+
+The implementing ChatGPT assistant authored the capture and evidence integration
+and performed self-review, corrections and adversarial self-review. The hosted
+bot executed/published the capture; GitHub account attribution does not identify
+an independent reviewer or prove owner consent. Existing author/reviewer identity
+fields remain incomplete pending attributable records. A new session, language,
+role or successful second installation is not an independent oracle/setup review.
+
+Only the evidence bundle, existing preparation README, setup/setup-review pending
+bindings and this validation record change. The R0 proposal, expected-answer
+record, 11 locked inputs, 7 setup inputs, checkers, tests, tooling pins and
+permanent workflow are unchanged. Production/legacy code and real data are
+untouched. Remote integration uses a clean tree/commit/ref update on the fresh
+follow-up branch from actual main; local Git is only a validation snapshot and
+is not presented as a pushed main-ancestry checkout. No auto-merge.
+
+**PREP-02 now has a replayed JavaScript lock, not a complete native setup.
+R0 and independent reviews remain pending. R1-A1 has not started.**

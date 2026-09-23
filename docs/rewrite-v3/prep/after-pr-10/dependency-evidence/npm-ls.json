@@ -1,0 +1,36 @@
+{
+  "version": "0.0.0",
+  "name": "loka-r1-a-dependency-evidence",
+  "dependencies": {
+    "@types/react": {
+      "version": "19.2.18",
+      "resolved": "https://registry.npmjs.org/@types/react/-/react-19.2.18.tgz",
+      "overridden": false
+    },
+    "expo-sqlite": {
+      "version": "57.0.3",
+      "resolved": "https://registry.npmjs.org/expo-sqlite/-/expo-sqlite-57.0.3.tgz",
+      "overridden": false
+    },
+    "expo": {
+      "version": "57.0.24",
+      "resolved": "https://registry.npmjs.org/expo/-/expo-57.0.24.tgz",
+      "overridden": false
+    },
+    "react-native": {
+      "version": "0.86.3",
+      "resolved": "https://registry.npmjs.org/react-native/-/react-native-0.86.3.tgz",
+      "overridden": false
+    },
+    "react": {
+      "version": "19.2.3",
+      "resolved": "https://registry.npmjs.org/react/-/react-19.2.3.tgz",
+      "overridden": false
+    },
+    "typescript": {
+      "version": "6.0.3",
+      "resolved": "https://registry.npmjs.org/typescript/-/typescript-6.0.3.tgz",
+      "overridden": false
+    }
+  }
+}

@@ -1,0 +1,173 @@
+Packaged source metadata only. NOT executed Hermes, SQLite, Gradle, JDK, Xcode or a native lock.
+
+FILE node_modules/react-native/sdks/.hermesversion
+SHA256 5bdde0c2a3bf8b9a6df20ed87130fdff5945f8f32d8152165b8af8b14ff0ebab
+1: hermes-v0.17.0
+
+FILE node_modules/react-native/sdks/hermes-engine/version.properties
+SHA256 3b83e21d08ae2c2c1e77e747545f89f381020d5cb11d8496b215cbffa900a750
+1: HERMES_VERSION_NAME=0.17.0
+2: HERMES_V1_VERSION_NAME=250829098.0.17
+3:
+
+FILE node_modules/react-native/ReactAndroid/gradle.properties
+SHA256 901e87a253abed42f00e06c730f74641d442606aa061e58024968a02f87de5ad
+1: VERSION_NAME=0.86.3
+2: react.internal.publishingGroup=com.facebook.react
+3: react.internal.hermesPublishingGroup=com.facebook.hermes
+4:
+5: android.useAndroidX=true
+6:
+7: # We want to have more fine grained control on the Java version for
+8: # ReactAndroid, therefore we disable RGNP Java version alignment mechanism
+9: react.internal.disableJavaVersionAlignment=true
+10:
+11: # Binary Compatibility Validator properties
+12:
+13: # We ignore:
+14: # - BuildConfig classes because they are generated and not part of the public API
+15: binaryCompatibilityValidator.ignoredClasses=com.facebook.react.BuildConfig,\
+16:   com.facebook.react.views.progressbar.ReactProgressBarViewManager$$PropsSetter,\
+17:   com.facebook.react.views.progressbar.ProgressBarShadowNode$$PropsSetter
+18:
+19: binaryCompatibilityValidator.ignoredPackages=com.facebook.debug,\
+20:   com.facebook.fbreact,\
+21:   com.facebook.hermes,\
+22:   com.facebook.perftest,\
+23:   com.facebook.proguard,\
+24:   com.facebook.react.bridgeless.internal,\
+25:   com.facebook.react.common.annotations,\
+26:   com.facebook.react.fabric.internal.interop,\
+27:   com.facebook.react.flipper,\
+28:   com.facebook.react.internal,\
+29:   com.facebook.react.module.processing,\
+30:   com.facebook.react.processing,\
+31:   com.facebook.react.runtime.internal,\
+32:   com.facebook.react.uimanager.internal,\
+33:   com.facebook.react.views.text.internal,\
+34:   com.facebook.systrace,\
+35:   com.facebook.yoga
+36: binaryCompatibilityValidator.nonPublicMarkers=com.facebook.react.common.annotations.VisibleForTesting,\
+37:   com.facebook.react.common.annotations.UnstableReactNativeAPI,\
+38:   com.facebook.react.common.annotations.FrameworkAPI
+39: binaryCompatibilityValidator.validationDisabled=true
+40: binaryCompatibilityValidator.outputApiFileName=ReactAndroid
+41:
+
+FILE node_modules/react-native/gradle/libs.versions.toml
+SHA256 0fbabedc2b772460dea0f516f903a940026f7e35985eb7e257216732acd63e7e
+1: [versions]
+2: # Android versions
+3: minSdk = "24"
+4: targetSdk = "36"
+5: compileSdk = "36"
+6: buildTools = "36.0.0"
+7: ndkVersion = "27.1.12297006"
+8: # Dependencies versions
+9: agp = "8.12.0"
+10: androidx-annotation = "1.6.0"
+11: androidx-appcompat = "1.7.0"
+12: androidx-autofill = "1.3.0"
+13: androidx-benchmark-macro-junit4 = "1.3.3"
+14: androidx-profileinstaller = "1.4.1"
+15: androidx-swiperefreshlayout = "1.1.0"
+16: androidx-test = "1.5.0"
+17: androidx-test-junit = "1.2.1"
+18: androidx-tracing = "1.1.0"
+19: androidx-window = "1.5.1"
+20: assertj = "3.21.0"
+21: binary-compatibility-validator = "0.13.2"
+22: download = "5.4.0"
+23: espresso-core = "3.6.1"
+24: fbjni = "0.7.0"
+25: fresco = "3.6.0"
+26: infer-annotation = "0.18.0"
+27: javax-annotation-api = "1.3.2"
+28: javax-inject = "1"
+29: jsc-android = "2026004.0.1"
+30: jsr305 = "3.0.2"
+31: junit = "4.13.2"
+32: kotlin = "2.1.20"
+33: ktfmt = "0.22.0"
+34: mockito = "3.12.4"
+35: mockito-kotlin = "3.2.0"
+36: nexus-publish = "2.0.0"
+37: okhttp = "4.9.2"
+38: okio = "2.9.0"
+39: robolectric = "4.15.1"
+40: soloader = "0.12.1"
+41: uiautomator = "2.3.0"
+42: xstream = "1.4.20"
+43: yoga-proguard-annotations = "1.19.0"
+44: # Native Dependencies
+45: boost="1_83_0"
+46: doubleconversion="1.1.6"
+47: fastFloat="8.0.0"
+48: fmt="12.1.0"
+49: folly="2024.11.18.00"
+50: glog="0.3.5"
+51: gflags="2.2.0"
+52: nlohmannjson="3.11.2"
+53:
+54: [libraries]
+55: androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "androidx-annotation" }
+56: androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
+57: androidx-appcompat-resources = { module = "androidx.appcompat:appcompat-resources", version.ref = "androidx-appcompat" }
+58: androidx-autofill = { module = "androidx.autofill:autofill", version.ref = "androidx-autofill" }
+59: androidx-benchmark-macro-junit4 = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "androidx-benchmark-macro-junit4" }
+60: androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
+61: androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-junit" }
+62: androidx-profileinstaller = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "androidx-profileinstaller" }
+63: androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "androidx-swiperefreshlayout" }
+64: androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-test" }
+65: androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test" }
+66: androidx-tracing = { module = "androidx.tracing:tracing", version.ref = "androidx-tracing" }
+67: androidx-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "uiautomator" }
+68: androidx-window = { module = "androidx.window:window", version.ref = "androidx-window" }
+69:
+70: fbjni = { module = "com.facebook.fbjni:fbjni", version.ref = "fbjni" }
+71: fresco = { module = "com.facebook.fresco:fresco", version.ref = "fresco" }
+72: fresco-middleware = { module = "com.facebook.fresco:middleware", version.ref = "fresco" }
+73: fresco-imagepipeline-okhttp3 = { module = "com.facebook.fresco:imagepipeline-okhttp3", version.ref = "fresco" }
+74: fresco-ui-common = { module = "com.facebook.fresco:ui-common", version.ref = "fresco" }
+75: infer-annotation = { module = "com.facebook.infer.annotation:infer-annotation", version.ref = "infer-annotation" }
+76: soloader = { module = "com.facebook.soloader:soloader", version.ref = "soloader" }
+77: yoga-proguard-annotations = { module = "com.facebook.yoga:proguard-annotations", version.ref = "yoga-proguard-annotations" }
+78:
+79: jsr305 = { module = "com.google.code.findbugs:jsr305", version.ref = "jsr305" }
+80: okhttp3-urlconnection = { module = "com.squareup.okhttp3:okhttp-urlconnection", version.ref = "okhttp" }
+81: okhttp3 = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+82: okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
+83: javax-inject = { module = "javax.inject:javax.inject", version.ref = "javax-inject" }
+84: javax-annotation-api = { module = "javax.annotation:javax.annotation-api", version.ref = "javax-annotation-api" }
+85: jsc-android = { module = "io.github.react-native-community:jsc-android", version.ref = "jsc-android" }
+86:
+87: junit = {module = "junit:junit", version.ref = "junit" }
+88: assertj = {module = "org.assertj:assertj-core", version.ref = "assertj" }
+89: mockito = {module = "org.mockito:mockito-inline", version.ref = "mockito" }
+90: mockito-kotlin = {module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
+91: robolectric = {module = "org.robolectric:robolectric", version.ref = "robolectric" }
+92: thoughtworks = {module = "com.thoughtworks.xstream:xstream", version.ref = "xstream" }
+93:
+94: [plugins]
+95: android-application = { id = "com.android.application", version.ref = "agp" }
+96: android-library = { id = "com.android.library", version.ref = "agp" }
+97: download = { id = "de.undercouch.download", version.ref = "download" }
+98: ktfmt = { id = "com.ncorti.ktfmt.gradle", version.ref = "ktfmt" }
+99: nexus-publish = { id = "io.github.gradle-nexus.publish-plugin", version.ref = "nexus-publish" }
+100: kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+101: binary-compatibility-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary-compatibility-validator" }
+102: android-test = { id = "com.android.test", version.ref = "agp" }
+103:
+
+FILE node_modules/expo-sqlite/vendor/sqlcipher/sqlite3.h
+SHA256 3c6356d8cf67ed92522114559cdcba1b38b39eab05e9f5989c1758b8eacef5b9
+149: #define SQLITE_VERSION        "3.49.1"
+150: #define SQLITE_VERSION_NUMBER 3049001
+151: #define SQLITE_SOURCE_ID      "2025-02-18 13:38:58 873d4e274b4988d260ba8354a9718324a1c26187a4ab4c1cc0227c03d0f1alt1"
+
+FILE node_modules/expo-sqlite/vendor/sqlite3/sqlite3.h
+SHA256 0d247fd5e5e2fd602f427227bae7bf6349dd3322d6090d9751b21b5b3f51db62
+149: #define SQLITE_VERSION        "3.50.3"
+150: #define SQLITE_VERSION_NUMBER 3050003
+151: #define SQLITE_SOURCE_ID      "2025-07-17 13:25:10 3ce993b8657d6d9deda380a93cdd6404a8c8ba1b185b2bc423703e41ae5f2543"
