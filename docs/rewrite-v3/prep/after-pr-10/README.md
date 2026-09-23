@@ -1,7 +1,8 @@
 # R0 / PREP-02: staged preparation after PR #13
 
 Starting main: `037e6513f882b25512928aab5883f8545b58fc84` (merged PR #13).
-The historical base R0 proposal remains
+The R0 proposal now targets `e1e01772bcd19dab36243d63dd3fd920fbb13805`,
+retargeted at the owner's request from the unaccepted historical base
 `9567117404f635c803373d9957050fd8ec50f334`; its record is not acceptance.
 Unlike PR #13's dependency-only evidence, this follow-up deliberately amends
 normative sequencing and the initial iOS qualification target. An eventual R0
@@ -32,13 +33,13 @@ and policy work remain parallel; its investment disposition is due at A5/R2,
 not an extra A1 gate. Production remains clean-room at R2; the public chapter is
 57 rooms, ten quests and two endings, with the four-place R6P still later.
 
-## Existing R0 decision remains separate
+## R0 decision remains separate
 
-The original [R0 proposal](r0-acceptance.pending.json) names the 19 normative
-files and preserves all 67 qualified ADR dispositions at its historical base.
+The [R0 proposal](r0-acceptance.pending.json) names the 19 normative files and
+preserves all 67 qualified ADR dispositions, unchanged from the historical base.
 Its decision, quoted below, has not been adopted in the inspected evidence:
 
-> I accept `9567117404f635c803373d9957050fd8ec50f334` as the R0 contract under
+> I accept `e1e01772bcd19dab36243d63dd3fd920fbb13805` as the R0 contract under
 > the normative file set, qualified ADR dispositions, remaining gates,
 > amendment authority and fresh-repository cutover rule proposed in
 > `prep/after-pr-10/r0-acceptance.pending.json`. Provisional, deferred and
@@ -46,9 +47,8 @@ Its decision, quoted below, has not been adopted in the inspected evidence:
 > result, qualification hardware, expected answers/setup, store submission or
 > production implementation.
 
-That is the historical base proposal, not a new proposal and not sufficient by
-itself to authorize a later amended A1 contract. Retain explicit owner acceptance
-of the reviewed amended revision when given. Until then its `disposition`,
+The proposed commit includes the staged A1/A2 amendment and envelope v0.5.
+Retain explicit owner acceptance of that exact commit when given. Until then its `disposition`,
 `accepted_spec_commit`, `reviewer_id` and `owner_decision_source` stay pending/null.
 Do not retarget the old proposal merely because evidence or a PR was merged.
 The exact fresh production URL/import commit is an R2 record, not needed now.
