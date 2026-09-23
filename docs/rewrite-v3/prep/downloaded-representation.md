@@ -49,7 +49,7 @@ classification risk**. Recommendation: retain the disposable feasibility scope;
 do not scale expensive production content investment on an assumption of store
 acceptance. PREP-03 can proceed in parallel with R1, but its investment disposition
 is required before R1-A5/R2 as specified in the work package. It does not waive
-PREP-02 and does not favor Rust or all-Elixir over candidate A.
+PREP-02 and does not favor any candidate; ADR-068 sets the test order C, B, A.
 
 The owner should record one explicit disposition against the exact proposed
 payload/build: accept the documented investment risk with a retained review

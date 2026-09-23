@@ -92,7 +92,7 @@ rejected options and security boundaries. This correction preserves
 the reviewed envelope byte-for-byte. The current envelope's M1+/16 GB host row
 has **not** been changed to a hosted runner, and no actual setup observation or
 approval is replaced by this preference. CI specification checks can run now;
-candidate A1 still needs the accepted, explicitly amended/reviewed host setup.
+R1-A1 still needs the accepted, explicitly amended/reviewed host setup.
 
 ## Hosted A1 execution evidence (proposed envelope v0.5)
 
@@ -207,4 +207,4 @@ All four real-pending probes must currently reject; so must the four blank-templ
 probes. Omitting `--stage` remains strict A2. No weak default or synthetic receipt
 is introduced. Only truthful A1 approval-backed readiness unlocks semantic work;
 only full reviewed A2 preparation unlocks actual-host integration. A1 success is
-not a documented A failure and cannot authorize B/C or production.
+not a documented C failure and cannot authorize B/A or production.

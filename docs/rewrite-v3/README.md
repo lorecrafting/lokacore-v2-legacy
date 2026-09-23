@@ -202,14 +202,14 @@ The rebuild MUST use the strengths of Elixir/OTP intentionally:
 
 The rebuild MUST NOT turn every room, item, quest, or NPC into a GenServer merely because the BEAM makes processes cheap.
 
-The online authority/orchestration layer SHOULD remain idiomatic Elixir/OTP. Rules that must execute both offline and online MUST follow the portable deterministic semantic contract selected by R1. R1 tests A (one TypeScript kernel) first, B (one Rust kernel) only if A fails, and C (dual Elixir/TypeScript) if B fails. No execution strategy is selected before its applicable gates pass; golden conformance preserves the same semantic contract for every candidate. Server-only orchestration and capability adapters remain Elixir.
+The online authority/orchestration layer SHOULD remain idiomatic Elixir/OTP. Rules that must execute both offline and online MUST follow the portable deterministic semantic contract selected by R1. R1 tests C (dual Elixir/TypeScript with randomized differential testing) first, B (one Rust kernel) only if C fails, and A (one TypeScript kernel) if B fails (ADR-068). No execution strategy is selected before its applicable gates pass; golden conformance preserves the same semantic contract for every candidate. Server-only orchestration and capability adapters remain Elixir.
 
 ## 6. Working top-level decisions
 
 | Topic | Current draft direction |
 |---|---|
 | Online language/runtime | Elixir on BEAM/OTP |
-| Portable offline rules | One deterministic portable semantic contract; the shared-kernel candidate is chosen by the R1 spike, with dual-implementation golden conformance as the fallback |
+| Portable offline rules | One deterministic portable semantic contract; R1 tests dual Elixir/TypeScript implementations with golden conformance and randomized differential testing first, then a shared Rust or TypeScript kernel (ADR-068) |
 | Server UI/API | Phoenix |
 | Mobile | One React Native / Expo app with strict Story Mode (local authority) and Realm Mode (remote BEAM authority) session boundaries |
 | Persistence | PostgreSQL for online/platform durability when those phases arrive; offline Story saves use local SQLite |
@@ -232,7 +232,7 @@ The online authority/orchestration layer SHOULD remain idiomatic Elixir/OTP. Rul
 
 Two choices remain deliberately provisional rather than being papered over by the specification:
 
-1. **portable kernel technology/binding** — three candidates (A one TypeScript kernel, B one Rust kernel, C dual Elixir/TypeScript implementation) are compared against `r1-acceptance-envelope.md`; A is built first, and none is selected before the spike;
+1. **portable kernel technology/binding** — three candidates (A one TypeScript kernel, B one Rust kernel, C dual Elixir/TypeScript implementation) are compared against `r1-acceptance-envelope.md`; C is built first (ADR-068), and none is selected before the spike;
 2. **App Store treatment of downloadable rule content** — the product requires downloadable offline stories, but the exact bounded rule representation must survive current store-review constraints.
 
 Implementation MUST NOT treat either provisional choice as settled before its evidence gate passes.

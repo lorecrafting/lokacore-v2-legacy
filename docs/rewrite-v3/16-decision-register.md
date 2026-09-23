@@ -75,10 +75,11 @@ Accepted design direction is not R0 approval or implementation completion. Provi
 - [ADR-061 — Conformance cartridge and first product cartridge have different jobs](#adr-061--conformance-cartridge-and-first-product-cartridge-have-different-jobs)
 - [ADR-062 — Accepted v3 specification cuts over to one implementation-era authority](#adr-062--accepted-v3-specification-cuts-over-to-one-implementation-era-authority)
 - [ADR-063 — Launch accounts and onboarding-only Story progress](#adr-063--launch-accounts-and-onboarding-only-story-progress)
-- [ADR-064 — Approved R1 targets, A-first, explicit preparation gate](#adr-064--approved-r1-targets-a-first-explicit-preparation-gate)
+- [ADR-064 — Approved R1 targets and explicit preparation gate](#adr-064--approved-r1-targets-and-explicit-preparation-gate)
 - [ADR-065 — Precise initial composition and content evidence](#adr-065--precise-initial-composition-and-content-evidence)
 - [ADR-066 — Initial run lifetime and local recovery](#adr-066--initial-run-lifetime-and-local-recovery)
 - [ADR-067 — Bounded start, early representation review, no speculative expansion](#adr-067--bounded-start-early-representation-review-no-speculative-expansion)
+- [ADR-068 — Candidate C first, with randomized differential testing](#adr-068--candidate-c-first-with-randomized-differential-testing)
 
 </details>
 <!-- packet-navigation:end -->
@@ -152,7 +153,7 @@ Offline competitive/economic state is not trusted as MMO authority.
 
 Preferred direction: one portable deterministic kernel shared by offline mobile and online BEAM hosts.
 
-R1 compares three candidates against a pre-registered envelope: (A) one TypeScript kernel native in React Native and reached from BEAM through a Port; (B) one Rust kernel behind a pre-registered NIF/isolated-worker BEAM boundary and native mobile bindings; (C) dual Elixir/TypeScript implementations with golden-vector conformance.
+R1 compares three candidates against a pre-registered envelope: (A) one TypeScript kernel native in React Native and reached from BEAM through a Port; (B) one Rust kernel behind a pre-registered NIF/isolated-worker BEAM boundary and native mobile bindings; (C) dual Elixir/TypeScript implementations with golden-vector conformance and randomized differential testing. ADR-068 sets the order C, then B, then A.
 
 Must pass the R1 feasibility spike before freeze. Whichever strategy is selected, the portable semantic contract and conformance obligation are the same.
 
@@ -815,11 +816,11 @@ Designated offline-client reports can satisfy account-wide prologue prerequisite
 
 R12A brings the minimal account/platform database and progress API before the first free public release. R13 extends it with commerce; R14/R15 enforce actual Realm admission. R6P uses a fake sync adapter, not production identity. See [document 23](23-accounts-progress-admission.md) and ACCOUNT-01–12 for binding, deletion, idempotency and multi-device semantics. Mandatory sign-in before first acquisition versus guest-first UX is not decided by this ADR; after acquisition, installed offline play remains guaranteed under its entitlement policy.
 
-## ADR-064 — Approved R1 targets, A-first, explicit preparation gate
+## ADR-064 — Approved R1 targets and explicit preparation gate
 
 **Status:** Owner-approved readiness direction, 2026-09-22; amendment review/merge, setup freeze, independent oracle review and R1 measurements remain pending.
 
-The 2026-09-23 owner-approved sequencing amendment uses envelope v0.4, and v0.5 adds only an A1-only hosted execution-host row (§4): numerical ceilings are unchanged, but accepted contract, exact inputs, independent oracle and reproducible A1 execution-setup review precede stateless semantics; complete native locks, physical phones, common host and new A2 setup review precede integration. A1 approval cannot be relabeled A2. Under the owner's delegated target choice, initial iOS qualification is iPhone 11/4 GB instead of SE 2/3 GB, with no claim that the earlier RAM class passed. Android A14/4 GB remains pending exact Pixel inventory/substitution; Palma 2 is supplementary. Expo previews and emulators are permitted development tools, not qualification evidence. Test TypeScript candidate A first, Rust B only after A fails, then dual C if B fails; passing A ends comparison. No language is preselected. R0 acceptance and R2 production cutover remain separate. See `r1-work-package.md` and the retained owner instruction.
+The 2026-09-23 owner-approved sequencing amendment uses envelope v0.4, and v0.5 adds only an A1-only hosted execution-host row (§4): numerical ceilings are unchanged, but accepted contract, exact inputs, independent oracle and reproducible A1 execution-setup review precede stateless semantics; complete native locks, physical phones, common host and new A2 setup review precede integration. A1 approval cannot be relabeled A2. Under the owner's delegated target choice, initial iOS qualification is iPhone 11/4 GB instead of SE 2/3 GB, with no claim that the earlier RAM class passed. Android A14/4 GB remains pending exact Pixel inventory/substitution; Palma 2 is supplementary. Expo previews and emulators are permitted development tools, not qualification evidence. The candidate order is set by ADR-068. No candidate is selected before its gates pass. R0 acceptance and R2 production cutover remain separate. See `r1-work-package.md` and the retained owner instruction.
 
 ## ADR-065 — Precise initial composition and content evidence
 
@@ -842,3 +843,11 @@ Manual bounded export/import is part of R12's first public release. Whole-save c
 **Status:** Owner-approved sequencing direction, 2026-09-22; R0 acceptance not asserted.
 
 Close the readiness checklist, freeze oracles/A1 execution setup then native/physical setup at A2, run disposable R1, then R2 and the minimal production slices leading to R6P. Full chapter one remains 57 rooms, 10 quests and two endings. No production engine work in legacy Lokacore; no generalized Builder/Foundry/Realm/scripting/proof-language prerequisite. Begin exact downloadable-representation review alongside R1 and resolve its investment risk before scaling production content; retain current-policy/exact-app review before the first public store release. A green portability or model test is not store approval.
+
+## ADR-068 — Candidate C first, with randomized differential testing
+
+**Status:** Owner-approved sequencing direction, 2026-09-23; amendment review, R0 acceptance and R1 measurements pending.
+
+The owner wants the online server to stay a single Elixir/OTP runtime, without a Node process beside the BEAM. R1 therefore tests C first: pure Elixir online and TypeScript on the phone, held to one semantic schema, the reviewed known-answer fixtures and randomized differential testing (`r1-acceptance-envelope.md` §3). If C fails a MUST row, evaluate B, a single Rust kernel with a declared BEAM boundary; if B fails, evaluate A. Numerical ceilings, stages and preparation gates are unchanged.
+
+A 2026-09-23 feasibility probe (`probes/elixir-wasm/`, not R1 evidence) found that the Hermes version in the retained lock has no WebAssembly, SharedArrayBuffer, Atomics or Worker, so an Elixir kernel cannot run in React Native's engine; the hidden-WebView alternative was declined by the owner. C accepts permanent two-implementation maintenance; differential testing and shared fixtures are its drift control, not a proof of correctness.

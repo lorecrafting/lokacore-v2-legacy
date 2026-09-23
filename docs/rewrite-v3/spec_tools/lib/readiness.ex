@@ -23,7 +23,7 @@ defmodule LokaSpec.Readiness do
     %{
       "schema_version" => 1,
       "status" => "preparation_pending",
-      "candidate" => "A",
+      "candidate" => "C",
       "accepted_spec_commit" => nil,
       "candidate_author_ids" => [],
       "devices" => Map.new(~w(ios android), &{&1, Map.new(@device, fn k -> {k, nil} end)}),
@@ -97,7 +97,7 @@ defmodule LokaSpec.Readiness do
     ensure!(data["schema_version"] === 1, "unknown manifest version")
 
     ensure!(
-      data["status"] == "setup_reviewed" and data["candidate"] == "A",
+      data["status"] == "setup_reviewed" and data["candidate"] == "C",
       "preparation pending or unsupported candidate work package"
     )
 

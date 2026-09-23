@@ -2,9 +2,9 @@
 
 This is a small Mix/ExUnit project, **not the legacy server, a production engine,
 or candidate C**. It starts no Phoenix, Ecto, database or gameplay authority.
-Candidate A remains one TypeScript semantic package on Hermes/isolated Node,
-with an Elixir BEAM-side harness; passing A ends the comparison. Tooling language
-does not select a portable runtime or waive any prerequisite.
+R1 tests candidate C first (ADR-068): a separate Elixir implementation, not this
+project, plus TypeScript on Hermes; passing C ends the comparison. Tooling
+language does not select a portable runtime or waive any prerequisite.
 
 ## Run
 

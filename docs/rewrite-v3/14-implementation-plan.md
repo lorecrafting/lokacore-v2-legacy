@@ -146,15 +146,15 @@ R1 evidence reports both the measured result and the pre-registered threshold.
 
 ### Candidates
 
-R1 compares three strategies against the pre-registered envelope. None is selected here. R1A uses Tiny semantics/prepared definitions; R1B uses synthetic volume and bounded chain/scene cases, NOT the whole chapter. A is a first-sufficient experiment, not a ranking of unmeasured candidates. Language and host boundary are separate decisions, including an explicitly evaluated isolated Rust-worker variant if needed.
+R1 compares three strategies against the pre-registered envelope. None is selected here. R1A uses Tiny semantics/prepared definitions; R1B uses synthetic volume and bounded chain/scene cases, NOT the whole chapter. C is tested first, then B, then A (ADR-068); this is a first-sufficient experiment, not a ranking of unmeasured candidates. Language and host boundary are separate decisions, including an explicitly evaluated isolated Rust-worker variant if needed.
 
 **A. One TypeScript kernel.** The portable rules are one TypeScript package. React Native runs it natively in its JavaScript engine with no FFI, no native module, and no binding generator. BEAM reaches it through an Erlang Port to a Node process, or an equivalent isolated runner, with JSON or a binary codec across the boundary. Determinism requires integer arithmetic for rule-critical math, `Map` and canonical key ordering rather than object-key order, and a seeded PRNG. Costs: a Node process in the server deployment and per-decision serialization, which is the same state-crossing cost strategy B must benchmark.
 
 **B. One Rust kernel.** One deterministic Rust library behind a pre-registered BEAM boundary (Rustler NIF or isolated worker), an iOS React Native native binding, and an Android React Native native binding. Strongest type system and no runtime dependency inside the kernel; highest build, binding, and debugging cost across four hosts.
 
-**C. Dual implementation.** Pure Elixir online plus TypeScript offline, held to one semantic schema and golden-vector suite. No cross-language boundary on either host; permanent two-implementation maintenance and semantic-drift cost.
+**C. Dual implementation.** Pure Elixir online plus TypeScript offline, held to one semantic schema, the golden-vector suite and randomized differential testing. No cross-language boundary on either host and a single Elixir/OTP server runtime; permanent two-implementation maintenance and semantic-drift cost.
 
-The chapter-one mechanics in `00-first-cartridge-design.md` §11 are almost entirely derived state and pure reducers, which is the easiest case for strategy A and should be the spike's representative workload.
+The chapter-one mechanics in `00-first-cartridge-design.md` §11 are almost entirely derived state and pure reducers, which keeps a second implementation small and should be the spike's representative workload.
 
 ### Tiny model
 

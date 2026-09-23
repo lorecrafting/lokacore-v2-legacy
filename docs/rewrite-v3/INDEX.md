@@ -227,7 +227,7 @@ Source: 14. Sizing values are historical estimates, not promises or acceptance c
 | Phase | Gate (what must be true) | Sizing |
 |---|---|---|
 | R0 Spec acceptance | no unresolved contradiction on the Gate R0 list; commit hash, normative file set, ADR states, evidence gates, this index, cutover rule recorded | — |
-| R1 Kernel spike | ADR selects the portable execution strategy against `r1-acceptance-envelope.md`; A first, B and C only if A fails | 3 to 5 days (A); 3 to 6 weeks (B) |
+| R1 Kernel spike | ADR selects the portable execution strategy against `r1-acceptance-envelope.md`; C first, B then A only if the preceding candidate fails (ADR-068) | not yet estimated for C; 3 to 6 weeks (B) |
 | R2 Fresh repo | empty-system CI green on Elixir, TypeScript, the R1 choice, and its mobile path; packet imported; cutover effective | R2–R6: 8 to 12 weeks |
 | R3 Contracts | R3A constitutional registries generate Elixir and TypeScript types, fixtures, and the residency matrix; delta conflict and proposed-event containment proved; R3B envelopes reserved, not frozen | (in R2–R6) |
 | R4 Compiler v1 | same source → identical hash; broken refs, cycles, unknown capabilities fail deterministically; 00a §12 compiles | (in R2–R6) |

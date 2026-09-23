@@ -7,12 +7,12 @@
 The post-PR #10 [preparation handoff](prep/after-pr-10/README.md) records current
 blockers and retained pending artifacts. Use the isolated [Elixir tooling project](spec_tools/README.md)
 for continuing readiness/numeric checks; Python remains temporary comparison and
-abstract-model tooling, not production gameplay. This does not select an
-all-Elixir kernel, candidate C, or a different candidate order.
+abstract-model tooling, not production gameplay. The candidate order is C, then B, then A (ADR-068).
+R1-A1 through R1-A5 name work stages, not candidate A.
 
 ## Goal and non-goals
 
-Build one disposable semantic/host experiment. Determine whether candidate A—one TypeScript semantic package on Hermes and an isolated Node runner reached through a BEAM Port—satisfies the approved envelope. A passing A ends the comparison. Only a documented failure justifies B, then C. No language or native binding is preselected.
+Build one disposable semantic/host experiment. Determine whether candidate C—a pure Elixir implementation on the server and a TypeScript implementation on Hermes, held to the same fixtures and randomized differential testing—satisfies the approved envelope. A passing C ends the comparison. Only a documented failure justifies B, then A. No language or native binding is preselected.
 
 Do not implement the full chapter, production compiler, commerce, Realm/PostgreSQL authority, generic Builder, Foundry integration, LokaScript or an additional proof-language toolchain. Prepared definitions are permitted. The 57-room/10-quest/two-ending release and the later four-place R6P remain separate obligations. The Python models are specification examples, not production foundations.
 
@@ -23,10 +23,10 @@ Do not implement the full chapter, production compiler, commerce, Realm/PostgreS
 | PREP-01 | Amendment review | Reconcile governing contracts; review exact initial operation/order/budget semantics, existing Tiny known answers and both Lantern intent traces. Resolve counterexamples before candidate semantics, without claiming self-review independent. |
 | PREP-02 | PREP-01, R0 acceptance | Freeze accepted contract, seven exact inputs, independent oracle and A1 execution-setup reviews before A1. Freeze complete native/physical setup and obtain a new stage-bound setup review before A2. Use the existing manifest/review schemas with explicit stage checks; neither stage accepts templates. |
 | PREP-03 | PREP-01, parallel with R1 | Review exact downloaded payload and pre-shipped API surface; retain policy notes, sample package and risk disposition. Resolve investment risk before scaling production content, then repeat exact-app/current-policy review before public store launch. |
-| R1-A1 | PREP-02 A1 freeze | Stateless state-in/proposal-out TypeScript kernel; same semantics as frozen Tiny + numeric + admitted composition/scene cases. Runtime cannot rewrite expectations. |
-| R1-A2 | R1-A1, PREP-02 A2 freeze | Actual Hermes release builds on physical iOS/Android; Node/BEAM Port adapter; real SQLite transactions; source-mapped/symbolicated injected faults and repeatable builds. |
-| R1-A3 | R1-A2 | Tiny/Medium/Stress generator+seed and raw samples; per-step hidden-state/result bytes; all fault points, UI latency, restore, memory, runner death and 100-instance server load. Demonstrate mismatch detection. |
-| R1-A4 | R1-A3 | Independent evidence review and exact ADR-004/005 selection with failed/unmeasured rows retained. B/C only when preceding candidate fails; no post hoc threshold tuning. |
+| R1-A1 | PREP-02 A1 freeze | Stateless state-in/proposal-out Elixir and TypeScript kernels; same semantics as frozen Tiny + numeric + admitted composition/scene cases, and randomized differential testing between them. Runtime cannot rewrite expectations. |
+| R1-A2 | R1-A1, PREP-02 A2 freeze | Actual Hermes release builds on physical iOS/Android; native Elixir server adapter; real SQLite transactions; source-mapped/symbolicated injected faults and repeatable builds. |
+| R1-A3 | R1-A2 | Tiny/Medium/Stress generator+seed and raw samples; per-step hidden-state/result bytes; all fault points, UI latency, restore, memory, isolated-runner death where applicable and 100-instance server load. Demonstrate mismatch detection. |
+| R1-A4 | R1-A3 | Independent evidence review and exact ADR-004/005 selection with failed/unmeasured rows retained. B, then A, only when the preceding candidate fails; no post hoc threshold tuning. |
 | R1-A5 | R1-A4, R0, PREP-03 investment disposition | R2 fresh repository/spec cutover. Carry reviewed fixtures/evidence and deliberately reimplemented code, not accidental spike structure. Then production contracts/compiler/local save slices → R6P. |
 
 PREP-01 model work and inventory gathering may happen now. PREP-02 records actual facts; no inferred purchase/availability or placeholder hash may masquerade as an accepted setup. Approval of the recommendation is not approval of an unseen device manifest.

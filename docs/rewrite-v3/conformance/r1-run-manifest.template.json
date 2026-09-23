@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "status": "preparation_pending",
-  "candidate": "A",
+  "candidate": "C",
   "accepted_spec_commit": null,
   "candidate_author_ids": [],
   "devices": {

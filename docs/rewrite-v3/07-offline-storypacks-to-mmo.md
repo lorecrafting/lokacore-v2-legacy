@@ -195,7 +195,7 @@ Offline Story authority and online BEAM authority must implement the same portab
 
 Define one **portable deterministic semantic contract**: canonical commands, state/deltas, RNG/time behavior, rule IR, errors, and conformance vectors. Every supported authoritative host must conform to it.
 
-The preferred implementation for R1 is one shared portable kernel, candidate A or candidate B below. The documented fallback is candidate C: separate Elixir and mobile implementations organized around the same schemas and held to golden cross-host conformance.
+R1 tests candidate C first (ADR-068): separate Elixir and mobile implementations organized around the same schemas and held to golden cross-host conformance and randomized differential testing. A shared portable kernel, candidate B and then A, is evaluated only after a documented C failure.
 
 ### R1 candidates
 
@@ -203,9 +203,9 @@ R1 compares three candidates against the pre-registered acceptance envelope in `
 
 - **A. One TypeScript kernel** — one TypeScript package run natively in React Native's JavaScript engine, reached from BEAM through an Erlang Port to an isolated runner.
 - **B. One Rust kernel** — one deterministic Rust library behind a declared BEAM boundary (Rustler NIF or explicitly evaluated isolated worker) and native iOS/Android React Native bindings. Language selection does not silently select a crash-isolation boundary.
-- **C. Dual Elixir/TypeScript** — pure Elixir online plus TypeScript offline, held to one semantic schema and a golden-vector parity suite.
+- **C. Dual Elixir/TypeScript** — pure Elixir online plus TypeScript offline, held to one semantic schema, a golden-vector parity suite and randomized differential testing.
 
-The comparison procedure builds A first; B is evaluated only if A fails a MUST row, and C only if B also fails (`r1-acceptance-envelope.md` §2).
+The comparison procedure builds C first; B is evaluated only if C fails a MUST row, and A only if B also fails (`r1-acceptance-envelope.md` §2).
 
 Candidate B additionally depends on a mobile binding strategy. Current React Native/Expo supports custom native modules, React Native provides typed TurboModule/JSI native integration, and Rustler provides an Elixir/Rust NIF bridge. Rust-to-React-Native binding generators also exist, but at least one prominent reviewed option describes itself as early-development and not yet recommended for production. Therefore **both of candidate B's host-binding strategies remain provisional until R1**, and the architecture must not depend on any one third-party binding generator.
 
@@ -481,7 +481,7 @@ After R1 selects the execution strategy, CI runs golden vectors through every re
 - the iOS Story authority path;
 - the Android Story authority path.
 
-Under candidate A these concretely become the TypeScript kernel plus an Erlang Port runner and the React Native JavaScript engine on both devices; under candidate B, a Rust core plus its declared BEAM boundary and iOS/Android native bindings. If R1 selects candidate C, the documented dual-implementation fallback, the same conformance obligation applies to the accepted Elixir and mobile implementations instead.
+Under candidate A these concretely become the TypeScript kernel plus an Erlang Port runner and the React Native JavaScript engine on both devices; under candidate B, a Rust core plus its declared BEAM boundary and iOS/Android native bindings. If R1 selects candidate C, tested first, the same conformance obligation applies to the accepted Elixir and mobile implementations instead.
 
 Any semantic divergence blocks release. Retain and compare per-step canonical state, decision, event/effect and RNG bytes as well as hashes; see `conformance/README.md`. Final transcript/hash agreement alone is insufficient.
 

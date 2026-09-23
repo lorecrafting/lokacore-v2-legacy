@@ -7,7 +7,7 @@
   "conformance/lantern-traces.json": "e5aaf947a7978520752f2aeee9665d171a917b97311952b3c347167faf392a89",
   "conformance/numeric-profile.md": "2fad2bfcb6fe0840b58e9fdcce049b4d441a1be4b9d9d2e82e0879a24c69aa1f",
   "conformance/numeric-vectors.json": "85472ae4e7626ca7326b881766e21ae23dd253c82b5c9d4c8d0c86f89ee168c9",
-  "conformance/r1-run-manifest.template.json": "d1b40fc1ddc7c57c63eb077c902484e4ebc209274331968d0f7a2ac3fe8d3340",
-  "r1-acceptance-envelope.md": "b45304df08b97d635c8d2eccc8a950c02892eca222238ecf5bb527977c8f4847",
+  "conformance/r1-run-manifest.template.json": "50769e337dec8c517308b6e345e1ee9b12a37608bf847c3321f8a6a19c28c936",
+  "r1-acceptance-envelope.md": "cb4ecf8c0aa3906d6380dc29597059df4abe52d75720dcab5671c388f71abe2c",
   "release-scope.json": "3e44ad12522f06d5af470ea1c77651df37c11a2bee6f2808c04534ce1accdbd9"
 }
