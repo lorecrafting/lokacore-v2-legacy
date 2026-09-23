@@ -1,8 +1,8 @@
 {
   "observed_baseline_commit": "aaadaffff02e459dbf04e71d6ddc81d75eacf986",
-  "accepted_spec_commit": null,
-  "disposition": "pending",
-  "reviewer_id": null,
+  "accepted_spec_commit": "aaadaffff02e459dbf04e71d6ddc81d75eacf986",
+  "disposition": "accepted",
+  "reviewer_id": "owner:lorecrafting (Raymond Luong, repository owner)",
   "normative_files": [
     "00-first-cartridge-design.md",
     "00a-chapter-one-content.md",
@@ -196,12 +196,12 @@
   "architecture_index": "INDEX.md",
   "amendment_authority": "PROPOSED: the repository owner approves explicit contract amendments through reviewed changes that identify the prior accepted commit, affected decisions/fixtures and gates. Before R2, record those amendments in this specification repository. After R2, approve normative amendments only in the fresh v3 repository; this legacy repository retains provenance and a pointer, not a second editable authority. Any amendment affecting frozen R1 inputs requires rebinding and fresh applicable review before use.",
   "cutover_destination": "PROPOSED RULE: an owner-designated fresh v3 production repository, created only at R2 after reviewed R1 selection and the PREP-03 investment disposition. Record its exact repository URL and import commit in the R2 cutover record before production implementation. Import this accepted file set and governing companions with source-commit provenance and preserve the invariant index. The disposable R1 workspace is not the production destination; do not port the legacy engine or maintain two normative specifications.",
-  "note": "This is a concrete owner-decision proposal, not an acceptance receipt. Nothing in the proposed fields, PR merges, passing checks or GitHub account attribution fills accepted_spec_commit, reviewer_id or owner_decision_source. Retain the owner's explicit exact-commit decision before changing disposition to accepted; then rebind dependent setup/review records without inventing approvals.",
+  "note": "Accepted. The owner's decision is recorded in owner_decision_source. Acceptance covers the contract at accepted_spec_commit only: it approves no R1 result, qualification hardware, expected answers, setup, store submission or production implementation. Oracle and setup reviews remain separate and pending.",
   "proposed_spec_commit": "aaadaffff02e459dbf04e71d6ddc81d75eacf986",
   "prior_proposed_spec_commit": "74832d8e0f82162e79290d1b92fa6a4131df381e",
   "retarget_reason": "Owner asked on 2026-09-23 to make candidate C first with randomized differential testing (ADR-068, envelope v0.6) before accepting. Retargeted from 74832d8e0f82162e79290d1b92fa6a4131df381e (whose C-first edits were incomplete, per the Fable check of PR #19), before that from e1e01772bcd19dab36243d63dd3fd920fbb13805, itself retargeted from the historical base 9567117404f635c803373d9957050fd8ec50f334. None of the three prior proposals was accepted.",
   "proposal_preparer": "Originally prepared by the ChatGPT implementing assistant (post-PR-11); retargeted on 2026-09-23 at the owner's request by the Claude Code implementing assistant. Neither is the owner or an independent reviewer. GitHub account attribution is not an authorship or approval attestation.",
-  "owner_decision_source": null,
+  "owner_decision_source": "Owner statement to the Claude Code implementing assistant on 2026-09-23, verbatim: \"Ok i read everything and I would like to sign off on everything\". It followed the owner reading a review book built from exactly aaadaffff02e459dbf04e71d6ddc81d75eacf986 (the only open R0 proposal, merged to main in PR #19 as a merge commit), whose guide named that commit, listed what acceptance covers (including envelope v0.6: candidate C first with randomized differential testing, and the A1-only hosted execution-host row) and what it does not approve. Recorded by the implementing assistant; the owner may correct this record.",
   "normative_scope": "Paths are relative to docs/rewrite-v3 at proposed_spec_commit. Preserve README section 8 authority: 00/00a are the normative content pull list; 14/15 are gates; 16 retains each ADR status; the other listed files are normative architecture. This proposal does not promote informative planning/research, reviews or executable models into architectural authority.",
   "governing_companions": {
     "authority_map": "README.md sections 8 and 12; REVIEW-GUIDE.md",
