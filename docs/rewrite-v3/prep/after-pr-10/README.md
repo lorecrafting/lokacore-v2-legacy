@@ -69,3 +69,9 @@ with an Elixir BEAM harness. R1-A2 supplies actual mobile/SQLite evidence; A3
 supplies measured load/latency/faults; A4 supplies independent selection. Passing
 A ends comparison; B then C require documented preceding failures. R6P remains
 later playable proof, and chapter one remains 57 rooms / 10 quests / two endings.
+
+## Tooling execution evidence
+
+[Exact source revisions, CI results and correction history](tooling-validation.md)
+record isolated tooling validation. They do not fill any pending R0, device,
+reviewer or experiment-acceptance field in this handoff.
