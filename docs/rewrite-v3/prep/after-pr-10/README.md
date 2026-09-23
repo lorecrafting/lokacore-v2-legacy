@@ -85,10 +85,10 @@ Do not buy replacement hardware before identifying the Pixel.
 
 ## Cloud-first follow-up direction (not a silent host amendment)
 
-The owner now asks to avoid making the local M1 Air a development dependency:
-use GitHub-accessible build/test evidence and browser/Expo previews where practical.
-See [cloud-first development](cloud-first-development.md) for the checked options,
-security/cost boundaries and smallest next amendment. This correction preserves
+The owner wants headless work on free GitHub-hosted runners and pays for no EAS
+tier; app iteration and iPhone installs stay local on the M1 Air. See
+[development host strategy](cloud-first-development.md) for the zero-cost plan,
+rejected options and security boundaries. This correction preserves
 the reviewed envelope byte-for-byte. The current envelope's M1+/16 GB host row
 has **not** been changed to a hosted runner, and no actual setup observation or
 approval is replaced by this preference. CI specification checks can run now;

@@ -1,92 +1,87 @@
-# Cloud-first development direction — 2026-09-23
+# Development host strategy: GitHub for headless work, local for the app — 2026-09-23
 
-**Status: informative owner preference and proposed next step, not an accepted
-host amendment or execution approval.** The owner asked to consider developing
-without their local M1 Air because the web assistant can access GitHub but not
-that machine, using CI for builds/tests and browser-accessible Expo previews.
-This records the current conversation, not an invented approval receipt. It does
-not replace the earlier [owner instruction](owner-instruction-2026-09-23.md).
+**Status: informative owner direction, not an accepted host amendment or
+execution approval.** The owner first asked to develop without the local M1 Air,
+because the web assistant can reach GitHub but not that machine. After checking
+costs, the owner decided on 2026-09-23 that the project pays for **no** Expo
+Application Services (EAS) tier and accepts local development where cloud
+options cost money. This records that conversation, not an approval receipt. It
+does not replace the earlier [owner instruction](owner-instruction-2026-09-23.md).
 
-## Recommended working loop
+## Zero-cost working loop
 
-Use GitHub branches and pull requests as the handoff surface. Run bounded,
-repeatable checks in Actions and retain exact-source results. When the UI phase
-is authorized, publish a web preview with a commit-labelled URL; add cloud-built
-native development clients for checking the actual phone UI. A Codespace is an
-optional interactive editor/Metro host, not a mandatory always-on service.
-No preview app, candidate gameplay, paid subscription or signing credential is
-created by this preparation change.
+GitHub branches and pull requests stay the handoff surface, so the web assistant
+can push work and CI can check it. Headless work runs on free GitHub-hosted
+runners. App iteration and iPhone installs run on the owner's M1 Air. No paid
+subscription, signing credential, preview app or candidate gameplay is created
+by this note.
 
-| Need | Proposed path | Evidence limit |
-|---|---|---|
-| Headless A1 semantics and lock replay | GitHub Actions, following an explicit hosted-A1 amendment and real setup review | A green specification job is not candidate setup approval |
-| Browser visual review | Export/deploy the Expo web target; for example a static preview host or EAS Hosting, chosen when needed | Browser behavior is not Hermes/native performance |
-| Live editing | Optional Codespaces with forwarded web port; Metro tunnel for a phone development client | A session must remain running; URLs/tunnels require access control |
-| Native builds | EAS Build, or bounded Actions jobs using suitable macOS/Linux toolchains | iOS device provisioning/signing still applies |
-| JS-only native preview updates | EAS Update/PR preview linked to an already-installed compatible native runtime | Native dependency changes require a new compatible binary |
-| Automated UI checks | Emulator/simulator jobs with retained screenshots and logs | Compatibility/visual evidence, not physical qualification |
-| A2 qualification | Cloud-built release binary installed on identified physical phones | Retain thermal/battery/build/device evidence and the separately approved common host |
+| Need | Path | Cost | Evidence limit |
+|---|---|---|---|
+| Headless A1 semantics and lock replay | GitHub Actions, per the proposed envelope v0.5 A1 row and `.github/workflows/v3-a1-host.yml` | Free for this public repository | A green job is not setup approval |
+| UI iteration | Metro on the M1 Air with hot reload on a physical phone | Free | Development builds are not release or performance evidence |
+| Android app | Our own Actions workflow on a Linux runner: `expo prebuild`, then Gradle, APK uploaded as a run artifact and sideloaded | Free, no Expo account or token | Debug or unsigned builds are not A2 release evidence |
+| iOS app on the owner's iPhone | Xcode on the M1 Air, signed with a free Apple ID personal team | Free; installs expire after 7 days | Needs the Mac; TestFlight or cloud-built device installs need the paid Apple Developer Program |
+| Browser preview | `expo export` for web, published to GitHub Pages | Free | Browser behavior is not Hermes/native performance |
+| Automated UI checks | Emulator or simulator jobs on free runners, retaining screenshots and logs | Free | Compatibility evidence, not physical qualification |
+| A2 qualification | Release builds on identified physical phones, measured by the owner | Free apart from hardware already owned | Retain thermal/battery/build/device evidence and the separately approved common host |
 
-Actions is a batch executor, not the persistent public web server for the app.
-Uploading a ZIP alone does not provide a deployed interactive preview URL. Keep
-preview hosting and interactive development separate from CI execution. Cloud
-*development* also does not change offline-authoritative Story gameplay.
+The owner's assistant pushes branches, CI checks them, and the owner pulls and
+runs anything visual on the Air. Prefer the physical phones over emulators when
+the Air's 16 GB is contended by Xcode and Metro together. Actions is a batch
+executor, not a live preview server. Development location does not change
+offline-authoritative Story gameplay.
 
-## Corrections and qualifications to the supplied cloud advice
+## Rejected or deferred options
 
-Official documentation was checked on 2026-09-23; service access, prices and
-inventory must be checked again before provisioning.
+- **EAS Build, Update and Hosting.** The free tier exists, but the owner declined
+  any dependency on a paid tier. Do not add EAS configuration or tokens.
+- **Visual Studio App Center.** Retired by Microsoft on 2025-03-31.
+- **Third-party workflow generators such as ExpoBuilder.app.** Android only, and
+  they still require an `EXPO_TOKEN`. Write and pin our own workflow instead.
+- **Codespaces.** Optional for live editing; not required, and its free quota is
+  separate from Actions.
+- **Device farms.** Would need verified inventory of the exact phone models, a
+  reviewed qualification amendment and a paid service. Not needed before A2.
 
-- Standard GitHub-hosted runners for public repositories are free, including
-  standard macOS runners. Do not apply a blanket macOS billing multiplier to
-  this public-repository case. Larger runners, Codespaces and Expo services
-  have separate billing/allowances; this note authorizes no spending.
-- An OS label such as `ubuntu-24.04` is not an immutable runner image. Pin actual
-  tool/dependency versions and, where appropriate, container image digests;
-  record the observed runner image version, source SHA, run/attempt, CPU,
-  architecture, RAM and OS. A recorded image identity is not a guarantee that
-  GitHub will let us request exactly that image later. Hosted variance is not a
-  sound substitute for a controlled common-host p99 qualification decision.
-- Expo Go is limited to the native modules it includes. Use a development build
-  for custom native dependencies. EAS Build avoids a local native toolchain,
-  but physical iOS installation still needs the applicable Apple provisioning;
-  simulator builds are different from physical-device builds.
-- Expo's current CLI also documents experimental `eas sim` remote simulator
-  sessions with browser previews. This is a promising optional browser-native
-  preview path, not a stable dependency selected here. Account eligibility,
-  availability and costs have not been verified for the owner.
-- Do not promise that a named device farm currently offers both required exact
-  phone models, or that its thermal/battery controls satisfy the envelope.
-  Device-farm substitution would require verified inventory and a reviewed
-  qualification amendment. It is not necessary to decide this before A1.
+## Facts checked on 2026-09-23
 
-Primary references: [GitHub runners](https://docs.github.com/en/actions/reference/runners/github-hosted-runners),
+Recheck before relying on them.
+
+- Standard GitHub-hosted runners, including macOS, are free for public
+  repositories. Larger runners and Codespaces are billed separately.
+- An OS label such as `ubuntu-24.04` is not an immutable image. Pin the tools
+  and dependencies we control and record the observed image version, source
+  SHA, run and attempt, CPU, architecture, RAM and OS. Hosted timing is not a
+  substitute for controlled common-host p99 qualification.
+- Expo Go only includes its bundled native modules. Use a development build for
+  custom native dependencies. JS-only changes reuse an installed build; native
+  dependency or configuration changes need a rebuild.
+- EAS free plan at the time of checking: 15 Android and 15 iOS builds a month,
+  low-priority queue; Starter $19/month and Production $199/month plus usage.
+  Recorded only to explain the decision.
+
+References: [GitHub runners](https://docs.github.com/en/actions/reference/runners/github-hosted-runners),
 [runner image lifecycle](https://github.com/actions/runner-images),
-[Codespaces port forwarding](https://docs.github.com/en/codespaces/developing-in-a-codespace/forwarding-ports-in-your-codespace),
-[Codespaces billing](https://docs.github.com/en/billing/managing-billing-for-your-products/managing-billing-for-github-codespaces/about-billing-for-github-codespaces),
 [Expo development builds](https://docs.expo.dev/develop/development-builds/introduction/),
-[Expo PR previews](https://docs.expo.dev/tutorial/cicd/preview-builds/), and
-[EAS CLI / experimental remote simulator](https://docs.expo.dev/eas/cli/).
+[Expo local builds](https://docs.expo.dev/guides/local-app-overview/),
+[Expo pricing](https://expo.dev/pricing),
+[App Center retirement](https://learn.microsoft.com/en-us/appcenter/retirement).
 
-## Security and the smallest next amendment
+## Security
 
-Keep CI checks read-only, use explicit source commits, and do not expose signing
-or deployment secrets to untrusted pull-request code. Keep forwarded ports
-private where possible; a public tunnel is a public endpoint, not an access
-control mechanism. Use an authorized connector or human workflow-file change
-with the necessary permission instead of teaching a job token to rewrite CI.
-Retain build outputs as outputs, not as automatic approvals or source commits.
+Keep CI checks read-only and pinned to exact action commits. Never expose
+signing or deployment secrets to untrusted pull-request code. Keep forwarded
+ports private; a public tunnel is a public endpoint. Workflow-file changes are
+pushed by a human or an authorized connector, not by a job token. Build outputs
+are artifacts, never automatic approvals or source commits.
 
-The correction PR preserves the seven reviewed inputs, including envelope v0.4.
-The next focused proposal should explicitly permit an identified hosted **A1**
-execution environment, specify retained runtime/lock replay evidence and its
-stage-bound review, and keep A2 physical-device/common-host timing requirements
-unchanged. Refresh only the affected input bindings after that amendment is
-reviewed; a new digest does not renew anyone's consent. A1 does not need a UI,
-Expo preview infrastructure, native integration or a device-farm purchase first.
-The historical R0 proposal is not acceptance of this future host amendment.
+## Stage boundaries
 
-Keep R0 acceptance, attributable oracle approval, independently reviewed A1
-setup and both readiness checks as actual prerequisites to candidate A1 work.
-A2 remains later. Existing A-first/B-after-failure/C-after-B-failure sequencing,
-R2 clean-room cutover and the 57-room chapter remain unchanged.
+Envelope v0.5 proposes the hosted runner as the A1 execution host only. It
+still needs review, and refreshing input hashes renews nobody's consent. R0
+acceptance, attributable oracle approval, independently reviewed A1 setup and
+both readiness checks remain prerequisites to candidate A1 work. A1 needs no UI,
+native build or preview infrastructure. A2 keeps the M1 common host and the
+physical phones. A-first/B-after-failure/C-after-B-failure sequencing, R2
+clean-room cutover and the 57-room chapter are unchanged.
