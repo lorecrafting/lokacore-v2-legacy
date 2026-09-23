@@ -1,8 +1,8 @@
 # R0 / PREP-02: staged preparation after PR #13
 
 Starting main: `037e6513f882b25512928aab5883f8545b58fc84` (merged PR #13).
-The R0 proposal now targets `74832d8e0f82162e79290d1b92fa6a4131df381e`,
-retargeted at the owner's request (via `e1e0177`) from the unaccepted historical base
+The R0 proposal now targets `aaadaffff02e459dbf04e71d6ddc81d75eacf986`,
+retargeted at the owner's request (via `e1e0177` and `74832d8`) from the unaccepted historical base
 `9567117404f635c803373d9957050fd8ec50f334`; its record is not acceptance.
 Unlike PR #13's dependency-only evidence, this follow-up deliberately amends
 normative sequencing and the initial iOS qualification target. An eventual R0
@@ -39,7 +39,7 @@ The [R0 proposal](r0-acceptance.pending.json) names the 19 normative files and
 preserves all 67 qualified ADR dispositions, unchanged from the historical base.
 Its decision, quoted below, has not been adopted in the inspected evidence:
 
-> I accept `74832d8e0f82162e79290d1b92fa6a4131df381e` as the R0 contract under
+> I accept `aaadaffff02e459dbf04e71d6ddc81d75eacf986` as the R0 contract under
 > the normative file set, qualified ADR dispositions, remaining gates,
 > amendment authority and fresh-repository cutover rule proposed in
 > `prep/after-pr-10/r0-acceptance.pending.json`. Provisional, deferred and
