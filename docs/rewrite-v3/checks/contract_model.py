@@ -215,13 +215,14 @@ class ContractModel:
             raise ValueError("unknown_fault")
         if type(request) is not dict:
             return self._response("rejected", "invalid_envelope", self.memory["revision"])
-        # Model authorization is supplied by the test harness, never by request content.
-        if not authorized or request.get("actor") != "hero":
-            return self._response("rejected", "unauthorized", self.memory["revision"])
+        # 03 §14: validate the envelope, then authenticate/authorize.
         try:
             digest = self._intent(request)
         except (ValueError, UnicodeError, TypeError):
             return self._response("rejected", "invalid_envelope", self.memory["revision"])
+        # Model authorization is supplied by the test harness, never by request content.
+        if not authorized or request["actor"] != "hero":
+            return self._response("rejected", "unauthorized", self.memory["revision"])
         if self.in_doubt:
             return self._response("retryable", "commit_pending", self.memory["revision"])
         identity = request["id"]  # One trusted lineage/actor in this intentionally tiny model.
