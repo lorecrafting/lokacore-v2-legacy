@@ -25,6 +25,8 @@ No code or fixtures here are ported from legacy Lokacore. The only named externa
 
 The fixture files are indented for reading. The canonical encoding in `numeric-profile.md` governs the state and result bytes a candidate compares, not the layout of these files. The composition registry runs rules in ordinal order of their `id` strings, whatever order the file lists them in (`canonical-registry-order`).
 
+The adverse file also freezes some of the models' vocabulary as fixture vocabulary: it is not yet a production schema, and a candidate must match it only in fixture runs. The composition cases assume the facts `flag` and `seen`, each an integer from 0 to 2 that arithmetic may not touch, and `count`, a signed 32-bit counter. The Tiny `published` lists use the model's event names (`quest_activated`, `entity_entered_room`, `check_passed`, `item_acquired`, `quest_resolved`, `fact_changed`), not the full document 04 §9 chain.
+
 `numeric-vectors.json` fixes RNG output **and next state**, signed division/remainder, and numeric edges under the proposed numeric profile. The algorithm is specified independently in `numeric-profile.md`; candidate implementations must match the frozen values, not merely each other.
 
 ## R1 adapters must supply the missing evidence

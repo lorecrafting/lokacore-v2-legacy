@@ -5,7 +5,7 @@
   "independent_of_candidate_authorship": null,
   "subject_author_ids": [],
   "independent_of_subject_authorship": null,
-  "note": "Fable on Claude Code was nominated by the owner, and the owner confirmed on 2026-09-23 that a fresh Fable agent counts as independent. Its review of the seven inputs at 762a424 (reviews/2026-09-23-oracle-review.md) approved with notes; finding F1 added conformance/adverse-cases.json (ADR-069), so this receipt stays pending until the eight inputs are reviewed.",
+  "note": "Fable on Claude Code was nominated by the owner, and the owner confirmed on 2026-09-23 that a fresh Fable agent counts as independent. Its review of the seven inputs at 762a424 (reviews/2026-09-23-oracle-review.md) approved with notes; finding F1 added conformance/adverse-cases.json (ADR-069), so this receipt stays pending until the eight inputs are reviewed. The first review of the eighth input (reviews/2026-09-23-oracle-review-adverse.md) blocked on one value, A1, since corrected.",
   "inputs": [
     {
       "path": "r1-acceptance-envelope.md",
@@ -37,7 +37,7 @@
     },
     {
       "path": "conformance/adverse-cases.json",
-      "sha256": "c4c780e3bbf13b15f17cff096c5f92f884efda00d71171cf0c4bbdd7911cc634"
+      "sha256": "1b699cf2ce71181a2b09a596ed2253c06caa435aad4b5eb8a8ea9601fbadf5b1"
     }
   ]
 }

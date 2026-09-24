@@ -85,7 +85,7 @@
     },
     {
       "path": "conformance/adverse-cases.json",
-      "sha256": "c4c780e3bbf13b15f17cff096c5f92f884efda00d71171cf0c4bbdd7911cc634"
+      "sha256": "1b699cf2ce71181a2b09a596ed2253c06caa435aad4b5eb8a8ea9601fbadf5b1"
     }
   ],
   "r0_acceptance": {
@@ -94,7 +94,7 @@
   },
   "oracle_review": {
     "path": "prep/after-pr-10/oracle-review.pending.json",
-    "sha256": "5644f0b235bbb31f7840c5a2b8b3b6349943d2a461a6bf5534f8f2093f2acf7b"
+    "sha256": "2bd7533acb353dcc9220d2b57db38d24d069e3a3634d4da4c95a7106fdcdaaf0"
   },
   "setup_review": {
     "path": "prep/after-pr-10/setup-review.pending.json",

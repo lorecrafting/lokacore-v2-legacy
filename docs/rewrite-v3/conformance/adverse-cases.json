@@ -2273,7 +2273,7 @@
           "request": {},
           "result": {
             "kind": "rejected",
-            "code": "unauthorized",
+            "code": "invalid_envelope",
             "revision": 0,
             "delivery": "new"
           },
