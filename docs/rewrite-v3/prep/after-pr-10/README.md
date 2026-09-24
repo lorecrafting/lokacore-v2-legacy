@@ -208,8 +208,9 @@ for stage in A1 A2; do
 done
 ```
 
-All four real-pending probes must currently reject; so must the four blank-template
-probes. Omitting `--stage` remains strict A2. No weak default or synthetic receipt
+Since the A1 setup approval (2026-09-23, `reviews/2026-09-23-a1-setup-review.md`),
+the actual setup passes `--stage A1` in both languages and must still reject A2 and the
+default; all four blank-template probes must reject. Omitting `--stage` remains strict A2. No weak default or synthetic receipt
 is introduced. Only truthful A1 approval-backed readiness unlocks semantic work;
 only full reviewed A2 preparation unlocks actual-host integration. A1 success is
 not a documented C failure and cannot authorize B/A or production.

@@ -344,17 +344,24 @@ defmodule LokaSpec.ReadinessTest do
     end
   end
 
-  test "stage digest domain is exact and pending records reject both stages" do
+  test "stage digest domain is exact; template rejects both stages, real setup is A1 only" do
     data = Readiness.template()
     raw = data |> Map.drop(~w(status setup_review)) |> Codec.encode()
     assert Readiness.setup_digest(data) == Codec.sha256(raw)
     assert Readiness.setup_digest(data, "A1") == Codec.sha256("loka-r1-a1-setup-v1\0" <> raw)
 
-    for path <- ~w(conformance/r1-run-manifest.template.json prep/after-pr-10/setup.pending.json),
-        stage <- ~w(A1 A2) do
-      data = Readiness.read_json(Path.join(Readiness.root(), path))
-      assert {:error, _} = Readiness.validate(data, Readiness.root(), stage)
-    end
+    template =
+      Readiness.read_json(
+        Path.join(Readiness.root(), "conformance/r1-run-manifest.template.json")
+      )
+
+    for stage <- ~w(A1 A2),
+        do: assert({:error, _} = Readiness.validate(template, Readiness.root(), stage))
+
+    # The real setup holds genuine A1 approvals (2026-09-23); it must still fail A2.
+    real = Readiness.read_json(Path.join(Readiness.root(), "prep/after-pr-10/setup.pending.json"))
+    assert :ok = Readiness.validate(real, Readiness.root(), "A1")
+    assert {:error, _} = Readiness.validate(real, Readiness.root(), "A2")
   end
 
   @tag :comparison
