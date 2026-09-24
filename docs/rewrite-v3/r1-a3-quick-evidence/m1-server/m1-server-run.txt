@@ -1,0 +1,56 @@
+2026-09-24T17:01:03Z
+git rev-parse HEAD: d841d79cfb67a66ba49927ad3aa659c1276f342e
+git status --porcelain (begin)
+?? docs/rewrite-v3/r1-a3-quick-evidence/m1-server/m1-server-run.txt
+(end)
+$ sw_vers
+ProductName:		macOS
+ProductVersion:		26.6.2
+BuildVersion:		25G83
+exit=0
+$ sysctl hw.model hw.ncpu hw.memsize machdep.cpu.brand_string
+hw.model: MacBookAir10,1
+hw.ncpu: 8
+hw.memsize: 17179869184
+machdep.cpu.brand_string: Apple M1
+exit=0
+$ mise exec elixir@1.20.4 erlang@28.4 node@24.21.0 -- elixir --version
+Erlang/OTP 28 [erts-16.3] [source] [64-bit] [smp:8:8] [ds:8:8:10] [async-threads:1] [jit]
+
+Elixir 1.20.4 (compiled with Erlang/OTP 28)
+exit=0
+$ mise exec elixir@1.20.4 erlang@28.4 node@24.21.0 -- node --version
+v24.21.0
+exit=0
+--- before
+$ pmset -g batt
+Now drawing from 'AC Power'
+ -InternalBattery-0 (id=[redacted])	100%; charged; 0:00 remaining present: true
+exit=0
+$ uptime
+ 7:01  up 19 days, 13:54, 4 users, load averages: 1.57 2.03 2.00
+exit=0
+$ mise exec elixir@1.20.4 erlang@28.4 node@24.21.0 -- mix r1.scale --out [scratch]
+tiny: initial_state_canonical_bytes=188
+medium: initial_state_canonical_bytes=192594
+stress: initial_state_canonical_bytes=729921
+r1.scale version=r1-scale-1 seed=20260924 out=[scratch]
+exit=0
+$ cmp [scratch] [root]/r1-spike/mobile/scale.jsonl
+exit=0
+$ shasum -a 256 [root]/r1-spike/mobile/scale.jsonl
+8591d2120e18992f2f686c28314e19299d1dc112f89853037cc8331f49e4cb52  [root]/r1-spike/mobile/scale.jsonl
+exit=0
+$ mix r1.scale_timing --in scale.jsonl --out [scratch] (progress lines omitted)
+LOKA_A3_MODEL {"checkpoint_round_trip_us":[87,76,81,91,87,67,73,61,71,71,69,59,72,71,72,82,83,65,69,60],"final_narration_entries":0,"final_state_bytes":189,"final_state_sha256":"26fc477bb6f15b2800c4a1db22cad7c04db537f874821a89848be8d5d29fdae8","initial_state_bytes":188,"model":"tiny","receipts":2916,"seed":20260924,"sqlite":{"journal_mode":"wal","synchronous":2},"steps":3000,"version":"r1-scale-1","warmup":1000}
+LOKA_A3_MODEL {"checkpoint_round_trip_us":[13950,13929,15894,16234,15840,15812,14071,15175,15944,13839,14876,16109,13666,15388,15453,15596,15859,14136,15195,15845],"final_narration_entries":500,"final_state_bytes":192595,"final_state_sha256":"32648759ed0e4b58048fa79c008707cc2eb0bbf0872d8ee19bf078391c26eac8","initial_state_bytes":192594,"model":"medium","receipts":2916,"seed":20260924,"sqlite":{"journal_mode":"wal","synchronous":2},"steps":3000,"version":"r1-scale-1","warmup":1000}
+LOKA_A3_MODEL {"checkpoint_round_trip_us":[76616,115820,42491,88653,41584,82182,40930,82045,43035,74961,99878,46444,100267,117480,41355,84511,43400,74800,100429,41216],"final_narration_entries":2200,"final_state_bytes":729922,"final_state_sha256":"f4ac6e99d0620379cefbdd381ef768de5d0801bbc5870743ad0536c5f5084fad","initial_state_bytes":729921,"model":"stress","receipts":2916,"seed":20260924,"sqlite":{"journal_mode":"wal","synchronous":2},"steps":3000,"version":"r1-scale-1","warmup":1000}
+exit=0
+--- after
+$ pmset -g batt
+Now drawing from 'AC Power'
+ -InternalBattery-0 (id=[redacted])	100%; charged; 0:00 remaining present: true
+exit=0
+$ uptime
+ 7:01  up 19 days, 13:54, 4 users, load averages: 1.60 1.99 1.99
+exit=0

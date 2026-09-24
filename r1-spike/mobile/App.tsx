@@ -1,15 +1,16 @@
-// R1-A2 phone host: reports the running JS engine, SQLite and OS-visible memory,
-// then runs the on-device differential and the injected-fault cases (device.ts)
-// and writes responses.jsonl, faults.jsonl and summary.json for the M1 to pull.
+// Phone host. R1-A2 ran the on-device differential and fault cases (device.ts, runAll); on this
+// branch the app runs the quick R1-A3 timing instead (scale.ts): it reports the running JS engine,
+// SQLite and OS-visible memory, then times Tiny/Medium/Stress and writes a3-samples.csv and
+// a3-run.json for the M1 to pull.
 import { requireNativeModule } from 'expo';
 import { openDatabaseSync } from 'expo-sqlite';
 import { useEffect, useState } from 'react';
 import { Platform, Text, View } from 'react-native';
 import { utf8 } from '../ts/src/kernel/codec.ts';
 import type { JsonObject } from '../ts/src/kernel/codec.ts';
-import { CASES, runAll } from './device.ts';
 import type { Db } from './host.ts';
-import REQUESTS from './requests.gen.ts';
+import { runScale } from './scale.ts';
+import SCALE from './scale.gen.ts';
 
 declare const HermesInternal: { getRuntimeProperties?: () => Record<string, unknown> } | undefined;
 
@@ -47,21 +48,19 @@ const probe = {
   ...hostDb.all('PRAGMA synchronous')[0],
 };
 const report = { hermes, sqlite: probe, memory: native.physicalMemory() };
-console.log('LOKA_A2_PROBE ' + JSON.stringify(report));
+console.log('LOKA_A3_PROBE ' + JSON.stringify(report));
 
 function run(setStatus: (s: string) => void): void {
   const env = {
     host: 'phone-' + Platform.OS,
     open,
-    kill: () => native.kill(),
+    now: () => performance.now(),
     write: (name: string, text: string) => native.writeFile(name, base64(utf8(text))),
+    log: (line: string) => console.log(line),
   };
-  const requests = Uint8Array.from(atob(REQUESTS), (c) => c.charCodeAt(0));
-  const summary = runAll(env, requests, { runtime: JSON.parse(JSON.stringify(report)) as JsonObject }, (i) =>
-    console.log(`LOKA_A2_CASE ${i + 1}/${CASES.length} ${CASES[i].fault.point} ${CASES[i].fault.kind}`),
-  );
-  const line = JSON.stringify(summary);
-  console.log('LOKA_A2_DONE ' + line);
+  const summary = runScale(env, SCALE, { runtime: JSON.parse(JSON.stringify(report)) as JsonObject });
+  const line = JSON.stringify({ wall_ms: summary.wall_ms });
+  console.log('LOKA_A3_DONE ' + line);
   setStatus(line);
 }
 
@@ -73,10 +72,10 @@ export default function App() {
         run(setStatus);
       } catch (e) {
         const err = e as Error;
-        console.log('LOKA_A2_ERROR ' + String(err.message) + '\n' + String(err.stack));
+        console.log('LOKA_A3_ERROR ' + String(err.message) + '\n' + String(err.stack));
         setStatus('error: ' + String(err.message));
       }
-    }, 100);
+    }, 3000); // let startup settle before timing
     return () => clearTimeout(t);
   }, []);
   return (
