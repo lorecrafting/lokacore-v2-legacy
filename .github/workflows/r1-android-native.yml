@@ -1,0 +1,185 @@
+name: R1 Android native evidence
+
+# Builds the A2 probe app (r1-spike/mobile) from the retained lock with our own
+# expo prebuild + Gradle, and retains an evidence bundle. No EAS, no token, no
+# signing secret: the release APK is signed with the template's public debug
+# keystore, which is NOT store signing. The bundle is evidence, never approval.
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'r1-spike/mobile/**'
+      - '.github/workflows/r1-android-native.yml'
+
+permissions:
+  contents: read
+
+env:
+  # Pins observed on 2026-09-23; a changed value is a changed native configuration.
+  TEMPLATE: expo-template-bare-minimum@57.0.26
+  TEMPLATE_SHA256: 6b19d4235ab57c66fac699de7a2c57fe0ea277bf8a355ed45b2a37258bd93366
+  GRADLE_DIST_SHA256: b266d5ff6b90eada6dc3b20cb090e3731302e553a27c5d3e4df1f0d76beaff06
+  GRADLE_WRAPPER_JAR_SHA256: b3a875ddc1f044746e1b1a55f645584505f4a10438c1afea9f15e92a7c42ec13
+  ABI: arm64-v8a
+
+jobs:
+  android:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: '24.21.0'
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6
+        with:
+          distribution: temurin
+          java-version: '17.0.20+8'
+      - name: Pin npm
+        run: |
+          npm install -g npm@11.19.0 --ignore-scripts --no-audit --no-fund
+          test "$(npm -v)" = 11.19.0
+      - name: Require the retained lock bytes
+        run: |
+          set -euo pipefail
+          E=docs/rewrite-v3/prep/after-pr-10/dependency-evidence
+          (cd "$E" && sha256sum -c SHA256SUMS)
+          cmp "$E/package.json" r1-spike/mobile/package.json
+          cmp "$E/package-lock.json" r1-spike/mobile/package-lock.json
+      - name: Install and prebuild
+        working-directory: r1-spike/mobile
+        run: |
+          set -euo pipefail
+          B="$RUNNER_TEMP/a2-android-evidence"
+          mkdir -p "$B"
+          {
+            npm_config_engine_strict=true npm ci --ignore-scripts --no-audit --no-fund
+            npm pack "$TEMPLATE" --ignore-scripts --pack-destination "$RUNNER_TEMP"
+            echo "$TEMPLATE_SHA256  $RUNNER_TEMP/expo-template-bare-minimum-57.0.26.tgz" | sha256sum -c
+            CI=1 EXPO_NO_TELEMETRY=1 node node_modules/expo/bin/cli prebuild --platform android --no-install \
+              --template "$RUNNER_TEMP/expo-template-bare-minimum-57.0.26.tgz"
+          } 2>&1 | tee "$B/prebuild.log"
+          E=../../docs/rewrite-v3/prep/after-pr-10/dependency-evidence
+          cmp "$E/package.json" package.json
+          cmp "$E/package-lock.json" package-lock.json
+          echo "package_json_and_lock_unchanged_by_install_and_prebuild=true" > "$B/comparison.txt"
+          # Gradle refuses a distribution whose checksum differs from the pin.
+          echo "distributionSha256Sum=$GRADLE_DIST_SHA256" >> android/gradle/wrapper/gradle-wrapper.properties
+          echo "$GRADLE_WRAPPER_JAR_SHA256  android/gradle/wrapper/gradle-wrapper.jar" | sha256sum -c
+          cp android/gradle/wrapper/gradle-wrapper.properties "$B/"
+          (find android -type f -print0 | sort -z | xargs -0 sha256sum) > "$B/prebuild-tree.sha256"
+      - name: Build release APK
+        working-directory: r1-spike/mobile/android
+        run: |
+          set -euo pipefail
+          B="$RUNNER_TEMP/a2-android-evidence"
+          cat > "$RUNNER_TEMP/report.gradle" <<'EOF'
+          gradle.projectsEvaluated { g ->
+            def a = g.rootProject.project(':app').android
+            println "A2 compileSdk=${a.compileSdkVersion}"
+            println "A2 buildToolsVersion=${a.buildToolsVersion}"
+            println "A2 ndkVersion=${a.ndkVersion}"
+            println "A2 minSdk=${a.defaultConfig.minSdkVersion?.apiLevel}"
+            println "A2 targetSdk=${a.defaultConfig.targetSdkVersion?.apiLevel}"
+          }
+          EOF
+          ./gradlew --version > "$B/gradle-version.txt"
+          ./gradlew --no-daemon -I "$RUNNER_TEMP/report.gradle" -PreactNativeArchitectures="$ABI" \
+            assembleRelease 2>&1 | tee "$B/gradle-build.log"
+          grep '^A2 ' "$B/gradle-build.log" | sed 's/^A2 //' | sort -u > "$B/native-config.txt"
+          ./gradlew --no-daemon -PreactNativeArchitectures="$ABI" :app:dependencies \
+            --configuration releaseRuntimeClasspath > "$B/release-runtime-classpath.txt"
+      - name: Record host, tools and APK facts
+        working-directory: r1-spike/mobile/android
+        run: |
+          set -euo pipefail
+          B="$RUNNER_TEMP/a2-android-evidence"
+          {
+            echo "observed_at_utc=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            echo "source_commit=${{ github.event.pull_request.head.sha || github.sha }}"
+            echo "event=$GITHUB_EVENT_NAME"
+            echo "repository=$GITHUB_REPOSITORY"
+            echo "workflow_ref=$GITHUB_WORKFLOW_REF"
+            echo "run_id=$GITHUB_RUN_ID"
+            echo "run_attempt=$GITHUB_RUN_ATTEMPT"
+            echo "runner_label=ubuntu-24.04"
+            echo "ImageOS=${ImageOS:-unavailable}"
+            echo "ImageVersion=${ImageVersion:-unavailable}"
+            echo "RUNNER_ARCH=$RUNNER_ARCH"
+            echo "uname=$(uname -a)"
+            echo "nproc=$(nproc)"
+            echo "mem_total_kib=$(awk '/MemTotal/ {print $2}' /proc/meminfo)"
+            grep -E '^(PRETTY_NAME|VERSION_ID)=' /etc/os-release
+          } > "$B/host.txt"
+          {
+            echo "node=$(node -v)"
+            echo "npm=$(npm -v)"
+            echo "java_home=$JAVA_HOME"
+            java -version 2>&1 | sed 's/^/java: /'
+            echo "android_home=$ANDROID_HOME"
+            sdk() { echo "$1: $(grep -h '^Pkg.Revision' "$ANDROID_HOME/$1/source.properties" 2>/dev/null || echo missing)"; }
+            while read -r line; do
+              k=${line%%=*}; v=${line#*=}
+              case "$k" in
+                compileSdk) sdk "platforms/android-${v#android-}" ;;
+                buildToolsVersion) sdk "build-tools/$v" ;;
+                ndkVersion) sdk "ndk/$v" ;;
+              esac
+            done < "$B/native-config.txt"
+            for z in "$HOME"/.gradle/wrapper/dists/gradle-*-bin/*/gradle-*-bin.zip; do
+              [ -f "$z" ] && echo "gradle_distribution_zip=$(basename "$z") sha256=$(sha256sum "$z" | cut -d' ' -f1)"
+            done
+            echo "gradle_distribution_sha256_pinned=$GRADLE_DIST_SHA256"
+          } > "$B/tools.txt"
+          APK=app/build/outputs/apk/release/app-release.apk
+          BT=$(sed -n 's/^buildToolsVersion=//p' "$B/native-config.txt")
+          X="$RUNNER_TEMP/apk"
+          mkdir -p "$X" && unzip -q -o "$APK" -d "$X"
+          {
+            echo "apk=app-release.apk sha256=$(sha256sum "$APK" | cut -d' ' -f1) bytes=$(stat -c %s "$APK")"
+            echo "signing=template debug.keystore (public debug key), not store signing"
+            echo "debug_keystore_sha256=$(sha256sum app/debug.keystore | cut -d' ' -f1)"
+            "$ANDROID_HOME/build-tools/$BT/aapt2" dump badging "$APK" | grep -E '^(package|sdkVersion|targetSdkVersion|native-code)' | sed 's/^/aapt2: /'
+            "$ANDROID_HOME/build-tools/$BT/apksigner" verify --print-certs "$APK" | sed 's/^/apksigner: /'
+            echo "--- native libraries"
+            (cd "$X" && find lib -type f -print0 | sort -z | xargs -0 sha256sum)
+            echo "--- hermes (resolved release runtime dependency)"
+            grep -i hermes "$B/release-runtime-classpath.txt" | sort -u
+            echo "--- sqlite (strings in the packaged expo-sqlite library)"
+            for so in "$X"/lib/"$ABI"/*sqlite*.so; do
+              echo "file=${so#"$X"/}"
+              strings -a "$so" | grep -E '^3\.[0-9]+\.[0-9]+$' | sort -u | sed 's/^/sqlite_version_string: /'
+              strings -a "$so" | grep -E '^20[0-9]{2}-[0-9]{2}-[0-9]{2} [0-9:]{8} [0-9a-f]{20,}' | sort -u | sed 's/^/sqlite_source_id: /'
+            done
+            echo "--- toolchain notes (.comment of packaged native libraries)"
+            for so in "$X"/lib/"$ABI"/*.so; do readelf -p .comment "$so" 2>/dev/null | grep -o 'Android.*' ; done | sort -u
+          } > "$B/apk-facts.txt"
+          cp "$APK" "$RUNNER_TEMP/app-release.apk"
+          cat "$B/host.txt" "$B/tools.txt" "$B/native-config.txt" "$B/apk-facts.txt"
+      - name: Index and verify bundle
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/a2-android-evidence"
+          find . -type f ! -name SHA256SUMS -printf '%P\n' | sort | xargs sha256sum > SHA256SUMS
+          sha256sum -c SHA256SUMS | tee "$RUNNER_TEMP/SHA256SUMS.verify.txt"
+          mv "$RUNNER_TEMP/SHA256SUMS.verify.txt" .
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: a2-android-evidence
+          path: ${{ runner.temp }}/a2-android-evidence
+          if-no-files-found: error
+          retention-days: 90
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: app-release-apk
+          path: ${{ runner.temp }}/app-release.apk
+          if-no-files-found: error
+          retention-days: 30
