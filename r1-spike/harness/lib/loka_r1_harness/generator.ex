@@ -14,7 +14,7 @@ defmodule LokaR1Harness.Generator do
   import Bitwise
   alias LokaR1Harness.Canonical
 
-  @version "r1-gen-1"
+  @version "r1-gen-2"
   @max_safe 9_007_199_254_740_991
   @u32 4_294_967_295
 
@@ -606,11 +606,107 @@ defmodule LokaR1Harness.Generator do
 
     cond do
       roll <= 45 -> composition(r)
-      roll <= 55 -> rng_next(r)
-      roll <= 65 -> rng_uniform(r)
-      roll <= 75 -> int_divide(r)
-      roll <= 92 -> json_canonical(r)
-      true -> malformed(r)
+      roll <= 53 -> rng_next(r)
+      roll <= 61 -> rng_uniform(r)
+      roll <= 69 -> int_divide(r)
+      roll <= 84 -> json_canonical(r)
+      roll <= 90 -> malformed(r)
+      true -> edge(r)
+    end
+  end
+
+  # ------------------------------------------------ settled edge rules (README)
+
+  @edge_json [
+    %{"fn" => "rng.next", "state" => [1, 2, 3, 4], "x" => 1},
+    %{"fn" => "int.divide", "a" => 7, "b" => 2, "c" => 0},
+    %{"fn" => "json.canonical", "text" => "1", "extra" => nil},
+    %{"fn" => "world.run", "world" => "lantern", "commands" => [], "extra" => 1},
+    %{"fn" => "world.run", "world" => "tiny-event", "commands" => []},
+    %{"fn" => "world.run", "world" => "tiny-state", "commands" => []},
+    %{"fn" => "world.run", "world" => "lantern", "commands" => []},
+    %{"fn" => "world.run", "world" => "lantern", "commands" => [5, %{"op" => "recover"}]},
+    %{"fn" => "world.run", "world" => "tiny-event", "commands" => [nil, "recover", [], true]},
+    %{
+      "fn" => "world.run",
+      "world" => "tiny-state",
+      "commands" => [%{"op" => "recover"}, 0, %{"op" => "settle", "committed" => true}]
+    },
+    %{"fn" => "world.run", "world" => "tiny", "commands" => [%{"op" => "recover"}]},
+    %{"fn" => "world.run", "world" => "Lantern", "commands" => [%{"op" => "recover"}]},
+    %{"fn" => "world.run", "world" => 5, "commands" => [%{"op" => "recover"}]},
+    %{"fn" => "world.run", "world" => nil, "commands" => []},
+    %{"fn" => "world.run", "world" => "lantern", "initial" => [], "commands" => []},
+    %{"fn" => "world.run", "world" => "tiny-event", "initial" => 5, "commands" => []},
+    %{"fn" => "world.run", "world" => "tiny-state", "initial" => nil, "commands" => []},
+    %{"fn" => "world.run", "world" => "lantern", "initial" => "x", "commands" => []}
+  ]
+
+  @edge_limits [
+    %{"operations" => 0},
+    %{"operations" => -1},
+    %{"reaction_depth" => 0},
+    %{"events" => "5"},
+    %{"deliveries" => nil},
+    %{"nope" => 5},
+    %{"selector_cardinality" => 3},
+    %{"output_bytes" => true},
+    [],
+    5,
+    nil
+  ]
+
+  @invalid_utf8 [
+    <<"{\"fn\":\"json.canonical\",\"text\":\"", 0xFF, "\"}">>,
+    <<"{\"fn\":\"json.canonical\",\"text\":\"", 0xC0, 0xAF, "\"}">>,
+    <<"{\"fn\":\"json.canonical\",\"text\":\"", 0x80, "\"}">>,
+    <<"{\"fn\":\"json.canonical\",\"text\":\"", 0xED, 0xA0, 0x80, "\"}">>,
+    <<"{\"fn\":\"json.canonical\",\"text\":\"", 0xE6, 0x97, "\"}">>,
+    <<"{\"fn\":\"rng.next\",\"state\":[1,2,3,4]}", 0xFF>>,
+    <<"{\"fn\":\"rng.next\",\"state\":[1,2,3,4],\"", 0xC3, "\":1}">>
+  ]
+
+  defp edge(r) do
+    {kind, r} = int(r, 1, 8)
+
+    case kind do
+      k when k <= 2 ->
+        {req, r} = pick(r, @edge_json)
+        {{:json, req}, r}
+
+      3 ->
+        {{:json, req}, r} = composition(r)
+        {limits, r} = pick(r, @edge_limits)
+        {{:json, %{req | "limits" => limits}}, r}
+
+      4 ->
+        {{:json, req}, r} = composition(r)
+
+        {req, r} =
+          pick(r, [
+            Map.put(req, "advance_target", nil),
+            Map.put(req, "advance_target", nil),
+            %{req | "root" => 5},
+            %{req | "rules" => %{}},
+            %{req | "initial" => %{}},
+            %{req | "initial" => Map.delete(req["initial"], "clock")},
+            Map.put(req, "x", 1)
+          ])
+
+        {{:json, req}, r}
+
+      5 ->
+        {line, r} = pick(r, ["", "\r", " ", "\t", " \r"])
+        {{:raw, line}, r}
+
+      6 ->
+        {gen, r} = pick(r, [&rng_next/1, &rng_uniform/1, &int_divide/1, &json_canonical/1])
+        {req, r} = gen.(r)
+        {{:raw, line(req) <> "\r"}, r}
+
+      _ ->
+        {line, r} = pick(r, @invalid_utf8)
+        {{:raw, line}, r}
     end
   end
 
@@ -1107,8 +1203,8 @@ defmodule LokaR1Harness.Generator do
       {v, r} =
         case key do
           "output_bytes" -> int(r, 50, 2000)
-          "query_steps" -> int(r, 0, 60)
-          _ -> int(r, 0, 5)
+          "query_steps" -> int(r, 1, 60)
+          _ -> int(r, 1, 5)
         end
 
       {Map.put(acc, key, v), r}

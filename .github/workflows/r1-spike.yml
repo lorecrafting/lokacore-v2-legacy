@@ -55,7 +55,7 @@ jobs:
           set -euo pipefail
           npm ci --ignore-scripts --no-audit --no-fund
           node node_modules/typescript/bin/tsc -p .
-          node --test test/
+          node --test 'test/*.test.ts'
       - name: Harness format and test
         working-directory: r1-spike/harness
         run: |

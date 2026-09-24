@@ -9,8 +9,6 @@ defmodule LokaR1Harness.Diff do
 
   alias LokaR1Harness.{Canonical, Generator}
 
-  @max_line 65_536
-
   @doc """
   Options: `:runners` — `[{name, command, dir}, {name, command, dir}]`;
   `:seeds` — `[{origin, seed}]`; `:timeout` — ms per response.
@@ -44,8 +42,10 @@ defmodule LokaR1Harness.Diff do
   end
 
   defp run_sequence(a, b, timeout, seed, stats) do
-    Enum.reduce_while(Generator.sequence(seed), {:ok, stats}, fn req, {:ok, stats} ->
-      stats = count(stats, req)
+    Generator.sequence(seed)
+    |> Enum.with_index()
+    |> Enum.reduce_while({:ok, stats}, fn {req, i}, {:ok, stats} ->
+      stats = count(stats, req, i)
 
       case exchange(a, b, timeout, Generator.line(req)) do
         {:same, _} -> {:cont, {:ok, stats}}
@@ -55,7 +55,8 @@ defmodule LokaR1Harness.Diff do
     end)
   end
 
-  defp count(stats, req) do
+  # The length histogram covers each sequence's primary world.run (index 0) only.
+  defp count(stats, req, i) do
     name = Generator.fn_name(req)
 
     stats = %{
@@ -65,7 +66,7 @@ defmodule LokaR1Harness.Diff do
     }
 
     case req do
-      {:json, %{"fn" => "world.run", "commands" => cmds}} ->
+      {:json, %{"fn" => "world.run", "commands" => cmds}} when i == 0 ->
         %{stats | lengths: Map.update(stats.lengths, length(cmds), 1, &(&1 + 1))}
 
       _ ->
@@ -77,7 +78,7 @@ defmodule LokaR1Harness.Diff do
     failure = %{
       "origin" => origin,
       "seed" => seed,
-      "request" => Generator.line(req),
+      "request" => printable(Generator.line(req)),
       "responses" => %{a.name => printable(ra), b.name => printable(rb)}
     }
 
@@ -92,7 +93,7 @@ defmodule LokaR1Harness.Diff do
         other -> %{"error" => inspect(other)}
       end
 
-    Map.put(failure, "minimized", %{"request" => line, "responses" => responses})
+    Map.put(failure, "minimized", %{"request" => printable(line), "responses" => responses})
   end
 
   # Response bytes that are not UTF-8 cannot sit in a JSON string.
@@ -138,7 +139,6 @@ defmodule LokaR1Harness.Diff do
         :binary,
         :exit_status,
         :use_stdio,
-        {:line, @max_line},
         {:args, args},
         {:cd, Path.expand(dir)}
       ])
@@ -147,6 +147,7 @@ defmodule LokaR1Harness.Diff do
   end
 
   defp close(%{port: port}) do
+    Process.delete({:buf, port})
     if Port.info(port), do: Port.close(port)
   catch
     _, _ -> :ok
@@ -156,19 +157,34 @@ defmodule LokaR1Harness.Diff do
     send(a.port, {self(), {:command, [line, ?\n]}})
     send(b.port, {self(), {:command, [line, ?\n]}})
 
-    with {:ok, ra} <- read(a, timeout, []),
-         {:ok, rb} <- read(b, timeout, []) do
+    with {:ok, ra} <- read(a, timeout),
+         {:ok, rb} <- read(b, timeout) do
       if ra == rb, do: {:same, ra}, else: {:differ, ra, rb}
     end
   end
 
-  defp read(%{port: port, name: name} = runner, timeout, acc) do
-    receive do
-      {^port, {:data, {:eol, chunk}}} -> {:ok, IO.iodata_to_binary(Enum.reverse([chunk | acc]))}
-      {^port, {:data, {:noeol, chunk}}} -> read(runner, timeout, [chunk | acc])
-      {^port, {:exit_status, s}} -> {:error, "#{name} exited with status #{s}"}
-    after
-      timeout -> {:error, "#{name} gave no response within #{timeout} ms"}
+  # Stream mode, split on \n only: the port's line mode would also strip a \r,
+  # hiding a runner that ends lines with \r\n. Unconsumed bytes wait in the
+  # process dictionary for the next read.
+  defp read(%{port: port} = runner, timeout) do
+    buf = Process.get({:buf, port}, "")
+
+    case :binary.split(buf, "\n") do
+      [line, rest] ->
+        Process.put({:buf, port}, rest)
+        {:ok, line}
+
+      [_] ->
+        receive do
+          {^port, {:data, data}} ->
+            Process.put({:buf, port}, buf <> data)
+            read(runner, timeout)
+
+          {^port, {:exit_status, s}} ->
+            {:error, "#{runner.name} exited with status #{s}"}
+        after
+          timeout -> {:error, "#{runner.name} gave no response within #{timeout} ms"}
+        end
     end
   end
 

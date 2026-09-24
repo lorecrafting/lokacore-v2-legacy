@@ -5,7 +5,7 @@ defmodule LokaR1HarnessTest do
   alias LokaR1Harness.{Canonical, Diff, Generator}
 
   @max_safe 9_007_199_254_740_991
-  @fake Path.expand("support/fake_runner.exs", __DIR__)
+  @fake Path.expand("support/fake_runner.py", __DIR__)
 
   defp lines(seed), do: Enum.map(Generator.sequence(seed), &Generator.line/1)
   defp seeds(n), do: Generator.fresh_seeds(99, n)
@@ -50,7 +50,7 @@ defmodule LokaR1HarnessTest do
              ~s({"a":["\\b\\t\\n\\f\\r\\u0001\\u001f\u007f","é😀\\"\\\\"],"b":1})
   end
 
-  defp runner(name, args \\ ""), do: {name, "elixir #{@fake} #{args}", "."}
+  defp runner(name, args \\ ""), do: {name, "python3 #{@fake} #{args}", "."}
 
   test "identical runners agree" do
     assert {:pass, stats, nil} =
@@ -60,6 +60,23 @@ defmodule LokaR1HarnessTest do
              )
 
     assert stats.requests == 400
+  end
+
+  test "responses are compared as raw bytes, so a \\r\\n ending is a mismatch" do
+    assert {:mismatch, _, failure} =
+             Diff.run(runners: [runner("a"), runner("b", "--crlf")], seeds: [{"t", 1}])
+
+    assert failure["responses"]["b"] == failure["responses"]["a"] <> "\r"
+  end
+
+  test "settled edge cases are about 5% of lines and include raw bytes" do
+    reqs = Enum.flat_map(seeds(4000), &Generator.sequence/1)
+    raw = for {:raw, line} <- reqs, do: line
+    assert Enum.any?(raw, &(not String.valid?(&1)))
+    assert Enum.any?(raw, &String.ends_with?(&1, "\r"))
+    assert "" in raw
+    empty = for {:json, %{"fn" => "world.run", "commands" => []}} <- reqs, do: 1
+    assert empty != []
   end
 
   test "a runner that corrupts step 3 is caught and minimized to 4 commands" do
@@ -86,7 +103,7 @@ defmodule LokaR1HarnessTest do
     reg = Path.join(dir, "reg.json")
     File.write!(reg, ~s({"seeds":[1,2]}))
     report = Path.join(dir, "report.json")
-    cmd = "elixir #{@fake}"
+    cmd = "python3 #{@fake}"
     base = ~w(--seed 7 --regression-file #{reg} --report #{report} --elixir-dir . --ts-dir .)
 
     Mix.Tasks.R1.Diff.run(base ++ ["--sequences", "30", "--elixir", cmd, "--ts", cmd])
@@ -96,7 +113,7 @@ defmodule LokaR1HarnessTest do
     assert summary["regression_seeds"] == [1, 2]
     assert summary["fresh_sequences"] == 30
     assert Enum.sum(Map.values(summary["length_histogram"])) == 32
-    assert summary["fn_counts"]["world.run"] == 32
+    assert summary["fn_counts"]["world.run"] >= 32
 
     assert_raise Mix.Error, fn ->
       Mix.Tasks.R1.Diff.run(

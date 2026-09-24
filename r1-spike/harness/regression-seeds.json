@@ -1,5 +1,5 @@
 {
   "note": "Fixed sequence seeds run before the fresh ones on every r1.diff. Add a minimized failing seed here only alongside its fix. Changing the generator version changes what each seed produces.",
-  "generator_version": "r1-gen-1",
+  "generator_version": "r1-gen-2",
   "seeds": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 42, 1000, 65535, 4294967295, 281474976710655, 20260923]
 }
