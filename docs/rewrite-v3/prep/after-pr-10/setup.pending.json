@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "preparation_pending",
+  "status": "setup_reviewed",
   "candidate": "C",
   "accepted_spec_commit": "f5bef28a3094083fed67712c771504954d65d2de",
   "candidate_author_ids": [
@@ -100,6 +100,6 @@
   },
   "setup_review": {
     "path": "prep/after-pr-10/setup-review.pending.json",
-    "sha256": "ad500db739278a1bc42d785fc3f63306d91f648b3af5f82ffc0b42a9d0491688"
+    "sha256": "79da23201c955b2b1c744feb56ded5920204c2d660bc95a60059a7d712315d66"
   }
 }

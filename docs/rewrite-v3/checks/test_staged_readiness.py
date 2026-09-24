@@ -212,13 +212,16 @@ class StagedReadiness(unittest.TestCase):
         with self.assertRaises(ValueError):
             readiness.require_ready(data, self.root, 'A3')
 
-    def test_real_pending_and_permanent_template_reject_both_stages(self):
-        for name in ('conformance/r1-run-manifest.template.json',
-                     'prep/after-pr-10/setup.pending.json'):
-            data = strict_json((readiness.ROOT / name).read_text())
-            for stage in readiness.STAGES:
-                with self.subTest(path=name, stage=stage), self.assertRaises(ValueError):
-                    readiness.require_ready(data, readiness.ROOT, stage)
+    def test_real_setup_is_a1_only_and_template_rejects_both_stages(self):
+        # The real setup holds genuine A1 approvals (2026-09-23); it must still fail A2.
+        template = strict_json((readiness.ROOT / 'conformance/r1-run-manifest.template.json').read_text())
+        real = strict_json((readiness.ROOT / 'prep/after-pr-10/setup.pending.json').read_text())
+        for stage in readiness.STAGES:
+            with self.subTest(path='template', stage=stage), self.assertRaises(ValueError):
+                readiness.require_ready(template, readiness.ROOT, stage)
+        readiness.require_ready(real, readiness.ROOT, 'A1')
+        with self.assertRaises(ValueError):
+            readiness.require_ready(real, readiness.ROOT, 'A2')
 
     def test_cli_defaults_to_a2_and_a1_pass_has_limited_scope(self):
         data = self.setup_record()

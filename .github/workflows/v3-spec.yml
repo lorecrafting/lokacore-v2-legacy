@@ -94,8 +94,17 @@ jobs:
                 result=$?
                 set -e
                 printf '%s %s %s exit=%s\n%s\n' "$checker" "$stage" "$input" "$result" "$output"
-                test "$result" -eq 1
-                grep -q 'NOT READY: preparation pending' <<< "$output"
+                case "$input:$stage" in
+                  *setup.pending.json:A1)
+                    test "$result" -eq 0
+                    grep -q 'PASS: R1-A1 preparation records complete' <<< "$output" ;;
+                  *setup.pending.json:A2)
+                    test "$result" -eq 1
+                    grep -q 'NOT READY: ' <<< "$output" ;;
+                  *)
+                    test "$result" -eq 1
+                    grep -q 'NOT READY: preparation pending' <<< "$output" ;;
+                esac
               done
             done
           done
@@ -114,7 +123,9 @@ jobs:
                 set -e
                 printf '%s %s %s exit=%s\n%s\n' "$checker" "$stage" "$input" "$result" "$output"
                 test "$result" -eq 1
-                if [ "$stage" = default ]; then
+                if [ "$stage" = default ] && [[ "$input" == *setup.pending.json ]]; then
+                  grep -q 'NOT READY: ' <<< "$output"
+                elif [ "$stage" = default ]; then
                   grep -q 'NOT READY: preparation pending' <<< "$output"
                 else
                   grep -q 'NOT READY: unsupported readiness stage' <<< "$output"
