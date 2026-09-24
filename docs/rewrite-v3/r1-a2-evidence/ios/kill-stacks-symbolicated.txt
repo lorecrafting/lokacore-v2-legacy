@@ -1,0 +1,253 @@
+=== LokaR1A2-2026-09-24-061544.ips exception=EXC_CRASH SIGABRT
+ 0 libsystem_kernel.dylib +0xb1d0  __pthread_kill
+ 1 libsystem_pthread.dylib +0x77dc  pthread_kill
+ 2 libsystem_c.dylib      +0x76fcc  abort
+ 3 LokaR1A2               +0x114cbc  atos(dSYM uuid 3af1cfcf-af02-3f33-b877-0cd995e54042): closure #3 in LokaMemoryModule.definition() (in LokaR1A2) (LokaMemoryModule.swift:17)
+ 4 ExpoModulesCore        +0x254e4  thunk for @escaping @callee_guaranteed () -> (@out A, @error @owned Error)
+ 5 ExpoModulesCore        +0x27528  partial apply for thunk for @escaping @callee_guaranteed () -> (@out A, @error @owned Error)
+ 6 ExpoModulesCore        +0x8ecc4  SyncFunctionDefinition.runBody(_:in:this:arguments:)
+ 7 ExpoModulesCore        +0x8f164  SyncFunctionDefinition.call(_:in:this:arguments:)
+ 8 ExpoModulesCore        +0x8f784  closure #1 in SyncFunctionDefinition.build(appContext:in:)
+ 9 ExpoModulesCore        +0x8fac4  partial apply for closure #1 in SyncFunctionDefinition.build(appContext:in:)
+10 ExpoModulesJSI         +0x1c188
+11 ExpoModulesJSI         +0x1c8cc
+12 ExpoModulesJSI         +0x1c228
+13 ExpoModulesJSI         +0x1f118  std::__1::__invoke_result_impl<void, expo::createHostFunction(facebook::jsi::IRuntime&, facebook::jsi::PropNameID const&, expo::HostFunctionClosure*)::'lambda'(facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)&, facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long>::type std::__1::__invoke[abi:nqe220106]<expo::createHostFunction(facebook::jsi::IRuntime&, facebook::jsi::PropNameID const&, expo::HostFunctionClosure*)::'lambda'(facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)&, facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long>(expo::createHostFunction(facebook::jsi::IRuntime&, facebook::jsi::PropNameID const&, expo::HostFunctionClosure*)::'lambda'(facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)&, facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*&&, unsigned long&&)
+14 hermesvm               +0x2ce98  std::__1::function<facebook::jsi::Value (facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)>::operator()(facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long) const
+15 hermesvm               +0x2cbd0  facebook::hermes::(anonymous namespace)::HermesRuntimeImpl::HFContext::func(void*, hermes::vm::Runtime&)
+16 hermesvm               +0x102f24  hermes::vm::NativeFunction::_nativeCall(hermes::vm::NativeFunction*, hermes::vm::Runtime&)
+17 hermesvm               +0x10d788  hermes::vm::Interpreter::handleCallSlowPath(hermes::vm::Runtime&, hermes::vm::PinnedHermesValue*)
+18 hermesvm               +0x10fb00  hermes::vm::CallResult<hermes::vm::HermesValue, (hermes::vm::detail::CallResultSpecialize)2> hermes::vm::Interpreter::interpretFunction<false, false>(hermes::vm::Runtime&, hermes::vm::InterpreterState&)
+19 hermesvm               +0x1a8728  hermes::vm::Runtime::interpretFunctionImpl(hermes::vm::CodeBlock*)
+20 hermesvm               +0x102fe8  hermes::vm::JSFunction::_callImpl(hermes::vm::Handle<hermes::vm::Callable>, hermes::vm::Runtime&)
+21 hermesvm               +0x24614  facebook::hermes::(anonymous namespace)::HermesRuntimeImpl::call(facebook::jsi::Function const&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)
+22 React                  +0x2ae900  facebook::react::TimerCallback::invoke(facebook::jsi::Runtime&)
+23 React                  +0x2ae810  std::__1::__function::__func<facebook::react::TimerManager::callTimer(int)::$_0, std::__1::allocator<facebook::react::TimerManager::callTimer(int)::$_0>, void (facebook::jsi::Runtime&)>::operator()(facebook::jsi::Runtime&)
+24 React                  +0x28a1b0  facebook::react::Task::execute(facebook::jsi::Runtime&, bool)
+25 React                  +0x286f70  facebook::react::RuntimeScheduler_Modern::executeTask(facebook::jsi::Runtime&, facebook::react::Task&, bool) const
+26 React                  +0x287810  facebook::react::RuntimeScheduler_Modern::runEventLoopTick(facebook::jsi::Runtime&, facebook::react::Task&)
+27 React                  +0x287554  facebook::react::RuntimeScheduler_Modern::runEventLoop(facebook::jsi::Runtime&)
+28 React                  +0x2a64e8  _ZNSt3__110__function6__funcIZZN8facebook5react13ReactInstanceC1ENS_10unique_ptrINS3_9JSRuntimeENS_14default_deleteIS6_EEEENS_10shared_ptrINS3_18MessageQueueThreadEEENSA_INS3_12TimerManagerEEENS_8functionIFvRNS2_3jsi7RuntimeERKNS3_14JsErrorHandler14ProcessedErrorEEEEPNS3_18jsinspector_modern10HostTargetEENK3$_0clINSF_IFvSI_EEEEEDaT_EUlvE_NS_9allocatorISY_EEFvvEEclEv
+29 React                  +0x9d2c8  facebook::react::tryAndReturnError(std::__1::function<void ()> const&)
+30 React                  +0x9a428  facebook::react::RCTMessageThread::tryFunc(std::__1::function<void ()> const&)
+31 React                  +0x9a1f8  invocation function for block in facebook::react::RCTMessageThread::runAsync(std::__1::function<void ()>)
+32 CoreFoundation         +0x2dacc  __CFRUNLOOP_IS_CALLING_OUT_TO_A_BLOCK__
+33 CoreFoundation         +0x2d798  __CFRunLoopDoBlocks
+34 CoreFoundation         +0x2f7a0  __CFRunLoopRun
+35 CoreFoundation         +0x2e54c  _CFRunLoopRunSpecificWithOptions
+36 React                  +0x2bba74  +[RCTJSThreadManager runRunLoop]
+37 Foundation             +0x8e914  __NSThread__start__
+38 libsystem_pthread.dylib +0x4438  _pthread_start
+39 libsystem_pthread.dylib +0x8cc  thread_start
+=== LokaR1A2-2026-09-24-061548.ips exception=EXC_CRASH SIGABRT
+ 0 libsystem_kernel.dylib +0xb1d0  __pthread_kill
+ 1 libsystem_pthread.dylib +0x77dc  pthread_kill
+ 2 libsystem_c.dylib      +0x76fcc  abort
+ 3 LokaR1A2               +0x114cbc  atos(dSYM uuid 3af1cfcf-af02-3f33-b877-0cd995e54042): closure #3 in LokaMemoryModule.definition() (in LokaR1A2) (LokaMemoryModule.swift:17)
+ 4 ExpoModulesCore        +0x254e4  thunk for @escaping @callee_guaranteed () -> (@out A, @error @owned Error)
+ 5 ExpoModulesCore        +0x27528  partial apply for thunk for @escaping @callee_guaranteed () -> (@out A, @error @owned Error)
+ 6 ExpoModulesCore        +0x8ecc4  SyncFunctionDefinition.runBody(_:in:this:arguments:)
+ 7 ExpoModulesCore        +0x8f164  SyncFunctionDefinition.call(_:in:this:arguments:)
+ 8 ExpoModulesCore        +0x8f784  closure #1 in SyncFunctionDefinition.build(appContext:in:)
+ 9 ExpoModulesCore        +0x8fac4  partial apply for closure #1 in SyncFunctionDefinition.build(appContext:in:)
+10 ExpoModulesJSI         +0x1c188
+11 ExpoModulesJSI         +0x1c8cc
+12 ExpoModulesJSI         +0x1c228
+13 ExpoModulesJSI         +0x1f118  std::__1::__invoke_result_impl<void, expo::createHostFunction(facebook::jsi::IRuntime&, facebook::jsi::PropNameID const&, expo::HostFunctionClosure*)::'lambda'(facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)&, facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long>::type std::__1::__invoke[abi:nqe220106]<expo::createHostFunction(facebook::jsi::IRuntime&, facebook::jsi::PropNameID const&, expo::HostFunctionClosure*)::'lambda'(facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)&, facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long>(expo::createHostFunction(facebook::jsi::IRuntime&, facebook::jsi::PropNameID const&, expo::HostFunctionClosure*)::'lambda'(facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)&, facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*&&, unsigned long&&)
+14 hermesvm               +0x2ce98  std::__1::function<facebook::jsi::Value (facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)>::operator()(facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long) const
+15 hermesvm               +0x2cbd0  facebook::hermes::(anonymous namespace)::HermesRuntimeImpl::HFContext::func(void*, hermes::vm::Runtime&)
+16 hermesvm               +0x102f24  hermes::vm::NativeFunction::_nativeCall(hermes::vm::NativeFunction*, hermes::vm::Runtime&)
+17 hermesvm               +0x10d788  hermes::vm::Interpreter::handleCallSlowPath(hermes::vm::Runtime&, hermes::vm::PinnedHermesValue*)
+18 hermesvm               +0x10fb00  hermes::vm::CallResult<hermes::vm::HermesValue, (hermes::vm::detail::CallResultSpecialize)2> hermes::vm::Interpreter::interpretFunction<false, false>(hermes::vm::Runtime&, hermes::vm::InterpreterState&)
+19 hermesvm               +0x1a8728  hermes::vm::Runtime::interpretFunctionImpl(hermes::vm::CodeBlock*)
+20 hermesvm               +0x102fe8  hermes::vm::JSFunction::_callImpl(hermes::vm::Handle<hermes::vm::Callable>, hermes::vm::Runtime&)
+21 hermesvm               +0x24614  facebook::hermes::(anonymous namespace)::HermesRuntimeImpl::call(facebook::jsi::Function const&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)
+22 React                  +0x2ae900  facebook::react::TimerCallback::invoke(facebook::jsi::Runtime&)
+23 React                  +0x2ae810  std::__1::__function::__func<facebook::react::TimerManager::callTimer(int)::$_0, std::__1::allocator<facebook::react::TimerManager::callTimer(int)::$_0>, void (facebook::jsi::Runtime&)>::operator()(facebook::jsi::Runtime&)
+24 React                  +0x28a1b0  facebook::react::Task::execute(facebook::jsi::Runtime&, bool)
+25 React                  +0x286f70  facebook::react::RuntimeScheduler_Modern::executeTask(facebook::jsi::Runtime&, facebook::react::Task&, bool) const
+26 React                  +0x287810  facebook::react::RuntimeScheduler_Modern::runEventLoopTick(facebook::jsi::Runtime&, facebook::react::Task&)
+27 React                  +0x287554  facebook::react::RuntimeScheduler_Modern::runEventLoop(facebook::jsi::Runtime&)
+28 React                  +0x2a64e8  _ZNSt3__110__function6__funcIZZN8facebook5react13ReactInstanceC1ENS_10unique_ptrINS3_9JSRuntimeENS_14default_deleteIS6_EEEENS_10shared_ptrINS3_18MessageQueueThreadEEENSA_INS3_12TimerManagerEEENS_8functionIFvRNS2_3jsi7RuntimeERKNS3_14JsErrorHandler14ProcessedErrorEEEEPNS3_18jsinspector_modern10HostTargetEENK3$_0clINSF_IFvSI_EEEEEDaT_EUlvE_NS_9allocatorISY_EEFvvEEclEv
+29 React                  +0x9d2c8  facebook::react::tryAndReturnError(std::__1::function<void ()> const&)
+30 React                  +0x9a428  facebook::react::RCTMessageThread::tryFunc(std::__1::function<void ()> const&)
+31 React                  +0x9a1f8  invocation function for block in facebook::react::RCTMessageThread::runAsync(std::__1::function<void ()>)
+32 CoreFoundation         +0x2dacc  __CFRUNLOOP_IS_CALLING_OUT_TO_A_BLOCK__
+33 CoreFoundation         +0x2d798  __CFRunLoopDoBlocks
+34 CoreFoundation         +0x2f7a0  __CFRunLoopRun
+35 CoreFoundation         +0x2e54c  _CFRunLoopRunSpecificWithOptions
+36 React                  +0x2bba74  +[RCTJSThreadManager runRunLoop]
+37 Foundation             +0x8e914  __NSThread__start__
+38 libsystem_pthread.dylib +0x4438  _pthread_start
+39 libsystem_pthread.dylib +0x8cc  thread_start
+=== LokaR1A2-2026-09-24-061554.ips exception=EXC_CRASH SIGABRT
+ 0 libsystem_kernel.dylib +0xb1d0  __pthread_kill
+ 1 libsystem_pthread.dylib +0x77dc  pthread_kill
+ 2 libsystem_c.dylib      +0x76fcc  abort
+ 3 LokaR1A2               +0x114cbc  atos(dSYM uuid 3af1cfcf-af02-3f33-b877-0cd995e54042): closure #3 in LokaMemoryModule.definition() (in LokaR1A2) (LokaMemoryModule.swift:17)
+ 4 ExpoModulesCore        +0x254e4  thunk for @escaping @callee_guaranteed () -> (@out A, @error @owned Error)
+ 5 ExpoModulesCore        +0x27528  partial apply for thunk for @escaping @callee_guaranteed () -> (@out A, @error @owned Error)
+ 6 ExpoModulesCore        +0x8ecc4  SyncFunctionDefinition.runBody(_:in:this:arguments:)
+ 7 ExpoModulesCore        +0x8f164  SyncFunctionDefinition.call(_:in:this:arguments:)
+ 8 ExpoModulesCore        +0x8f784  closure #1 in SyncFunctionDefinition.build(appContext:in:)
+ 9 ExpoModulesCore        +0x8fac4  partial apply for closure #1 in SyncFunctionDefinition.build(appContext:in:)
+10 ExpoModulesJSI         +0x1c188
+11 ExpoModulesJSI         +0x1c8cc
+12 ExpoModulesJSI         +0x1c228
+13 ExpoModulesJSI         +0x1f118  std::__1::__invoke_result_impl<void, expo::createHostFunction(facebook::jsi::IRuntime&, facebook::jsi::PropNameID const&, expo::HostFunctionClosure*)::'lambda'(facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)&, facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long>::type std::__1::__invoke[abi:nqe220106]<expo::createHostFunction(facebook::jsi::IRuntime&, facebook::jsi::PropNameID const&, expo::HostFunctionClosure*)::'lambda'(facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)&, facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long>(expo::createHostFunction(facebook::jsi::IRuntime&, facebook::jsi::PropNameID const&, expo::HostFunctionClosure*)::'lambda'(facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)&, facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*&&, unsigned long&&)
+14 hermesvm               +0x2ce98  std::__1::function<facebook::jsi::Value (facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)>::operator()(facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long) const
+15 hermesvm               +0x2cbd0  facebook::hermes::(anonymous namespace)::HermesRuntimeImpl::HFContext::func(void*, hermes::vm::Runtime&)
+16 hermesvm               +0x102f24  hermes::vm::NativeFunction::_nativeCall(hermes::vm::NativeFunction*, hermes::vm::Runtime&)
+17 hermesvm               +0x10d788  hermes::vm::Interpreter::handleCallSlowPath(hermes::vm::Runtime&, hermes::vm::PinnedHermesValue*)
+18 hermesvm               +0x10fb00  hermes::vm::CallResult<hermes::vm::HermesValue, (hermes::vm::detail::CallResultSpecialize)2> hermes::vm::Interpreter::interpretFunction<false, false>(hermes::vm::Runtime&, hermes::vm::InterpreterState&)
+19 hermesvm               +0x1a8728  hermes::vm::Runtime::interpretFunctionImpl(hermes::vm::CodeBlock*)
+20 hermesvm               +0x102fe8  hermes::vm::JSFunction::_callImpl(hermes::vm::Handle<hermes::vm::Callable>, hermes::vm::Runtime&)
+21 hermesvm               +0x1020e0  hermes::vm::Callable::executeCall3(hermes::vm::Handle<hermes::vm::Callable>, hermes::vm::Runtime&, hermes::vm::Handle<hermes::vm::HermesValue>, hermes::vm::HermesValue, hermes::vm::HermesValue, hermes::vm::HermesValue, bool)
+22 hermesvm               +0x1b5648  hermes::vm::arrayPrototypeForEach(void*, hermes::vm::Runtime&)
+23 hermesvm               +0x102f24  hermes::vm::NativeFunction::_nativeCall(hermes::vm::NativeFunction*, hermes::vm::Runtime&)
+24 hermesvm               +0x10d788  hermes::vm::Interpreter::handleCallSlowPath(hermes::vm::Runtime&, hermes::vm::PinnedHermesValue*)
+25 hermesvm               +0x10fb00  hermes::vm::CallResult<hermes::vm::HermesValue, (hermes::vm::detail::CallResultSpecialize)2> hermes::vm::Interpreter::interpretFunction<false, false>(hermes::vm::Runtime&, hermes::vm::InterpreterState&)
+26 hermesvm               +0x1a8728  hermes::vm::Runtime::interpretFunctionImpl(hermes::vm::CodeBlock*)
+27 hermesvm               +0x102fe8  hermes::vm::JSFunction::_callImpl(hermes::vm::Handle<hermes::vm::Callable>, hermes::vm::Runtime&)
+28 hermesvm               +0x24614  facebook::hermes::(anonymous namespace)::HermesRuntimeImpl::call(facebook::jsi::Function const&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)
+29 React                  +0x2ae900  facebook::react::TimerCallback::invoke(facebook::jsi::Runtime&)
+30 React                  +0x2ae810  std::__1::__function::__func<facebook::react::TimerManager::callTimer(int)::$_0, std::__1::allocator<facebook::react::TimerManager::callTimer(int)::$_0>, void (facebook::jsi::Runtime&)>::operator()(facebook::jsi::Runtime&)
+31 React                  +0x28a1b0  facebook::react::Task::execute(facebook::jsi::Runtime&, bool)
+32 React                  +0x286f70  facebook::react::RuntimeScheduler_Modern::executeTask(facebook::jsi::Runtime&, facebook::react::Task&, bool) const
+33 React                  +0x287810  facebook::react::RuntimeScheduler_Modern::runEventLoopTick(facebook::jsi::Runtime&, facebook::react::Task&)
+34 React                  +0x287554  facebook::react::RuntimeScheduler_Modern::runEventLoop(facebook::jsi::Runtime&)
+35 React                  +0x2a64e8  _ZNSt3__110__function6__funcIZZN8facebook5react13ReactInstanceC1ENS_10unique_ptrINS3_9JSRuntimeENS_14default_deleteIS6_EEEENS_10shared_ptrINS3_18MessageQueueThreadEEENSA_INS3_12TimerManagerEEENS_8functionIFvRNS2_3jsi7RuntimeERKNS3_14JsErrorHandler14ProcessedErrorEEEEPNS3_18jsinspector_modern10HostTargetEENK3$_0clINSF_IFvSI_EEEEEDaT_EUlvE_NS_9allocatorISY_EEFvvEEclEv
+36 React                  +0x9d2c8  facebook::react::tryAndReturnError(std::__1::function<void ()> const&)
+37 React                  +0x9a428  facebook::react::RCTMessageThread::tryFunc(std::__1::function<void ()> const&)
+38 React                  +0x9a1f8  invocation function for block in facebook::react::RCTMessageThread::runAsync(std::__1::function<void ()>)
+39 CoreFoundation         +0x2dacc  __CFRUNLOOP_IS_CALLING_OUT_TO_A_BLOCK__
+40 CoreFoundation         +0x2d798  __CFRunLoopDoBlocks
+41 CoreFoundation         +0x2f7a0  __CFRunLoopRun
+42 CoreFoundation         +0x2e54c  _CFRunLoopRunSpecificWithOptions
+43 React                  +0x2bba74  +[RCTJSThreadManager runRunLoop]
+44 Foundation             +0x8e914  __NSThread__start__
+45 libsystem_pthread.dylib +0x4438  _pthread_start
+46 libsystem_pthread.dylib +0x8cc  thread_start
+=== LokaR1A2-2026-09-24-061558.ips exception=EXC_CRASH SIGABRT
+ 0 libsystem_kernel.dylib +0xb1d0  __pthread_kill
+ 1 libsystem_pthread.dylib +0x77dc  pthread_kill
+ 2 libsystem_c.dylib      +0x76fcc  abort
+ 3 LokaR1A2               +0x114cbc  atos(dSYM uuid 3af1cfcf-af02-3f33-b877-0cd995e54042): closure #3 in LokaMemoryModule.definition() (in LokaR1A2) (LokaMemoryModule.swift:17)
+ 4 ExpoModulesCore        +0x254e4  thunk for @escaping @callee_guaranteed () -> (@out A, @error @owned Error)
+ 5 ExpoModulesCore        +0x27528  partial apply for thunk for @escaping @callee_guaranteed () -> (@out A, @error @owned Error)
+ 6 ExpoModulesCore        +0x8ecc4  SyncFunctionDefinition.runBody(_:in:this:arguments:)
+ 7 ExpoModulesCore        +0x8f164  SyncFunctionDefinition.call(_:in:this:arguments:)
+ 8 ExpoModulesCore        +0x8f784  closure #1 in SyncFunctionDefinition.build(appContext:in:)
+ 9 ExpoModulesCore        +0x8fac4  partial apply for closure #1 in SyncFunctionDefinition.build(appContext:in:)
+10 ExpoModulesJSI         +0x1c188
+11 ExpoModulesJSI         +0x1c8cc
+12 ExpoModulesJSI         +0x1c228
+13 ExpoModulesJSI         +0x1f118  std::__1::__invoke_result_impl<void, expo::createHostFunction(facebook::jsi::IRuntime&, facebook::jsi::PropNameID const&, expo::HostFunctionClosure*)::'lambda'(facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)&, facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long>::type std::__1::__invoke[abi:nqe220106]<expo::createHostFunction(facebook::jsi::IRuntime&, facebook::jsi::PropNameID const&, expo::HostFunctionClosure*)::'lambda'(facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)&, facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long>(expo::createHostFunction(facebook::jsi::IRuntime&, facebook::jsi::PropNameID const&, expo::HostFunctionClosure*)::'lambda'(facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)&, facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*&&, unsigned long&&)
+14 hermesvm               +0x2ce98  std::__1::function<facebook::jsi::Value (facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)>::operator()(facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long) const
+15 hermesvm               +0x2cbd0  facebook::hermes::(anonymous namespace)::HermesRuntimeImpl::HFContext::func(void*, hermes::vm::Runtime&)
+16 hermesvm               +0x102f24  hermes::vm::NativeFunction::_nativeCall(hermes::vm::NativeFunction*, hermes::vm::Runtime&)
+17 hermesvm               +0x10d788  hermes::vm::Interpreter::handleCallSlowPath(hermes::vm::Runtime&, hermes::vm::PinnedHermesValue*)
+18 hermesvm               +0x10fb00  hermes::vm::CallResult<hermes::vm::HermesValue, (hermes::vm::detail::CallResultSpecialize)2> hermes::vm::Interpreter::interpretFunction<false, false>(hermes::vm::Runtime&, hermes::vm::InterpreterState&)
+19 hermesvm               +0x1a8728  hermes::vm::Runtime::interpretFunctionImpl(hermes::vm::CodeBlock*)
+20 hermesvm               +0x102fe8  hermes::vm::JSFunction::_callImpl(hermes::vm::Handle<hermes::vm::Callable>, hermes::vm::Runtime&)
+21 hermesvm               +0x24614  facebook::hermes::(anonymous namespace)::HermesRuntimeImpl::call(facebook::jsi::Function const&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)
+22 React                  +0x2ae900  facebook::react::TimerCallback::invoke(facebook::jsi::Runtime&)
+23 React                  +0x2ae810  std::__1::__function::__func<facebook::react::TimerManager::callTimer(int)::$_0, std::__1::allocator<facebook::react::TimerManager::callTimer(int)::$_0>, void (facebook::jsi::Runtime&)>::operator()(facebook::jsi::Runtime&)
+24 React                  +0x28a1b0  facebook::react::Task::execute(facebook::jsi::Runtime&, bool)
+25 React                  +0x286f70  facebook::react::RuntimeScheduler_Modern::executeTask(facebook::jsi::Runtime&, facebook::react::Task&, bool) const
+26 React                  +0x287810  facebook::react::RuntimeScheduler_Modern::runEventLoopTick(facebook::jsi::Runtime&, facebook::react::Task&)
+27 React                  +0x287554  facebook::react::RuntimeScheduler_Modern::runEventLoop(facebook::jsi::Runtime&)
+28 React                  +0x2a64e8  _ZNSt3__110__function6__funcIZZN8facebook5react13ReactInstanceC1ENS_10unique_ptrINS3_9JSRuntimeENS_14default_deleteIS6_EEEENS_10shared_ptrINS3_18MessageQueueThreadEEENSA_INS3_12TimerManagerEEENS_8functionIFvRNS2_3jsi7RuntimeERKNS3_14JsErrorHandler14ProcessedErrorEEEEPNS3_18jsinspector_modern10HostTargetEENK3$_0clINSF_IFvSI_EEEEEDaT_EUlvE_NS_9allocatorISY_EEFvvEEclEv
+29 React                  +0x9d2c8  facebook::react::tryAndReturnError(std::__1::function<void ()> const&)
+30 React                  +0x9a428  facebook::react::RCTMessageThread::tryFunc(std::__1::function<void ()> const&)
+31 React                  +0x9a1f8  invocation function for block in facebook::react::RCTMessageThread::runAsync(std::__1::function<void ()>)
+32 CoreFoundation         +0x2dacc  __CFRUNLOOP_IS_CALLING_OUT_TO_A_BLOCK__
+33 CoreFoundation         +0x2d798  __CFRunLoopDoBlocks
+34 CoreFoundation         +0x2f7a0  __CFRunLoopRun
+35 CoreFoundation         +0x2e54c  _CFRunLoopRunSpecificWithOptions
+36 React                  +0x2bba74  +[RCTJSThreadManager runRunLoop]
+37 Foundation             +0x8e914  __NSThread__start__
+38 libsystem_pthread.dylib +0x4438  _pthread_start
+39 libsystem_pthread.dylib +0x8cc  thread_start
+=== LokaR1A2-2026-09-24-061604.ips exception=EXC_CRASH SIGABRT
+ 0 libsystem_kernel.dylib +0xb1d0  __pthread_kill
+ 1 libsystem_pthread.dylib +0x77dc  pthread_kill
+ 2 libsystem_c.dylib      +0x76fcc  abort
+ 3 LokaR1A2               +0x114cbc  atos(dSYM uuid 3af1cfcf-af02-3f33-b877-0cd995e54042): closure #3 in LokaMemoryModule.definition() (in LokaR1A2) (LokaMemoryModule.swift:17)
+ 4 ExpoModulesCore        +0x254e4  thunk for @escaping @callee_guaranteed () -> (@out A, @error @owned Error)
+ 5 ExpoModulesCore        +0x27528  partial apply for thunk for @escaping @callee_guaranteed () -> (@out A, @error @owned Error)
+ 6 ExpoModulesCore        +0x8ecc4  SyncFunctionDefinition.runBody(_:in:this:arguments:)
+ 7 ExpoModulesCore        +0x8f164  SyncFunctionDefinition.call(_:in:this:arguments:)
+ 8 ExpoModulesCore        +0x8f784  closure #1 in SyncFunctionDefinition.build(appContext:in:)
+ 9 ExpoModulesCore        +0x8fac4  partial apply for closure #1 in SyncFunctionDefinition.build(appContext:in:)
+10 ExpoModulesJSI         +0x1c188
+11 ExpoModulesJSI         +0x1c8cc
+12 ExpoModulesJSI         +0x1c228
+13 ExpoModulesJSI         +0x1f118  std::__1::__invoke_result_impl<void, expo::createHostFunction(facebook::jsi::IRuntime&, facebook::jsi::PropNameID const&, expo::HostFunctionClosure*)::'lambda'(facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)&, facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long>::type std::__1::__invoke[abi:nqe220106]<expo::createHostFunction(facebook::jsi::IRuntime&, facebook::jsi::PropNameID const&, expo::HostFunctionClosure*)::'lambda'(facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)&, facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long>(expo::createHostFunction(facebook::jsi::IRuntime&, facebook::jsi::PropNameID const&, expo::HostFunctionClosure*)::'lambda'(facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)&, facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*&&, unsigned long&&)
+14 hermesvm               +0x2ce98  std::__1::function<facebook::jsi::Value (facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)>::operator()(facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long) const
+15 hermesvm               +0x2cbd0  facebook::hermes::(anonymous namespace)::HermesRuntimeImpl::HFContext::func(void*, hermes::vm::Runtime&)
+16 hermesvm               +0x102f24  hermes::vm::NativeFunction::_nativeCall(hermes::vm::NativeFunction*, hermes::vm::Runtime&)
+17 hermesvm               +0x10d788  hermes::vm::Interpreter::handleCallSlowPath(hermes::vm::Runtime&, hermes::vm::PinnedHermesValue*)
+18 hermesvm               +0x10fb00  hermes::vm::CallResult<hermes::vm::HermesValue, (hermes::vm::detail::CallResultSpecialize)2> hermes::vm::Interpreter::interpretFunction<false, false>(hermes::vm::Runtime&, hermes::vm::InterpreterState&)
+19 hermesvm               +0x1a8728  hermes::vm::Runtime::interpretFunctionImpl(hermes::vm::CodeBlock*)
+20 hermesvm               +0x102fe8  hermes::vm::JSFunction::_callImpl(hermes::vm::Handle<hermes::vm::Callable>, hermes::vm::Runtime&)
+21 hermesvm               +0x24614  facebook::hermes::(anonymous namespace)::HermesRuntimeImpl::call(facebook::jsi::Function const&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)
+22 React                  +0x2ae900  facebook::react::TimerCallback::invoke(facebook::jsi::Runtime&)
+23 React                  +0x2ae810  std::__1::__function::__func<facebook::react::TimerManager::callTimer(int)::$_0, std::__1::allocator<facebook::react::TimerManager::callTimer(int)::$_0>, void (facebook::jsi::Runtime&)>::operator()(facebook::jsi::Runtime&)
+24 React                  +0x28a1b0  facebook::react::Task::execute(facebook::jsi::Runtime&, bool)
+25 React                  +0x286f70  facebook::react::RuntimeScheduler_Modern::executeTask(facebook::jsi::Runtime&, facebook::react::Task&, bool) const
+26 React                  +0x287810  facebook::react::RuntimeScheduler_Modern::runEventLoopTick(facebook::jsi::Runtime&, facebook::react::Task&)
+27 React                  +0x287554  facebook::react::RuntimeScheduler_Modern::runEventLoop(facebook::jsi::Runtime&)
+28 React                  +0x2a64e8  _ZNSt3__110__function6__funcIZZN8facebook5react13ReactInstanceC1ENS_10unique_ptrINS3_9JSRuntimeENS_14default_deleteIS6_EEEENS_10shared_ptrINS3_18MessageQueueThreadEEENSA_INS3_12TimerManagerEEENS_8functionIFvRNS2_3jsi7RuntimeERKNS3_14JsErrorHandler14ProcessedErrorEEEEPNS3_18jsinspector_modern10HostTargetEENK3$_0clINSF_IFvSI_EEEEEDaT_EUlvE_NS_9allocatorISY_EEFvvEEclEv
+29 React                  +0x9d2c8  facebook::react::tryAndReturnError(std::__1::function<void ()> const&)
+30 React                  +0x9a428  facebook::react::RCTMessageThread::tryFunc(std::__1::function<void ()> const&)
+31 React                  +0x9a1f8  invocation function for block in facebook::react::RCTMessageThread::runAsync(std::__1::function<void ()>)
+32 CoreFoundation         +0x2dacc  __CFRUNLOOP_IS_CALLING_OUT_TO_A_BLOCK__
+33 CoreFoundation         +0x2d798  __CFRunLoopDoBlocks
+34 CoreFoundation         +0x2f7a0  __CFRunLoopRun
+35 CoreFoundation         +0x2e54c  _CFRunLoopRunSpecificWithOptions
+36 React                  +0x2bba74  +[RCTJSThreadManager runRunLoop]
+37 Foundation             +0x8e914  __NSThread__start__
+38 libsystem_pthread.dylib +0x4438  _pthread_start
+39 libsystem_pthread.dylib +0x8cc  thread_start
+=== LokaR1A2-2026-09-24-061609.ips exception=EXC_CRASH SIGABRT
+ 0 libsystem_kernel.dylib +0xb1d0  __pthread_kill
+ 1 libsystem_pthread.dylib +0x77dc  pthread_kill
+ 2 libsystem_c.dylib      +0x76fcc  abort
+ 3 LokaR1A2               +0x114cbc  atos(dSYM uuid 3af1cfcf-af02-3f33-b877-0cd995e54042): closure #3 in LokaMemoryModule.definition() (in LokaR1A2) (LokaMemoryModule.swift:17)
+ 4 ExpoModulesCore        +0x254e4  thunk for @escaping @callee_guaranteed () -> (@out A, @error @owned Error)
+ 5 ExpoModulesCore        +0x27528  partial apply for thunk for @escaping @callee_guaranteed () -> (@out A, @error @owned Error)
+ 6 ExpoModulesCore        +0x8ecc4  SyncFunctionDefinition.runBody(_:in:this:arguments:)
+ 7 ExpoModulesCore        +0x8f164  SyncFunctionDefinition.call(_:in:this:arguments:)
+ 8 ExpoModulesCore        +0x8f784  closure #1 in SyncFunctionDefinition.build(appContext:in:)
+ 9 ExpoModulesCore        +0x8fac4  partial apply for closure #1 in SyncFunctionDefinition.build(appContext:in:)
+10 ExpoModulesJSI         +0x1c188
+11 ExpoModulesJSI         +0x1c8cc
+12 ExpoModulesJSI         +0x1c228
+13 ExpoModulesJSI         +0x1f118  std::__1::__invoke_result_impl<void, expo::createHostFunction(facebook::jsi::IRuntime&, facebook::jsi::PropNameID const&, expo::HostFunctionClosure*)::'lambda'(facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)&, facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long>::type std::__1::__invoke[abi:nqe220106]<expo::createHostFunction(facebook::jsi::IRuntime&, facebook::jsi::PropNameID const&, expo::HostFunctionClosure*)::'lambda'(facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)&, facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long>(expo::createHostFunction(facebook::jsi::IRuntime&, facebook::jsi::PropNameID const&, expo::HostFunctionClosure*)::'lambda'(facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)&, facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*&&, unsigned long&&)
+14 hermesvm               +0x2ce98  std::__1::function<facebook::jsi::Value (facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)>::operator()(facebook::jsi::Runtime&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long) const
+15 hermesvm               +0x2cbd0  facebook::hermes::(anonymous namespace)::HermesRuntimeImpl::HFContext::func(void*, hermes::vm::Runtime&)
+16 hermesvm               +0x102f24  hermes::vm::NativeFunction::_nativeCall(hermes::vm::NativeFunction*, hermes::vm::Runtime&)
+17 hermesvm               +0x10d788  hermes::vm::Interpreter::handleCallSlowPath(hermes::vm::Runtime&, hermes::vm::PinnedHermesValue*)
+18 hermesvm               +0x10fb00  hermes::vm::CallResult<hermes::vm::HermesValue, (hermes::vm::detail::CallResultSpecialize)2> hermes::vm::Interpreter::interpretFunction<false, false>(hermes::vm::Runtime&, hermes::vm::InterpreterState&)
+19 hermesvm               +0x1a8728  hermes::vm::Runtime::interpretFunctionImpl(hermes::vm::CodeBlock*)
+20 hermesvm               +0x102fe8  hermes::vm::JSFunction::_callImpl(hermes::vm::Handle<hermes::vm::Callable>, hermes::vm::Runtime&)
+21 hermesvm               +0x24614  facebook::hermes::(anonymous namespace)::HermesRuntimeImpl::call(facebook::jsi::Function const&, facebook::jsi::Value const&, facebook::jsi::Value const*, unsigned long)
+22 React                  +0x2ae900  facebook::react::TimerCallback::invoke(facebook::jsi::Runtime&)
+23 React                  +0x2ae810  std::__1::__function::__func<facebook::react::TimerManager::callTimer(int)::$_0, std::__1::allocator<facebook::react::TimerManager::callTimer(int)::$_0>, void (facebook::jsi::Runtime&)>::operator()(facebook::jsi::Runtime&)
+24 React                  +0x28a1b0  facebook::react::Task::execute(facebook::jsi::Runtime&, bool)
+25 React                  +0x286f70  facebook::react::RuntimeScheduler_Modern::executeTask(facebook::jsi::Runtime&, facebook::react::Task&, bool) const
+26 React                  +0x287810  facebook::react::RuntimeScheduler_Modern::runEventLoopTick(facebook::jsi::Runtime&, facebook::react::Task&)
+27 React                  +0x287554  facebook::react::RuntimeScheduler_Modern::runEventLoop(facebook::jsi::Runtime&)
+28 React                  +0x2a64e8  _ZNSt3__110__function6__funcIZZN8facebook5react13ReactInstanceC1ENS_10unique_ptrINS3_9JSRuntimeENS_14default_deleteIS6_EEEENS_10shared_ptrINS3_18MessageQueueThreadEEENSA_INS3_12TimerManagerEEENS_8functionIFvRNS2_3jsi7RuntimeERKNS3_14JsErrorHandler14ProcessedErrorEEEEPNS3_18jsinspector_modern10HostTargetEENK3$_0clINSF_IFvSI_EEEEEDaT_EUlvE_NS_9allocatorISY_EEFvvEEclEv
+29 React                  +0x9d2c8  facebook::react::tryAndReturnError(std::__1::function<void ()> const&)
+30 React                  +0x9a428  facebook::react::RCTMessageThread::tryFunc(std::__1::function<void ()> const&)
+31 React                  +0x9a1f8  invocation function for block in facebook::react::RCTMessageThread::runAsync(std::__1::function<void ()>)
+32 CoreFoundation         +0x2dacc  __CFRUNLOOP_IS_CALLING_OUT_TO_A_BLOCK__
+33 CoreFoundation         +0x2d798  __CFRunLoopDoBlocks
+34 CoreFoundation         +0x2f7a0  __CFRunLoopRun
+35 CoreFoundation         +0x2e54c  _CFRunLoopRunSpecificWithOptions
+36 React                  +0x2bba74  +[RCTJSThreadManager runRunLoop]
+37 Foundation             +0x8e914  __NSThread__start__
+38 libsystem_pthread.dylib +0x4438  _pthread_start
+39 libsystem_pthread.dylib +0x8cc  thread_start

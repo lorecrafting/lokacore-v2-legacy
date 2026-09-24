@@ -1,0 +1,38 @@
+build-1.txt vs build-2.txt, same source commit and clean prebuild each time
+metro_js_bundle: same 9fbe0d6e9fd4d2234943755171da49fe8f66e8d1504b6bd630ce242f28effb00 9fbe0d6e9fd4d2234943755171da49fe8f66e8d1504b6bd630ce242f28effb00
+hermes_bytecode: same 09dd5bb63ac8a7fd711deb6313126300279f6f35c93df1625c0c883e1c5fea8a 09dd5bb63ac8a7fd711deb6313126300279f6f35c93df1625c0c883e1c5fea8a
+composed_source_map: same 71e16d29d8e85b94e23c79c993f16dc4956c262626be31c159963e3eae5d351c 71e16d29d8e85b94e23c79c993f16dc4956c262626be31c159963e3eae5d351c
+executable: DIFFERENT 81fca1aa1d54b48552956a6002e6ed5b3740b42a66f18ca0064424789332694f 723e2e6ca2fed642a7b52722d4b08c8435f1bf8e1ebd0ce5ed6a069236de05ef
+dsym_dwarf: DIFFERENT 1789bc0d75cad32e59753bcd452b1d93392bdfb6ab95566888a52ec7e760979a fb3861bba9abfc9c9e0e6aca2b703b4753a234b1ca70cea556f862c7fd7ec271
+--- app files whose hashes differ
+< ab330453eadf2c9b463a4fe0c529626d9c09fb653ef783d13d0b61e66271b4c0  ./Frameworks/ExpoFileSystem.framework/ExpoFileSystem
+> ee6e2d3c299b12b217d299758cad7098e0e4959aad7babca13643bc04646bca9  ./Frameworks/ExpoFileSystem.framework/ExpoFileSystem
+< 22096ecacdb5db4526e573863e540a6e73da159fbecf5a2ba01a48a399a222f2  ./Frameworks/ExpoFont.framework/ExpoFont
+> c08040bf4ca73a50cfe0b5cea0fc4424c5398054709362fc51cc352ef4594813  ./Frameworks/ExpoFont.framework/ExpoFont
+< 78656f546fd000d8a157ab731d2ed0f61ffdfab22be720afe6476a2cf0c38be9  ./Frameworks/ExpoModulesCore.framework/ExpoModulesCore
+> 580a2728211f675670346c1aa2fafcfc536e1d4f6e7f088c0e1b7e00f7c4a654  ./Frameworks/ExpoModulesCore.framework/ExpoModulesCore
+< 4abcba0f9ca6835545145824cac9f20734f53cc7f6e03639d8dfbb9ebd47432e  ./Frameworks/ExpoModulesJSI.framework/ExpoModulesJSI
+> d60e467ef3530d7d563338b1434c17e5e0fc3339bab958359c04fb0e472d1bbb  ./Frameworks/ExpoModulesJSI.framework/ExpoModulesJSI
+< 5f51bfa30c71bdcc5cf505219e05d8deeeba874fcb4f5931b02eafef2d6562af  ./Frameworks/ExpoModulesWorklets.framework/ExpoModulesWorklets
+> b5dec90ca49c10ae52712b8f7419e6aae8f8e8ab925c072df9011fddcf9a5057  ./Frameworks/ExpoModulesWorklets.framework/ExpoModulesWorklets
+< 1ff159cdd9b3c804877ea50d09837c5672f243d212a5fc857d51beeefbf17b49  ./Frameworks/React.framework/React
+> 8b7b44af159925108babc8f00914338590f2c440b3cc58a02831c49d69b27d35  ./Frameworks/React.framework/React
+< 619337283d0db3f497c3cd078b2a6764b84740725ed9d94af6f3c475e2ef1ea7  ./Frameworks/ReactNativeDependencies.framework/ReactNativeDependencies
+> eebb9874f86418067036e34cc263139d66159647f890b14d5c623af151782233  ./Frameworks/ReactNativeDependencies.framework/ReactNativeDependencies
+< 505759c11dd7598a66e2c12e9ed64f091a719ea3e35bda1ec4af09c61c8af329  ./Frameworks/hermesvm.framework/hermesvm
+> 237211161b4c6f6fd0b0eb3668d90d651ba92366840a2b91e0e40236f8d16546  ./Frameworks/hermesvm.framework/hermesvm
+< 81fca1aa1d54b48552956a6002e6ed5b3740b42a66f18ca0064424789332694f  ./LokaR1A2
+> 723e2e6ca2fed642a7b52722d4b08c8435f1bf8e1ebd0ce5ed6a069236de05ef  ./LokaR1A2
+< 763ee17197c2837c03aca53ea8e92a9b8e639ab306148f3ec06668d61f2e60b8  ./_CodeSignature/CodeResources
+> 4ff4b3e9411dd0987b9c92b0bf0c23293982f9c68d12751fd3aad15603415ac2  ./_CodeSignature/CodeResources
+--- the same Mach-O files with their code signatures removed (codesign --remove-signature on copies)
+LokaR1A2: same 5c81b75ae829db7aab512b7d2442f9632553e9d09e4cb034f41857b102139527
+Frameworks/React.framework/React: same 06e264750b7f1c883eabed64a3d0e35326b9410e95b6080a4d0098729f1f01d0
+Frameworks/hermesvm.framework/hermesvm: same e3c98b443a4def4f6c6a2b02ccf17e73e3aa0c39f569041929137a0fce8ca15e
+Frameworks/ExpoModulesCore.framework/ExpoModulesCore: same 8601bae817b5a86ec2dbf3ed734cf7e671a2b2bc59299fbd554d572832499085
+--- dSYM DWARF: differing bytes (cmp -l offset, octal build-1, octal build-2); Mach-O UUIDs above are equal
+494112 171 205
+UUID: 3AF1CFCF-AF02-3F33-B877-0CD995E54042 (arm64) ios/build/Build/Products/Release-iphoneos/LokaR1A2.app/LokaR1A2
+UUID: 3AF1CFCF-AF02-3F33-B877-0CD995E54042 (arm64) ios/build/Build/Products/Release-iphoneos/LokaR1A2.app.dSYM/Contents/Resources/DWARF/LokaR1A2
+UUID: 3AF1CFCF-AF02-3F33-B877-0CD995E54042 (arm64) ios/build/Build/Products/Release-iphoneos/LokaR1A2.app/LokaR1A2
+UUID: 3AF1CFCF-AF02-3F33-B877-0CD995E54042 (arm64) ios/build/Build/Products/Release-iphoneos/LokaR1A2.app.dSYM/Contents/Resources/DWARF/LokaR1A2

@@ -1,0 +1,22 @@
+{
+  "requests_embedded_in_app_equal_requests_jsonl": true,
+  "request_lines": 139,
+  "real": {
+    "lines_elixir": 139,
+    "lines_device": 139,
+    "identical": 139,
+    "mismatches": []
+  },
+  "injected": {
+    "altered_line": 70,
+    "change": "middle byte of the device line XOR 0x01",
+    "lines_elixir": 139,
+    "lines_device": 139,
+    "identical": 138,
+    "mismatches": [
+      70
+    ]
+  },
+  "result": "pass"
+}
+exit=0

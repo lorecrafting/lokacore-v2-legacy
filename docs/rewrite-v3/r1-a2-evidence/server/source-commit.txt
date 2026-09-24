@@ -1,0 +1,4 @@
+git rev-parse HEAD: 2fc0fb3f3cf516b5372441e6bebb550f9107e2e5
+git status --porcelain (before evidence run):
+?? docs/rewrite-v3/r1-a2-evidence/
+(end)

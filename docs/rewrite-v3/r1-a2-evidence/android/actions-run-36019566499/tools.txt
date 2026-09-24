@@ -1,0 +1,11 @@
+node=v24.21.0
+npm=11.19.0
+java_home=/opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-8/x64
+java: openjdk version "17.0.20" 2026-07-21
+java: OpenJDK Runtime Environment Temurin-17.0.20+8 (build 17.0.20+8)
+java: OpenJDK 64-Bit Server VM Temurin-17.0.20+8 (build 17.0.20+8, mixed mode, sharing)
+android_home=/usr/local/lib/android/sdk
+build-tools/36.0.0: Pkg.Revision=36.0.0
+platforms/android-36: Pkg.Revision=2
+ndk/27.1.12297006: Pkg.Revision = 27.1.12297006
+gradle_distribution_sha256_pinned=b266d5ff6b90eada6dc3b20cb090e3731302e553a27c5d3e4df1f0d76beaff06

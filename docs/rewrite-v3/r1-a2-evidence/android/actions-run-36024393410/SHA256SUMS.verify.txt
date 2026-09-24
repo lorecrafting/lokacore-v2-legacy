@@ -1,0 +1,16 @@
+agp-version.txt: OK
+apk-facts.txt: OK
+build-environment-root.txt: OK
+build-environment.txt: OK
+build-flags.txt: OK
+comparison.txt: OK
+gradle-build.log: OK
+gradle-version.txt: OK
+gradle-wrapper.properties: OK
+host.txt: OK
+index.android.bundle.map: OK
+native-config.txt: OK
+prebuild-tree.sha256: OK
+prebuild.log: OK
+release-runtime-classpath.txt: OK
+tools.txt: OK

@@ -16,7 +16,9 @@ setup must not author code here.
 |---|---|
 | `elixir/` | Mix project `loka_r1`: kernel, runner, fixture tests. No dependencies. |
 | `ts/` | TypeScript kernel (runs on Hermes later, so no Node APIs in `src/kernel/`), Node runner, fixture tests. Only dev dependency: `typescript` 6.0.3, locked with the retained integrity hash. |
-| `harness/` | Mix project: seeded generator, differential runner, minimizer, CI entry point. |
+| `harness/` | Mix project: seeded generator, differential runner, minimizer, CI entry point. `mix r1.requests` writes the on-device differential input. |
+| `server/` | Mix project `loka_r1_server`: the A2 durable host (GenServer per world instance, SQLite through `exqlite` 0.40.0, raw SQL), `mix r1.durable_runner`, `mix r1.faults`, `mix r1.sqlite_identity`. |
+| `mobile/` | Expo app (release builds on Hermes): the phone durable host (`host.ts`, expo-sqlite), the on-device differential and fault cases (`device.ts`), the local module `modules/loka-memory` (memory probe, evidence files, process death), and M1 checks in `scripts/`. It bundles the unchanged `ts/src/kernel` through Metro `watchFolders`. |
 
 Toolchain: Elixir 1.20.4 / OTP 28.4, Node 24.21.0 (it runs `.ts` directly by
 stripping types, so write only erasable TypeScript), TypeScript 6.0.3 for type
@@ -142,6 +144,160 @@ fixed regression seeds plus at least 10,000 fresh sequences. It records the
 generator version, seeds, sequence count and length distribution. Agreement
 between the two is not correctness: the fixture suites stay authoritative.
 
+## R1-A2 durable-host contract (both hosts; set 2026-09-24)
+
+A2 puts each kernel behind a real durable host: the Elixir server adapter
+(`server/`, BEAM + SQLite through `exqlite`, raw `BEGIN`/`COMMIT`, no Ecto) and the
+phone app (`mobile/`, Hermes release build + `expo-sqlite`). The kernels are
+unchanged. The authors of the two hosts do not read each other's host code
+(rule 4). Physical schemas may differ (ADR-006); behavior may not.
+
+**Oracle.** The in-memory model host (`LokaR1.World` / `ts/src/kernel/world.ts`)
+is the expected behavior. With no real fault injected, a durable host's step
+records for a `world.run` request are byte-identical to the model host's. The
+`HOST` object's `durable`, `receipts` and `pending` are read back from SQLite,
+not from process memory. The four model `fault` options stay accepted and mean
+the same thing, now realized as real events (for example `before_commit` issues a
+real `ROLLBACK` after the writes).
+
+**Real injected faults.** A durable host additionally accepts a fault schedule
+`{"step":n,"point":P,"kind":K}` outside the runner protocol (test/app input, never
+player input).
+
+| `point` | Where |
+|---|---|
+| `pre_decision` | after admission, before the kernel call |
+| `post_decision_pre_commit` | proposal in memory, no SQL issued |
+| `in_persistence` | inside the transaction, after at least one write |
+| `post_commit_pre_adoption` | COMMIT returned, memory not yet updated |
+| `post_adoption_pre_response` | memory updated, response not yet returned |
+| `post_response_pre_presentation` | response built, not yet shown or sent |
+
+| `kind` | Meaning |
+|---|---|
+| `raise` | a caught exception in the host at that point |
+| `io_error` | the SQLite write fails (disk full / I/O error), transaction rolls back |
+| `commit_unknown` | COMMIT is issued but its result is discarded (only `in_persistence`) |
+| `kill` | the whole process dies (BEAM VM halt; app process killed), then restarts |
+
+Required behavior is envelope §9. After every fault the host recovers from
+SQLite only, and the recovered `HOST` must equal the model host's state for the
+commit disposition that SQLite actually shows (committed iff the receipt row
+exists). An unknown COMMIT fences new decisions until reconciled from storage; it
+is never re-run. A definite rollback leaves no RNG advance. The next command after
+recovery must produce a coherent continuation (same identity replays or retries).
+
+**Fault evidence record** (one JSONL line per injected run): `host`, `world`,
+`seed`, initial-state SHA-256, ordered `commands`, `fault`, the pre-fault durable
+diagnostic record, recovered `HOST`, the next step record, `expected` (model),
+and `verdict` (`pass`/`fail`). JS faults also retain the raw stack and the stack
+symbolicated through the release source map (and dSYM on iOS).
+
+**On-device differential.** The phone app runs a bundled JSONL of runner requests
+(regression seeds and fixture rows, produced by `harness/`) through the kernel on
+Hermes in the release build and writes one response line per request to a file.
+The file is pulled to the M1 and compared byte for byte with the Elixir runner's
+lines. One deliberately altered response line must be reported as a mismatch.
+
+**Hygiene.** Never print or commit adb serials, UDID, ECID, team ID, certificate
+identifiers, home or scratchpad paths, or app-container/LaunchServices UUIDs;
+every capture script's `redact()` covers them. iOS build scripts record
+`git rev-parse HEAD` and `git status --porcelain`.
+
+**Server notes (readings taken by the server host, 2026-09-24; not contract text).**
+(1) `step` is the 0-based index into the `world.run` commands, and a fault fires
+only if that command reaches the point; the fault runs use a fresh identity so it
+always does. (2) `io_error` applies only at `in_persistence`, the one point with a
+write in flight. The hook pins `PRAGMA max_page_count` to the current page count
+and inserts a 1 MiB blob in the open transaction, so SQLite returns SQLITE_FULL
+and the host rolls back; the failing statement is the hook's, not the receipt
+insert. (3) After any real fault, raised or killed, the host rebuilds from SQLite
+alone: `memory` is the durable state, `in_doubt` is whether a pending row exists,
+and `published` is empty, because the outbox isn't durable. The expected HOST is
+the model host at the disposition SQLite shows, after the model's `recover`, with
+`published` empty. (4) A caught fault answers `retryable` with `rolled_back`, or
+with `response_lost` if the receipt row exists. `commit_unknown` answers
+`retryable commit_unknown` with `in_doubt: true`, and the host reconciles before
+it takes the next command. (5) The per-attempt diagnostic line is written only
+when a diagnostic path is set (fault runs), not in the differential runs.
+
+**Phone notes (readings by the `mobile/` author, 2026-09-24; the contract above is unchanged).**
+
+- *Transactions.* The phone host issues `BEGIN IMMEDIATE` / `COMMIT` / `ROLLBACK`
+  itself with `execSync` on one connection per database. expo-sqlite's
+  `withTransactionSync` and `withExclusiveTransactionAsync` issue COMMIT inside
+  the helper, so the host could not own the COMMIT point or discard its result.
+- *What is durable.* Each step persists the difference between the kernel's
+  `HOST` before and after the step in one transaction: durable state, new
+  receipts, `pending`, and newly published events. Events go to an outbox table,
+  so `published` is also read back from SQLite. The kernel publishes only on
+  adoption, so the outbox always equals the model's `published`. `memory` and
+  `in_doubt` stay in process memory. A restart sets `memory = durable` and
+  `in_doubt = (pending row exists)`.
+- *`before_commit`.* The model discards the proposal. The host writes the
+  no-fault proposal and then issues a real `ROLLBACK`. This happens only when
+  the faulted step would otherwise write nothing: a stale-view receipt is still
+  committed, as in the model.
+- *Expected state after a fault.* The model host runs the prefix, then the
+  faulted command without a fault if SQLite shows its receipt, then `recover`,
+  then the next command (the same request again). "Recovered `HOST`" is the
+  state after that `recover`.
+- *`io_error`.* At the point, the host clamps `PRAGMA max_page_count` to the
+  current `page_count` and then issues a write that must grow the file. SQLite
+  returns a real `SQLITE_FULL` ("database or disk is full") on the host's
+  connection. In `in_persistence` that write is inside the host's open
+  transaction, so the host's `ROLLBACK` discards its earlier writes. Clamping
+  alone would fail only whichever write next needs a page, which is not
+  deterministic.
+- *`commit_unknown`.* COMMIT really succeeds and its result is discarded. So
+  SQLite always shows "committed", and the not-committed branch of an unknown
+  COMMIT is not exercised. The fenced attempt is retained as `fenced`.
+- *`kill`.* Android: `Process.killProcess` (SIGKILL). iOS: `abort()` (SIGABRT),
+  which leaves a crash report for dSYM symbolication. The M1 script relaunches
+  the app. The recovery record carries `launch_before` < `launch_after`.
+- *Fault cases.* 19 cases: 6 points × `raise` / `io_error` / `kill`, plus
+  `commit_unknown` in `in_persistence`. The worlds rotate. The faulted command
+  is an accepted, state-changing `take` (with an RNG draw, both outcomes) or a
+  Lantern `move`. The cases do not cover duplicate delivery with stale views.
+
+## A2 phone evidence (2026-09-24)
+
+Bundles: `docs/rewrite-v3/r1-a2-evidence/android/` and `…/ios/`. Each has a
+`SHA256SUMS` with its verify output beside it.
+
+- **iPhone 11** (iOS 26.6.2). The app was Release build 2 at `e0930bb` (same app
+  source as the Pixel run; the earlier `dba6a1a` run is kept in
+  `ios/superseded-dba6a1a/`), signed
+  by the free personal team. On-device differential: 139 request lines (22
+  regression seeds' sequences and 95 fixture rows), all byte-identical to the
+  Elixir runner. One altered line was reported as the only mismatch. Faults:
+  19/19 pass, each also cross-checked against the Elixir runner. Six real
+  process deaths, recovered on relaunch. JS stacks are symbolicated through the
+  composed release source map. The crash reports' app frame is symbolicated
+  with `atos` and the dSYM to `LokaMemoryModule.swift:17`.
+- **Pixel 3a** (Android 11). The app was the APK from Actions run 36024373520
+  at `e61c52a`. Differential: 139/139 byte-identical, and the injected mismatch
+  was caught. Faults: 19/19 pass, Elixir cross-check included. Six SIGKILL
+  deaths were logged by ActivityManager and recovered on relaunch. JS stacks are
+  symbolicated through the Hermes composed source map.
+  `android/failed-attempt-1/` keeps the first attempt. It failed before any
+  fault case with a real host bug: two JS handles shared one expo-sqlite
+  database, and garbage collection closed it. Fixed by opening each database
+  once.
+- **Builds.**
+  - Android: two Actions builds per source commit. The Metro bundle, Hermes
+    bytecode and source map are identical across builds.
+  - Before `-PreactNativeDevServerIp=localhost`, `resources.arsc` embedded the
+    runner's IP address.
+  - After it, every zip entry, the v2 signature and the central directory are
+    identical. Only AGP's dependency-info block (`0x504b4453`, stored encrypted
+    with fresh randomness per build) differs.
+  - AGP 8.12.0 (root `buildEnvironment`).
+  - iOS: two clean builds. The Metro bundle, Hermes bytecode and source map are
+    identical. The Mach-O files are identical once their code signatures are
+    removed. The dSYM differs in 1 DWARF byte in the tested pair (2 in an earlier pair), and the UUID is the same.
+- **Not here:** latency, memory ceilings, load (R1-A3).
+
 ## Known gaps (A1 scope)
 
 - Selector cardinality is only a model helper, and no operation reaches it.
@@ -157,3 +313,25 @@ between the two is not correctness: the fixture suites stay authoritative.
 - **Coverage:** in 2,000 generated composition plans, the Python model reaches every one of its 30 fault codes, and about 70% of plans pass validation. The harness self-test enforces this.
 - **Sensitivity:** CI alters one output byte of the real TypeScript runner and requires a mismatch. Locally, that divergence was caught within 23 sequences and minimized to two commands.
 - **Limits:** agreement between the two is not correctness; the fixtures stay authoritative. None of this is Hermes, device, SQLite, timing or load evidence.
+
+### A2 server evidence (2026-09-24)
+
+Bundle: [`docs/rewrite-v3/r1-a2-evidence/server/`](../docs/rewrite-v3/r1-a2-evidence/server/),
+produced at `2fc0fb3` on an M1 MacBook Air (MacBookAir10,1, macOS 26.6.2), with
+`SHA256SUMS` and its check output.
+
+- **Engine:** SQLite 3.53.4 (source id `2026-07-24 19:02:57 bf7c7f30…`), from the
+  amalgamation bundled with `exqlite` 0.40.0 and built from source by Apple clang 21
+  (`force_build`). `sqlite-identity.json` lists the compile options.
+- **Oracle differential:** `mix r1.diff` with the durable runner in place of the
+  TypeScript one. Generator `r1-gen-3`, base seed 20260924, the 22 regression seeds
+  plus 10,000 fresh sequences (10,194 `world.run` requests), zero mismatches, 116 s.
+- **Sensitivity:** a SQLite trigger that rewrites stored failed-roll receipts
+  (`test/support/mutated_durable_runner.sh`). It only changes what the host reads back
+  from SQLite, and it was caught at sequence 23 and minimized to two commands.
+- **Real faults:** `mix r1.faults --seeds 6` gives 252 records: 14 point × kind pairs
+  × 3 worlds × 6 seeds. All 252 pass, 18 per pair. That covers `raise` and `kill` at
+  all six points, and `io_error` and `commit_unknown` at `in_persistence`. Each
+  `kill` halted a child VM with status 137, and a fresh VM recovered from the file.
+- **Not measured here:** timings, memory and load (R1-A3). Kills are VM halts, not
+  power loss, so fsync durability isn't exercised.

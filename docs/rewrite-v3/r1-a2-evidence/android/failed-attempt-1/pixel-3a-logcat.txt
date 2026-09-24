@@ -1,0 +1,20 @@
+09-24 05:52:21.803  1541  1631 I ActivityManager: Start proc 14778:com.lorecrafting.lokar1a2/u0a240 for pre-top-activity {com.lorecrafting.lokar1a2/com.lorecrafting.lokar1a2.MainActivity}
+09-24 05:52:22.085 14778 14811 I ExpoModulesCore: ✅ AppContext was initialized
+09-24 05:52:22.150 14778 14812 I ExpoModulesCore: ✅ JSI interop was installed
+09-24 05:52:22.153 14778 14812 I ExpoModulesCore: ✅ Constants were exported
+09-24 05:52:22.258 14778 14812 I ReactNativeJS: LOKA_A2_PROBE {"hermes":{"Bytecode Version":98,"Static Hermes":true,"Builtins Frozen":false,"VM Experiments":0,"Build":"Release","GC":"hades (concurrent)","OSS Release Version":"250829098.0.17","Debugger Enabled":false,"CommonJS Modules":"None"},"sqlite":{"version":"3.50.3","source_id":"2025-07-17 13:25:10 3ce993b8657d6d9deda380a93cdd6404a8c8ba1b185b2bc423703e41ae5f2543","journal_mode":"delete","synchronous":2},"memory":{"api":"ActivityManager.MemoryInfo.totalMem","bytes":"3766829056"}}
+09-24 05:52:22.258 14778 14812 I ReactNativeJS: Running "main"
+09-24 05:52:36.385 14778 14812 I ReactNativeJS: LOKA_A2_CASE 1/19 pre_decision raise
+09-24 05:52:36.390 14778 14812 I ReactNativeJS: LOKA_A2_ERROR Call to function 'NativeDatabase.execSync' has been rejected.
+09-24 05:52:36.390 14778 14812 I ReactNativeJS: → Caused by: java.lang.NullPointerException: java.lang.NullPointerException
+09-24 05:52:36.390 14778 14812 I ReactNativeJS: Error: Call to function 'NativeDatabase.execSync' has been rejected.
+09-24 05:52:36.390 14778 14812 I ReactNativeJS: → Caused by: java.lang.NullPointerException: java.lang.NullPointerException
+09-24 05:52:36.390 14778 14812 I ReactNativeJS:     at CodedError (address at index.android.bundle:1:430507)
+09-24 05:52:36.390 14778 14812 I ReactNativeJS:     at execSync (native)
+09-24 05:52:36.390 14778 14812 I ReactNativeJS:     at execSync (address at index.android.bundle:1:554376)
+09-24 05:52:36.390 14778 14812 I ReactNativeJS:     at exec (address at index.android.bundle:1:692895)
+09-24 05:52:36.390 14778 14812 I ReactNativeJS:     at reset (address at index.android.bundle:1:589620)
+09-24 05:52:36.390 14778 14812 I ReactNativeJS:     at runToFault (address at index.android.bundle:1:571898)
+09-24 05:52:36.390 14778 14812 I ReactNativeJS:     at runAll (address at index.android.bundle:1:574404)
+09-24 05:52:36.390 14778 14812 I ReactNativeJS:     at run (address at index.android.bundle:1:551738)
+09-24 05:52:36.390 14778 14812 I ReactNativeJS:     at anonymous (address at index.android.bundle:1:771929)

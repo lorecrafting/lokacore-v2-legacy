@@ -1,0 +1,15 @@
+in_persistence commit_unknown: pass=18 fail=0
+in_persistence io_error: pass=18 fail=0
+in_persistence kill: pass=18 fail=0
+in_persistence raise: pass=18 fail=0
+post_adoption_pre_response kill: pass=18 fail=0
+post_adoption_pre_response raise: pass=18 fail=0
+post_commit_pre_adoption kill: pass=18 fail=0
+post_commit_pre_adoption raise: pass=18 fail=0
+post_decision_pre_commit kill: pass=18 fail=0
+post_decision_pre_commit raise: pass=18 fail=0
+post_response_pre_presentation kill: pass=18 fail=0
+post_response_pre_presentation raise: pass=18 fail=0
+pre_decision kill: pass=18 fail=0
+pre_decision raise: pass=18 fail=0
+r1.faults records=252 failed=0

@@ -1,6 +1,7 @@
 name: R1 Android native evidence
 
-# Builds the A2 probe app (r1-spike/mobile) from the retained lock with our own
+# Builds the A2 app (r1-spike/mobile: probe, durable host, on-device differential
+# and fault cases; it bundles ../ts/src/kernel) from the retained lock with our own
 # expo prebuild + Gradle, and retains an evidence bundle. No EAS, no token, no
 # signing secret: the release APK is signed with the template's public debug
 # keystore, which is NOT store signing. The bundle is evidence, never approval.
@@ -10,6 +11,7 @@ on:
     branches: [main]
     paths:
       - 'r1-spike/mobile/**'
+      - 'r1-spike/ts/src/kernel/**'
       - '.github/workflows/r1-android-native.yml'
 
 permissions:
@@ -94,13 +96,20 @@ jobs:
           }
           EOF
           ./gradlew --version > "$B/gradle-version.txt"
+          # Build flag (2026-09-24): without it the RN Gradle plugin's configureDevServerLocation writes
+          # the runner's first non-loopback IPv4 into resources.arsc (react_native_dev_server_ip) for
+          # every variant, release included: a build-host leak and the only APK difference between runs.
           ./gradlew --no-daemon -I "$RUNNER_TEMP/report.gradle" -PreactNativeArchitectures="$ABI" \
-            assembleRelease 2>&1 | tee "$B/gradle-build.log"
+            -PreactNativeDevServerIp=localhost assembleRelease 2>&1 | tee "$B/gradle-build.log"
+          echo "gradle_flags=-PreactNativeArchitectures=$ABI -PreactNativeDevServerIp=localhost" > "$B/build-flags.txt"
           grep '^A2 ' "$B/gradle-build.log" | sed 's/^A2 //' | sort -u > "$B/native-config.txt"
-          ./gradlew --no-daemon -PreactNativeArchitectures="$ABI" :app:dependencies \
+          ./gradlew --no-daemon -PreactNativeArchitectures="$ABI" -PreactNativeDevServerIp=localhost :app:dependencies \
             --configuration releaseRuntimeClasspath > "$B/release-runtime-classpath.txt"
           # Buildscript classpath (Android Gradle Plugin version); not in the runtime classpath.
-          ./gradlew --no-daemon -PreactNativeArchitectures="$ABI" :app:buildEnvironment > "$B/build-environment.txt"
+          ./gradlew --no-daemon -PreactNativeArchitectures="$ABI" -PreactNativeDevServerIp=localhost :app:buildEnvironment > "$B/build-environment.txt"
+          # AGP sits on the root project's buildscript classpath (A2 recheck N4).
+          ./gradlew --no-daemon -PreactNativeArchitectures="$ABI" -PreactNativeDevServerIp=localhost buildEnvironment > "$B/build-environment-root.txt"
+          grep -E 'com\.android\.tools\.build:gradle[: ]' "$B/build-environment-root.txt" | sort -u > "$B/agp-version.txt" || echo 'not found' > "$B/agp-version.txt"
       - name: Record host, tools and APK facts
         working-directory: r1-spike/mobile/android
         run: |
@@ -165,8 +174,15 @@ jobs:
             done
             echo "--- toolchain notes (.comment of packaged native libraries)"
             for so in "$X"/lib/"$ABI"/*.so; do readelf -p .comment "$so" 2>/dev/null | grep -o 'Android.*' ; done | sort -u
+            echo "--- JS: Metro bundle, Hermes bytecode and composed source map (build outputs, then the APK copy)"
+            find app/build -type f -name 'index.android.bundle*' -print0 | sort -z | xargs -0 sha256sum
+            echo "apk:assets/index.android.bundle $(sha256sum "$X/assets/index.android.bundle" | cut -d' ' -f1) magic=$(head -c 8 "$X/assets/index.android.bundle" | od -An -tx1 | tr -d ' ')"
+            echo "--- APK entries (sha256 of each file; for build-to-build comparison)"
+            (cd "$X" && find . -type f -print0 | sort -z | xargs -0 sha256sum)
           } > "$B/apk-facts.txt"
           cp "$APK" "$RUNNER_TEMP/app-release.apk"
+          # Hermes composed source map (Metro map composed with the hermesc map): symbolicates release JS stacks.
+          cp app/build/generated/sourcemaps/react/release/index.android.bundle.map "$B/"
           cat "$B/host.txt" "$B/tools.txt" "$B/native-config.txt" "$B/apk-facts.txt"
       - name: Index and verify bundle
         run: |
