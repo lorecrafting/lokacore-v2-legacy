@@ -1,3 +1,4 @@
+README.md: OK
 build-1-pod-install.log: OK
 build-1-xcodebuild.log: OK
 build-1.txt: OK

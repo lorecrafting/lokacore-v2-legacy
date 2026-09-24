@@ -96,15 +96,19 @@ jobs:
           }
           EOF
           ./gradlew --version > "$B/gradle-version.txt"
+          # Build flag (2026-09-24): without it the RN Gradle plugin's configureDevServerLocation writes
+          # the runner's first non-loopback IPv4 into resources.arsc (react_native_dev_server_ip) for
+          # every variant, release included: a build-host leak and the only APK difference between runs.
           ./gradlew --no-daemon -I "$RUNNER_TEMP/report.gradle" -PreactNativeArchitectures="$ABI" \
-            assembleRelease 2>&1 | tee "$B/gradle-build.log"
+            -PreactNativeDevServerIp=localhost assembleRelease 2>&1 | tee "$B/gradle-build.log"
+          echo "gradle_flags=-PreactNativeArchitectures=$ABI -PreactNativeDevServerIp=localhost" > "$B/build-flags.txt"
           grep '^A2 ' "$B/gradle-build.log" | sed 's/^A2 //' | sort -u > "$B/native-config.txt"
-          ./gradlew --no-daemon -PreactNativeArchitectures="$ABI" :app:dependencies \
+          ./gradlew --no-daemon -PreactNativeArchitectures="$ABI" -PreactNativeDevServerIp=localhost :app:dependencies \
             --configuration releaseRuntimeClasspath > "$B/release-runtime-classpath.txt"
           # Buildscript classpath (Android Gradle Plugin version); not in the runtime classpath.
-          ./gradlew --no-daemon -PreactNativeArchitectures="$ABI" :app:buildEnvironment > "$B/build-environment.txt"
+          ./gradlew --no-daemon -PreactNativeArchitectures="$ABI" -PreactNativeDevServerIp=localhost :app:buildEnvironment > "$B/build-environment.txt"
           # AGP sits on the root project's buildscript classpath (A2 recheck N4).
-          ./gradlew --no-daemon -PreactNativeArchitectures="$ABI" buildEnvironment > "$B/build-environment-root.txt"
+          ./gradlew --no-daemon -PreactNativeArchitectures="$ABI" -PreactNativeDevServerIp=localhost buildEnvironment > "$B/build-environment-root.txt"
           grep -E 'com\.android\.tools\.build:gradle[: ]' "$B/build-environment-root.txt" | sort -u > "$B/agp-version.txt" || echo 'not found' > "$B/agp-version.txt"
       - name: Record host, tools and APK facts
         working-directory: r1-spike/mobile/android
