@@ -8,3 +8,4 @@ pixel-3a-probe.txt: OK
 boox-palma-adb.txt: OK
 iphone-11-Podfile.lock: OK
 iphone-11-pods.txt: OK
+iphone-11-probe.txt: OK

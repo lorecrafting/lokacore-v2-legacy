@@ -28,12 +28,12 @@ re-resolved); **null** = not observed.
 |---|---|---|---|---|---|
 | expo | 57.0.24 | lock; installed in A1 run 35901131399 and Android run 35951344446 | `npm ci` of the retained lock; `npm ls --all` (A1 `replay.log`) | Actions | proposed |
 | react_native | 0.86.3 | lock, as above | as above | Actions | proposed |
-| hermes | 250829098.0.17 | inspected (Android) | `./gradlew :app:dependencies --configuration releaseRuntimeClasspath` → `com.facebook.hermes:hermes-android:250829098.0.17` (`apk-facts.txt`) | Actions; M1 (iOS) | proposed; iOS `hermes-engine (250829098.0.17)` in Podfile.lock (`a2-device-evidence/iphone-11-pods.txt`) |
+| hermes | 250829098.0.17 | inspected (Android) | `./gradlew :app:dependencies --configuration releaseRuntimeClasspath` → `com.facebook.hermes:hermes-android:250829098.0.17` (`apk-facts.txt`) | Actions; M1 (iOS) | proposed; iOS pod `hermes-engine (250829098.0.17)` (`iphone-11-pods.txt`); on-device 250829098.0.17 Release on both phones (`pixel-3a-probe.txt`, `iphone-11-probe.txt`) |
 | typescript | 6.0.3 | inspected | `node node_modules/typescript/bin/tsc --version` | Actions (A1) and M1 (`m1-tools.txt`) | proposed |
 | node | 24.21.0 | inspected | `node -v` | Actions and M1 | proposed |
 | elixir | 1.20.4 | inspected | `elixir --version` | Actions (A1) and M1 via mise | proposed |
 | otp | 28.4 | inspected | `OTP_VERSION` file (Actions); `erl -eval` reading it (M1) | Actions and M1 | proposed |
-| sqlite | 3.50.3 | inspected (Android APK) | `strings` on `lib/arm64-v8a/libexpo-sqlite.so`: version string and source id `2025-07-17 13:25:10 3ce993b8…` | Actions; M1 (iOS) | proposed; Pixel 3a on-device 3.50.3; iOS Pods `sqlite3.h` 3.50.3, same source id (`iphone-11-pods.txt`); iPhone on-device pending |
+| sqlite | 3.50.3 | inspected (Android APK) | `strings` on `lib/arm64-v8a/libexpo-sqlite.so`: version string and source id `2025-07-17 13:25:10 3ce993b8…` | Actions; M1 (iOS) | proposed; on-device `sqlite_version()` 3.50.3, same source id, on the Pixel 3a and iPhone 11; iOS Pods `sqlite3.h` 3.50.3 (`iphone-11-pods.txt`) |
 | sqlite_binding | 57.0.3 | lock | as expo | Actions | proposed |
 | xcode | 27.0+27A266a | inspected | `xcodebuild -version` with `DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer` (a2-device-evidence/m1-xcode.txt) | M1 | observed 2026-09-24 |
 | ios_sdk | 27.0+24A430 | inspected | `xcodebuild -showsdks`; `xcrun --sdk iphoneos --show-sdk-version` / `--show-sdk-build-version` (m1-xcode.txt) | M1 | observed 2026-09-24 |
@@ -142,16 +142,18 @@ follow ADR-069; the register is not edited here):
    Version" 250829098.0.17, Build "Release", and SQLite 3.50.3
    (`a2-device-evidence/pixel-3a-probe.txt`). `dumpsys meminfo` Total RAM equals
    MemTotal (3,678,544 kB): OS-visible, not installed RAM.
-3. Build and run the iOS probe on the iPhone 11 with a free personal team.
-   Partly done 2026-09-24 (inspected): CocoaPods 1.17.0 (Homebrew), `pod
-   install` from the retained lock and pinned template, `Podfile.lock` retained
-   (`a2-device-evidence/iphone-11-Podfile.lock`, `iphone-11-pods.txt`); an
-   unsigned Release build for `generic/platform=iOS` succeeded with Xcode 27.0
-   and no config change. Pending: the signed device build. `xcodebuild` found no
-   team ID (no signing identity, no cached team): the owner must open
-   `r1-spike/mobile/ios/LokaR1A2.xcworkspace` in Xcode, select target LokaR1A2 →
-   Signing & Capabilities → Team → their Personal Team, then the build, install
-   and console capture can run.
+3. ~~Build and run the iOS probe on the iPhone 11~~ Done 2026-09-24
+   (inspected): CocoaPods 1.17.0 (Homebrew), `pod install` from the retained
+   lock and pinned template, `Podfile.lock` retained
+   (`a2-device-evidence/iphone-11-Podfile.lock`, `iphone-11-pods.txt`). After
+   the owner selected their Personal Team in Xcode (owner report), a Release
+   build signed by the free personal team (development signing) was installed
+   and launched with `devicectl`; `idevicesyslog` captured Hermes "OSS Release
+   Version" 250829098.0.17, Build "Release", and SQLite 3.50.3, same source id
+   (`iphone-11-probe.txt`). Both equal the Pixel 3a values. No Xcode 27 config
+   change was needed: the app has no scene manifest and ran on iOS 26.6.2; an
+   iOS 27 device is untested. `devicectl device info details` and
+   `ideviceinfo` report no RAM, so iPhone RAM stays null.
 4. Run the RAM probe on both phones once the module above is added.
 5. Decide, with the independent A2 setup reviewer, (a), (b) and the RAM
    mapping; confirm the M1 Air as the A2 common host.
