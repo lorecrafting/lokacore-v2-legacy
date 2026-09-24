@@ -2,6 +2,7 @@
 // (src/kernel/) must not use any of these; lib is ES2020 only.
 interface ImportMeta {
   main: boolean;
+  url: string;
 }
 declare class TextDecoder {
   constructor(label?: string, options?: { fatal?: boolean; ignoreBOM?: boolean });
