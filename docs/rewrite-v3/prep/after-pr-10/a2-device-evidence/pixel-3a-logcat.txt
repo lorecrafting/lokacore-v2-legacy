@@ -1,0 +1,24 @@
+--------- beginning of main
+--------- beginning of system
+09-23 21:00:53.161 10134 10193 I ReactNativeJS: LOKA_A2_PROBE {
+09-23 21:00:53.161 10134 10193 I ReactNativeJS:   "hermes": {
+09-23 21:00:53.161 10134 10193 I ReactNativeJS:     "Bytecode Version": 98,
+09-23 21:00:53.161 10134 10193 I ReactNativeJS:     "Static Hermes": true,
+09-23 21:00:53.161 10134 10193 I ReactNativeJS:     "Builtins Frozen": false,
+09-23 21:00:53.161 10134 10193 I ReactNativeJS:     "VM Experiments": 0,
+09-23 21:00:53.161 10134 10193 I ReactNativeJS:     "Build": "Release",
+09-23 21:00:53.161 10134 10193 I ReactNativeJS:     "GC": "hades (concurrent)",
+09-23 21:00:53.161 10134 10193 I ReactNativeJS:     "OSS Release Version": "250829098.0.17",
+09-23 21:00:53.161 10134 10193 I ReactNativeJS:     "Debugger Enabled": false,
+09-23 21:00:53.161 10134 10193 I ReactNativeJS:     "CommonJS Modules": "None"
+09-23 21:00:53.161 10134 10193 I ReactNativeJS:   },
+09-23 21:00:53.161 10134 10193 I ReactNativeJS:   "sqlite": {
+09-23 21:00:53.161 10134 10193 I ReactNativeJS:     "v": "3.50.3",
+09-23 21:00:53.161 10134 10193 I ReactNativeJS:     "s": "2025-07-17 13:25:10 3ce993b8657d6d9deda380a93cdd6404a8c8ba1b185b2bc423703e41ae5f2543"
+09-23 21:00:53.161 10134 10193 I ReactNativeJS:   },
+09-23 21:00:53.161 10134 10193 I ReactNativeJS:   "memory": {
+09-23 21:00:53.161 10134 10193 I ReactNativeJS:     "api": "ActivityManager.MemoryInfo.totalMem",
+09-23 21:00:53.161 10134 10193 I ReactNativeJS:     "bytes": "3766829056"
+09-23 21:00:53.161 10134 10193 I ReactNativeJS:   }
+09-23 21:00:53.161 10134 10193 I ReactNativeJS: }
+09-23 21:00:53.162 10134 10193 I ReactNativeJS: Running "main"

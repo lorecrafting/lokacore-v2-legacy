@@ -1,13 +1,13 @@
 {
   "accepted_spec_commit": "f5bef28a3094083fed67712c771504954d65d2de",
   "disposition": "approved",
-  "reviewer_id": "A1 setup reviewer: a second fresh Claude Fable 5.1 agent on Claude Code (not a fork, separate from the oracle reviewer), nominated by the owner and launched by the implementing assistant on 2026-09-23 under the owner account lorecrafting",
+  "reviewer_id": "A2 setup recheck reviewer: a fresh Claude Fable 5.1 agent on Claude Code (not a fork of the author or of the first A2 reviewer's session), launched by the implementing assistant on 2026-09-23 under the owner account lorecrafting; report reviews/2026-09-23-a2-setup-recheck.md",
   "independent_of_candidate_authorship": true,
   "subject_author_ids": [
-    "Claude Code implementing assistant, Claude Opus (prepared setup.pending.json, the v3-a1-host workflow and the retained bundle)",
-    "GitHub Actions run 35901131399 attempt 1 (produced a1-host-evidence at e9a7bd6)"
+    "Claude Code implementing assistant, Claude Opus (prepared setup.a2-proposed.json, a2-plan.md, the r1-spike/mobile probe app, the r1-android-native workflow, both bundles' capture scripts and the owner-decision transcription)",
+    "GitHub Actions run 35966206296 attempt 1 (produced a2-android-evidence and the APK at c4d2059)"
   ],
   "independent_of_subject_authorship": true,
-  "note": "Approved with notes for stage A1 only; A2 is not reviewed or approved. Report: reviews/2026-09-23-a1-setup-review.md (main 88edd92). Open notes N2-N5: vCPU core count and rounded RAM, OTP erts identity only in the expiring run log, version-asserted rather than checksummed toolcache/npm, cosmetic package name. N1 (stale placeholder digest) is resolved by this record. The owner confirmed on 2026-09-23 that this fresh Fable agent counts as independent. The reviewed bytes cannot prove VM hardware, GitHub log integrity, toolchain build authenticity, timing or phones.",
-  "setup_digest": "95d454b76a8ec138420f81a4e1ff40000c1d1f9ec56f831fefc9e0678fb530ae"
+  "note": "Approved with notes for stage A2 only, of the manifest at 6b73803 (reviews/2026-09-23-a2-setup-recheck.md), after the first A2 review required changes (reviews/2026-09-23-a2-setup-review.md) and owner decisions OD1-OD4 (owner-decision-a2-2026-09-23.md). Notes: N1 iOS source revision inferred, not recorded (a2-plan.md wording fixed in this commit); N2 residual scratchpad path and app-container UUIDs in probe excerpts; N3 this receipt supersedes the A1 receipt in this file and setup.pending.json becomes the A2 record; N4 AGP version unrecorded; N5 m1-tools.txt predates the Xcode capture. The A1 approval (digest 95d454b76a8ec138420f81a4e1ff40000c1d1f9ec56f831fefc9e0678fb530ae, reviews/2026-09-23-a1-setup-review.md, receipt at main 40ab191) stands as a historical record. The reviewed bytes cannot prove phone hardware beyond OS-reported values, a clean iOS build checkout, GitHub log integrity, toolchain build authenticity or timing.",
+  "setup_digest": "fef848f945da4608997dd4c3c81c470721dbdae98db3d338259be8bf7d742d1a"
 }

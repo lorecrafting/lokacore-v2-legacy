@@ -1,0 +1,25 @@
+2026-09-24T07:04:17Z
+$ ideviceinfo --version
+ideviceinfo 1.4.0
+exit=0
+$ ideviceinfo -u [redacted] -k ProductType
+iPhone12,1
+exit=0
+$ ideviceinfo -u [redacted] -k ModelNumber
+MH8Y3
+exit=0
+$ ideviceinfo -u [redacted] -k RegionInfo
+LL/A
+exit=0
+$ ideviceinfo -u [redacted] -k HardwareModel
+N104AP
+exit=0
+$ ideviceinfo -u [redacted] -k CPUArchitecture
+arm64e
+exit=0
+$ ideviceinfo -u [redacted] -k ProductVersion
+26.6.2
+exit=0
+$ ideviceinfo -u [redacted] -k BuildVersion
+23G90
+exit=0

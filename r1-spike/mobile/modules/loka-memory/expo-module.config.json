@@ -1,0 +1,5 @@
+{
+  "platforms": ["apple", "android"],
+  "apple": { "modules": ["LokaMemoryModule"] },
+  "android": { "modules": ["expo.modules.lokamemory.LokaMemoryModule"] }
+}

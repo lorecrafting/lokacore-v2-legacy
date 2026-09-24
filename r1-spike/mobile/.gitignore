@@ -1,0 +1,6 @@
+node_modules/
+# Continuous native generation: expo prebuild output is never committed.
+/android/
+/ios/
+.expo/
+dist/

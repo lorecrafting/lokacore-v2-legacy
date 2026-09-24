@@ -1,0 +1,965 @@
+[connected:[redacted]]
+Sep 23 21:03:49.871038 LokaR1A2(CoreFoundation)[27671] <Debug>: Using ~iphone resources
+Sep 23 21:03:49.871186 LokaR1A2(CoreFoundation)[27671] <Debug>: main bundle CFBundle 0x106a44810 </private/var/containers/Bundle/Application/90C820EB-6576-4BA7-A69D-76AB02A0453E/LokaR1A2.app> (executable, loaded) getting handle 0xfffffffffffffffb
+Sep 23 21:03:49.875000 LokaR1A2(CoreFoundation)[27671] <Debug>: setting new value <private> for key <private> in CFPrefsSource<0x106a47050> (Domain: Volatile, User: , ByHost: No, Container: , Contents Need Refresh: No)
+Sep 23 21:03:49.875451 LokaR1A2(CoreFoundation)[27671] <Debug>: setting new value <private> for key <private> in CFPrefsSource<0x106a47050> (Domain: Volatile, User: , ByHost: No, Container: , Contents Need Refresh: No)
+Sep 23 21:03:49.875494 LokaR1A2(CoreFoundation)[27671] <Debug>: setting new value <private> for key <private> in CFPrefsSource<0x106a47050> (Domain: Volatile, User: , ByHost: No, Container: , Contents Need Refresh: No)
+Sep 23 21:03:49.875511 LokaR1A2(CoreFoundation)[27671] <Debug>: setting new value <private> for key <private> in CFPrefsSource<0x106a47050> (Domain: Volatile, User: , ByHost: No, Container: , Contents Need Refresh: No)
+Sep 23 21:03:49.877781 LokaR1A2(libxpc.dylib)[27671] <Notice>: [0x106a4d420] activating connection: mach=true listener=false peer=false name=com.apple.cfprefsd.daemon.system
+Sep 23 21:03:49.878835 LokaR1A2(BoardServices)[27671] <Notice>: [C:1] Alloc com.apple.frontboard.systemappservices
+Sep 23 21:03:49.878901 LokaR1A2(libxpc.dylib)[27671] <Notice>: [0x106a4dfa0] activating connection: mach=true listener=false peer=false name=com.apple.cfprefsd.daemon
+Sep 23 21:03:49.878932 LokaR1A2(libxpc.dylib)[27671] <Notice>: [0x1070dc000] activating connection: mach=false listener=false peer=false name=(anonymous)
+Sep 23 21:03:49.879291 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsManagedSource<0x106a46bf0> (Domain: com.apple.UIKit, User: kCFPreferencesAnyUser, ByHost: Yes, Container: (null), Contents Need Refresh: No) loaded: an empty base plist and no additional changes from the base plist
+Sep 23 21:03:49.879307 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsPlistSource<0x106a46ef0> (Domain: com.apple.UIKit, User: kCFPreferencesAnyUser, ByHost: Yes, Container: (null), Contents Need Refresh: No) loaded: an empty base plist and no additional changes from the base plist
+Sep 23 21:03:49.879324 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsPlistSource<0x1070c0080> (Domain: kCFPreferencesAnyApplication, User: kCFPreferencesAnyUser, ByHost: Yes, Container: (null), Contents Need Refresh: No) loaded: an empty base plist and no additional changes from the base plist
+Sep 23 21:03:49.879976 LokaR1A2(CoreFoundation)[27671] <Debug>: Unable to create bundle at URL (<private>): does not exist or not a directory (0)
+Sep 23 21:03:49.880559 LokaR1A2(CoreFoundation)[27671] <Debug>: Unable to create bundle at URL (<private>): does not exist or not a directory (0)
+Sep 23 21:03:49.880593 LokaR1A2(CoreFoundation)[27671] <Debug>: Unable to create bundle at URL (<private>): does not exist or not a directory (0)
+Sep 23 21:03:49.880624 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsManagedSource<0x106a46b60> (Domain: com.apple.UIKit, User: kCFPreferencesCurrentUser, ByHost: Yes, Container: (null), Contents Need Refresh: No) loaded: an empty base plist and no additional changes from the base plist
+Sep 23 21:03:49.880642 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsPlistSource<0x106a46cf0> (Domain: com.apple.UIKit, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No) loaded: a new base plist and no additional changes from the base plist
+Sep 23 21:03:49.880675 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsManagedSource<0x106a46df0> (Domain: kCFPreferencesAnyApplication, User: kCFPreferencesCurrentUser, ByHost: Yes, Container: (null), Contents Need Refresh: No) loaded: a new base plist and no additional changes from the base plist
+Sep 23 21:03:49.880693 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsPlistSource<0x106a46e70> (Domain: kCFPreferencesAnyApplication, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No) loaded: a new base plist and no additional changes from the base plist
+Sep 23 21:03:49.880716 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsManagedSource<0x1070c0300> (Domain: com.lorecrafting.lokar1a2, User: kCFPreferencesAnyUser, ByHost: Yes, Container: (null), Contents Need Refresh: No) loaded: an empty base plist and no additional changes from the base plist
+Sep 23 21:03:49.880734 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsPlistSource<0x1070c0480> (Domain: com.lorecrafting.lokar1a2, User: kCFPreferencesAnyUser, ByHost: Yes, Container: (null), Contents Need Refresh: No) loaded: an empty base plist and no additional changes from the base plist
+Sep 23 21:03:49.880753 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsPlistSource<0x1070c0080> (Domain: kCFPreferencesAnyApplication, User: kCFPreferencesAnyUser, ByHost: Yes, Container: (null), Contents Need Refresh: No) loaded: an empty base plist and no additional changes from the base plist
+Sep 23 21:03:49.880919 LokaR1A2(CoreFoundation)[27671] <Debug>: Unable to create bundle at URL (<private>): does not exist or not a directory (0)
+Sep 23 21:03:49.880948 LokaR1A2(CoreFoundation)[27671] <Debug>: Unable to create bundle at URL (<private>): does not exist or not a directory (0)
+Sep 23 21:03:49.880979 LokaR1A2(CoreFoundation)[27671] <Debug>: Unable to create bundle at URL (<private>): does not exist or not a directory (0)
+Sep 23 21:03:49.881234 LokaR1A2(libMobileGestalt.dylib)[27671] <Notice>: Cache loaded with 6309 pre-cached in CacheData and 80 items in CacheExtra.
+Sep 23 21:03:49.882041 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key LogHIDEventFiltered in CFPrefsSearchListSource<0x106a46ae0> (Domain: com.apple.UIKit, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.882147 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key LogBackgroundTask in CFPrefsSearchListSource<0x106a46ae0> (Domain: com.apple.UIKit, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.882191 LokaR1A2(UIKitCore)[27671] <Notice>: Creating new assertion because there is no existing background assertion.
+Sep 23 21:03:49.882207 LokaR1A2(UIKitCore)[27671] <Notice>: Creating new background assertion
+Sep 23 21:03:49.882224 LokaR1A2(UIKitCore)[27671] <Notice>: Created new background assertion <BKSProcessAssertion: 0x106a4f120>
+Sep 23 21:03:49.882238 LokaR1A2(RunningBoardServices)[27671] <Notice>: Initializing connection
+Sep 23 21:03:49.882256 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key LogHIDEventIncoming in CFPrefsSearchListSource<0x106a46ae0> (Domain: com.apple.UIKit, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.882275 LokaR1A2(RunningBoardServices)[27671] <Notice>: Removing all cached process handles
+Sep 23 21:03:49.882582 LokaR1A2(RunningBoardServices)[27671] <Notice>: Sending handshake request attempt #1 to server
+Sep 23 21:03:49.882661 LokaR1A2(RunningBoardServices)[27671] <Info>: Acquiring assertion: <RBSAssertionDescriptor| "Shared Background Assertion 0 for com.lorecrafting.lokar1a2" ID:(null) target:27671>
+Sep 23 21:03:49.882678 LokaR1A2(RunningBoardServices)[27671] <Notice>: Creating connection to com.apple.runningboard
+Sep 23 21:03:49.882696 LokaR1A2(libxpc.dylib)[27671] <Notice>: [0x1070dc500] activating connection: mach=true listener=false peer=false name=com.apple.runningboard
+Sep 23 21:03:49.883344 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key LogApplication in CFPrefsSearchListSource<0x106a46ae0> (Domain: com.apple.UIKit, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.883397 LokaR1A2(UIKitCore)[27671] <Notice>: Deactivation reason added: 10; deactivation reasons: 0 -> 1024; animating application lifecycle event: 0
+Sep 23 21:03:49.883762 LokaR1A2(BoardServices)[27671] <Notice>: activating monitor for service com.apple.frontboard.open
+Sep 23 21:03:49.883930 LokaR1A2(BoardServices)[27671] <Notice>: activating monitor for service com.apple.frontboard.workspace-service
+Sep 23 21:03:49.886121 LokaR1A2(RunningBoardServices)[27671] <Debug>: PERF: (null) Received message from runningboardd: async_didChangeInheritances:completion:
+Sep 23 21:03:49.886314 LokaR1A2(FrontBoardServices)[27671] <Notice>: FBSWorkspace registering source: <private>
+Sep 23 21:03:49.886384 LokaR1A2(BaseBoard)[27671] <Debug>: <private> will auto-code: <private>
+Sep 23 21:03:49.886413 LokaR1A2(RunningBoardServices)[27671] <Notice>: Handshake succeeded
+Sep 23 21:03:49.886448 LokaR1A2(RunningBoardServices)[27671] <Notice>: Identity resolved as app<com.lorecrafting.lokar1a2(6F9574B7-D7E5-4107-8068-0A24ECF20754)>
+Sep 23 21:03:49.886466 LokaR1A2(RunningBoardServices)[27671] <Info>: didChangeInheritances
+Sep 23 21:03:49.886483 LokaR1A2(RunningBoardServices)[27671] <Debug>: Adding assertion 36-27671-187866 to dictionary
+Sep 23 21:03:49.886500 LokaR1A2(UIKitCore)[27671] <Notice>: Incrementing reference count for background assertion <private>
+Sep 23 21:03:49.886517 LokaR1A2(UIKitCore)[27671] <Notice>: Created background task <private>.
+Sep 23 21:03:49.886531 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension _UIApplicationSceneKeyboardSettings on FBSSceneSettings
+Sep 23 21:03:49.886971 LokaR1A2(RunningBoardServices)[27671] <Debug>: didChangeInheritances: <RBSInheritanceChangeSet| gained:{(
+    <RBSInheritance| environment:(none) name:com.apple.frontboard.visibility origID:36-37-187865 0>,
+    <RBSInheritance| environment:(none) name:com.apple.frontboard.visibility origID:36-37-187862 0>
+)} lost:(null)>
+Sep 23 21:03:49.887324 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.888649 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.888863 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.888882 LokaR1A2(FrontBoardServices)[27671] <Notice>: FBSWorkspace connected to endpoint : <private>
+Sep 23 21:03:49.888901 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.888921 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.889960 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.890050 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.890105 LokaR1A2(FrontBoardServices)[27671] <Notice>: <FBSWorkspaceScenesClient:0x1070c8140 <private>> attempting immediate handshake from activate
+Sep 23 21:03:49.890147 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.890182 LokaR1A2(FrontBoardServices)[27671] <Notice>: <FBSWorkspaceScenesClient:0x1070c8140 <private>> sent handshake
+Sep 23 21:03:49.891265 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension <_UISceneOcclusionSettings> on FBSSceneSettings
+Sep 23 21:03:49.891425 LokaR1A2(RunningBoardServices)[27671] <Notice>: Added observer for process assertions expiration warning: <_RBSExpirationWarningClient: 0x1071b8460>
+Sep 23 21:03:49.891823 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.891871 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.891934 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.892120 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.892142 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension <_UISceneInterfaceProtectionSettings> on FBSSceneSettings
+Sep 23 21:03:49.892215 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.892362 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key LogUIScreen in CFPrefsSearchListSource<0x106a46ae0> (Domain: com.apple.UIKit, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.892399 LokaR1A2(UIKitCore)[27671] <Notice>: Evaluated capturing state as 0 on <UIScreen: 0x1070dc780> for initial
+Sep 23 21:03:49.892491 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.892550 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.892585 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.892614 LokaR1A2(UIKitCore)[27671] <Notice>: Evaluated capturing state as 0 on <UIScreen: 0x1070dc780> for CADisplay KVO
+Sep 23 21:03:49.892740 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension _UISceneLayoutPreferencesHostSettingsExtension on FBSSceneSettings
+Sep 23 21:03:49.892771 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.892803 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.892816 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.892829 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.892853 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension _UISceneSafeAreaSettingsExtension on FBSSceneSettings
+Sep 23 21:03:49.893186 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.893228 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.893467 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.893485 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.893514 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.893564 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.893578 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.893605 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.893629 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension _UISceneLayoutPreferenceClientSettingsExtension on FBSSceneClientSettings
+Sep 23 21:03:49.893706 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.893733 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.893793 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.893881 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.893943 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.894045 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.894074 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.894301 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.894316 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.894372 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.894418 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.894432 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.894447 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension <_UIHomeAffordanceHostSceneSettings> on FBSSceneSettings
+Sep 23 21:03:49.894460 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.894474 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.894547 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension _UISystemShellSceneHostingEnvironmentSettings on FBSSceneSettings
+Sep 23 21:03:49.894688 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.894728 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.894780 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension _UISceneRenderingEnvironmentSettings on FBSSceneSettings
+Sep 23 21:03:49.895162 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.895194 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.895208 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.895226 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.895239 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.895260 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.895276 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension <_UISceneRenderingEnvironmentClientSettings> on FBSSceneClientSettings
+Sep 23 21:03:49.895290 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.895311 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.895330 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension <_UISceneTransitioningHostSettings> on FBSSceneSettings
+Sep 23 21:03:49.895387 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.895401 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.895416 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension <_UISceneFocusSystemSettings> on FBSSceneSettings
+Sep 23 21:03:49.895497 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.895532 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.895643 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension _UISceneOrientationSettingsExtension on FBSSceneSettings
+Sep 23 21:03:49.895663 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.895689 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.895711 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension _UISceneOrientationClientSettingsExtension on FBSSceneClientSettings
+Sep 23 21:03:49.895727 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.895743 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.895760 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension _UISceneWindowingControlClientSettings on FBSSceneClientSettings
+Sep 23 21:03:49.895781 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.895798 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.895821 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension <_UISceneHostingContentSizePreferenceClientSettings> on FBSSceneClientSettings
+Sep 23 21:03:49.895835 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.895848 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.895870 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension _UISceneHostingTraitCollectionPropagationSettings on FBSSceneSettings
+Sep 23 21:03:49.895903 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.895935 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.895950 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.895971 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.895994 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension <_UISceneHostingSheetPresentationSettings> on FBSSceneSettings
+Sep 23 21:03:49.896011 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.896025 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.896040 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension <_UISceneHostingSheetPresentationClientSettings> on FBSSceneClientSettings
+Sep 23 21:03:49.896063 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.896127 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.896163 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension <_UISceneHostingEventDeferringSettings> on FBSSceneSettings
+Sep 23 21:03:49.896185 LokaR1A2(BaseBoard)[27671] <Debug>: [rdar://100354962] Fixing incorrect property returned by protocol_copyPropertyList2() for "<private>": required --> optional
+Sep 23 21:03:49.896199 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.896221 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.896234 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.896247 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.896358 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension <UIKit__UITypedKeyValueSceneSettings> on FBSSceneSettings
+Sep 23 21:03:49.896400 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.896422 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.896440 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension <UIKit__UITypedKeyValueSceneSettings> on FBSSceneClientSettings
+Sep 23 21:03:49.896461 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.896476 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.896525 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension <_UISceneHostingViewControllerPreferencePropagationClientSettings> on FBSSceneClientSettings
+Sep 23 21:03:49.896683 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.896697 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.896718 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension <_UISceneZoomTransitionSettings> on FBSSceneSettings
+Sep 23 21:03:49.896732 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.896745 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.896785 LokaR1A2(CoreFoundation)[27671] <Debug>: dyld image path for pointer 0x1db36048c is /System/Library/PrivateFrameworks/CoreMaterial.framework/CoreMaterial
+Sep 23 21:03:49.896806 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension FBSSceneSettingsCore on FBSSceneSettings
+Sep 23 21:03:49.897018 LokaR1A2(BaseBoard)[27671] <Debug>: [rdar://100354962] Fixing incorrect property returned by protocol_copyPropertyList2() for "<private>": required --> optional
+Sep 23 21:03:49.897043 LokaR1A2(BaseBoard)[27671] <Debug>: [rdar://100354962] Fixing incorrect property returned by protocol_copyPropertyList2() for "<private>": required --> optional
+Sep 23 21:03:49.897060 LokaR1A2(BaseBoard)[27671] <Debug>: [rdar://100354962] Fixing incorrect property returned by protocol_copyPropertyList2() for "<private>": required --> optional
+Sep 23 21:03:49.897094 LokaR1A2(BaseBoard)[27671] <Debug>: [rdar://100354962] Fixing incorrect property returned by protocol_copyPropertyList2() for "<private>": required --> optional
+Sep 23 21:03:49.897336 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.897421 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.897469 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.897507 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.897521 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.897541 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.897560 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.897574 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.897587 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.897607 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.897624 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.897728 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.897763 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.897783 LokaR1A2(CoreFoundation)[27671] <Debug>: dlfcn check load bundle CFBundle 0x107210000 </System/Library/PrivateFrameworks/CoreMaterial.framework> (not loaded), dlopen of /System/Library/PrivateFrameworks/CoreMaterial.framework/CoreMaterial mode 0x115 getting handle 0x34be3b8d9
+Sep 23 21:03:49.897993 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.898088 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.898124 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.898154 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.898168 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.898182 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.898197 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.898211 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.898242 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.898255 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.898269 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.898289 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.898305 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.898320 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension FBSSceneClientSettingsCore on FBSSceneClientSettings
+Sep 23 21:03:49.898505 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.898565 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.898586 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.898608 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.898624 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.898640 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.898654 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.898667 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.898680 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.898693 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.899631 LokaR1A2(BaseBoard)[27671] <Debug>: BSCanonicalOrientationMapResolver will auto-code: <private>
+Sep 23 21:03:49.899857 LokaR1A2(BaseBoard)[27671] <Debug>: <private> will auto-code: <private>
+Sep 23 21:03:49.899891 LokaR1A2(FrontBoardServices)[27671] <Notice>: UIMutableApplicationSceneSettings setting counterpart class: UIApplicationSceneSettings
+Sep 23 21:03:49.900140 LokaR1A2(FrontBoardServices)[27671] <Notice>: UIMutableApplicationSceneClientSettings setting counterpart class: UIApplicationSceneClientSettings
+Sep 23 21:03:49.900278 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension FBSSceneTransitionContextCore on FBSSceneTransitionContext
+Sep 23 21:03:49.901378 LokaR1A2(BaseBoard)[27671] <Debug>: [rdar://100354962] Fixing incorrect property returned by protocol_copyPropertyList2() for "<private>": required --> optional
+Sep 23 21:03:49.901583 LokaR1A2(BaseBoard)[27671] <Debug>: [rdar://100354962] Fixing incorrect property returned by protocol_copyPropertyList2() for "<private>": required --> optional
+Sep 23 21:03:49.901603 LokaR1A2(BaseBoard)[27671] <Debug>: [rdar://100354962] Fixing incorrect property returned by protocol_copyPropertyList2() for "<private>": required --> optional
+Sep 23 21:03:49.901718 LokaR1A2(BaseBoard)[27671] <Debug>: [rdar://100354962] Fixing incorrect property returned by protocol_copyPropertyList2() for "<private>": required --> optional
+Sep 23 21:03:49.901779 LokaR1A2(BaseBoard)[27671] <Debug>: [rdar://100354962] Fixing incorrect property returned by protocol_copyPropertyList2() for "<private>": required --> optional
+Sep 23 21:03:49.901821 LokaR1A2(BaseBoard)[27671] <Debug>: [rdar://100354962] Fixing incorrect property returned by protocol_copyPropertyList2() for "<private>": required --> optional
+Sep 23 21:03:49.901924 LokaR1A2(BaseBoard)[27671] <Debug>: [rdar://100354962] Fixing incorrect property returned by protocol_copyPropertyList2() for "<private>": required --> optional
+Sep 23 21:03:49.901960 LokaR1A2(BaseBoard)[27671] <Debug>: [rdar://100354962] Fixing incorrect property returned by protocol_copyPropertyList2() for "<private>": required --> optional
+Sep 23 21:03:49.902000 LokaR1A2(BaseBoard)[27671] <Debug>: [rdar://100354962] Fixing incorrect property returned by protocol_copyPropertyList2() for "<private>": required --> optional
+Sep 23 21:03:49.902434 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902475 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902504 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902534 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902548 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902564 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902582 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902598 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902613 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902665 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902686 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902700 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902714 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902727 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902741 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902757 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902773 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902788 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902804 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902817 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902829 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902850 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902863 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902905 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902955 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902969 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.902989 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.903005 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:49.903185 LokaR1A2(FrontBoardServices)[27671] <Info>: [FBSScene] [(FBSceneManager):sceneID:com.lorecrafting.lokar1a2-default] Created client agent: <UIApplicationSceneClientAgent: 0x107224130>
+Sep 23 21:03:49.945649 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsManagedSource<0x1070c0280> (Domain: com.lorecrafting.lokar1a2, User: kCFPreferencesCurrentUser, ByHost: Yes, Container: (null), Contents Need Refresh: No) loaded: an empty base plist and no additional changes from the base plist
+Sep 23 21:03:49.945727 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsPlistSource<0x1070c0380> (Domain: com.lorecrafting.lokar1a2, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No) loaded: a new base plist and no additional changes from the base plist
+Sep 23 21:03:49.945764 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsManagedSource<0x106a46df0> (Domain: kCFPreferencesAnyApplication, User: kCFPreferencesCurrentUser, ByHost: Yes, Container: (null), Contents Need Refresh: No) loaded: a new base plist and no additional changes from the base plist
+Sep 23 21:03:49.945830 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsPlistSource<0x106a46e70> (Domain: kCFPreferencesAnyApplication, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No) loaded: a new base plist and no additional changes from the base plist
+Sep 23 21:03:49.945926 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key IIOEnableOOP in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.946095 LokaR1A2(CoreFoundation)[27671] <Debug>: looked up value <private> for key AppleLanguages in CFPrefsPlistSource<0x106a46e70> (Domain: kCFPreferencesAnyApplication, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No) via CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.946120 LokaR1A2(CoreFoundation)[27671] <Info>: Loading Preferences From User Session CFPrefsD
+Sep 23 21:03:49.946141 LokaR1A2(CoreFoundation)[27671] <Debug>: Language lookup at <private>
+	Localizations : [en]
+	Dev language  : en
+	User prefs    : [en-US, zh-Hant-US, fr-US]
+	Main bundle   : [<null>]
+	Allow mixed   : 0 
+	Result        : [en]
+Sep 23 21:03:49.946200 LokaR1A2(CoreFoundation)[27671] <Debug>: Language lookup at <private>
+	Localizations : [en]
+	Dev language  : en
+	User prefs    : [en-US, zh-Hant-US, fr-US]
+	Main bundle   : [<null>]
+	Allow mixed   : 0 
+	Result        : [en]
+Sep 23 21:03:49.946240 LokaR1A2(CoreFoundation)[27671] <Debug>: Language lookup at <private>
+	Localizations : [English]
+	Dev language  : English
+	User prefs    : [en-US, zh-Hant-US, fr-US]
+	Main bundle   : [en]
+	Allow mixed   : 0 
+	Result        : [English]
+Sep 23 21:03:49.946444 LokaR1A2(CoreFoundation)[27671] <Debug>: Resource lookup at <private>
+	Request       : InfoPlist type: loctable
+	Result        : None
+Sep 23 21:03:49.946476 LokaR1A2(CoreFoundation)[27671] <Debug>: Resource lookup at <private>
+	Request       : InfoPlist type: strings
+	Result        : None
+Sep 23 21:03:49.946507 LokaR1A2(CoreFoundation)[27671] <Debug>: Resource lookup at <private>
+	Request       : InfoPlist type: stringsdict
+	Result        : None
+Sep 23 21:03:49.946561 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key _UIEnableLegacyRTL in CFPrefsSearchListSource<0x106a46ae0> (Domain: com.apple.UIKit, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.946712 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSTighteningFactorForTruncation in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.946741 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSTighteningFactorForTruncation in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.946905 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSAllowsDefaultTighteningForTruncation in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.947042 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSUsesDefaultHyphenation in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.947075 LokaR1A2(CoreFoundation)[27671] <Debug>: Resource lookup at <private>
+	Request       :  type: materialrecipe
+	Result        : knowledgePlattersDark.materialrecipe -- file:///System/Library/PrivateFrameworks/CoreMaterial.framework/, modulesBackground.materialrecipe -- file:///System/Library/PrivateFrameworks/CoreMaterial.framework/, platters.materialrecipe -- file:///System/Library/PrivateFrameworks/CoreMaterial.framework/, modules.materialrecipe -- file:///System/Library/PrivateFrameworks/CoreMaterial.framework/, platformContentGlass.materialrecipe -- file:///System/Library/PrivateFrameworks/CoreMaterial.framework/, knowledgeBackground.materialrecipe -- file:///System/Library/PrivateFrameworks/CoreMaterial.framework/, platformContentThinDark.materialrecipe -- file:///System/Library/PrivateFrameworks/CoreMaterial.framework/, platformContentUltraThinLight.materialrecipe -- file:///System/Library/PrivateFrameworks/CoreMaterial.framework/, platformContentGlassDarker.materialrecipe -- file:///System/Library/PrivateFrameworks/CoreMaterial.framework/, knowledgeBackgroundDark.materialrecipe -- file<…>
+Sep 23 21:03:49.947110 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSDefaultHyphenationFactor in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.947200 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSUsesOptimalLineBreaking in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.947237 LokaR1A2(CoreFoundation)[27671] <Debug>: Resource lookup at <private>
+	Request       :  type: descendantrecipe
+	Result        : platformContentThickLightShadowed.descendantrecipe -- file:///System/Library/PrivateFrameworks/CoreMaterial.framework/, modulesSheer.descendantrecipe -- file:///System/Library/PrivateFrameworks/CoreMaterial.framework/, modulesBackgroundSheer.descendantrecipe -- file:///System/Library/PrivateFrameworks/CoreMaterial.framework/, platformChromeDarkReduceTransparencyLayer1.descendantrecipe -- file:///System/Library/PrivateFrameworks/CoreMaterial.framework/,
+Sep 23 21:03:49.947278 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSUsesOptimalLineBreakingForNonJustifiedAlignments in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.947309 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSForceRightToLeftWritingDirection in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.947339 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key UIPreferredContentSizeCategoryName in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.947368 LokaR1A2(CoreFoundation)[27671] <Debug>: Resource lookup at <private>
+	Request       : platters type: descendantrecipe
+	Result        : None
+Sep 23 21:03:49.947396 LokaR1A2(libAccessibility.dylib)[27671] <Debug>: CF Read Category Name: domain = com.lorecrafting.lokar1a2, appID = com.lorecrafting.lokar1a2 value = (null)
+Sep 23 21:03:49.947412 LokaR1A2(CoreFoundation)[27671] <Debug>: Resource lookup at <private>
+	Request       : platters type: materialrecipe
+	Result        : file:///System/Library/PrivateFrameworks/CoreMaterial.framework/platters.materialrecipe
+Sep 23 21:03:49.947431 LokaR1A2(libAccessibility.dylib)[27671] <Notice>: Read CategoryName: per-app = 1, category name = (null)
+Sep 23 21:03:49.947450 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key UIPreferredContentSizeCategoryName in CFPrefsSearchListSource<0x106a46ae0> (Domain: com.apple.UIKit, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.947466 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsPlistSource<0x107250b00> (Domain: com.apple.ImageIO, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No) loaded: an empty base plist and no additional changes from the base plist
+Sep 23 21:03:49.947490 LokaR1A2(libAccessibility.dylib)[27671] <Debug>: CF Read Category Name: domain = /var/mobile/Library/Preferences/com.apple.UIKit, appID = (null) value = (null)
+Sep 23 21:03:49.947529 LokaR1A2(libAccessibility.dylib)[27671] <Notice>: Read CategoryName: per-app = 0, category name = (null)
+Sep 23 21:03:49.947548 LokaR1A2(CoreFoundation)[27671] <Debug>: looked up value <private> for key UICarPlayPreferredContentSizeCategoryName in CFPrefsPlistSource<0x106a46cf0> (Domain: com.apple.UIKit, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No) via CFPrefsSearchListSource<0x106a46ae0> (Domain: com.apple.UIKit, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.947563 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key IIOEnableOOP in CFPrefsPlistSource<0x107250b00> (Domain: com.apple.ImageIO, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:49.947711 LokaR1A2(CoreFoundation)[27671] <Debug>: Resource lookup at <private>
+	Request       : platterFillLight type: descendantstyleset
+	Result        : None
+Sep 23 21:03:49.947750 LokaR1A2(CoreFoundation)[27671] <Debug>: Resource lookup at <private>
+	Request       : platterFillLight type: visualstyleset
+	Result        : file:///System/Library/PrivateFrameworks/CoreMaterial.framework/platterFillLight.visualstyleset
+Sep 23 21:03:49.948229 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsManagedSource<0x107250e00> (Domain: com.apple.Accessibility, User: kCFPreferencesCurrentUser, ByHost: Yes, Container: (null), Contents Need Refresh: No) loaded: an empty base plist and no additional changes from the base plist
+Sep 23 21:03:49.948247 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsPlistSource<0x107250f00> (Domain: com.apple.Accessibility, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No) loaded: a new base plist and no additional changes from the base plist
+Sep 23 21:03:49.948410 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsManagedSource<0x107250e80> (Domain: com.apple.Accessibility, User: kCFPreferencesAnyUser, ByHost: Yes, Container: (null), Contents Need Refresh: No) loaded: an empty base plist and no additional changes from the base plist
+Sep 23 21:03:49.948486 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsPlistSource<0x107251000> (Domain: com.apple.Accessibility, User: kCFPreferencesAnyUser, ByHost: Yes, Container: (null), Contents Need Refresh: No) loaded: an empty base plist and no additional changes from the base plist
+Sep 23 21:03:49.948603 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key EnhancedTextLegibilityEnabled in CFPrefsSearchListSource<0x107250d80> (Domain: com.apple.Accessibility, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.948643 LokaR1A2(libAccessibility.dylib)[27671] <Debug>: CF Read: domain = com.apple.Accessibility, preference = EnhancedTextLegibilityEnabled, appID = (null) result = (null) (-1 - empty, 0 - false, 1 - true)
+Sep 23 21:03:49.948672 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key EnhancedTextLegibilityEnabled in CFPrefsPlistSource<0x107250f00> (Domain: com.apple.Accessibility, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:49.948704 LokaR1A2(CoreFoundation)[27671] <Debug>: looked up value <private> for key DarkenSystemColors in CFPrefsPlistSource<0x107250f00> (Domain: com.apple.Accessibility, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No) via CFPrefsSearchListSource<0x107250d80> (Domain: com.apple.Accessibility, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.948727 LokaR1A2(libAccessibility.dylib)[27671] <Debug>: CF Read: domain = com.apple.Accessibility, preference = DarkenSystemColors, appID = (null) result = 1 (-1 - empty, 0 - false, 1 - true)
+Sep 23 21:03:49.949199 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key UITraitCollectionChangeLoggingEnabled in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.949390 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key UIStateRestorationDebugLogging in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.950024 LokaR1A2(CoreFoundation)[27671] <Debug>: looked up value <private> for key AccessibilityEnabled in CFPrefsPlistSource<0x107250f00> (Domain: com.apple.Accessibility, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No) via CFPrefsSearchListSource<0x107250d80> (Domain: com.apple.Accessibility, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.950067 LokaR1A2(libAccessibility.dylib)[27671] <Debug>: CF Read: domain = com.apple.Accessibility, preference = AccessibilityEnabled, appID = (null) result = 0 (-1 - empty, 0 - false, 1 - true)
+Sep 23 21:03:49.950094 LokaR1A2(CoreFoundation)[27671] <Debug>: looked up value <private> for key InvertColorsEnabled in CFPrefsPlistSource<0x107250f00> (Domain: com.apple.Accessibility, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No) via CFPrefsSearchListSource<0x107250d80> (Domain: com.apple.Accessibility, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.950111 LokaR1A2(libAccessibility.dylib)[27671] <Debug>: CF Read: domain = com.apple.Accessibility, preference = InvertColorsEnabled, appID = (null) result = 0 (-1 - empty, 0 - false, 1 - true)
+Sep 23 21:03:49.950135 LokaR1A2(libAccessibility.dylib)[27671] <Debug>: Read Global: preference = InvertColorsEnabled, result = 0
+Sep 23 21:03:49.950156 LokaR1A2(libAccessibility.dylib)[27671] <Debug>: Updated cache: preference = InvertColorsEnabled, result = 0
+Sep 23 21:03:49.950173 LokaR1A2(CoreFoundation)[27671] <Debug>: looked up value <private> for key ApplicationAccessibilityEnabled in CFPrefsPlistSource<0x107250f00> (Domain: com.apple.Accessibility, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No) via CFPrefsSearchListSource<0x107250d80> (Domain: com.apple.Accessibility, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.950201 LokaR1A2(CoreFoundation)[27671] <Debug>: Language lookup at <private>
+	Localizations : [de, ur, he, ar, el, ja, en_IN, mr, sq, yue_CN, en, uk, es_419, gu, kn, pt_PT, pa, es, is, sl, or, da, et, it, bg, sk, zh_CN, kk, pt_BR, ms, ta, ml, sv, en_AU, te, cs, km, ko, hy, mn, my, no, hu, ka, tr, pl, fr_CA, vi, lv, lo, lt, ru, hi_Latn, es_US, en_GB, uz, fr, fi, id, nl, th, az, bn, ro, zh_HK, hr, hi, ca, zh_TW]
+	Dev language  : en
+	User prefs    : [en-US, zh-Hant-US, fr-US]
+	Main bundle   : [en]
+	Allow mixed   : 0 
+	Result        : [en]
+Sep 23 21:03:49.950225 LokaR1A2(libAccessibility.dylib)[27671] <Debug>: CF Read: domain = com.apple.Accessibility, preference = ApplicationAccessibilityEnabled, appID = (null) result = 0 (-1 - empty, 0 - false, 1 - true)
+Sep 23 21:03:49.950373 LokaR1A2(XCTTargetBootstrap)[27671] <Notice>: Registering for test daemon availability notify post.
+Sep 23 21:03:49.950585 LokaR1A2(XCTTargetBootstrap)[27671] <Notice>: notify_get_state check indicated test daemon not ready.
+Sep 23 21:03:49.950987 LokaR1A2(XCTTargetBootstrap)[27671] <Notice>: notify_get_state check indicated test daemon not ready.
+Sep 23 21:03:49.951069 LokaR1A2(CoreFoundation)[27671] <Debug>: Resource lookup at <private>
+	Request       : emoji type: bitmap
+	Result        : file:////System/Library/PrivateFrameworks/CoreEmoji.framework/emoji.bitmap
+Sep 23 21:03:49.951258 LokaR1A2(XCTTargetBootstrap)[27671] <Notice>: notify_get_state check indicated test daemon not ready.
+Sep 23 21:03:49.951645 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key UIRequireCrimsonLifecycle in CFPrefsSearchListSource<0x106a46ae0> (Domain: com.apple.UIKit, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.951681 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key LogUpdateScheduler in CFPrefsSearchListSource<0x106a46ae0> (Domain: com.apple.UIKit, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.951716 LokaR1A2(UIKitCore)[27671] <Notice>: Selected display: name=LCD (primary), id=1
+Sep 23 21:03:49.952409 LokaR1A2(FrontBoardServices)[27671] <Debug>: [<private>] Adding extension: "_UISceneRelationshipManagementExtension"
+Sep 23 21:03:49.952445 LokaR1A2(FrontBoardServices)[27671] <Debug>: [<private>] Adding extension: "_UIApplicationSceneKeyboardExtension"
+Sep 23 21:03:49.952462 LokaR1A2(FrontBoardServices)[27671] <Debug>: [<private>] Instantiated component: "<private>"
+Sep 23 21:03:49.952480 LokaR1A2(FrontBoardServices)[27671] <Debug>: [<private>] Adding extension: "_UISceneOcclusionExtension"
+Sep 23 21:03:49.952496 LokaR1A2(FrontBoardServices)[27671] <Debug>: [<private>] Adding extension: "_UISceneInterfaceProtectionExtension"
+Sep 23 21:03:49.952512 LokaR1A2(FrontBoardServices)[27671] <Debug>: [<private>] Instantiated component: "<private>"
+Sep 23 21:03:49.952525 LokaR1A2(FrontBoardServices)[27671] <Debug>: [<private>] Adding extension: "_UISceneGeometryExtension"
+Sep 23 21:03:49.952546 LokaR1A2(FrontBoardServices)[27671] <Debug>: [<private>] Instantiated component: "<private>"
+Sep 23 21:03:49.952559 LokaR1A2(FrontBoardServices)[27671] <Debug>: [<private>] Instantiated component: "<private>"
+Sep 23 21:03:49.952587 LokaR1A2(FrontBoardServices)[27671] <Debug>: [<private>] Adding extension: "_UISceneMaskingExtension"
+Sep 23 21:03:49.952656 LokaR1A2(FrontBoardServices)[27671] <Debug>: [<private>] Instantiated component: "<private>"
+Sep 23 21:03:49.952675 LokaR1A2(FrontBoardServices)[27671] <Debug>: [<private>] Adding extension: "_UISystemChromeSceneExtension"
+Sep 23 21:03:49.952688 LokaR1A2(FrontBoardServices)[27671] <Debug>: [<private>] Instantiated component: "<private>"
+Sep 23 21:03:49.952709 LokaR1A2(FrontBoardServices)[27671] <Debug>: [<private>] Adding extension: "_UISystemShellSceneHostingEnvironmentExtension"
+Sep 23 21:03:49.952723 LokaR1A2(FrontBoardServices)[27671] <Debug>: [<private>] Instantiated component: "<private>"
+Sep 23 21:03:49.952737 LokaR1A2(FrontBoardServices)[27671] <Debug>: [<private>] Adding extension: "_UISceneRenderingEnvironmentExtension"
+Sep 23 21:03:49.952810 LokaR1A2(FrontBoardServices)[27671] <Debug>: [<private>] Instantiated component: "<private>"
+Sep 23 21:03:49.952838 LokaR1A2(FrontBoardServices)[27671] <Debug>: [<private>] Adding extension: "_UISceneTransitioningExtension"
+Sep 23 21:03:49.952854 LokaR1A2(FrontBoardServices)[27671] <Debug>: [<private>] Instantiated component: "<private>"
+Sep 23 21:03:49.952869 LokaR1A2(FrontBoardServices)[27671] <Debug>: [<private>] Adding extension: "_UISceneFocusSystemExtension"
+Sep 23 21:03:49.952883 LokaR1A2(FrontBoardServices)[27671] <Debug>: [<private>] Instantiated component: "<private>"
+Sep 23 21:03:49.952906 LokaR1A2(FrontBoardServices)[27671] <Debug>: [<private>] Adding extension: "_UISceneOrientationExtension"
+Sep 23 21:03:49.952919 LokaR1A2(FrontBoardServices)[27671] <Debug>: [<private>] Instantiated component: "<private>"
+Sep 23 21:03:49.952932 LokaR1A2(FrontBoardServices)[27671] <Debug>: [<private>] Adding extension: "_UISceneWindowingControlExtension"
+Sep 23 21:03:49.952945 LokaR1A2(FrontBoardServices)[27671] <Debug>: [<private>] Instantiated component: "<private>"
+Sep 23 21:03:49.953061 LokaR1A2(RunningBoardServices)[27671] <Info>: Acquiring assertion: <RBSAssertionDescriptor| "app_launch_measurement: pageins recording enabled" ID:(null) target:27671>
+Sep 23 21:03:49.954093 LokaR1A2(RunningBoardServices)[27671] <Debug>: Adding assertion 36-27671-187867 to dictionary
+Sep 23 21:03:49.954109 LokaR1A2(libapp_launch_measurement.dylib)[27671] <Notice>: alm_acquire_pageins_recording_assertion: acquired pageins recording assertion!
+Sep 23 21:03:49.955150 LokaR1A2(UIKitCore)[27671] <Notice>: Deactivation reason added: 5; deactivation reasons: 1024 -> 1056; animating application lifecycle event: 1
+Sep 23 21:03:49.955299 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key LogWindow in CFPrefsSearchListSource<0x106a46ae0> (Domain: com.apple.UIKit, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.955475 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key LogInterfaceStyle in CFPrefsSearchListSource<0x106a46ae0> (Domain: com.apple.UIKit, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.955515 LokaR1A2(UIKitCore)[27671] <Notice>: Not push traits update to screen for new style 1, <UIWindowScene: 0x106a55b70> (BD70176D-A239-4F4E-BE91-4E0D965C0254)
+Sep 23 21:03:49.955647 LokaR1A2(UIKitCore)[27671] <Notice>: Should send trait collection or coordinate space update, interface style 1 -> 1, <UIWindowScene: 0x106a55b70> (BD70176D-A239-4F4E-BE91-4E0D965C0254)
+Sep 23 21:03:49.956247 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key FullKeyboardAccessEnabled in CFPrefsSearchListSource<0x107250d80> (Domain: com.apple.Accessibility, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.956266 LokaR1A2(libAccessibility.dylib)[27671] <Debug>: CF Read: domain = com.apple.Accessibility, preference = FullKeyboardAccessEnabled, appID = (null) result = (null) (-1 - empty, 0 - false, 1 - true)
+Sep 23 21:03:49.956287 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key FullKeyboardAccessEnabled in CFPrefsPlistSource<0x107250f00> (Domain: com.apple.Accessibility, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:49.956393 LokaR1A2(UIKitCore)[27671] <Notice>: Not push traits update to screen for new style 1, <UIWindowScene: 0x106a55b70> (BD70176D-A239-4F4E-BE91-4E0D965C0254)
+Sep 23 21:03:49.956618 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightFBSSceneEnvironment (BacklightUIServices) for scene:<private>
+Sep 23 21:03:49.957994 LokaR1A2(BacklightServices)[27671] <Debug>: 0x10722dc80 create environment:<private> for scene:<private>
+Sep 23 21:03:49.958008 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _settingsDiffActionsForScene
+Sep 23 21:03:49.958023 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentDiffAction:<private>
+Sep 23 21:03:49.958036 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _actionRespondersForScene
+Sep 23 21:03:49.958050 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentActionHandler:<private>
+Sep 23 21:03:49.958094 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key LogHomeAffordanceObservation in CFPrefsSearchListSource<0x106a46ae0> (Domain: com.apple.UIKit, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.958183 LokaR1A2(UIKitCore)[27671] <Notice>: Initializing: <_UIHomeAffordanceSceneNotifier: 0x10724ce00>; with scene: <UIWindowScene: 0x106a55b70>
+Sep 23 21:03:49.958205 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _settingsDiffActionsForScene
+Sep 23 21:03:49.958229 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentDiffAction:<private>
+Sep 23 21:03:49.958264 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _actionRespondersForScene
+Sep 23 21:03:49.958278 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentActionHandler:<private>
+Sep 23 21:03:49.958296 LokaR1A2(BacklightServices)[27671] <Notice>: 0x10722dc80 setDelegate:<0x10722dd10 _UIBacklightEnvironment> hasDelegate:YES for environment:sceneID:com.lorecrafting.lokar1a2-default
+Sep 23 21:03:49.958312 LokaR1A2(BacklightServices)[27671] <Debug>: 0x10722dc80 setSupportsAlwaysOn:NO for environment:sceneID:com.lorecrafting.lokar1a2-default
+Sep 23 21:03:49.958329 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _settingsDiffActionsForScene
+Sep 23 21:03:49.958496 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentDiffAction:<private>
+Sep 23 21:03:49.958524 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _actionRespondersForScene
+Sep 23 21:03:49.958539 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentActionHandler:<private>
+Sep 23 21:03:49.958654 LokaR1A2(UIKitCore)[27671] <Notice>: Not push traits update to screen for new style 1, <UIWindowScene: 0x106a55b70> (BD70176D-A239-4F4E-BE91-4E0D965C0254)
+Sep 23 21:03:49.958669 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key LogEventDeferring in CFPrefsSearchListSource<0x106a46ae0> (Domain: com.apple.UIKit, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.958691 LokaR1A2(UIKitCore)[27671] <Notice>: [0x10724cd90] Initialized with scene: <UIWindowScene: 0x106a55b70>; behavior: <_UIEventDeferringBehavior_iOS: 0x1071b9160>; availableForProcess: 1, systemShellManagesKeyboardFocus: 1
+Sep 23 21:03:49.958706 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _settingsDiffActionsForScene
+Sep 23 21:03:49.958727 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentDiffAction:<private>
+Sep 23 21:03:49.958776 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _actionRespondersForScene
+Sep 23 21:03:49.958804 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentActionHandler:<private>
+Sep 23 21:03:49.958827 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key LogKeyWindow in CFPrefsSearchListSource<0x106a46ae0> (Domain: com.apple.UIKit, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.958937 LokaR1A2(BoardServices)[27671] <Notice>: [C:2] Alloc com.apple.backboard.hid-services.xpc
+Sep 23 21:03:49.958991 LokaR1A2(libxpc.dylib)[27671] <Notice>: [0x1070dcc80] activating connection: mach=false listener=false peer=false name=(anonymous)
+Sep 23 21:03:49.960826 LokaR1A2(BackBoardServices)[27671] <Notice>: BKSHIDEventObserver - connection activation
+Sep 23 21:03:49.960863 LokaR1A2(BackBoardServices)[27671] <Notice>: policyStatus:<BKSHIDEventDeliveryPolicyObserver: 0x1070984e0; process scope; status: target> was:none
+Sep 23 21:03:49.960881 LokaR1A2(BackBoardServices)[27671] <Debug>: observerPolicyDidChange: 0x1070984e0 -> <_UIKeyWindowSceneObserver: 0x10722dda0>
+Sep 23 21:03:49.960901 LokaR1A2(UIKitCore)[27671] <Notice>: Setting default evaluation strategy for UIUserInterfaceIdiomPhone to LastOneWins
+Sep 23 21:03:49.960943 LokaR1A2(UIKitCore)[27671] <Notice>: Scene target of keyboard event deferring environment did change: 1; scene: UIWindowScene: 0x106a55b70; scene identity: com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.lorecrafting.lokar1a2-default
+Sep 23 21:03:49.960980 LokaR1A2(UIKitCore)[27671] <Notice>: [0x10724cd90] Scene target of event deferring environments did update: scene: 0x106a55b70; current systemShellManagesKeyboardFocus: 1; systemShellManagesKeyboardFocusForScene: 1; eligibleForRecordRemoval: 1;
+Sep 23 21:03:49.960999 LokaR1A2(UIKitCore)[27671] <Notice>: Scene became target of keyboard event deferring environment: UIWindowScene: 0x106a55b70; scene identity: com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.lorecrafting.lokar1a2-default
+Sep 23 21:03:49.961015 LokaR1A2(UIKitCore)[27671] <Notice>: Stack[KeyWindow] 0x10722e040: Taking no further action for migration from LastOneWins -> SystemShellManaged as there are no scenes
+Sep 23 21:03:49.961034 LokaR1A2(UIKitCore)[27671] <Notice>: Setting default evaluation strategy for UIUserInterfaceIdiomPhone to SystemShellManaged
+Sep 23 21:03:49.961074 LokaR1A2(UIKitCore)[27671] <Notice>: Key window needs update: 0; currentKeyWindowScene: 0x0; evaluatedKeyWindowScene: 0x106a55b70; currentApplicationKeyWindow: 0x0; evaluatedApplicationKeyWindow: 0x0; reason: UIWindowScene: 0x106a55b70: Window scene became target of keyboard environment
+Sep 23 21:03:49.961092 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _settingsDiffActionsForScene
+Sep 23 21:03:49.961109 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentDiffAction:<private>
+Sep 23 21:03:49.961124 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _actionRespondersForScene
+Sep 23 21:03:49.961142 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentActionHandler:<private>
+Sep 23 21:03:49.961358 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _settingsDiffActionsForScene
+Sep 23 21:03:49.961385 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentDiffAction:<private>
+Sep 23 21:03:49.961400 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _actionRespondersForScene
+Sep 23 21:03:49.961419 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentActionHandler:<private>
+Sep 23 21:03:49.961435 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _settingsDiffActionsForScene
+Sep 23 21:03:49.961449 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentDiffAction:<private>
+Sep 23 21:03:49.961465 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _actionRespondersForScene
+Sep 23 21:03:49.961495 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentActionHandler:<private>
+Sep 23 21:03:49.961597 LokaR1A2(CoreFoundation)[27671] <Debug>: Resource lookup at <private>
+	Request       : InfoPlist type: strings
+	Result        : None
+Sep 23 21:03:49.961627 LokaR1A2(CoreFoundation)[27671] <Debug>: Resource lookup at <private>
+	Request       : InfoPlist type: stringsdict
+	Result        : None
+Sep 23 21:03:49.961642 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _settingsDiffActionsForScene
+Sep 23 21:03:49.961672 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentDiffAction:<private>
+Sep 23 21:03:49.961687 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _actionRespondersForScene
+Sep 23 21:03:49.961723 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentActionHandler:<private>
+Sep 23 21:03:49.961761 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _settingsDiffActionsForScene
+Sep 23 21:03:49.961778 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentDiffAction:<private>
+Sep 23 21:03:49.961791 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _actionRespondersForScene
+Sep 23 21:03:49.961804 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentActionHandler:<private>
+Sep 23 21:03:49.961868 LokaR1A2(UIKitCore)[27671] <Notice>: Not push traits update to screen for new style 1, <UIWindowScene: 0x106a55b70> (BD70176D-A239-4F4E-BE91-4E0D965C0254)
+Sep 23 21:03:49.961910 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _settingsDiffActionsForScene
+Sep 23 21:03:49.961924 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentDiffAction:<private>
+Sep 23 21:03:49.961983 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _actionRespondersForScene
+Sep 23 21:03:49.962018 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentActionHandler:<private>
+Sep 23 21:03:49.962107 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _settingsDiffActionsForScene
+Sep 23 21:03:49.962146 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentDiffAction:<private>
+Sep 23 21:03:49.962159 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _actionRespondersForScene
+Sep 23 21:03:49.962180 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentActionHandler:<private>
+Sep 23 21:03:49.962199 LokaR1A2(UIKitCore)[27671] <Notice>: Not push traits update to screen for new style 1, <UIWindowScene: 0x106a55b70> (BD70176D-A239-4F4E-BE91-4E0D965C0254)
+Sep 23 21:03:49.962213 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _settingsDiffActionsForScene
+Sep 23 21:03:49.962227 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentDiffAction:<private>
+Sep 23 21:03:49.962241 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _actionRespondersForScene
+Sep 23 21:03:49.962257 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentActionHandler:<private>
+Sep 23 21:03:49.962404 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _settingsDiffActionsForScene
+Sep 23 21:03:49.962443 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentDiffAction:<private>
+Sep 23 21:03:49.962463 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _actionRespondersForScene
+Sep 23 21:03:49.962483 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentActionHandler:<private>
+Sep 23 21:03:49.962505 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _settingsDiffActionsForScene
+Sep 23 21:03:49.962545 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentDiffAction:<private>
+Sep 23 21:03:49.962558 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _actionRespondersForScene
+Sep 23 21:03:49.962572 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentActionHandler:<private>
+Sep 23 21:03:49.962612 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _settingsDiffActionsForScene
+Sep 23 21:03:49.962626 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentDiffAction:<private>
+Sep 23 21:03:49.962639 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _actionRespondersForScene
+Sep 23 21:03:49.962655 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentActionHandler:<private>
+Sep 23 21:03:49.962681 LokaR1A2(UIKitCore)[27671] <Notice>: Not push traits update to screen for new style 1, <UIWindowScene: 0x106a55b70> (BD70176D-A239-4F4E-BE91-4E0D965C0254)
+Sep 23 21:03:49.962764 LokaR1A2(libsystem_trace.dylib)[27671] <Info>: Activity for state dumps
+Sep 23 21:03:49.962829 LokaR1A2(UIKitCore)[27671] <Fault>: `UIScene` lifecycle will soon be required. Failure to adopt will result in an assert in the future.
+Sep 23 21:03:49.962980 LokaR1A2(UIKitCore)[27671] <Notice>: Not push traits update to screen for new style 1, <UIWindowScene: 0x106a55b70> (BD70176D-A239-4F4E-BE91-4E0D965C0254)
+Sep 23 21:03:49.963107 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key LogAppLifecycle in CFPrefsSearchListSource<0x106a46ae0> (Domain: com.apple.UIKit, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.963131 LokaR1A2(UIKitCore)[27671] <Notice>: sceneOfRecord: sceneID: sceneID:com.lorecrafting.lokar1a2-default  persistentID: BD70176D-A239-4F4E-BE91-4E0D965C0254
+Sep 23 21:03:49.963277 LokaR1A2(UIKitCore)[27671] <Notice>: Ignoring already applied deactivation reason: 5; deactivation reasons: 1056
+Sep 23 21:03:49.963337 LokaR1A2(UIKitCore)[27671] <Notice>: Deactivation reason added: 11; deactivation reasons: 1056 -> 3104; animating application lifecycle event: 1
+Sep 23 21:03:49.963398 LokaR1A2(UIKitCore)[27671] <Notice>: startConnection
+Sep 23 21:03:49.963653 LokaR1A2(libxpc.dylib)[27671] <Notice>: [0x1070dd7c0] activating connection: mach=true listener=false peer=false name=com.apple.UIKit.KeyboardManagement.hosted
+Sep 23 21:03:49.963976 LokaR1A2(UIKitCore)[27671] <Notice>: You've implemented -[<UIApplicationDelegate> application:performFetchWithCompletionHandler:], but you still need to add "fetch" to the list of your supported UIBackgroundModes in your Info.plist.
+Sep 23 21:03:49.964026 LokaR1A2(UIKitCore)[27671] <Notice>: You've implemented -[<UIApplicationDelegate> application:didReceiveRemoteNotification:fetchCompletionHandler:], but you still need to add "remote-notification" to the list of your supported UIBackgroundModes in your Info.plist.
+Sep 23 21:03:49.964115 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key UIHandleTestURLScheme in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.964151 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key LogStatusBar in CFPrefsSearchListSource<0x106a46ae0> (Domain: com.apple.UIKit, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.964695 LokaR1A2(CoreFoundation)[27671] <Debug>: Resource lookup at <private>
+	Request       : InfoPlist type: strings
+	Result        : None
+Sep 23 21:03:49.964723 LokaR1A2(CoreFoundation)[27671] <Debug>: Resource lookup at <private>
+	Request       : InfoPlist type: stringsdict
+	Result        : None
+Sep 23 21:03:49.965165 LokaR1A2(React)[27671] <Notice>: _setUpFeatureFlags called with release level 2
+Sep 23 21:03:49.969253 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key UIViewLayoutFeedbackLoopDebuggingThreshold in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.969370 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key UIEngineHostingViewsShouldGuardWantsAutolayoutFlagPropagation in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.969413 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key UIViewUseStaleDelegateContentInsets in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.969656 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key _UIConstraintBasedLayoutEngageNonLazily in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.970543 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key com.apple.SwiftUI.IgnoreSolariumOptOut in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.970817 LokaR1A2(CoreFoundation)[27671] <Debug>: Resource lookup at <private>
+	Request       : main type: jsbundle
+	Result        : file:///private/var/containers/Bundle/Application/90C820EB-6576-4BA7-A69D-76AB02A0453E/LokaR1A2.app/main.jsbundle
+Sep 23 21:03:49.971290 LokaR1A2(CoreFoundation)[27671] <Debug>: Resource lookup at <private>
+	Request       : main type: jsbundle
+	Result        : file:///private/var/containers/Bundle/Application/90C820EB-6576-4BA7-A69D-76AB02A0453E/LokaR1A2.app/main.jsbundle
+Sep 23 21:03:49.973269 LokaR1A2(Network)[27671] <Notice>: networkd_settings_read_from_file_locked initialized networkd settings by reading plist directly
+Sep 23 21:03:49.973724 LokaR1A2(Network)[27671] <Notice>: networkd_settings_read_from_file_locked initialized networkd settings by reading plist directly
+Sep 23 21:03:49.974285 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsManagedSource<0x107252b00> (Domain: kCFPreferencesAnyApplication, User: kCFPreferencesAnyUser, ByHost: Yes, Container: (null), Contents Need Refresh: No) loaded: an empty base plist and no additional changes from the base plist
+Sep 23 21:03:49.974336 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key CFNetworkHTTP3Override in CFPrefsSearchListSource<0x107252a80> (Domain: kCFPreferencesAnyApplication, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.974487 LokaR1A2(CoreFoundation)[27671] <Debug>: Resource lookup at <private>
+	Request       : InfoPlist type: strings
+	Result        : None
+Sep 23 21:03:49.974509 LokaR1A2(CoreFoundation)[27671] <Debug>: Resource lookup at <private>
+	Request       : InfoPlist type: stringsdict
+	Result        : None
+Sep 23 21:03:49.974529 LokaR1A2(CFNetwork)[27671] <Debug>: Using configuration <private>
+Sep 23 21:03:49.974616 LokaR1A2(CoreFoundation)[27671] <Debug>: dyld image path for pointer 0x1b1ae9fe4 is /System/Library/Frameworks/CFNetwork.framework/CFNetwork
+Sep 23 21:03:49.975926 LokaR1A2(CoreFoundation)[27671] <Debug>: dlfcn check load bundle CFBundle 0x1072101c0 </System/Library/Frameworks/CFNetwork.framework> (not loaded), dlopen of /System/Library/Frameworks/CFNetwork.framework/CFNetwork mode 0x115 getting handle 0x34be6f961
+Sep 23 21:03:49.976359 LokaR1A2(CoreFoundation)[27671] <Debug>: Language lookup at <private>
+	Localizations : [de, ur, he, ar, el, ja, mr, en, uk, es_419, gu, kn, pt_PT, pa, es, sl, or, da, it, bg, sk, zh_CN, kk, pt_BR, ms, ta, ml, sv, en_AU, te, cs, ko, no, hu, tr, pl, fr_CA, vi, lt, ru, es_US, en_GB, fr, fi, id, nl, th, bn, ro, zh_HK, hr, hi, ca, zh_TW]
+	Dev language  : en
+	User prefs    : [en-US, zh-Hant-US, fr-US]
+	Main bundle   : [en]
+	Allow mixed   : 0 
+	Result        : [en]
+Sep 23 21:03:49.976776 LokaR1A2(CoreFoundation)[27671] <Debug>: Resource lookup at <private>
+	Request       : ForceNWLoader type: plist
+	Result        : None
+Sep 23 21:03:49.977513 LokaR1A2(CoreFoundation)[27671] <Debug>: Resource lookup at <private>
+	Request       : main type: jsbundle
+	Result        : file:///private/var/containers/Bundle/Application/90C820EB-6576-4BA7-A69D-76AB02A0453E/LokaR1A2.app/main.jsbundle
+Sep 23 21:03:49.995140 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsPlistSource<0x1070c0380> (Domain: com.lorecrafting.lokar1a2, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No) skipping setting already-present value for key RCTI18nUtil_makeRTLFlipLeftAndRightStyles
+Sep 23 21:03:49.995202 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key RCTI18nUtil_forceRTL in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.995238 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key RCTI18nUtil_allowRTL in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.995256 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key RCTI18nUtil_forceRTL in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.995271 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key RCTI18nUtil_allowRTL in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.995757 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key UITraitUsageTrackingLoggingEnabled in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.995811 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key UIStateTrackingLoggingEnabled in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.996136 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key SheetAG in CFPrefsSearchListSource<0x106a46ae0> (Domain: com.apple.UIKit, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.996247 LokaR1A2(CoreFoundation)[27671] <Debug>: looked up value <private> for key ReduceMotionEnabled in CFPrefsPlistSource<0x107250f00> (Domain: com.apple.Accessibility, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No) via CFPrefsSearchListSource<0x107250d80> (Domain: com.apple.Accessibility, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.996291 LokaR1A2(libAccessibility.dylib)[27671] <Debug>: CF Read: domain = com.apple.Accessibility, preference = ReduceMotionEnabled, appID = (null) result = 0 (-1 - empty, 0 - false, 1 - true)
+Sep 23 21:03:49.996638 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key _UIConstraintBasedLayout in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.997069 LokaR1A2(ExpoModulesCore)[27671] <Info>: <private>
+Sep 23 21:03:49.997481 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key LogUIPresentationController in CFPrefsSearchListSource<0x106a46ae0> (Domain: com.apple.UIKit, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.997627 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key UseSingleSystemColor in CFPrefsSearchListSource<0x107250d80> (Domain: com.apple.Accessibility, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.997665 LokaR1A2(libAccessibility.dylib)[27671] <Debug>: CF Read: domain = com.apple.Accessibility, preference = UseSingleSystemColor, appID = (null) result = (null) (-1 - empty, 0 - false, 1 - true)
+Sep 23 21:03:49.997684 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key UseSingleSystemColor in CFPrefsPlistSource<0x107250f00> (Domain: com.apple.Accessibility, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:49.999379 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key CUIShowDebugLogs in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:49.999578 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key UIViewShowAlignmentRects in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.000065 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key UIViewLocalizeOverrideLayoutEngine in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.001657 LokaR1A2(CoreFoundation)[27671] <Debug>: Language lookup at <private>
+	Localizations : [en]
+	Dev language  : en
+	User prefs    : [en-US, zh-Hant-US, fr-US]
+	Main bundle   : [en]
+	Allow mixed   : 0 
+	Result        : [en]
+Sep 23 21:03:50.001773 LokaR1A2(CoreFoundation)[27671] <Debug>: Resource lookup at <private>
+	Request       : Assets type: car
+	Result        : file:///System/Library/PrivateFrameworks/UIKitCore.framework/BoundingPathData.bundle/Assets.car
+Sep 23 21:03:50.003557 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key UIViewControllerDetachedInheritsContentOverlayInsetsFromSuperview in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.003615 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key ModernContentOverlayInsetsPropagation in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.003835 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key LogOrientation in CFPrefsSearchListSource<0x106a46ae0> (Domain: com.apple.UIKit, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.004243 LokaR1A2(UIKitCore)[27671] <Notice>: <UIWindowScene: 0x106a55b70> (BD70176D-A239-4F4E-BE91-4E0D965C0254) Scene updated orientation preferences: none -> ( Pu )
+Sep 23 21:03:50.004581 LokaR1A2(UIKitCore)[27671] <Notice>: Key window API is scene-level: YES
+Sep 23 21:03:50.004630 LokaR1A2(UIKitCore)[27671] <Notice>: UIWindowScene: 0x106a55b70: Window became key in scene: UIWindow: 0x107118000; contextId: 0xAF24EAFD: reason: UIWindowScene: 0x106a55b70: Window requested to become key in scene: 0x107118000
+Sep 23 21:03:50.004653 LokaR1A2(UIKitCore)[27671] <Notice>: Key window needs update: 1; currentKeyWindowScene: 0x0; evaluatedKeyWindowScene: 0x106a55b70; currentApplicationKeyWindow: 0x0; evaluatedApplicationKeyWindow: 0x107118000; reason: UIWindowScene: 0x106a55b70: Window requested to become key in scene: 0x107118000
+Sep 23 21:03:50.004699 LokaR1A2(UIKitCore)[27671] <Notice>: Window did become application key: UIWindow: 0x107118000; contextId: 0xAF24EAFD; scene identity: com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.lorecrafting.lokar1a2-default
+Sep 23 21:03:50.004733 LokaR1A2(UIKitCore)[27671] <Notice>: [0x10724cd90] Begin local event deferring requested for token: 0x10709ad00; environments: 1; reason: UIWindowScene: 0x106a55b70: Begin event deferring in keyboardFocus for window: 0x107118000
+Sep 23 21:03:50.005159 LokaR1A2(UIKitCore)[27671] <Notice>: [0x10724cd90] [keyboardFocus] Start observing context for local target window: 0x107118000; contextId: 0xAF24EAFD
+Sep 23 21:03:50.005202 LokaR1A2(UIKitCore)[27671] <Notice>: [0x10724cd90] [keyboardFocus] Began tracking context for local target window: 0x107118000; contextId: 0xAF24EAFD
+Sep 23 21:03:50.005219 LokaR1A2(BackBoardServices)[27671] <Debug>: aborting flush, not connected to server
+Sep 23 21:03:50.005244 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key LogKeyboardFocus in CFPrefsSearchListSource<0x106a46ae0> (Domain: com.apple.UIKit, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.005585 LokaR1A2(BackBoardServices)[27671] <Notice>: BKSHIDEventDeliveryManager - connection activation
+Sep 23 21:03:50.005751 LokaR1A2(BackgroundTasks)[27671] <Debug>: Application finished launching
+Sep 23 21:03:50.005825 LokaR1A2(UIKitCore)[27671] <Notice>: Deactivation reason removed: 10; deactivation reasons: 3104 -> 2080; animating application lifecycle event: 1
+Sep 23 21:03:50.005990 LokaR1A2(BackBoardServices)[27671] <Debug>: flushing changes: {
+    contentsMask: 0x2; deferringRules: [[27671-1]];
+}
+Sep 23 21:03:50.006027 LokaR1A2(UIKitCore)[27671] <Debug>: Setting device orientation to 1 and sending notification.
+Sep 23 21:03:50.007870 LokaR1A2(UIKitCore)[27671] <Notice>: Deactivation reason added: 12; deactivation reasons: 2080 -> 6176; animating application lifecycle event: 1
+Sep 23 21:03:50.007905 LokaR1A2(UIKitCore)[27671] <Notice>: Deactivation reason removed: 11; deactivation reasons: 6176 -> 4128; animating application lifecycle event: 1
+Sep 23 21:03:50.007925 LokaR1A2(FrontBoardServices)[27671] <Notice>: Realizing settings extension <_UISceneIntelligenceSupportSettings> on FBSSceneSettings
+Sep 23 21:03:50.008584 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:50.008856 LokaR1A2(FrontBoardServices)[27671] <Debug>: registering method "<private>" from extension <private> on class "<private>"
+Sep 23 21:03:50.009328 LokaR1A2(BacklightServices)[27671] <Debug>: 0x10722dc80 environment updated:sceneID:com.lorecrafting.lokar1a2-default
+  delta:{ visualState:0 date:0 active:0 seed:0 }
+  diff:(null)
+  new:(null) (null)
+  old:(null) (null)
+  new:(null)
+Sep 23 21:03:50.009594 LokaR1A2(UIIntelligenceSupport)[27671] <Notice>: establishing connection to agent
+Sep 23 21:03:50.009612 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _settingsDiffActionsForScene
+Sep 23 21:03:50.009651 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentDiffAction:<private>
+Sep 23 21:03:50.009667 LokaR1A2(UIKitCore)[27671] <Debug>: BLSBacklightFBSSceneEnvironment (BacklightUIServices) _actionRespondersForScene
+Sep 23 21:03:50.009683 LokaR1A2(UIKitCore)[27671] <Debug>: create BLSBacklightUISceneEnvironmentActionHandler:<private>
+Sep 23 21:03:50.009706 LokaR1A2(UIKitCore)[27671] <Notice>: Not push traits update to screen for new style 1, <UIWindowScene: 0x106a55b70> (BD70176D-A239-4F4E-BE91-4E0D965C0254)
+Sep 23 21:03:50.009723 LokaR1A2(libxpc.dylib)[27671] <Notice>: [0x107188fa0] Session created.
+Sep 23 21:03:50.009737 LokaR1A2(ExpoModulesCore)[27671] <Info>: <private>
+Sep 23 21:03:50.010039 LokaR1A2(libxpc.dylib)[27671] <Notice>: [0x107188fa0] Session created from connection [0x107353340]
+Sep 23 21:03:50.010342 LokaR1A2(libxpc.dylib)[27671] <Notice>: [0x107353340] activating connection: mach=true listener=false peer=false name=com.apple.uiintelligencesupport.agent
+Sep 23 21:03:50.010360 LokaR1A2(libxpc.dylib)[27671] <Notice>: [0x107188fa0] Session activated
+Sep 23 21:03:50.010381 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key CAEnableDeepFramebuffer in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.010402 LokaR1A2(ExpoModulesCore)[27671] <Info>: <private>
+Sep 23 21:03:50.010425 LokaR1A2(BaseBoard)[27671] <Debug>: [BSBlockSentinel:<private>] signaled! 1 of 1
+Sep 23 21:03:50.010439 LokaR1A2(BaseBoard)[27671] <Debug>: [BSBlockSentinel:<private>] dealloc
+Sep 23 21:03:50.010617 LokaR1A2(ExpoModulesCore)[27671] <Info>: <private>
+Sep 23 21:03:50.010630 LokaR1A2(ExpoModulesCore)[27671] <Info>: <private>
+Sep 23 21:03:50.010745 LokaR1A2(Network)[27671] <Notice>: Create activity from XPC object <nw_activity 50:1 [BEEB2404-B761-450A-B9B2-53E58D3089B2] (reporting strategy default)>
+Sep 23 21:03:50.010760 LokaR1A2(Network)[27671] <Notice>: Create activity from XPC object <nw_activity 50:2 [D889D62D-C015-4A21-9F20-C93F8923D189] (reporting strategy default)>
+Sep 23 21:03:50.010780 LokaR1A2(Network)[27671] <Notice>: Set activity <nw_activity 50:1 [BEEB2404-B761-450A-B9B2-53E58D3089B2] (reporting strategy default)> as the global parent
+Sep 23 21:03:50.010929 LokaR1A2(AggregateDictionary)[27671] <Notice>: AggregateDictionary is deprecated and has been removed. Please migrate to Core Analytics.
+Sep 23 21:03:50.011002 LokaR1A2(UIKitCore)[27671] <Notice>: Ending background task with UIBackgroundTaskIdentifier: 1
+Sep 23 21:03:50.011018 LokaR1A2(UIKitCore)[27671] <Notice>: Ending task with identifier 1 and description: <private>, _expireHandler: (null)
+Sep 23 21:03:50.011076 LokaR1A2(UIKitCore)[27671] <Notice>: Decrementing reference count for assertion <private> (used by background task with identifier 1: <private>)
+Sep 23 21:03:50.011205 LokaR1A2(UIKitCore)[27671] <Notice>: Will invalidate assertion: <BKSProcessAssertion: 0x106a4f120> for task identifier: 1
+Sep 23 21:03:50.011245 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key LogEventBus in CFPrefsSearchListSource<0x106a46ae0> (Domain: com.apple.UIKit, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.011276 LokaR1A2(UIKitCore)[27671] <Notice>: Event Timing Profile for Touch: ok, path="/System/Library/EventTimingProfiles/N104.Touch.plist"
+Sep 23 21:03:50.011297 LokaR1A2(UIKitCore)[27671] <Notice>: Event Timing Profile for Pencil: not found, path="/System/Library/EventTimingProfiles/N104.Pencil.plist"
+Sep 23 21:03:50.011317 LokaR1A2(UIKitCore)[27671] <Notice>: Target list changed: <CADisplay:LCD primary>
+Sep 23 21:03:50.011531 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key LogUpdateCycle in CFPrefsSearchListSource<0x106a46ae0> (Domain: com.apple.UIKit, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.012053 LokaR1A2(UIKitCore)[27671] <Notice>: sceneOfRecord: sceneID: sceneID:com.lorecrafting.lokar1a2-default  persistentID: BD70176D-A239-4F4E-BE91-4E0D965C0254
+Sep 23 21:03:50.012384 LokaR1A2(BacklightServices)[27671] <Debug>: 0x10722dc80 environment updated:sceneID:com.lorecrafting.lokar1a2-default
+  delta:{ visualState:0 date:0 active:0 seed:0 }
+  diff:<FBSSceneSettingsDiff: 0x1070d1b00; UIApplicationSceneSettings> {
+    settings = <BSKeyedSettingsDiff: 0x10722c660> {
+        _UISceneRenderingEnvironmentSettings = <BSKeyedSettingsDiff: 0x10722ca80> {
+            activeAppearance = 1;
+        };
+    };
+}
+  new:(null) (null)
+  old:(null) (null)
+  new:(null)
+Sep 23 21:03:50.012840 LokaR1A2(UIKitCore)[27671] <Notice>: Not push traits update to screen for new style 1, <UIWindowScene: 0x106a55b70> (BD70176D-A239-4F4E-BE91-4E0D965C0254)
+Sep 23 21:03:50.012924 LokaR1A2(BaseBoard)[27671] <Debug>: [BSBlockSentinel:<private>] signaled! 1 of 2
+Sep 23 21:03:50.013341 LokaR1A2(UIKitCore)[27671] <Notice>: sceneOfRecord: sceneID: sceneID:com.lorecrafting.lokar1a2-default  persistentID: BD70176D-A239-4F4E-BE91-4E0D965C0254
+Sep 23 21:03:50.013382 LokaR1A2(BacklightServices)[27671] <Debug>: 0x10722dc80 environment updated:sceneID:com.lorecrafting.lokar1a2-default
+  delta:{ visualState:0 date:0 active:0 seed:0 }
+  diff:<FBSSceneSettingsDiff: 0x1070d1b40; UIApplicationSceneSettings> {
+    subclassSettings = <BSSettingsDiff: 0x10722c540> {
+        targetOfEventDeferringEnvironments = keyboardFocus;
+    };
+}
+  new:(null) (null)
+  old:(null) (null)
+  new:(null)
+Sep 23 21:03:50.013398 LokaR1A2(BaseBoard)[27671] <Debug>: [BSBlockSentinel:<private>] signaled! 1 of 2
+Sep 23 21:03:50.013793 LokaR1A2(UIKitCore)[27671] <Notice>: startConnection
+Sep 23 21:03:50.013822 LokaR1A2(UIKitCore)[27671] <Notice>: handleKeyboardChange: set currentKeyboard:N (wasKeyboard:N)
+Sep 23 21:03:50.014321 LokaR1A2(ExpoModulesCore)[27671] <Info>: <private>
+Sep 23 21:03:50.015686 LokaR1A2(ExpoModulesCore)[27671] <Info>: <private>
+Sep 23 21:03:50.015807 LokaR1A2(ExpoModulesCore)[27671] <Info>: <private>
+Sep 23 21:03:50.015844 LokaR1A2(ExpoModulesCore)[27671] <Info>: <private>
+Sep 23 21:03:50.015875 LokaR1A2(ExpoModulesCore)[27671] <Info>: <private>
+Sep 23 21:03:50.016055 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsManagedSource<0x1073f0500> (Domain: com.apple.keyboard.preferences, User: kCFPreferencesAnyUser, ByHost: Yes, Container: (null), Contents Need Refresh: No) loaded: an empty base plist and no additional changes from the base plist
+Sep 23 21:03:50.016425 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsPlistSource<0x1073f0680> (Domain: com.apple.keyboard.preferences, User: kCFPreferencesAnyUser, ByHost: Yes, Container: (null), Contents Need Refresh: No) loaded: an empty base plist and no additional changes from the base plist
+Sep 23 21:03:50.016618 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsManagedSource<0x1073f0480> (Domain: com.apple.keyboard.preferences, User: kCFPreferencesCurrentUser, ByHost: Yes, Container: (null), Contents Need Refresh: No) loaded: an empty base plist and no additional changes from the base plist
+Sep 23 21:03:50.016915 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsPlistSource<0x1073f0580> (Domain: com.apple.keyboard.preferences, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No) loaded: a new base plist and no additional changes from the base plist
+Sep 23 21:03:50.016960 LokaR1A2(CoreFoundation)[27671] <Debug>: looked up value <private> for key KeyboardLastUsed in CFPrefsPlistSource<0x1073f0580> (Domain: com.apple.keyboard.preferences, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No) via CFPrefsSearchListSource<0x1073f0380> (Domain: com.apple.keyboard.preferences, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.016995 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key AppleKeyboardsIncludeIntl in CFPrefsSearchListSource<0x107252a80> (Domain: kCFPreferencesAnyApplication, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.017036 LokaR1A2(CoreFoundation)[27671] <Debug>: looked up value <private> for key AppleKeyboardsExpanded in CFPrefsPlistSource<0x106a46e70> (Domain: kCFPreferencesAnyApplication, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No) via CFPrefsSearchListSource<0x107252a80> (Domain: kCFPreferencesAnyApplication, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.017052 LokaR1A2(CoreFoundation)[27671] <Debug>: looked up value <private> for key AppleKeyboards in CFPrefsPlistSource<0x106a46e70> (Domain: kCFPreferencesAnyApplication, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No) via CFPrefsSearchListSource<0x107252a80> (Domain: kCFPreferencesAnyApplication, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.017075 LokaR1A2(BackBoardServices)[27671] <Notice>: policyStatus:<BKSHIDEventDeliveryPolicyObserver: 0x1070984e0; token: com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.lorecrafting.lokar1a2-default; status: ancestor> was:target
+Sep 23 21:03:50.017093 LokaR1A2(BackBoardServices)[27671] <Debug>: observerPolicyDidChange: 0x1070984e0 -> <_UIKeyWindowSceneObserver: 0x10722dda0>
+Sep 23 21:03:50.017114 LokaR1A2(UIKitCore)[27671] <Notice>: forceReloadInputViews
+Sep 23 21:03:50.017132 LokaR1A2(UIKitCore)[27671] <Notice>: Reloading input views for key-window scene responder: <(null): 0x0; > force:Y
+Sep 23 21:03:50.017279 LokaR1A2(UIKitCore)[27671] <Notice>: isWritingToolsHandlingKeyboardTracking:Y (WT ready:Y, Arbiter ready:Y)
+Sep 23 21:03:50.017624 LokaR1A2(UIKitCore)[27671] <Notice>: [0x10724cd90] Scene target of event deferring environments did update: scene: 0x106a55b70; current systemShellManagesKeyboardFocus: 1; systemShellManagesKeyboardFocusForScene: 1; eligibleForRecordRemoval: 1;
+Sep 23 21:03:50.017655 LokaR1A2(UIKitCore)[27671] <Notice>: Scene became target of keyboard event deferring environment: UIWindowScene: 0x106a55b70; scene identity: com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.lorecrafting.lokar1a2-default
+Sep 23 21:03:50.017935 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key LogFirstResponderRestoration in CFPrefsSearchListSource<0x106a46ae0> (Domain: com.apple.UIKit, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.019896 LokaR1A2(ExpoModulesCore)[27671] <Info>: <private>
+Sep 23 21:03:50.019973 LokaR1A2(ExpoModulesCore)[27671] <Info>: <private>
+Sep 23 21:03:50.020006 LokaR1A2(BaseBoard)[27671] <Debug>: [BSBlockSentinel:<private>] signaled! 2 of 2
+Sep 23 21:03:50.020035 LokaR1A2(BaseBoard)[27671] <Debug>: [BSBlockSentinel:<private>] dealloc
+Sep 23 21:03:50.020067 LokaR1A2(BaseBoard)[27671] <Debug>: [BSBlockSentinel:<private>] signaled! 2 of 2
+Sep 23 21:03:50.020083 LokaR1A2(BaseBoard)[27671] <Debug>: [BSBlockSentinel:<private>] dealloc
+Sep 23 21:03:50.021652 LokaR1A2(UIKitCore)[27671] <Notice>: sceneOfRecord: sceneID: sceneID:com.lorecrafting.lokar1a2-default  persistentID: BD70176D-A239-4F4E-BE91-4E0D965C0254
+Sep 23 21:03:50.021690 LokaR1A2(UIKitCore)[27671] <Notice>: Scene did update interface style to 2, <UIWindowScene: 0x106a55b70> (BD70176D-A239-4F4E-BE91-4E0D965C0254)
+Sep 23 21:03:50.021944 LokaR1A2(UIKitCore)[27671] <Notice>: Push traits update to screen for new style 2, <UIWindowScene: 0x106a55b70> (BD70176D-A239-4F4E-BE91-4E0D965C0254)
+Sep 23 21:03:50.022139 LokaR1A2(BacklightServices)[27671] <Debug>: 0x10722dc80 environment updated:sceneID:com.lorecrafting.lokar1a2-default
+  delta:{ visualState:0 date:0 active:0 seed:0 }
+  diff:<FBSSceneSettingsDiff: 0x1070ccc80; UIApplicationSceneSettings> {
+    subclassSettings = <BSSettingsDiff: 0x107053ae0> {
+        scenePresenterRenderIdentifierForSnapshotting = 63e19ab4a20e99c6;
+        hostContextIdentifierForSnapshotting = e77fdd13;
+        userInterfaceStyle = dark;
+    };
+}
+  new:(null) (null)
+  old:(null) (null)
+  new:(null)
+Sep 23 21:03:50.022182 LokaR1A2(BaseBoard)[27671] <Debug>: [BSBlockSentinel:<private>] signaled! 1 of 2
+Sep 23 21:03:50.023581 LokaR1A2(UIKitCore)[27671] <Notice>: sceneOfRecord: sceneID: sceneID:com.lorecrafting.lokar1a2-default  persistentID: BD70176D-A239-4F4E-BE91-4E0D965C0254
+Sep 23 21:03:50.025567 LokaR1A2(BacklightServices)[27671] <Debug>: 0x10722dc80 environment updated:sceneID:com.lorecrafting.lokar1a2-default
+  delta:{ visualState:0 date:0 active:0 seed:0 }
+  diff:<FBSSceneSettingsDiff: 0x1070cdf40; UIApplicationSceneSettings> {
+    settings = <BSKeyedSettingsDiff: 0x107052fd0> {
+        SBUISecureRenderingSettingsExtension = <BSKeyedSettingsDiff: 0x107052ee0> {
+            secureRenderingEnabled = 0;
+        };
+        _UISceneRenderingEnvironmentSettings = <BSKeyedSettingsDiff: 0x107052f10> {
+            systemDisplayIdentifier = C34CB327-09A6-43C9-ABA6-CE30540E810C;
+        };
+        _UISystemShellSceneHostingEnvironmentSettings = <BSKeyedSettingsDiff: 0x107052eb0> {
+            systemShellHostingSpaceIdentifier = SB-display-<embedded>;
+        };
+        FBSSceneExtensions = <BSKeyedSettingsDiff: 0x107052e20> {
+            14 = SBUISecureRenderingSceneExtension;
+        };
+    };
+}
+  new:(null) (null)
+  old:(null) (null)
+  new:(null)
+Sep 23 21:03:50.025633 LokaR1A2(BaseBoard)[27671] <Debug>: [BSBlockSentinel:<private>] signaled! 1 of 2
+Sep 23 21:03:50.025728 LokaR1A2(RunningBoardServices)[27671] <Debug>: PERF: [app<com.lorecrafting.lokar1a2(6F9574B7-D7E5-4107-8068-0A24ECF20754)>:27671] Received message from runningboardd: async_didChangeInheritances:completion:
+Sep 23 21:03:50.025744 LokaR1A2(RunningBoardServices)[27671] <Info>: didChangeInheritances
+Sep 23 21:03:50.025774 LokaR1A2(RunningBoardServices)[27671] <Debug>: didChangeInheritances: <RBSInheritanceChangeSet| gained:{(
+    <RBSInheritance| environment:UIScene:com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.lorecrafting.lokar1a2-default name:com.apple.frontboard.visibility origID:36-37-187868 payload 7608476121996114613>
+)} lost:(null)>
+Sep 23 21:03:50.026617 LokaR1A2(RunningBoardServices)[27671] <Debug>: PERF: [app<com.lorecrafting.lokar1a2(6F9574B7-D7E5-4107-8068-0A24ECF20754)>:27671] Received message from runningboardd: async_didChangeInheritances:completion:
+Sep 23 21:03:50.026679 LokaR1A2(RunningBoardServices)[27671] <Info>: didChangeInheritances
+Sep 23 21:03:50.026811 LokaR1A2(RunningBoardServices)[27671] <Debug>: didChangeInheritances: <RBSInheritanceChangeSet| gained:{(
+    <RBSInheritance| environment:UIScene:com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.lorecrafting.lokar1a2-default name:com.apple.frontboard.visibility origID:36-37-187869 payload 14506253475721394052>
+)} lost:(null)>
+Sep 23 21:03:50.036413 LokaR1A2(CoreFoundation)[27671] <Debug>: looked up value <private> for key GrayscaleDisplay in CFPrefsPlistSource<0x107250f00> (Domain: com.apple.Accessibility, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No) via CFPrefsSearchListSource<0x107250d80> (Domain: com.apple.Accessibility, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.036528 LokaR1A2(libAccessibility.dylib)[27671] <Debug>: CF Read: domain = com.apple.Accessibility, preference = GrayscaleDisplay, appID = (null) result = 0 (-1 - empty, 0 - false, 1 - true)
+Sep 23 21:03:50.036580 LokaR1A2(CoreFoundation)[27671] <Debug>: looked up value <private> for key EnhancedBackgroundContrastEnabled in CFPrefsPlistSource<0x107250f00> (Domain: com.apple.Accessibility, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No) via CFPrefsSearchListSource<0x107250d80> (Domain: com.apple.Accessibility, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.036625 LokaR1A2(libAccessibility.dylib)[27671] <Debug>: CF Read: domain = com.apple.Accessibility, preference = EnhancedBackgroundContrastEnabled, appID = (null) result = 1 (-1 - empty, 0 - false, 1 - true)
+Sep 23 21:03:50.036662 LokaR1A2(BaseBoard)[27671] <Debug>: [BSBlockSentinel:<private>] signaled! 2 of 2
+Sep 23 21:03:50.036704 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key VoiceOverTouchEnabled in CFPrefsSearchListSource<0x107250d80> (Domain: com.apple.Accessibility, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.036746 LokaR1A2(libAccessibility.dylib)[27671] <Debug>: CF Read: domain = com.apple.Accessibility, preference = VoiceOverTouchEnabled, appID = (null) result = (null) (-1 - empty, 0 - false, 1 - true)
+Sep 23 21:03:50.036764 LokaR1A2(BaseBoard)[27671] <Debug>: [BSBlockSentinel:<private>] dealloc
+Sep 23 21:03:50.036789 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key VoiceOverTouchEnabled in CFPrefsPlistSource<0x107250f00> (Domain: com.apple.Accessibility, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.036819 LokaR1A2(BaseBoard)[27671] <Debug>: [BSBlockSentinel:<private>] signaled! 2 of 2
+Sep 23 21:03:50.037190 LokaR1A2(BaseBoard)[27671] <Debug>: [BSBlockSentinel:<private>] dealloc
+Sep 23 21:03:50.038413 LokaR1A2(ExpoModulesCore)[27671] <Info>: <private>
+Sep 23 21:03:50.039073 LokaR1A2(libxpc.dylib)[27671] <Notice>: [0x1070dfc00] activating connection: mach=true listener=false peer=false name=com.apple.fontservicesd
+Sep 23 21:03:50.045894 LokaR1A2(CoreFoundation)[27671] <Debug>: Language lookup at <private>
+	Localizations : [en]
+	Dev language  : en
+	User prefs    : [en-US, zh-Hant-US, fr-US]
+	Main bundle   : [en]
+	Allow mixed   : 0 
+	Result        : [en]
+Sep 23 21:03:50.046063 LokaR1A2(CoreFoundation)[27671] <Debug>: Resource lookup at <private>
+	Request       : app type: config
+	Result        : file:///var/containers/Bundle/Application/90C820EB-6576-4BA7-A69D-76AB02A0453E/LokaR1A2.app/EXConstants.bundle/app.config
+Sep 23 21:03:50.047338 LokaR1A2(ExpoModulesCore)[27671] <Info>: <private>
+Sep 23 21:03:50.047512 LokaR1A2(ExpoModulesCore)[27671] <Info>: <private>
+Sep 23 21:03:50.055156 LokaR1A2(ExpoModulesCore)[27671] <Info>: <private>
+Sep 23 21:03:50.055927 LokaR1A2(React)[27671] <Info>: LOKA_A2_PROBE {
+  "hermes": {
+    "Bytecode Version": 98,
+    "Static Hermes": true,
+    "Builtins Frozen": false,
+    "VM Experiments": 0,
+    "Build": "Release",
+    "GC": "hades (concurrent)",
+    "OSS Release Version": "250829098.0.17",
+    "Debugger Enabled": false,
+    "CommonJS Modules": "None"
+  },
+  "sqlite": {
+    "v": "3.50.3",
+    "s": "2025-07-17 13:25:10 3ce993b8657d6d9deda380a93cdd6404a8c8ba1b185b2bc423703e41ae5f2543"
+  },
+  "memory": {
+    "api": "ProcessInfo.processInfo.physicalMemory",
+    "bytes": "4039901184"
+  }
+}
+Sep 23 21:03:50.056194 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key RCTI18nUtil_forceRTL in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.056249 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key RCTI18nUtil_allowRTL in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.056268 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key RCTI18nUtil_forceRTL in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.056283 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key RCTI18nUtil_allowRTL in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.057645 LokaR1A2(React)[27671] <Info>: Running "main"
+Sep 23 21:03:50.060420 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSTallLocalizedStrings in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.060475 LokaR1A2(CoreFoundation)[27671] <Debug>: looked up value <private> for key AppleLanguages in CFPrefsPlistSource<0x106a46e70> (Domain: kCFPreferencesAnyApplication, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No) via CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.060554 LokaR1A2(CoreFoundation)[27671] <Debug>: looked up value <private> for key AppleLanguages in CFPrefsPlistSource<0x106a46e70> (Domain: kCFPreferencesAnyApplication, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No) via CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.060853 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key CGAllowDebuggingDefaults in CFPrefsPlistSource<0x106a46e70> (Domain: kCFPreferencesAnyApplication, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.060963 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSPreTigerAttributedStringHash in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.060993 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSUsesScreenFonts in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.061008 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSIgnoresViewTransformations in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.061023 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSTextShowsInvisibleCharacters in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.061039 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSTextShowsControlCharacters in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.061056 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSTextAllowsNonContiguousLayout in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.061074 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSTextBackgroundLayoutEnabled in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.061088 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSLayoutManagerForcesShowPackedGlyphs in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.061103 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSTypesetterBehavior in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.061118 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSTypesetterCompatibilityLevel in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.061142 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSStringDrawingTypesetterBehavior in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.061160 LokaR1A2(CoreFoundation)[27671] <Debug>: setting new value <private> for key <private> in CFPrefsSource<0x106a47050> (Domain: Volatile, User: , ByHost: No, Container: , Contents Need Refresh: No)
+Sep 23 21:03:50.061177 LokaR1A2(CoreFoundation)[27671] <Debug>: setting new value <private> for key <private> in CFPrefsSource<0x106a47050> (Domain: Volatile, User: , ByHost: No, Container: , Contents Need Refresh: No)
+Sep 23 21:03:50.061191 LokaR1A2(CoreFoundation)[27671] <Debug>: setting new value <private> for key <private> in CFPrefsSource<0x106a47050> (Domain: Volatile, User: , ByHost: No, Container: , Contents Need Refresh: No)
+Sep 23 21:03:50.061356 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSUsesDefaultHyphenation in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.061436 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSAlwaysFixAttributesLazily in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.061752 LokaR1A2(CoreFoundation)[27671] <Debug>: looked up value <private> for key AppleLanguages in CFPrefsPlistSource<0x106a46e70> (Domain: kCFPreferencesAnyApplication, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.063559 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSGlyphGeneratorConcreteClassName in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.064278 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key _NSRaiseWithRecursiveLayoutRequest in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.064352 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key _NSAllowsScreenFontKerning in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.064393 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key AppleSystemUIFontDefaultTrack in CFPrefsPlistSource<0x106a46e70> (Domain: kCFPreferencesAnyApplication, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.064473 LokaR1A2(CoreFoundation)[27671] <Debug>: looked up value <private> for key AppleLanguages in CFPrefsPlistSource<0x106a46e70> (Domain: kCFPreferencesAnyApplication, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No) via CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.064580 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key CTDisableNewCJKComposition in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.065374 LokaR1A2(CoreFoundation)[27671] <Debug>: looked up value <private> for key NSUsesTextStylesForLineBreaks in CFPrefsSource<0x106a47050> (Domain: Volatile, User: , ByHost: No, Container: , Contents Need Refresh: No) via CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.065433 LokaR1A2(CoreFoundation)[27671] <Debug>: looked up value <private> for key NSHyphenatesAsLastResort in CFPrefsSource<0x106a47050> (Domain: Volatile, User: , ByHost: No, Container: , Contents Need Refresh: No) via CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.065487 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSForceHangulWordBreakPriority in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.065506 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key AppleTextBreakLocale in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.066387 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSLanguageAwareLineSpacingAdjustmentsON in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.074957 LokaR1A2(UIKitCore)[27671] <Notice>: Not push traits update to screen for new style 2, <UIWindowScene: 0x106a55b70> (BD70176D-A239-4F4E-BE91-4E0D965C0254)
+Sep 23 21:03:50.075503 LokaR1A2(UIKitCore)[27671] <Notice>: sceneOfRecord: sceneID: sceneID:com.lorecrafting.lokar1a2-default  persistentID: BD70176D-A239-4F4E-BE91-4E0D965C0254
+Sep 23 21:03:50.075848 LokaR1A2(UIKitCore)[27671] <Notice>: Deactivation reason removed: 12; deactivation reasons: 4128 -> 32; animating application lifecycle event: 1
+Sep 23 21:03:50.075890 LokaR1A2(UIKitCore)[27671] <Notice>: Send setDeactivating: N (-DeactivationReason:SuspendedEventsOnly)
+Sep 23 21:03:50.076380 LokaR1A2(UIKitCore)[27671] <Notice>: Deactivation reason removed: 5; deactivation reasons: 32 -> 0; animating application lifecycle event: 0
+Sep 23 21:03:50.076470 LokaR1A2(HangTracer)[27671] <Notice>: Creating hang event with BundleID: com.lorecrafting.lokar1a2
+Sep 23 21:03:50.076507 LokaR1A2(HangTracer)[27671] <Notice>: Updating event->rollingFGTimestamp from INVALID_FOREGROUND_TIMESTAMP to 11688576713365
+Sep 23 21:03:50.076548 LokaR1A2(HangTracer)[27671] <Debug>: Watchdog monitoring: starting monitor
+Sep 23 21:03:50.076604 LokaR1A2(RunningBoardServices)[27671] <Notice>: Updating configuration of monitor M27671-1
+Sep 23 21:03:50.077114 LokaR1A2(RunningBoardServices)[27671] <Debug>: Successfully synced configuration for monitor M27671-1
+Sep 23 21:03:50.077148 LokaR1A2(RunningBoardServices)[27671] <Debug>: PERF: [app<com.lorecrafting.lokar1a2(6F9574B7-D7E5-4107-8068-0A24ECF20754)>:27671] Received message from runningboardd: async_observedProcessStatesDidChange:completion:
+Sep 23 21:03:50.077177 LokaR1A2(libxpc.dylib)[27671] <Notice>: [0x1070df5c0] activating connection: mach=true listener=false peer=false name=com.apple.hangtracermonitor
+Sep 23 21:03:50.077243 LokaR1A2(RunningBoardServices)[27671] <Info>: observedProcessStatesDidChange
+Sep 23 21:03:50.077413 LokaR1A2(HangTracer)[27671] <Info>: HTConnectToHTMonitor: htMonitor Connection <xpc object>
+Sep 23 21:03:50.077442 LokaR1A2(RunningBoardServices)[27671] <Debug>: Decoded RBSProcessHandle with IPC ID 1c359ea900006c17
+Sep 23 21:03:50.077458 LokaR1A2(RunningBoardServices)[27671] <Notice>: Creating side-channel connection to com.apple.runningboard
+Sep 23 21:03:50.077494 LokaR1A2(HangTracer)[27671] <Notice>: Skip setting user action callback for 3rd party apps
+Sep 23 21:03:50.077540 LokaR1A2(libxpc.dylib)[27671] <Notice>: [0x1070df700] activating connection: mach=true listener=false peer=false name=com.apple.runningboard
+Sep 23 21:03:50.077859 LokaR1A2(HangTracer)[27671] <Info>: HTPrefs initialization
+Sep 23 21:03:50.077892 LokaR1A2(HangTracer)[27671] <Info>: HTConnectToHTMonitor: htMonitor message is sent
+Sep 23 21:03:50.077920 LokaR1A2(libxpc.dylib)[27671] <Notice>: [0x1070df5c0] invalidated because the current process cancelled the connection by calling xpc_connection_cancel()
+Sep 23 21:03:50.077954 LokaR1A2(CoreFoundation)[27671] <Info>: Loading Preferences From User Session CFPrefsD
+Sep 23 21:03:50.078496 LokaR1A2(ExpoModulesCore)[27671] <Info>: <private>
+Sep 23 21:03:50.078822 LokaR1A2(CoreFoundation)[27671] <Debug>: CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No) loaded: a new base plist and no additional changes from the base plist
+Sep 23 21:03:50.078843 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key HTEPL.HangTracerEnableCustomerMode in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.078870 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key HTThirdPartyDevSupport.HangTracerEnableCustomerMode in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.078898 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key PLTasking.HangTracerEnableCustomerMode in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.078916 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key HangTracerEnableCustomerMode in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.078942 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key PDSEHangTracer.HangTracerEnableCustomerMode in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.078973 LokaR1A2(BacklightServices)[27671] <Debug>: 0x10722dc80 environment updated:sceneID:com.lorecrafting.lokar1a2-default
+  delta:{ visualState:0 date:0 active:0 seed:0 }
+  diff:<FBSSceneSettingsDiff: 0x1070d0500; UIApplicationSceneSettings> {
+    subclassSettings = <BSSettingsDiff: 0x107050600> {
+        deactivationReasons = ;
+    };
+}
+  new:(null) (null)
+  old:(null) (null)
+  new:(null)
+Sep 23 21:03:50.079003 LokaR1A2(BaseBoard)[27671] <Debug>: [BSBlockSentinel:<private>] signaled! 1 of 2
+Sep 23 21:03:50.079030 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key PDSEHTBadDay.HangTracerEnableCustomerMode in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.079064 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key PDSEHTThirdParty.HangTracerEnableCustomerMode in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.079083 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key PDSEWorkflowResponsiveness.HangTracerEnableCustomerMode in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.079100 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key PDSEHTRateOnly.HangTracerEnableCustomerMode in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.079116 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key PDSESentry.HangTracerEnableCustomerMode in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.079134 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key PDSEAppLaunch.HangTracerEnableCustomerMode in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.079150 LokaR1A2(HangTracer)[27671] <Debug>: HTPrefs: HangTracerEnableCustomerMode was not found in the com.apple.da domain, a profile, by EPL, by PowerLog Tasking domain, by HT Self Enablement or by HT Sentry Enablement
+Sep 23 21:03:50.079374 LokaR1A2(HangTracer)[27671] <Info>: HTPrefs: Refreshing preferences
+Sep 23 21:03:50.079412 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key HTEPL.HangTracerEnableCustomerMode in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.079444 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key HTThirdPartyDevSupport.HangTracerEnableCustomerMode in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.079461 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key PLTasking.HangTracerEnableCustomerMode in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.079491 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key HangTracerEnableCustomerMode in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.079510 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key PDSEHangTracer.HangTracerEnableCustomerMode in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.079659 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key PDSEHTBadDay.HangTracerEnableCustomerMode in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.079723 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key PDSEHTThirdParty.HangTracerEnableCustomerMode in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.079780 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key PDSEWorkflowResponsiveness.HangTracerEnableCustomerMode in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.079895 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key PDSEHTRateOnly.HangTracerEnableCustomerMode in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.080044 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key PDSESentry.HangTracerEnableCustomerMode in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.080062 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key PDSEAppLaunch.HangTracerEnableCustomerMode in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.080085 LokaR1A2(HangTracer)[27671] <Debug>: HTPrefs: HangTracerEnableCustomerMode was not found in the com.apple.da domain, a profile, by EPL, by PowerLog Tasking domain, by HT Self Enablement or by HT Sentry Enablement
+Sep 23 21:03:50.080142 LokaR1A2(HangTracer)[27671] <Debug>: Preparing prefInitList
+Sep 23 21:03:50.080255 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key HTEPL.HangTracerEnabled in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.080287 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key HTThirdPartyDevSupport.HangTracerEnabled in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.080321 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key PLTasking.HangTracerEnabled in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.080419 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key HangTracerEnabled in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.080450 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key PDSEHangTracer.HangTracerEnabled in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.080600 LokaR1A2(RunningBoardServices)[27671] <Notice>: Hit the server for a process handle 1c359ea900006c17 that resolved to: [app<com.lorecrafting.lokar1a2(6F9574B7-D7E5-4107-8068-0A24ECF20754)>:27671]
+Sep 23 21:03:50.080639 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key PDSEHTBadDay.HangTracerEnabled in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.080673 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key PDSEHTThirdParty.HangTracerEnabled in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.080738 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key PDSEWorkflowResponsiveness.HangTracerEnabled in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.080827 LokaR1A2(RunningBoardServices)[27671] <Notice>: Received state update for 27671 (app<com.lorecrafting.lokar1a2(6F9574B7-D7E5-4107-8068-0A24ECF20754)>, unknown-NotVisible
+Sep 23 21:03:50.080947 LokaR1A2(HangTracer)[27671] <Debug>: Watchdog monitoring: watchdog enabled, no assertion active
+Sep 23 21:03:50.080986 LokaR1A2(RunningBoardServices)[27671] <Info>: Update delivered for [app<com.lorecrafting.lokar1a2(6F9574B7-D7E5-4107-8068-0A24ECF20754)>:27671] with taskState 0
+Sep 23 21:03:50.081008 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key PDSEHTRateOnly.HangTracerEnabled in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.081025 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key PDSESentry.HangTracerEnabled in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.081039 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key PDSEAppLaunch.HangTracerEnabled in CFPrefsPlistSource<0x1073f1880> (Domain: com.apple.da, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+Sep 23 21:03:50.081182 LokaR1A2(HangTracer)[27671] <Debug>: HTPrefs: HangTracerEnabled was not found in the com.apple.da domain, a profile, by EPL, by PowerLog Tasking domain, by HT Self Enablement or by HT Sentry Enablement
+Sep 23 21:03:50.081225 LokaR1A2(HangTracer)[27671] <Debug>: HTPrefs: enablementPrefix: (null) -> (null)
+Sep 23 21:03:50.081242 LokaR1A2(HangTracer)[27671] <Info>: Posting notification com.apple.hangtracer.htprefs.refreshed
+Sep 23 21:03:50.082308 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSLayoutManagerUseCompositeCopy in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.082389 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSDebugBidi in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.082426 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key NSCorrectionUnderlineBehavior in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.086508 LokaR1A2(BaseBoard)[27671] <Debug>: [BSBlockSentinel:<private>] signaled! 2 of 2
+Sep 23 21:03:50.086613 LokaR1A2(BaseBoard)[27671] <Debug>: [BSBlockSentinel:<private>] dealloc
+Sep 23 21:03:50.092944 LokaR1A2(Network)[27671] <Notice>: <nw_activity 50:1 [BEEB2404-B761-450A-B9B2-53E58D3089B2] (global parent) (reporting strategy default) complete (reason success)> complete with reason 2 (success), duration 524ms
+Sep 23 21:03:50.093068 LokaR1A2(Network)[27671] <Debug>: No threshold for app_launch:app_launch, returning NW_ACTIVITY_DURATION_INVALID
+Sep 23 21:03:50.093092 LokaR1A2(Network)[27671] <Debug>: No threshold for activity <nw_activity 50:1 [BEEB2404-B761-450A-B9B2-53E58D3089B2] (global parent) (reporting strategy default) complete (reason success)>
+Sep 23 21:03:50.093130 LokaR1A2(Network)[27671] <Notice>: <nw_activity 50:2 [D889D62D-C015-4A21-9F20-C93F8923D189] (reporting strategy default) complete (reason success)> complete with reason 2 (success), duration 524ms
+Sep 23 21:03:50.093155 LokaR1A2(Network)[27671] <Debug>: No threshold for app_launch:extended_app_launch, returning NW_ACTIVITY_DURATION_INVALID
+Sep 23 21:03:50.093181 LokaR1A2(Network)[27671] <Debug>: No threshold for activity <nw_activity 50:2 [D889D62D-C015-4A21-9F20-C93F8923D189] (reporting strategy default) complete (reason success)>
+Sep 23 21:03:50.093203 LokaR1A2(Network)[27671] <Notice>: Unsetting the global parent activity <nw_activity 50:1 [BEEB2404-B761-450A-B9B2-53E58D3089B2] (global parent) (reporting strategy default) complete (reason success)>
+Sep 23 21:03:50.093221 LokaR1A2(Network)[27671] <Notice>: Unset the global parent activity
+Sep 23 21:03:50.093245 LokaR1A2(libapp_launch_measurement.dylib)[27671] <Notice>: alm_release_pageins_recording_assertion: releasing pageins recording assertion
+Sep 23 21:03:50.120452 LokaR1A2(RunningBoardServices)[27671] <Debug>: PERF: [app<com.lorecrafting.lokar1a2(6F9574B7-D7E5-4107-8068-0A24ECF20754)>:27671] Received message from runningboardd: async_didChangeInheritances:completion:
+Sep 23 21:03:50.120485 LokaR1A2(RunningBoardServices)[27671] <Info>: didChangeInheritances
+Sep 23 21:03:50.120604 LokaR1A2(RunningBoardServices)[27671] <Debug>: didChangeInheritances: <RBSInheritanceChangeSet| gained:(null) lost:{(
+    <RBSInheritance| environment:UIScene:com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.lorecrafting.lokar1a2-default name:com.apple.frontboard.visibility origID:36-37-187868 payload 2176065454819686533>
+)}>
+Sep 23 21:03:50.122307 LokaR1A2(RunningBoardServices)[27671] <Debug>: PERF: [app<com.lorecrafting.lokar1a2(6F9574B7-D7E5-4107-8068-0A24ECF20754)>:27671] Received message from runningboardd: async_observedProcessStatesDidChange:completion:
+Sep 23 21:03:50.122339 LokaR1A2(RunningBoardServices)[27671] <Info>: observedProcessStatesDidChange
+Sep 23 21:03:50.122386 LokaR1A2(RunningBoardServices)[27671] <Debug>: Decoded RBSProcessHandle with IPC ID 1c359ea900006c17
+Sep 23 21:03:50.122557 LokaR1A2(RunningBoardServices)[27671] <Notice>: Received state update for 27671 (app<com.lorecrafting.lokar1a2(6F9574B7-D7E5-4107-8068-0A24ECF20754)>, unknown-NotVisible
+Sep 23 21:03:50.122607 LokaR1A2(RunningBoardServices)[27671] <Info>: Update skipped for [app<com.lorecrafting.lokar1a2(6F9574B7-D7E5-4107-8068-0A24ECF20754)>:27671]
+Sep 23 21:03:50.468331 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key EnhancedTextLegibilityEnabled in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.468385 LokaR1A2(libAccessibility.dylib)[27671] <Debug>: CF Read: domain = com.lorecrafting.lokar1a2, preference = EnhancedTextLegibilityEnabled, appID = com.lorecrafting.lokar1a2 result = (null) (-1 - empty, 0 - false, 1 - true)
+Sep 23 21:03:50.468407 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key DarkenSystemColors in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.468422 LokaR1A2(libAccessibility.dylib)[27671] <Debug>: CF Read: domain = com.lorecrafting.lokar1a2, preference = DarkenSystemColors, appID = com.lorecrafting.lokar1a2 result = (null) (-1 - empty, 0 - false, 1 - true)
+Sep 23 21:03:50.468437 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key InvertColorsEnabled in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.468452 LokaR1A2(libAccessibility.dylib)[27671] <Debug>: CF Read: domain = com.lorecrafting.lokar1a2, preference = InvertColorsEnabled, appID = com.lorecrafting.lokar1a2 result = (null) (-1 - empty, 0 - false, 1 - true)
+Sep 23 21:03:50.468471 LokaR1A2(libAccessibility.dylib)[27671] <Notice>: Read Per-App on Init: Smart invert = (null)
+Sep 23 21:03:50.519906 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key ReduceMotionEnabled in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.519936 LokaR1A2(libAccessibility.dylib)[27671] <Debug>: CF Read: domain = com.lorecrafting.lokar1a2, preference = ReduceMotionEnabled, appID = com.lorecrafting.lokar1a2 result = (null) (-1 - empty, 0 - false, 1 - true)
+Sep 23 21:03:50.561480 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key EnhancedBackgroundContrastEnabled in CFPrefsSearchListSource<0x1070c0100> (Domain: com.lorecrafting.lokar1a2, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:50.561563 LokaR1A2(libAccessibility.dylib)[27671] <Debug>: CF Read: domain = com.lorecrafting.lokar1a2, preference = EnhancedBackgroundContrastEnabled, appID = com.lorecrafting.lokar1a2 result = (null) (-1 - empty, 0 - false, 1 - true)
+Sep 23 21:03:51.027212 LokaR1A2(RunningBoardServices)[27671] <Debug>: PERF: [app<com.lorecrafting.lokar1a2(6F9574B7-D7E5-4107-8068-0A24ECF20754)>:27671] Received message from runningboardd: async_didChangeInheritances:completion:
+Sep 23 21:03:51.027239 LokaR1A2(RunningBoardServices)[27671] <Info>: didChangeInheritances
+Sep 23 21:03:51.027368 LokaR1A2(RunningBoardServices)[27671] <Debug>: didChangeInheritances: <RBSInheritanceChangeSet| gained:(null) lost:{(
+    <RBSInheritance| environment:(none) name:com.apple.frontboard.visibility origID:36-37-187862 0>
+)}>
+Sep 23 21:03:51.032827 LokaR1A2(RunningBoardServices)[27671] <Debug>: PERF: [app<com.lorecrafting.lokar1a2(6F9574B7-D7E5-4107-8068-0A24ECF20754)>:27671] Received message from runningboardd: async_observedProcessStatesDidChange:completion:
+Sep 23 21:03:51.032863 LokaR1A2(RunningBoardServices)[27671] <Info>: observedProcessStatesDidChange
+Sep 23 21:03:51.033043 LokaR1A2(RunningBoardServices)[27671] <Debug>: Decoded RBSProcessHandle with IPC ID 1c359ea900006c17
+Sep 23 21:03:51.033256 LokaR1A2(RunningBoardServices)[27671] <Notice>: Received state update for 27671 (app<com.lorecrafting.lokar1a2(6F9574B7-D7E5-4107-8068-0A24ECF20754)>, unknown-NotVisible
+Sep 23 21:03:51.033671 LokaR1A2(RunningBoardServices)[27671] <Info>: Update skipped for [app<com.lorecrafting.lokar1a2(6F9574B7-D7E5-4107-8068-0A24ECF20754)>:27671]
+Sep 23 21:03:51.451742 LokaR1A2(CoreFoundation)[27671] <Debug>: looked up value <private> for key SpeechSettingsDisabledByManagedConfiguration in CFPrefsPlistSource<0x107250f00> (Domain: com.apple.Accessibility, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No) via CFPrefsSearchListSource<0x107250d80> (Domain: com.apple.Accessibility, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:51.451932 LokaR1A2(libAccessibility.dylib)[27671] <Debug>: CF Read: domain = com.apple.Accessibility, preference = SpeechSettingsDisabledByManagedConfiguration, appID = (null) result = 0 (-1 - empty, 0 - false, 1 - true)
+Sep 23 21:03:51.451988 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key QuickSpeak in CFPrefsSearchListSource<0x107250d80> (Domain: com.apple.Accessibility, Container: (null) Non-launch persona: 0)
+Sep 23 21:03:51.452024 LokaR1A2(libAccessibility.dylib)[27671] <Debug>: CF Read: domain = com.apple.Accessibility, preference = QuickSpeak, appID = (null) result = (null) (-1 - empty, 0 - false, 1 - true)
+Sep 23 21:03:51.452071 LokaR1A2(CoreFoundation)[27671] <Debug>: found no value for key QuickSpeak in CFPrefsPlistSource<0x107250f00> (Domain: com.apple.Accessibility, User: kCFPreferencesCurrentUser, ByHost: No, Container: (null), Contents Need Refresh: No)
+
+Exiting...
+[disconnected:[redacted]]

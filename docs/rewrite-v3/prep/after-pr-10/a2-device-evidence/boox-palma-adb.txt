@@ -1,0 +1,24 @@
+2026-09-24T03:15:39Z
+adb Android Debug Bridge version 1.0.41
+List of devices attached
+[redacted]               device usb:1048576X product:Palma2 model:Palma2 device:Palma2 transport_id:7
+
+ro.product.model: Palma2
+ro.product.device: Palma2
+ro.product.manufacturer: ONYX
+ro.product.brand: Onyx
+ro.soc.manufacturer: QTI
+ro.soc.model: SM6350
+ro.hardware: qcom
+ro.board.platform: lito
+ro.product.cpu.abi: arm64-v8a
+ro.build.version.release: 13
+ro.build.version.sdk: 33
+ro.build.id: 2026-08-06_19-08_4.2-rel_0806_38386247c
+ro.build.display.id: 2026-08-06_19-08_4.2-rel_0806_38386247c
+ro.build.fingerprint: ONYX/TabBoox/TabBoox:13/TKQ1.230615.001/GV2.027.SQ83A:user/release-keys
+ro.build.version.security_patch: 2026-04-01
+MemTotal:        5591100 kB
+aarch64
+Physical size: 824x1648
+Physical density: 300

@@ -65,9 +65,9 @@ mix format --check-formatted
 mix compile --warnings-as-errors
 mix test --include comparison
 mix loka.readiness --check-template
-# Expected to FAIL until real independent approvals and inventory exist:
+# A1 is superseded: the A2-bound receipt cannot cross-bind, so this fails by design:
 mix loka.readiness --require-ready ../prep/after-pr-10/setup.pending.json --evidence-root .. --stage A1
-# Full native gate is still required before A2 (also the default without --stage):
+# Full native gate, approved 2026-09-23 (also the default without --stage); passes:
 mix loka.readiness --require-ready ../prep/after-pr-10/setup.pending.json --evidence-root .. --stage A2
 ```
 

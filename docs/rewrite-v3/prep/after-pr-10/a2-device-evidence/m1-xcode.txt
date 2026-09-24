@@ -1,0 +1,48 @@
+2026-09-24T06:45:19Z
+DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
+$ env -u DEVELOPER_DIR xcode-select -p
+/Library/Developer/CommandLineTools
+exit=0
+$ xcodebuild -version
+Xcode 27.0
+Build version 27A266a
+exit=0
+$ xcodebuild -showsdks
+DriverKit SDKs:
+	DriverKit 27.0                	-sdk driverkit27.0
+
+iOS SDKs:
+	iOS 27.0                      	-sdk iphoneos27.0
+
+iOS Simulator SDKs:
+	Simulator - iOS 27.0          	-sdk iphonesimulator27.0
+
+macOS SDKs:
+	macOS 27.0                    	-sdk macosx27.0
+	macOS 27.0                    	-sdk macosx27.0
+
+tvOS SDKs:
+	tvOS 27.0                     	-sdk appletvos27.0
+
+tvOS Simulator SDKs:
+	Simulator - tvOS 27.0         	-sdk appletvsimulator27.0
+
+visionOS SDKs:
+	visionOS 27.0                 	-sdk xros27.0
+
+visionOS Simulator SDKs:
+	Simulator - visionOS 27.0     	-sdk xrsimulator27.0
+
+watchOS SDKs:
+	watchOS 27.0                  	-sdk watchos27.0
+
+watchOS Simulator SDKs:
+	Simulator - watchOS 27.0      	-sdk watchsimulator27.0
+
+exit=0
+$ xcrun --sdk iphoneos --show-sdk-version
+27.0
+exit=0
+$ xcrun --sdk iphoneos --show-sdk-build-version
+24A430
+exit=0

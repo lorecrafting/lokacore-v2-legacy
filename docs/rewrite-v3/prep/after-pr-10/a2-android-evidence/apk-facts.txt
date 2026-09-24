@@ -1,0 +1,37 @@
+apk=app-release.apk sha256=c0d65fbaae69e8d79f6969225b6d2dd61108496223cb2bdf36aad4f0feea72a7 bytes=27734061
+signing=template debug.keystore (public debug key), not store signing
+debug_keystore_sha256=221e0a3106aa4c3ccc154e0a418b55020b3f9ea6e84f92e8749cd9e2f39f5e58
+aapt2: package: name='com.lorecrafting.lokar1a2' versionCode='1' versionName='0.0.0' platformBuildVersionName='16' platformBuildVersionCode='36' compileSdkVersion='36' compileSdkVersionCodename='16'
+aapt2: targetSdkVersion:'36'
+aapt2: native-code: 'arm64-v8a'
+apksigner: Signer #1 certificate DN: CN=Android Debug, OU=Android, O=Unknown, L=Unknown, ST=Unknown, C=US
+apksigner: Signer #1 certificate SHA-256 digest: fac61745dc0903786fb9ede62a962b399f7348f0bb6f899b8332667591033b9c
+apksigner: Signer #1 certificate SHA-1 digest: 5e8f16062ea3cd2c4a0d547876baa6f38cabf625
+apksigner: Signer #1 certificate MD5 digest: 20f46148b72d8e5e5ca23d37a4f41490
+--- native libraries
+4d086aa5f7301f97023f9c4ca471056ebe8a23f1ccdfa2179fb8e017a4670a96  lib/arm64-v8a/libappmodules.so
+3e852764502d06e0cf1080d532ae7c608b7649d946a3a9d7e84e3d4b7d683214  lib/arm64-v8a/libc++_shared.so
+98bf62828ba46b19c5b34ef6caf5bdea3d57e199b2c0133fbbdab5a7f58756cf  lib/arm64-v8a/libexpo-modules-core.so
+4f97bf102fa2863145ac5011c6f614f2caea38b78d4cf19a5650c87ef24eee3b  lib/arm64-v8a/libexpo-sqlite.so
+a9e35ba55d3f956920281f519385f8a72475ee24819799cb08375fdd4cce2b22  lib/arm64-v8a/libfbjni.so
+9f605249728da7091569772a38a4dde298ed48e1e73fed3da0e4b662ef38715c  lib/arm64-v8a/libgifimage.so
+1db061bbbb050105fee9b208b861adc0cc02cc359551be6ba9562798a81f6cca  lib/arm64-v8a/libhermestooling.so
+bf38be45bf5d6ad8ba961eaf9deda5fa7e032f3ff7d3929ba2a624567093bffa  lib/arm64-v8a/libhermesvm.so
+1b377992e4256fa9398ec057722f84a359c7d588e570c8a41f51d930c19ece7d  lib/arm64-v8a/libimagepipeline.so
+5acb80d7eb93b2114a419c9e42b44476969299e806ad7eafe1b293e221b9a682  lib/arm64-v8a/libjsi.so
+4294b57460e70a6351ce7ae2733a79c088c907dfa54673a657227ec5bb669594  lib/arm64-v8a/libnative-filters.so
+2aed28298a25afd52ac670cf9682398c6c7ba42a57195c01efd565e7ddfe17ca  lib/arm64-v8a/libnative-imagetranscoder.so
+14bb860cebebb0e29eb2c96a52d70da9b73e60253916694af955f6e3ef1e6b64  lib/arm64-v8a/libreactnative.so
+f3e5f9ab4f93f2a0a057285a2de9c93ba0ab59c76c22874d0356493ce283c4c7  lib/arm64-v8a/libstatic-webp.so
+10ec47f13bee884450b0911066019ba7aa6b4164a4c1f8c33c9d30dd3fd8868a  lib/arm64-v8a/libzstd-kmp.so
+--- hermes (resolved release runtime dependency)
+\--- com.facebook.react:hermes-android -> com.facebook.hermes:hermes-android:250829098.0.17
+--- sqlite (strings in the packaged expo-sqlite library)
+file=lib/arm64-v8a/libexpo-sqlite.so
+sqlite_version_string: 3.50.3
+sqlite_source_id: 2025-07-17 13:25:10 3ce993b8657d6d9deda380a93cdd6404a8c8ba1b185b2bc423703e41ae5f2543
+--- toolchain notes (.comment of packaged native libraries)
+Android (11695104, +pgo, +bolt, +lto, +mlgo, based on r522817) clang version 18.0.1 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)
+Android (12027248, +pgo, +bolt, +lto, +mlgo, based on r522817) clang version 18.0.1 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)
+Android (12027248, +pgo, -bolt, +lto, -mlgo, based on r522817) clang version 18.0.1 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)
+Android (12285214, +pgo, +bolt, +lto, +mlgo, based on r522817b) clang version 18.0.2 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)
