@@ -7,7 +7,7 @@ on:
       - 'r1-spike/**'
       - '.github/workflows/r1-spike.yml'
   push:
-    branches: [main]
+    branches: [main, 'r1-*']
     paths:
       - 'r1-spike/**'
       - '.github/workflows/r1-spike.yml'
@@ -89,5 +89,66 @@ jobs:
         with:
           name: r1-diff-summary
           path: ${{ runner.temp }}/r1-diff-summary.json
+          if-no-files-found: warn
+          retention-days: 30
+
+  r1-server:
+    name: R1 durable server host (SQLite) and differential test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      # Hex and rebar3 are needed here only: exqlite (built from its bundled
+      # SQLite source) and its locked dependencies.
+      - uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124
+        with:
+          otp-version: '28.4'
+          elixir-version: '1.20.4'
+          version-type: strict
+      - name: Server fetch, format, compile and test
+        working-directory: r1-spike/server
+        run: |
+          set -euo pipefail
+          mix deps.get --check-locked
+          mix format --check-formatted
+          mix compile --warnings-as-errors
+          mix test
+          mix r1.sqlite_identity | tee "$RUNNER_TEMP/r1-server-sqlite.json"
+      - name: Durable host vs Elixir runner (regression seeds + 1,000 fresh sequences)
+        working-directory: r1-spike/harness
+        run: |
+          set -euo pipefail
+          seed=$(( GITHUB_RUN_ID * 10 + GITHUB_RUN_ATTEMPT ))
+          echo "r1.diff base seed: $seed (run $GITHUB_RUN_ID attempt $GITHUB_RUN_ATTEMPT)"
+          (cd ../elixir && mix compile)
+          mix r1.diff --sequences 1000 --seed "$seed" --report "$RUNNER_TEMP/r1-server-diff.json" \
+            --ts "mix r1.durable_runner" --ts-dir ../server
+      - name: Differential test catches a mutated SQLite read-back
+        working-directory: r1-spike/harness
+        run: |
+          set -uo pipefail
+          set +e  # the mutant run must exit non-zero; check it explicitly
+          out=$(mix r1.diff --sequences 2000 --seed 7 --report "$RUNNER_TEMP/r1-server-mutant.json" \
+            --ts "$PWD/../server/test/support/mutated_durable_runner.sh" --ts-dir ../server 2>&1)
+          status=$?
+          set -e
+          echo "$out" | tail -5
+          test "$status" -ne 0
+          grep -q 'result=mismatch' <<< "$out"
+      - name: Real fault matrix (one seed per world)
+        working-directory: r1-spike/server
+        run: mix r1.faults --seeds 1 --out "$RUNNER_TEMP/r1-server-faults.jsonl"
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: r1-server-evidence
+          path: |
+            ${{ runner.temp }}/r1-server-*.json
+            ${{ runner.temp }}/r1-server-faults.jsonl
           if-no-files-found: warn
           retention-days: 30
