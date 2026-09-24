@@ -92,6 +92,30 @@ The response is a JSON array with one step record per command:
 - `delta`: for each top-level `memory` key whose canonical value changed in this step, the new value. Otherwise `{}`.
 - `HOST`: `{"memory":{..},"durable":{..},"receipts":{id:{"intent":hex,"result":{..}}},"pending":null|{"id":..,"proposed":{..},"receipt":{"intent":..,"result":..}},"in_doubt":bool,"published":[..]}`.
 
+### Protocol edge rules (settled 2026-09-23)
+
+- **Lines:** input is split on `\n`, and every input line gets exactly one output
+  line. A blank line, invalid UTF-8 (decode fatally; never substitute U+FFFD), a
+  parse failure, unknown or extra top-level keys, or a missing required argument
+  gets `{"error":"invalid_protocol"}`. JSON whitespace (space, tab, `\r`, `\n`) around
+  values is legal, so a trailing `\r` is harmless.
+- **`world.run`:** `commands` must be an array of any length, including 0 (the
+  response is then `[]`). A non-object command is a per-step `invalid_command`.
+  `world` must be one of the three names, and `initial`, if present, must be an
+  object; otherwise the response is `invalid_protocol`. `initial` is harness setup,
+  not player input: behavior for a value that isn't a complete, in-range memory of
+  that world (including a nonzero RNG) is unspecified, and the generator never
+  sends one. Revision overflow past 2^53−1 is likewise unspecified; the generator
+  keeps revisions at least 64 below the limit.
+- **Options:** a missing `authorized` means authorized, as in the model.
+- **`composition.evaluate`:** `limits` must be an object whose keys are profile
+  limit names and whose values are positive integers; anything else is
+  `invalid_protocol`. `advance_target: null` means the same as leaving it out.
+  All other argument shapes follow the model, so a wrong type or a missing key in
+  `initial`, `root` or `rules` is `{"kind":"fault","code":"invalid_plan",...}`.
+- `int.divide`'s `integer_out_of_range` can't be reached through the protocol,
+  because the strict parser rejects such integers first.
+
 ### Pure functions
 
 | Request | Response |
