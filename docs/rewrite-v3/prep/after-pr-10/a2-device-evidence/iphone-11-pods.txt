@@ -1,0 +1,33 @@
+observed_at_utc=2026-09-24T06:02:35Z
+host=M1 Air (m1-air-host.txt); DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
+xcodebuild: Xcode 27.0 Build version 27A266a 
+cocoapods=1.17.0 (brew install cocoapods; formula 1.17.0)
+ruby=ruby 4.0.7 (2026-09-15 revision 229531a6cf) +PRISM [arm64-darwin25]
+node=v24.21.0 npm=11.19.0
+install: npm_config_engine_strict=true npm ci --ignore-scripts (retained lock; package.json and package-lock.json cmp-equal to dependency-evidence before and after prebuild)
+template=expo-template-bare-minimum@57.0.26 sha256=6b19d4235ab57c66fac699de7a2c57fe0ea277bf8a355ed45b2a37258bd93366
+prebuild: expo prebuild --platform ios --no-install --template <that tgz>; then pod install in ios/
+Podfile.lock sha256=a529d0aa077190f2d97f50937b4e3646078a7b45286456d8576275b19d094e63 (retained as iphone-11-Podfile.lock)
+--- Podfile.lock: hermes, sqlite, cocoapods
+  - ExpoSQLite (57.0.3):
+  - hermes-engine (250829098.0.17):
+  - hermes-engine/Pre-built (250829098.0.17)
+  - React-Core-prebuilt (0.86.3):
+  - ReactNativeDependencies (0.86.3)
+  - ExpoSQLite (from `../node_modules/expo-sqlite/ios`)
+  - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
+  - React-Core-prebuilt (from `../node_modules/react-native/React-Core-prebuilt.podspec`)
+  - ReactNativeDependencies (from `../node_modules/react-native/third-party-podspecs/ReactNativeDependencies.podspec`)
+COCOAPODS: 1.17.0
+--- pod install: hermes artifact
+[Hermes] Using release tarball from URL: https://repo1.maven.org/maven2/com/facebook/hermes/hermes-ios/250829098.0.17/hermes-ios-250829098.0.17-hermes-ios-debug.tar.gz
+--- Pods/Headers/Public/ExpoSQLite/sqlite3.h (vendored sqlite3, not SQLCipher)
+#define SQLITE_VERSION        "3.50.3"
+#define SQLITE_SOURCE_ID      "2025-07-17 13:25:10 3ce993b8657d6d9deda380a93cdd6404a8c8ba1b185b2bc423703e41ae5f2543"
+--- Podfile.properties.json
+{
+  "expo.jsEngine": "hermes",
+  "EX_DEV_CLIENT_NETWORK_INSPECTOR": "true",
+  "expo.inlineModules.watchedDirectories": "[]",
+  "expo.inlineModules.xcodeProjectTargets": "{\"mainTarget\":\"LokaR1A2\",\"targets\":[]}"
+}
