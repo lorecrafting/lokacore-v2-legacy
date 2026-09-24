@@ -8,7 +8,8 @@
 #   pixel-3a-logcat.txt   raw `adb logcat -d` for ReactNativeJS and ActivityManager
 #   a3-samples.csv, a3-run.json  as pulled;  summary.json  scripts/scale-summary.mjs
 # Waits: the run fails if 90 minutes pass, if no new progress line appears for 10 minutes,
-# if the app logs LOKA_A3_ERROR, or if the process dies.
+# if the app logs LOKA_A3_ERROR, if the process dies, or (invalid run) if the screen locks or the
+# app leaves the foreground (checked every 10 s).
 # redact() replaces the adb serial with [redacted], every UUID with [redacted-uuid], the home
 # directory with ~, the repository root with [root] and temp paths with [scratch].
 set -uo pipefail
@@ -53,6 +54,10 @@ power() {
     log=$(adb logcat -d ReactNativeJS:V '*:S' | tr -d '\r')
     grep -q LOKA_A3_ERROR <<<"$log" && { result="app error"; break; }
     adb shell pidof "$PKG" >/dev/null 2>&1 || { result="process gone"; break; }
+    # The app must stay in the foreground with the screen unlocked, or the run is invalid.
+    w=$(adb shell dumpsys window | tr -d '\r')
+    grep -q "isKeyguardShowing=false" <<<"$w" || { result="INVALID: screen locked"; break; }
+    grep -E "mCurrentFocus=.*$PKG" <<<"$w" >/dev/null || { result="INVALID: app not in foreground"; break; }
     p=$(grep -o 'LOKA_A3_PROGRESS.*' <<<"$log" | tail -1)
     if [ "$p" != "$last" ]; then last=$p last_change=$now; echo "t+$((now - start))s $p"; fi
     [ $((now - last_change)) -gt 600 ] && { result="no progress for 10 min"; break; }
