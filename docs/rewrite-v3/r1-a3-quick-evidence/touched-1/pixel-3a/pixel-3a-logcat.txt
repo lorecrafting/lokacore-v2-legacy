@@ -1,0 +1,43 @@
+09-24 09:05:45.845  1541  1631 I ActivityManager: Start proc 24890:com.lorecrafting.lokar1a2/u0a240 for pre-top-activity {com.lorecrafting.lokar1a2/com.lorecrafting.lokar1a2.MainActivity}
+09-24 09:05:46.276 24890 24916 I ReactNativeJS: LOKA_A3_PROBE {"hermes":{"Bytecode Version":98,"Static Hermes":true,"Builtins Frozen":false,"VM Experiments":0,"Build":"Release","GC":"hades (concurrent)","OSS Release Version":"250829098.0.17","Debugger Enabled":false,"CommonJS Modules":"None"},"sqlite":{"version":"3.50.3","source_id":"2025-07-17 13:25:10 3ce993b8657d6d9deda380a93cdd6404a8c8ba1b185b2bc423703e41ae5f2543","journal_mode":"delete","synchronous":2},"memory":{"api":"ActivityManager.MemoryInfo.totalMem","bytes":"3766829056"}}
+09-24 09:05:46.276 24890 24916 I ReactNativeJS: Running "main"
+09-24 09:05:50.968 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS tiny 250/3000
+09-24 09:05:52.272 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS tiny 500/3000
+09-24 09:05:53.604 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS tiny 750/3000
+09-24 09:05:54.919 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS tiny 1000/3000
+09-24 09:05:56.312 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS tiny 1250/3000
+09-24 09:05:57.708 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS tiny 1500/3000
+09-24 09:05:59.039 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS tiny 1750/3000
+09-24 09:06:00.365 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS tiny 2000/3000
+09-24 09:06:01.682 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS tiny 2250/3000
+09-24 09:06:03.061 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS tiny 2500/3000
+09-24 09:06:04.402 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS tiny 2750/3000
+09-24 09:06:05.772 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS tiny 3000/3000
+09-24 09:06:05.872 24890 24916 I ReactNativeJS: LOKA_A3_MODEL {"checkpoint_round_trip_us":[4493,4550,4987,5027,4477,4744,5770,4574,4667,5005,4603,4328,5133,4854,4756,4501,4842,4910,4929,4854],"final_narration_entries":1,"final_state_bytes":386,"final_state_sha256":"63fc23d5030a6c3a54a11d20d790874fa352032dbcfa1b76b6a2565247efca6b","initial_state_bytes":188,"model":"tiny","receipts":2916,"seed":20260924,"sqlite":{"journal_mode":"delete","synchronous":2},"state_rows":{"mem":11,"mem_items":5},"steps":3000,"version":"r1-scale-2","warmup":1000}
+09-24 09:06:07.674 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS medium 250/3000
+09-24 09:06:08.976 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS medium 500/3000
+09-24 09:06:10.247 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS medium 750/3000
+09-24 09:06:11.549 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS medium 1000/3000
+09-24 09:06:30.280 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS medium 1250/3000
+09-24 09:06:49.121 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS medium 1500/3000
+09-24 09:07:07.892 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS medium 1750/3000
+09-24 09:07:26.628 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS medium 2000/3000
+09-24 09:07:45.504 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS medium 2250/3000
+09-24 09:08:04.429 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS medium 2500/3000
+09-24 09:08:23.395 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS medium 2750/3000
+09-24 09:08:42.467 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS medium 3000/3000
+09-24 09:08:46.360 24890 24916 I ReactNativeJS: LOKA_A3_MODEL {"checkpoint_round_trip_us":[126274,127934,131697,129823,130551,125509,131660,129186,132068,126388,127448,122471,126458,125578,860757,130007,129927,126963,135521,182434],"final_narration_entries":501,"final_state_bytes":192793,"final_state_sha256":"68d50f5c6e6dcd6c86822d16cc0aad048550932341f242e80579319db054c5bf","initial_state_bytes":192594,"model":"medium","receipts":2916,"seed":20260924,"sqlite":{"journal_mode":"delete","synchronous":2},"state_rows":{"mem":11,"mem_items":505},"steps":3000,"version":"r1-scale-2","warmup":1000}
+09-24 09:08:49.205 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS stress 250/3000
+09-24 09:08:50.550 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS stress 500/3000
+09-24 09:08:51.834 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS stress 750/3000
+09-24 09:08:53.097 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS stress 1000/3000
+09-24 09:10:00.102 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS stress 1250/3000
+09-24 09:11:07.150 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS stress 1500/3000
+09-24 09:12:14.591 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS stress 1750/3000
+09-24 09:13:22.373 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS stress 2000/3000
+09-24 09:14:30.027 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS stress 2250/3000
+09-24 09:15:36.962 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS stress 2500/3000
+09-24 09:16:43.899 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS stress 2750/3000
+09-24 09:17:50.680 24890 24916 I ReactNativeJS: LOKA_A3_PROGRESS stress 3000/3000
+09-24 09:18:02.187 24890 24916 I ReactNativeJS: LOKA_A3_MODEL {"checkpoint_round_trip_us":[479435,470977,477256,462394,474206,472808,472531,478319,473090,473145,475835,473186,488070,462711,476574,469845,469806,469786,466978,482146],"final_narration_entries":2201,"final_state_bytes":730120,"final_state_sha256":"10166b23652fff80a320e24d9f34a67d197f7e359eb8faaf1d84711dac49095f","initial_state_bytes":729921,"model":"stress","receipts":2916,"seed":20260924,"sqlite":{"journal_mode":"delete","synchronous":2},"state_rows":{"mem":11,"mem_items":2205},"steps":3000,"version":"r1-scale-2","warmup":1000}
+09-24 09:18:02.744 24890 24916 I ReactNativeJS: LOKA_A3_DONE {"wall_ms":733420}
