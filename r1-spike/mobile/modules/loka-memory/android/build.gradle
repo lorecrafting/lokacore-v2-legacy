@@ -3,6 +3,13 @@ plugins {
   id 'expo-module-gradle-plugin'
 }
 
+group = 'com.lorecrafting'
+version = '0.0.0'
+
 android {
   namespace "expo.modules.lokamemory"
+  defaultConfig {
+    versionCode 1
+    versionName "0.0.0"
+  }
 }
