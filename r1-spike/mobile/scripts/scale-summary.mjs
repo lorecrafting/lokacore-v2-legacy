@@ -15,7 +15,9 @@ const run = JSON.parse(readFileSync(runPath, 'utf8'));
 const DECISION = { tiny: [2, 5, 10], medium: [5, 15, 30], stress: [15, 40, 80] };
 const E2E = { medium: [null, 100, 200] };
 const CHECKPOINT = { tiny: 10, medium: 50, stress: 200 };
-const METRICS = ['admission_ms', 'decision_ms', 'encode_ms', 'commit_ms', 'projection_ms', 'e2e_ms'];
+// bytes_written and host_encode_ms (touched-1) sit outside e2e; older sample files lack them.
+const METRICS = ['admission_ms', 'decision_ms', 'encode_ms', 'commit_ms', 'projection_ms', 'e2e_ms', 'bytes_written', 'host_encode_ms']
+  .filter((k) => cols.includes(k));
 
 const rank = (sorted, p) => sorted[Math.max(0, Math.ceil((p / 100) * sorted.length) - 1)];
 function stats(values) {
@@ -78,6 +80,7 @@ const models = run.models.map((m) => {
     },
     sqlite: m.sqlite,
     receipts: m.receipts,
+    ...(m.state_rows ? { state_rows: m.state_rows } : {}),
   };
 });
 

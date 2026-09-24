@@ -1,0 +1,153 @@
+2026-09-24T19:05:38Z
+git rev-parse HEAD: 02ff058102634e88a87dcf7b50127aa07bdb5f59
+git status --porcelain (begin)
+?? docs/rewrite-v3/r1-a3-quick-evidence/touched-1/pixel-3a/pixel-3a-run.txt
+(end)
+$ adb version
+Android Debug Bridge version 1.0.41
+Version 37.0.1-15733141
+Installed as /opt/homebrew/bin/adb
+Running on Darwin 25.6.0 (arm64)
+exit=0
+apk sha256 aea2b10001b37f9fedf380828635c2c3343d25a4c5c9be3b3bf0805ecb725ac4 bytes 29532273 (artifact app-release-apk, run 36044635316)
+source map sha256 3b2befeb2bb3daaf38621185eadc024d050a762cbbb2f755a5d115e8c120a27e (index.android.bundle.map in artifact a2-android-evidence, run 36044635316)
+$ adb shell getprop ro.build.fingerprint
+google/sargo/sargo:11/RQ2A.210505.002/7246365:user/release-keys
+exit=0
+$ adb shell getprop ro.product.model
+Pixel 3a
+exit=0
+--- before
+$ adb shell dumpsys battery
+Current Battery Service state:
+  AC powered: true
+  USB powered: false
+  Wireless powered: false
+  Max charging current: 3000000
+  Max charging voltage: 5000000
+  Charge counter: 2713683
+  status: 5
+  health: 2
+  present: true
+  level: 100
+  scale: 100
+  voltage: 4323
+  temperature: 335
+  technology: Li-ion
+exit=0
+$ adb shell dumpsys thermalservice (temperatures)
+	Temperature{mValue=30.196001, mType=4, mName=usbc-therm-monitor, mStatus=0}
+	Temperature{mValue=31.519001, mType=4, mName=usbc-therm-monitor, mStatus=0}
+	Temperature{mValue=32.941, mType=3, mName=mb-therm-monitor, mStatus=0}
+	Temperature{mValue=33.0, mType=2, mName=battery, mStatus=0}
+	Temperature{mValue=33.4, mType=0, mName=cpu1-gold-usr, mStatus=0}
+	Temperature{mValue=33.4, mType=1, mName=gpu0-usr, mStatus=0}
+	Temperature{mValue=33.4, mType=1, mName=gpu1-usr, mStatus=0}
+	Temperature{mValue=33.5, mType=2, mName=battery, mStatus=0}
+	Temperature{mValue=33.7, mType=0, mName=cpu0-silver-usr, mStatus=0}
+	Temperature{mValue=33.7, mType=0, mName=cpu1-silver-usr, mStatus=0}
+	Temperature{mValue=33.7, mType=0, mName=cpu3-silver-usr, mStatus=0}
+	Temperature{mValue=33.7, mType=0, mName=cpu5-silver-usr, mStatus=0}
+	Temperature{mValue=34.0, mType=0, mName=cpu0-gold-usr, mStatus=0}
+	Temperature{mValue=34.0, mType=0, mName=cpu2-silver-usr, mStatus=0}
+	Temperature{mValue=34.0, mType=0, mName=cpu4-silver-usr, mStatus=0}
+	Temperature{mValue=39.062, mType=3, mName=mb-therm-monitor, mStatus=0}
+	Temperature{mValue=39.5, mType=1, mName=gpu1-usr, mStatus=0}
+	Temperature{mValue=39.800003, mType=1, mName=gpu0-usr, mStatus=0}
+	Temperature{mValue=42.4, mType=0, mName=cpu3-silver-usr, mStatus=0}
+	Temperature{mValue=43.300003, mType=0, mName=cpu1-silver-usr, mStatus=0}
+	Temperature{mValue=43.300003, mType=0, mName=cpu2-silver-usr, mStatus=0}
+	Temperature{mValue=44.000004, mType=0, mName=cpu5-silver-usr, mStatus=0}
+	Temperature{mValue=44.300003, mType=0, mName=cpu4-silver-usr, mStatus=0}
+	Temperature{mValue=44.600002, mType=0, mName=cpu0-silver-usr, mStatus=0}
+	Temperature{mValue=45.600002, mType=0, mName=cpu0-gold-usr, mStatus=0}
+	Temperature{mValue=49.100002, mType=0, mName=cpu1-gold-usr, mStatus=0}
+Thermal Status: 0
+$ adb install -r [scratch]
+Performing Streamed Install
+Success
+exit=0
+$ adb shell am force-stop com.lorecrafting.lokar1a2
+exit=0
+$ adb shell pm clear com.lorecrafting.lokar1a2
+Success
+exit=0
+$ adb logcat -c
+exit=0
+$ adb shell am start -n com.lorecrafting.lokar1a2/.MainActivity
+Starting: Intent { cmp=com.lorecrafting.lokar1a2/.MainActivity }
+exit=0
+t+10s LOKA_A3_PROGRESS tiny 1000/3000
+t+21s LOKA_A3_PROGRESS tiny 3000/3000
+t+31s LOKA_A3_PROGRESS medium 1000/3000
+t+52s LOKA_A3_PROGRESS medium 1250/3000
+t+73s LOKA_A3_PROGRESS medium 1500/3000
+t+83s LOKA_A3_PROGRESS medium 1750/3000
+t+104s LOKA_A3_PROGRESS medium 2000/3000
+t+125s LOKA_A3_PROGRESS medium 2250/3000
+t+146s LOKA_A3_PROGRESS medium 2500/3000
+t+166s LOKA_A3_PROGRESS medium 2750/3000
+t+177s LOKA_A3_PROGRESS medium 3000/3000
+t+187s LOKA_A3_PROGRESS stress 750/3000
+t+198s LOKA_A3_PROGRESS stress 1000/3000
+t+260s LOKA_A3_PROGRESS stress 1250/3000
+t+322s LOKA_A3_PROGRESS stress 1500/3000
+t+395s LOKA_A3_PROGRESS stress 1750/3000
+t+457s LOKA_A3_PROGRESS stress 2000/3000
+t+530s LOKA_A3_PROGRESS stress 2250/3000
+t+592s LOKA_A3_PROGRESS stress 2500/3000
+t+665s LOKA_A3_PROGRESS stress 2750/3000
+t+727s LOKA_A3_PROGRESS stress 3000/3000
+result=done after 737 s
+$ adb pull /sdcard/Android/data/com.lorecrafting.lokar1a2/files/a3-samples.csv [scratch]
+/sdcard/Android/data/com.lorecrafting.lokar1a2/files/a3-samples.csv: 1 file pulled, 0 skipped. 32.4 MB/s (633621 bytes in 0.019s)
+exit=0
+$ adb pull /sdcard/Android/data/com.lorecrafting.lokar1a2/files/a3-run.json [scratch]
+/sdcard/Android/data/com.lorecrafting.lokar1a2/files/a3-run.json: 1 file pulled, 0 skipped. 1.1 MB/s (2096 bytes in 0.002s)
+exit=0
+--- after
+$ adb shell dumpsys battery
+Current Battery Service state:
+  AC powered: true
+  USB powered: false
+  Wireless powered: false
+  Max charging current: 3000000
+  Max charging voltage: 5000000
+  Charge counter: 2714370
+  status: 5
+  health: 2
+  present: true
+  level: 100
+  scale: 100
+  voltage: 4321
+  temperature: 365
+  technology: Li-ion
+exit=0
+$ adb shell dumpsys thermalservice (temperatures)
+	Temperature{mValue=30.196001, mType=4, mName=usbc-therm-monitor, mStatus=0}
+	Temperature{mValue=32.352, mType=4, mName=usbc-therm-monitor, mStatus=0}
+	Temperature{mValue=33.0, mType=2, mName=battery, mStatus=0}
+	Temperature{mValue=36.800003, mType=2, mName=battery, mStatus=0}
+	Temperature{mValue=38.697002, mType=3, mName=mb-therm-monitor, mStatus=0}
+	Temperature{mValue=39.062, mType=3, mName=mb-therm-monitor, mStatus=0}
+	Temperature{mValue=39.5, mType=1, mName=gpu1-usr, mStatus=0}
+	Temperature{mValue=39.800003, mType=1, mName=gpu0-usr, mStatus=0}
+	Temperature{mValue=41.7, mType=1, mName=gpu1-usr, mStatus=0}
+	Temperature{mValue=42.4, mType=0, mName=cpu3-silver-usr, mStatus=0}
+	Temperature{mValue=42.4, mType=1, mName=gpu0-usr, mStatus=0}
+	Temperature{mValue=43.300003, mType=0, mName=cpu1-silver-usr, mStatus=0}
+	Temperature{mValue=43.300003, mType=0, mName=cpu2-silver-usr, mStatus=0}
+	Temperature{mValue=43.7, mType=0, mName=cpu1-gold-usr, mStatus=0}
+	Temperature{mValue=44.000004, mType=0, mName=cpu1-silver-usr, mStatus=0}
+	Temperature{mValue=44.000004, mType=0, mName=cpu3-silver-usr, mStatus=0}
+	Temperature{mValue=44.000004, mType=0, mName=cpu5-silver-usr, mStatus=0}
+	Temperature{mValue=44.300003, mType=0, mName=cpu0-gold-usr, mStatus=0}
+	Temperature{mValue=44.300003, mType=0, mName=cpu0-silver-usr, mStatus=0}
+	Temperature{mValue=44.300003, mType=0, mName=cpu2-silver-usr, mStatus=0}
+	Temperature{mValue=44.300003, mType=0, mName=cpu4-silver-usr, mStatus=0}
+	Temperature{mValue=44.600002, mType=0, mName=cpu0-silver-usr, mStatus=0}
+	Temperature{mValue=44.600002, mType=0, mName=cpu4-silver-usr, mStatus=0}
+	Temperature{mValue=45.600002, mType=0, mName=cpu0-gold-usr, mStatus=0}
+	Temperature{mValue=49.100002, mType=0, mName=cpu1-gold-usr, mStatus=0}
+Thermal Status: 0
+$ adb logcat -d -v threadtime ReactNativeJS:V ActivityManager:I '*:S' > pixel-3a-logcat.txt

@@ -11,12 +11,26 @@ defmodule LokaR1Harness.Scale do
   chains, scenes, fan-out or job scheduling semantics.
 
   Tiny is the unpadded Lantern initial memory. Bump `@version` whenever the
-  output for a given seed changes.
+  output for a given seed changes; older versions stay reproducible.
+
+  `r1-scale-2` (touched-1 rerun) fixes the `r1-scale-1` skew: there the Lantern
+  clock reached 23 during the warm-up and the quest was activated there, so every
+  wait, activate and choose in the measured window was rejected. In `r1-scale-2`
+  the command classes and their random draws are unchanged, but:
+
+  - a wait advances the clock by one only while the clock is behind a linear
+    schedule from 6 (first command) to 23 (last command); otherwise it asks for
+    the current hour (rejected `invalid_time`);
+  - warm-up activates carry a stale view (`view:-1`), so the quest starts in the
+    measured window;
+  - choose names the choice occurrence the kernel actually holds (tracked from
+    the contract: an accepted talk opens it, close and resolve clear it).
   """
 
   alias LokaR1Harness.Canonical
 
-  @version "r1-scale-1"
+  @version "r1-scale-2"
+  @versions ~w(r1-scale-1 r1-scale-2)
   @volumes %{
     "tiny" => {0, 0, 0},
     "medium" => {300, 100, 100},
@@ -33,17 +47,19 @@ defmodule LokaR1Harness.Scale do
             hollow salt ash willow bell ferry owl rope tallow flint marsh pine)
 
   def version, do: @version
+  def versions, do: @versions
   def models, do: ~w(tiny medium stress)
 
   @doc "`%{version, seed, model, world, volumes, warmup, measured, initial, commands}`."
-  def input(model, seed, warmup \\ 1000, measured \\ 2000) do
+  def input(model, seed, warmup \\ 1000, measured \\ 2000, version \\ @version)
+      when version in @versions do
     {entities, facts, jobs} = Map.fetch!(@volumes, model)
     {pad, _} = padding(:rand.seed_s(:exsss, seed), entities, facts, jobs)
     # Commands draw from their own stream, so every model gets the same commands.
-    {commands, _} = commands(:rand.seed_s(:exsss, seed + 1), warmup + measured)
+    {commands, _} = commands(:rand.seed_s(:exsss, seed + 1), warmup + measured, warmup, version)
 
     %{
-      "version" => @version,
+      "version" => version,
       "seed" => seed,
       "model" => model,
       "world" => "lantern",
@@ -56,7 +72,8 @@ defmodule LokaR1Harness.Scale do
   end
 
   @doc "One canonical JSON line per model."
-  def lines(seed), do: Enum.map(models(), &Canonical.encode(input(&1, seed)))
+  def lines(seed, version \\ @version),
+    do: Enum.map(models(), &Canonical.encode(input(&1, seed, 1000, 2000, version)))
 
   # Lantern's initial memory (lantern_model.py), written here from the contract,
   # not read from a kernel.
@@ -167,8 +184,13 @@ defmodule LokaR1Harness.Scale do
   # intents), talk/choose 155 (activate, talk, choose, close_choice; stale views),
   # wait 90. Rooms and the lantern are tracked from the contract's exits so most
   # moves and some takes/drops are legal; the host classifies the actual outcome.
-  defp commands(r, n) do
+  defp commands(r, n, warmup, version) do
     ctx = %{
+      v2: version == "r1-scale-2",
+      total: n,
+      warmup: warmup,
+      quest: "absent",
+      choice: nil,
       n: 0,
       room: "landing",
       lantern: "shelter",
@@ -195,7 +217,10 @@ defmodule LokaR1Harness.Scale do
     exits = Map.keys(@exits[ctx.room])
     {dir, r} = if legal <= 85, do: pick(r, exits), else: pick(r, ~w(up north south) -- exits)
     dir = dir || "up"
-    ctx = if Map.has_key?(@exits[ctx.room], dir), do: %{ctx | room: @exits[ctx.room][dir]}, else: ctx
+
+    ctx =
+      if Map.has_key?(@exits[ctx.room], dir), do: %{ctx | room: @exits[ctx.room][dir]}, else: ctx
+
     fresh(ctx, r, "move", %{"direction" => dir})
   end
 
@@ -217,6 +242,40 @@ defmodule LokaR1Harness.Scale do
     end
   end
 
+  defp request(c, %{v2: true} = ctx, r) when c <= 910 do
+    {k, r} = int(r, 1, 100)
+    here = ctx.room == bram_room(ctx.clock)
+
+    cond do
+      k <= 30 and ctx.n < ctx.warmup ->
+        {req, ctx, r} = fresh(ctx, r, "activate", %{})
+        {Map.put(req, "view", "view:-1"), ctx, r}
+
+      k <= 30 ->
+        ctx = if ctx.quest == "absent" and here, do: %{ctx | quest: "active"}, else: ctx
+        fresh(ctx, r, "activate", %{})
+
+      k <= 60 ->
+        opens = ctx.quest == "active" and here and ctx.lantern == "hero" and ctx.choice == nil
+        ctx = if opens, do: %{ctx | choice: "proof-choice:a#{ctx.n}"}, else: ctx
+        fresh(ctx, r, "talk", %{})
+
+      k <= 70 ->
+        fresh(%{ctx | choice: nil}, r, "close_choice", %{})
+
+      true ->
+        {choice, r} = pick(r, ~w(carry leave))
+        cont = ctx.choice || "proof-choice:none"
+        {stale, r} = int(r, 1, 100)
+        ok = stale > 20 and ctx.choice != nil and ctx.lantern == "hero" and here
+        lantern = if ok and choice == "leave", do: "bram", else: ctx.lantern
+        next = if ok, do: %{ctx | quest: "resolved", choice: nil, lantern: lantern}, else: ctx
+        input = %{"choice_id" => choice, "continuation_id" => cont}
+        {req, ctx, r} = fresh(next, r, "choose", input)
+        {if(stale <= 20, do: Map.put(req, "view", "view:0"), else: req), ctx, r}
+    end
+  end
+
   defp request(c, ctx, r) when c <= 910 do
     {k, r} = int(r, 1, 100)
 
@@ -233,10 +292,19 @@ defmodule LokaR1Harness.Scale do
       true ->
         {choice, r} = pick(r, ~w(carry leave))
         cont = "proof-choice:" <> (List.first(ctx.talks) || "none")
-        {req, ctx, r} = fresh(ctx, r, "choose", %{"choice_id" => choice, "continuation_id" => cont})
+
+        {req, ctx, r} =
+          fresh(ctx, r, "choose", %{"choice_id" => choice, "continuation_id" => cont})
+
         {stale, r} = int(r, 1, 100)
         {if(stale <= 20, do: Map.put(req, "view", "view:0"), else: req), ctx, r}
     end
+  end
+
+  defp request(_c, %{v2: true} = ctx, r) do
+    due = 6 + div(17 * (ctx.n + 1), ctx.total)
+    until = if ctx.clock < due, do: ctx.clock + 1, else: ctx.clock
+    fresh(%{ctx | clock: until}, r, "wait", %{"until" => until})
   end
 
   defp request(_c, ctx, r) do
@@ -244,11 +312,18 @@ defmodule LokaR1Harness.Scale do
     fresh(%{ctx | clock: min(until, 23)}, r, "wait", %{"until" => until})
   end
 
+  # Bram's room as the Lantern contract sets it: the landing before 19:00, the green after.
+  defp bram_room(clock) when clock < 19, do: "landing"
+  defp bram_room(_clock), do: "green"
+
   defp fresh(ctx, r, action, input) do
     id = "a#{ctx.n}"
     req = %{"id" => id, "actor" => "hero", "action" => action, "input" => input}
     talks = if action == "talk", do: [id | ctx.talks], else: ctx.talks
-    history = if action in ~w(take drop), do: Enum.take([req | ctx.history], 16), else: ctx.history
+
+    history =
+      if action in ~w(take drop), do: Enum.take([req | ctx.history], 16), else: ctx.history
+
     {req, %{ctx | n: ctx.n + 1, talks: talks, history: history}, r}
   end
 

@@ -1,0 +1,77 @@
+2026-09-24T18:56:38Z
+git rev-parse HEAD: 9f84063439a824e861378b0cd9cef5e484372e08
+git status --porcelain (begin)
+?? docs/rewrite-v3/r1-a3-quick-evidence/touched-1/checks/checks-run.txt
+(end)
+$ mise exec elixir@1.20.4 erlang@28.4 node@24.21.0 -- node node_modules/typescript/bin/tsc -p .
+exit=0
+$ node --test 'test/*.test.ts' (summary lines)
+ℹ tests 90
+ℹ pass 90
+ℹ fail 0
+exit=0
+$ mise exec elixir@1.20.4 erlang@28.4 node@24.21.0 -- mix compile
+exit=0
+$ mise exec elixir@1.20.4 erlang@28.4 node@24.21.0 -- mix test
+Running ExUnit with seed: 536070, max_cases: 16
+
+...........
+Finished in 2.1 seconds (2.1s async, 0.00s sync)
+
+Result: 11 passed
+exit=0
+$ mise exec elixir@1.20.4 erlang@28.4 node@24.21.0 -- mix r1.diff --sequences 10000 --seed 20260925 --report [scratch]
+r1.diff generator=r1-gen-3 base_seed=20260925 regression=22 fresh=10000
+r1.diff result=pass sequences=10022 requests=20044 elapsed_ms=35290 fn_counts=%{"composition.evaluate" => 4842, "int.divide" => 783, "json.canonical" => 1464, "malformed" => 1114, "rng.next" => 785, "rng.uniform" => 825, "world.run" => 10231}
+exit=0
+$ mise exec elixir@1.20.4 erlang@28.4 node@24.21.0 -- node --no-warnings scripts/local-check.mjs requests.jsonl [scratch]
+{"differential":{"host_mismatches":0,"lines":139,"sha256":"79abbb36af5086fb7737dc700bca03efd23db5fd16150c89faeca294b7ab69c3","world_runs":52},"faults":{"cases":19,"pass":19},"host":"node-local","launches":7}
+
+exit=0
+$ (cd ../elixir && mix r1.runner) < requests.jsonl > [scratch]/elixir.jsonl
+exit=0
+$ mise exec elixir@1.20.4 erlang@28.4 node@24.21.0 -- node scripts/check.mjs diff requests.jsonl [scratch] [scratch]
+{
+  "requests_embedded_in_app_equal_requests_jsonl": true,
+  "request_lines": 139,
+  "real": {
+    "lines_elixir": 139,
+    "lines_device": 139,
+    "identical": 139,
+    "mismatches": []
+  },
+  "injected": {
+    "altered_line": 70,
+    "change": "middle byte of the device line XOR 0x01",
+    "lines_elixir": 139,
+    "lines_device": 139,
+    "identical": 138,
+    "mismatches": [
+      70
+    ]
+  },
+  "result": "pass"
+}
+exit=0
+$ node scripts/check.mjs faults [scratch]/a2/faults.jsonl /dev/null [scratch]/faults-checked.jsonl
+pre_decision raise tiny-event committed=false pass elixir_agrees=true
+pre_decision io_error tiny-state committed=false pass elixir_agrees=true
+pre_decision kill lantern committed=false pass elixir_agrees=true
+post_decision_pre_commit raise tiny-event committed=false pass elixir_agrees=true
+post_decision_pre_commit io_error tiny-state committed=false pass elixir_agrees=true
+post_decision_pre_commit kill lantern committed=false pass elixir_agrees=true
+in_persistence raise tiny-event committed=false pass elixir_agrees=true
+in_persistence io_error tiny-state committed=false pass elixir_agrees=true
+in_persistence commit_unknown lantern committed=true pass elixir_agrees=true
+in_persistence kill tiny-event committed=false pass elixir_agrees=true
+post_commit_pre_adoption raise tiny-state committed=true pass elixir_agrees=true
+post_commit_pre_adoption io_error lantern committed=true pass elixir_agrees=true
+post_commit_pre_adoption kill tiny-event committed=true pass elixir_agrees=true
+post_adoption_pre_response raise tiny-state committed=true pass elixir_agrees=true
+post_adoption_pre_response io_error lantern committed=true pass elixir_agrees=true
+post_adoption_pre_response kill tiny-event committed=true pass elixir_agrees=true
+post_response_pre_presentation raise tiny-state committed=true pass elixir_agrees=true
+post_response_pre_presentation io_error lantern committed=true pass elixir_agrees=true
+post_response_pre_presentation kill tiny-event committed=true pass elixir_agrees=true
+cases=19 failures=0
+exit=0

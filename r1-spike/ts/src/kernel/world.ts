@@ -1,6 +1,6 @@
 // Tiny world (contract_model.py), Lantern world (lantern_model.py) and the
 // stateless step over the runner's HOST value. Pure: no host APIs.
-import { Fault, SAFE_INT, canonical, canonicalBytes, clone, has, isInt, isObject, obj } from './codec.ts';
+import { Fault, SAFE_INT, canonicalBytes, clone, equal, has, isInt, isObject, obj } from './codec.ts';
 import type { Json, JsonObject } from './codec.ts';
 import { sha256Hex } from './sha256.ts';
 import { uniform } from './numeric.ts';
@@ -62,7 +62,7 @@ export function tinyWorld(credit: 'event' | 'state'): World {
       bram_room: 'str', job_pending: 'bool', rng: 'any', choice: 'str?', outcome: 'any',
     },
     decide(memory, request) {
-      const state = clone(memory);
+      const state = Object.assign(obj(), memory); // shallow: fields are replaced, never mutated in place
       const action = request.action as string;
       const payload = (has(request, 'input') ? request.input : obj()) as JsonObject;
       const no = (code: string): Decision => ({ state, code, events: [], accepted: false });
@@ -157,7 +157,7 @@ export function lanternWorld(): World {
       clock: 'int', bram_room: 'str', rng: 'any', narration: 'list', milestone: 'any',
     },
     decide(memory, request) {
-      const s = clone(memory);
+      const s = Object.assign(obj(), memory); // shallow: fields are replaced, never mutated in place
       const action = request.action as string;
       const payload = (has(request, 'input') ? request.input : obj()) as JsonObject;
       const no = (code: string): Decision => ({ state: s, code, events: [], accepted: false });
@@ -202,7 +202,7 @@ export function lanternWorld(): World {
         Object.assign(bindings, { actor: 'hero', bram: 'bram', lantern: 'lantern' });
         const line = obj();
         Object.assign(line, { id: occurrence + ':outcome', text_key: 'proof.' + choice, bindings });
-        (s.narration as Json[]).push(line);
+        s.narration = [...(s.narration as Json[]), line];
         const milestone = obj();
         Object.assign(milestone, { key: 'proof.terminal', occurrence, outcome: choice });
         s.milestone = milestone;
@@ -296,7 +296,7 @@ function invoke(world: World, h: Host, request: Json, authorized: boolean, fault
   };
   if (has(request, 'view') && request.view !== 'view:' + String(rev)) {
     const result = response('rejected', 'stale_view', rev);
-    h.receipts[id] = receiptOf(result);
+    h.receipts = withKey(h.receipts, id, receiptOf(result));
     return clone(result);
   }
   const d = world.decide(h.memory, request);
@@ -308,14 +308,14 @@ function invoke(world: World, h: Host, request: Json, authorized: boolean, fault
     h.pending = { id, proposed: d.state, receipt };
     return response('retryable', 'commit_pending', rev);
   }
-  h.durable = clone(d.state);
-  h.receipts[id] = clone(receipt);
+  h.durable = d.state;
+  h.receipts = withKey(h.receipts, id, receipt);
   if (fault === 'after_commit_before_memory') {
     h.in_doubt = true;
     return response('retryable', 'commit_unknown', rev);
   }
-  h.memory = clone(d.state);
-  h.published.push(...d.events);
+  h.memory = d.state;
+  h.published = [...h.published, ...d.events];
   if (fault === 'after_memory_before_response') return response('retryable', 'response_lost', h.memory.revision);
   return clone(result);
 }
@@ -354,16 +354,24 @@ export function hostJson(h: Host): JsonObject {
   return o;
 }
 
-function cloneHost(h: Host): Host {
-  return clone(hostJson(h)) as unknown as Host;
+/** A copy of `o` with `k` set; `o` is left unchanged. */
+function withKey(o: JsonObject, k: string, v: Json): JsonObject {
+  const out = Object.assign(obj(), o);
+  out[k] = v;
+  return out;
 }
 
 /**
  * One command against the whole HOST value; returns the step record and a new HOST.
  * Throws Fault when the model would raise (bad RNG in state, unknown room, overflow).
+ *
+ * Structural sharing (touched-1): the input HOST and every value in it are never
+ * mutated. The new HOST is a fresh top-level object; a step builds new objects only
+ * along the paths it changes, and untouched sub-values keep their identity. Callers
+ * must treat both HOST values as immutable.
  */
 export function step(world: World, host: Host, command: Json): { record: JsonObject; host: Host } {
-  const h = cloneHost(host);
+  const h: Host = { ...host };
   const record = obj();
   const error = commandError(command);
   const events: Json[] = [];
@@ -379,7 +387,7 @@ export function step(world: World, host: Host, command: Json): { record: JsonObj
     } else if (c.op === 'recover') {
       if (h.pending !== null) result = response('retryable', 'commit_pending', h.memory.revision);
       else {
-        h.memory = clone(h.durable);
+        h.memory = h.durable;
         h.in_doubt = false;
         result = response('recovered', 'recovered', h.memory.revision);
       }
@@ -388,14 +396,15 @@ export function step(world: World, host: Host, command: Json): { record: JsonObj
       return { record, host };
     } else {
       if (c.committed === true) {
-        h.durable = clone(h.pending.proposed);
-        h.receipts[h.pending.id] = clone(h.pending.receipt);
+        h.durable = h.pending.proposed;
+        h.receipts = withKey(h.receipts, h.pending.id, h.pending.receipt);
       }
       h.pending = null;
     }
     events.push(...h.published.slice(published));
+    // Untouched keys keep their identity; only replaced ones are compared by value.
     for (const k of Object.keys(h.memory)) {
-      if (!has(before, k) || canonical(before[k]) !== canonical(h.memory[k])) delta[k] = clone(h.memory[k]);
+      if (!has(before, k) || (before[k] !== h.memory[k] && !equal(before[k], h.memory[k]))) delta[k] = h.memory[k];
     }
     Object.assign(record, { result, error: null, events, delta, state: hostJson(h) });
     return { record, host: h };
