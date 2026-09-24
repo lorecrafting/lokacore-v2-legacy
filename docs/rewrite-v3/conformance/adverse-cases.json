@@ -1,0 +1,5270 @@
+{
+  "fixture_version": 1,
+  "evidence_class": "specification-known-answers",
+  "note": "Adverse known answers. Tiny and Lantern steps use the cases.json/lantern-traces.json shapes; see conformance/README.md.",
+  "uniform": [
+    {
+      "state": [
+        1,
+        2199679431,
+        3,
+        4
+      ],
+      "bound": 100,
+      "max_draws": 1024,
+      "value": 75,
+      "next_state": [
+        3817741343,
+        954437125,
+        2199680448,
+        2473519876
+      ]
+    },
+    {
+      "state": [
+        1,
+        2199679431,
+        3,
+        4
+      ],
+      "bound": 100,
+      "max_draws": 1,
+      "error": "rng_budget_exhausted"
+    },
+    {
+      "state": [
+        27274249,
+        25704967,
+        31982592,
+        12605441
+      ],
+      "bound": 100,
+      "max_draws": 1024,
+      "value": 83,
+      "next_state": [
+        15224335,
+        29364750,
+        272377353,
+        1125134346
+      ]
+    },
+    {
+      "state": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "bound": 0,
+      "max_draws": 1024,
+      "error": "invalid_bound"
+    },
+    {
+      "state": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "bound": -1,
+      "max_draws": 1024,
+      "error": "invalid_bound"
+    },
+    {
+      "state": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "bound": true,
+      "max_draws": 1024,
+      "error": "invalid_bound"
+    },
+    {
+      "state": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "bound": 4294967297,
+      "max_draws": 1024,
+      "error": "invalid_bound"
+    },
+    {
+      "state": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "bound": 10,
+      "max_draws": 1024,
+      "error": "invalid_rng_state"
+    },
+    {
+      "state": [
+        1,
+        2,
+        3
+      ],
+      "bound": 10,
+      "max_draws": 1024,
+      "error": "invalid_rng_state"
+    },
+    {
+      "state": [
+        -1,
+        2,
+        3,
+        4
+      ],
+      "bound": 10,
+      "max_draws": 1024,
+      "error": "invalid_rng_state"
+    },
+    {
+      "state": [
+        true,
+        2,
+        3,
+        4
+      ],
+      "bound": 10,
+      "max_draws": 1024,
+      "error": "invalid_rng_state"
+    }
+  ],
+  "tiny": [
+    {
+      "id": "failed-check-commits-next-rng",
+      "description": "Failed roll is an accepted outcome: RNG advances, lantern stays, replay is byte-stable, the next attempt draws from the advanced state.",
+      "credit": "event",
+      "initial_state": {
+        "revision": 2,
+        "room": "green",
+        "lantern": "green",
+        "quest": "active",
+        "arrived": false,
+        "clock": 6,
+        "bram_room": "landing",
+        "job_pending": true,
+        "rng": [
+          27274249,
+          25704967,
+          31982592,
+          12605441
+        ],
+        "choice": null,
+        "outcome": null
+      },
+      "steps": [
+        {
+          "request": {
+            "id": "fail",
+            "actor": "hero",
+            "action": "take"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "check_failed",
+            "revision": 3,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 3,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              15224335,
+              29364750,
+              272377353,
+              1125134346
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "fail",
+            "actor": "hero",
+            "action": "take",
+            "view": "view:0"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "check_failed",
+            "revision": 3,
+            "delivery": "replay"
+          },
+          "state": {
+            "revision": 3,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              15224335,
+              29364750,
+              272377353,
+              1125134346
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "new-attempt",
+            "actor": "hero",
+            "action": "take"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "check_failed",
+            "revision": 4,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 4,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1110993931,
+              286554632,
+              2431677446,
+              2165318166
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "rejection-receipt-is-stable",
+      "description": "A rejection advances nothing; after the world changes, the same id replays the original rejection.",
+      "credit": "event",
+      "steps": [
+        {
+          "request": {
+            "id": "x",
+            "actor": "hero",
+            "action": "take"
+          },
+          "result": {
+            "kind": "rejected",
+            "code": "not_present",
+            "revision": 0,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 0,
+            "room": "landing",
+            "lantern": "green",
+            "quest": "absent",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "n",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "north"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 1,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 1,
+            "room": "green",
+            "lantern": "green",
+            "quest": "absent",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "x",
+            "actor": "hero",
+            "action": "take"
+          },
+          "result": {
+            "kind": "rejected",
+            "code": "not_present",
+            "revision": 0,
+            "delivery": "replay"
+          },
+          "state": {
+            "revision": 1,
+            "room": "green",
+            "lantern": "green",
+            "quest": "absent",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "unauthorized-cannot-read-receipt",
+      "description": "Harness-denied authorization and a different actor both get unauthorized, not the stored receipt.",
+      "credit": "event",
+      "steps": [
+        {
+          "request": {
+            "id": "a",
+            "actor": "hero",
+            "action": "activate"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "activated",
+            "revision": 1,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 1,
+            "room": "landing",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "n",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "north"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 2,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "x",
+            "actor": "hero",
+            "action": "take"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "taken",
+            "revision": 3,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 3,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": "lantern-offer-1",
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "x",
+            "actor": "hero",
+            "action": "take"
+          },
+          "options": {
+            "authorized": false
+          },
+          "result": {
+            "kind": "rejected",
+            "code": "unauthorized",
+            "revision": 3,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 3,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": "lantern-offer-1",
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "x",
+            "actor": "other",
+            "action": "take"
+          },
+          "result": {
+            "kind": "rejected",
+            "code": "unauthorized",
+            "revision": 3,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 3,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": "lantern-offer-1",
+            "outcome": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "changed-intent-conflicts",
+      "description": "Changing semantic input, target order or action under a used id is an integrity conflict; transport metadata alone replays.",
+      "credit": "event",
+      "steps": [
+        {
+          "request": {
+            "id": "a",
+            "actor": "hero",
+            "action": "activate"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "activated",
+            "revision": 1,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 1,
+            "room": "landing",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "n",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "north"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 2,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "x",
+            "actor": "hero",
+            "action": "take"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "taken",
+            "revision": 3,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 3,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": "lantern-offer-1",
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "x",
+            "actor": "hero",
+            "action": "take",
+            "input": {
+              "maximum_price": 1
+            }
+          },
+          "result": {
+            "kind": "rejected",
+            "code": "integrity_conflict",
+            "revision": 3,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 3,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": "lantern-offer-1",
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "x",
+            "actor": "hero",
+            "action": "take",
+            "targets": [
+              "lantern",
+              "other"
+            ]
+          },
+          "result": {
+            "kind": "rejected",
+            "code": "integrity_conflict",
+            "revision": 3,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 3,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": "lantern-offer-1",
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "x",
+            "actor": "hero",
+            "action": "drop"
+          },
+          "result": {
+            "kind": "rejected",
+            "code": "integrity_conflict",
+            "revision": 3,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 3,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": "lantern-offer-1",
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "x",
+            "actor": "hero",
+            "action": "take",
+            "session": "new",
+            "seq": 999,
+            "route": "other",
+            "view": "view:0"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "taken",
+            "revision": 3,
+            "delivery": "replay"
+          },
+          "state": {
+            "revision": 3,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": "lantern-offer-1",
+            "outcome": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "consumed-choice",
+      "description": "A consumed choice replays its receipt without restoring the old view; an altered choice conflicts; a new id on the consumed offer is invalid.",
+      "credit": "event",
+      "steps": [
+        {
+          "request": {
+            "id": "a",
+            "actor": "hero",
+            "action": "activate"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "activated",
+            "revision": 1,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 1,
+            "room": "landing",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "n",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "north"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 2,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "x",
+            "actor": "hero",
+            "action": "take"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "taken",
+            "revision": 3,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 3,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": "lantern-offer-1",
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "c",
+            "actor": "hero",
+            "action": "choose",
+            "input": {
+              "choice_id": "leave",
+              "continuation_id": "lantern-offer-1"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "choice_completed",
+            "revision": 4,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 4,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": null,
+            "outcome": "leave"
+          }
+        },
+        {
+          "request": {
+            "id": "s",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "south"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 5,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 5,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": null,
+            "outcome": "leave"
+          }
+        },
+        {
+          "request": {
+            "id": "c",
+            "actor": "hero",
+            "action": "choose",
+            "input": {
+              "choice_id": "leave",
+              "continuation_id": "lantern-offer-1"
+            },
+            "view": "view:0"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "choice_completed",
+            "revision": 4,
+            "delivery": "replay"
+          },
+          "state": {
+            "revision": 5,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": null,
+            "outcome": "leave"
+          }
+        },
+        {
+          "request": {
+            "id": "c",
+            "actor": "hero",
+            "action": "choose",
+            "input": {
+              "choice_id": "carry",
+              "continuation_id": "lantern-offer-1"
+            }
+          },
+          "result": {
+            "kind": "rejected",
+            "code": "integrity_conflict",
+            "revision": 5,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 5,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": null,
+            "outcome": "leave"
+          }
+        },
+        {
+          "request": {
+            "id": "new-choice",
+            "actor": "hero",
+            "action": "choose",
+            "input": {
+              "choice_id": "leave",
+              "continuation_id": "lantern-offer-1"
+            }
+          },
+          "result": {
+            "kind": "rejected",
+            "code": "invalid_choice",
+            "revision": 5,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 5,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": null,
+            "outcome": "leave"
+          }
+        }
+      ]
+    },
+    {
+      "id": "new-stale-invocation",
+      "description": "A new invocation against an old view is rejected without game change.",
+      "credit": "event",
+      "steps": [
+        {
+          "request": {
+            "id": "a",
+            "actor": "hero",
+            "action": "activate"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "activated",
+            "revision": 1,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 1,
+            "room": "landing",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "n",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "north"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 2,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "x",
+            "actor": "hero",
+            "action": "take",
+            "view": "view:0"
+          },
+          "result": {
+            "kind": "rejected",
+            "code": "stale_view",
+            "revision": 2,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "definite-rollback",
+      "description": "A fault before COMMIT publishes nothing, stores no receipt and lets the same id run fresh.",
+      "credit": "event",
+      "steps": [
+        {
+          "request": {
+            "id": "a",
+            "actor": "hero",
+            "action": "activate"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "activated",
+            "revision": 1,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 1,
+            "room": "landing",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          },
+          "published": [
+            "quest_activated"
+          ]
+        },
+        {
+          "request": {
+            "id": "n",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "north"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 2,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          },
+          "published": [
+            "quest_activated",
+            "entity_entered_room"
+          ]
+        },
+        {
+          "request": {
+            "id": "x",
+            "actor": "hero",
+            "action": "take"
+          },
+          "options": {
+            "fault": "before_commit"
+          },
+          "result": {
+            "kind": "retryable",
+            "code": "rolled_back",
+            "revision": 2,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          },
+          "published": [
+            "quest_activated",
+            "entity_entered_room"
+          ]
+        },
+        {
+          "request": {
+            "id": "x",
+            "actor": "hero",
+            "action": "take"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "taken",
+            "revision": 3,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 3,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": "lantern-offer-1",
+            "outcome": null
+          },
+          "published": [
+            "quest_activated",
+            "entity_entered_room",
+            "check_passed",
+            "item_acquired",
+            "quest_resolved",
+            "fact_changed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unknown-commit-was-committed",
+      "description": "Unknown COMMIT fences all work until settled; once known committed, the retry replays and nothing reruns.",
+      "credit": "event",
+      "steps": [
+        {
+          "request": {
+            "id": "a",
+            "actor": "hero",
+            "action": "activate"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "activated",
+            "revision": 1,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 1,
+            "room": "landing",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "n",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "north"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 2,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "x",
+            "actor": "hero",
+            "action": "take"
+          },
+          "options": {
+            "fault": "commit_pending"
+          },
+          "result": {
+            "kind": "retryable",
+            "code": "commit_pending",
+            "revision": 2,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "op": "recover",
+          "result": {
+            "kind": "retryable",
+            "code": "commit_pending",
+            "revision": 2,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "other",
+            "actor": "hero",
+            "action": "take"
+          },
+          "result": {
+            "kind": "retryable",
+            "code": "commit_pending",
+            "revision": 2,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "op": "settle",
+          "committed": true,
+          "result": null,
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          },
+          "durable": {
+            "revision": 3,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": "lantern-offer-1",
+            "outcome": null
+          }
+        },
+        {
+          "op": "recover",
+          "result": {
+            "kind": "recovered",
+            "code": "recovered",
+            "revision": 3,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 3,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": "lantern-offer-1",
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "x",
+            "actor": "hero",
+            "action": "take"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "taken",
+            "revision": 3,
+            "delivery": "replay"
+          },
+          "state": {
+            "revision": 3,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": "lantern-offer-1",
+            "outcome": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "unknown-commit-was-not-committed",
+      "description": "Unknown COMMIT fences all work until settled; once known absent, the retry runs as new.",
+      "credit": "event",
+      "steps": [
+        {
+          "request": {
+            "id": "a",
+            "actor": "hero",
+            "action": "activate"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "activated",
+            "revision": 1,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 1,
+            "room": "landing",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "n",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "north"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 2,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "x",
+            "actor": "hero",
+            "action": "take"
+          },
+          "options": {
+            "fault": "commit_pending"
+          },
+          "result": {
+            "kind": "retryable",
+            "code": "commit_pending",
+            "revision": 2,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "op": "recover",
+          "result": {
+            "kind": "retryable",
+            "code": "commit_pending",
+            "revision": 2,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "other",
+            "actor": "hero",
+            "action": "take"
+          },
+          "result": {
+            "kind": "retryable",
+            "code": "commit_pending",
+            "revision": 2,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "op": "settle",
+          "committed": false,
+          "result": null,
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "op": "recover",
+          "result": {
+            "kind": "recovered",
+            "code": "recovered",
+            "revision": 2,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "x",
+            "actor": "hero",
+            "action": "take"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "taken",
+            "revision": 3,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 3,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": "lantern-offer-1",
+            "outcome": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "commit-before-memory",
+      "description": "Committed durably but not applied in memory: fenced until recovery, then the retry replays from durable state.",
+      "credit": "event",
+      "steps": [
+        {
+          "request": {
+            "id": "a",
+            "actor": "hero",
+            "action": "activate"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "activated",
+            "revision": 1,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 1,
+            "room": "landing",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "n",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "north"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 2,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "x",
+            "actor": "hero",
+            "action": "take"
+          },
+          "options": {
+            "fault": "after_commit_before_memory"
+          },
+          "result": {
+            "kind": "retryable",
+            "code": "commit_unknown",
+            "revision": 2,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          },
+          "durable": {
+            "revision": 3,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": "lantern-offer-1",
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "x",
+            "actor": "hero",
+            "action": "take"
+          },
+          "result": {
+            "kind": "retryable",
+            "code": "commit_pending",
+            "revision": 2,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          },
+          "durable": {
+            "revision": 3,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": "lantern-offer-1",
+            "outcome": null
+          }
+        },
+        {
+          "op": "recover",
+          "result": {
+            "kind": "recovered",
+            "code": "recovered",
+            "revision": 3,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 3,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": "lantern-offer-1",
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "x",
+            "actor": "hero",
+            "action": "take"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "taken",
+            "revision": 3,
+            "delivery": "replay"
+          },
+          "state": {
+            "revision": 3,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": "lantern-offer-1",
+            "outcome": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "response-loss",
+      "description": "A lost response does not duplicate published effects on retry.",
+      "credit": "event",
+      "steps": [
+        {
+          "request": {
+            "id": "a",
+            "actor": "hero",
+            "action": "activate"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "activated",
+            "revision": 1,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 1,
+            "room": "landing",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          },
+          "published": [
+            "quest_activated"
+          ]
+        },
+        {
+          "request": {
+            "id": "n",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "north"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "moved",
+            "revision": 2,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 2,
+            "room": "green",
+            "lantern": "green",
+            "quest": "active",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          },
+          "published": [
+            "quest_activated",
+            "entity_entered_room"
+          ]
+        },
+        {
+          "request": {
+            "id": "x",
+            "actor": "hero",
+            "action": "take"
+          },
+          "options": {
+            "fault": "after_memory_before_response"
+          },
+          "result": {
+            "kind": "retryable",
+            "code": "response_lost",
+            "revision": 3,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 3,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": "lantern-offer-1",
+            "outcome": null
+          },
+          "published": [
+            "quest_activated",
+            "entity_entered_room",
+            "check_passed",
+            "item_acquired",
+            "quest_resolved",
+            "fact_changed"
+          ]
+        },
+        {
+          "op": "recover",
+          "result": {
+            "kind": "recovered",
+            "code": "recovered",
+            "revision": 3,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 3,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": "lantern-offer-1",
+            "outcome": null
+          },
+          "published": [
+            "quest_activated",
+            "entity_entered_room",
+            "check_passed",
+            "item_acquired",
+            "quest_resolved",
+            "fact_changed"
+          ]
+        },
+        {
+          "request": {
+            "id": "x",
+            "actor": "hero",
+            "action": "take"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "taken",
+            "revision": 3,
+            "delivery": "replay"
+          },
+          "state": {
+            "revision": 3,
+            "room": "green",
+            "lantern": "hero",
+            "quest": "resolved",
+            "arrived": true,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              7,
+              0,
+              1026,
+              12288
+            ],
+            "choice": "lantern-offer-1",
+            "outcome": null
+          },
+          "published": [
+            "quest_activated",
+            "entity_entered_room",
+            "check_passed",
+            "item_acquired",
+            "quest_resolved",
+            "fact_changed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bad-envelopes",
+      "description": "Malformed envelopes are rejected with no state or receipt.",
+      "credit": "event",
+      "steps": [
+        {
+          "request": [],
+          "result": {
+            "kind": "rejected",
+            "code": "invalid_envelope",
+            "revision": 0,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 0,
+            "room": "landing",
+            "lantern": "green",
+            "quest": "absent",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {},
+          "result": {
+            "kind": "rejected",
+            "code": "unauthorized",
+            "revision": 0,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 0,
+            "room": "landing",
+            "lantern": "green",
+            "quest": "absent",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "x",
+            "actor": "hero",
+            "action": "look",
+            "unknown": true
+          },
+          "result": {
+            "kind": "rejected",
+            "code": "invalid_envelope",
+            "revision": 0,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 0,
+            "room": "landing",
+            "lantern": "green",
+            "quest": "absent",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        },
+        {
+          "request": {
+            "id": "x",
+            "actor": "hero",
+            "action": "look",
+            "targets": "wrong"
+          },
+          "result": {
+            "kind": "rejected",
+            "code": "invalid_envelope",
+            "revision": 0,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 0,
+            "room": "landing",
+            "lantern": "green",
+            "quest": "absent",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "malformed-direction",
+      "description": "A non-string direction is a typed rejection.",
+      "credit": "event",
+      "steps": [
+        {
+          "request": {
+            "id": "x",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": []
+            }
+          },
+          "result": {
+            "kind": "rejected",
+            "code": "invalid_input",
+            "revision": 0,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 0,
+            "room": "landing",
+            "lantern": "green",
+            "quest": "absent",
+            "arrived": false,
+            "clock": 6,
+            "bram_room": "landing",
+            "job_pending": true,
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "choice": null,
+            "outcome": null
+          }
+        }
+      ]
+    }
+  ],
+  "composition": [
+    {
+      "id": "budget-operations",
+      "description": "Shared operations cap of 2 on a self-reemitting rule: whole transaction fails, no partial state or events.",
+      "limits": {
+        "operations": 2
+      },
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [
+          "loop"
+        ],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "event.emit",
+          "event": "proof.signal",
+          "payload": {}
+        }
+      ],
+      "rules": [
+        {
+          "id": "loop",
+          "event": "proof.signal",
+          "guard": null,
+          "ops": [
+            {
+              "op": "event.emit",
+              "event": "proof.signal",
+              "payload": {}
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "kind": "fault",
+        "code": "budget_operations",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [
+            "loop"
+          ],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "budget-events",
+      "description": "Shared events cap of 2 on a self-reemitting rule: whole transaction fails, no partial state or events.",
+      "limits": {
+        "events": 2
+      },
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [
+          "loop"
+        ],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "event.emit",
+          "event": "proof.signal",
+          "payload": {}
+        }
+      ],
+      "rules": [
+        {
+          "id": "loop",
+          "event": "proof.signal",
+          "guard": null,
+          "ops": [
+            {
+              "op": "event.emit",
+              "event": "proof.signal",
+              "payload": {}
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "kind": "fault",
+        "code": "budget_events",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [
+            "loop"
+          ],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "budget-deliveries",
+      "description": "Shared deliveries cap of 2 on a self-reemitting rule: whole transaction fails, no partial state or events.",
+      "limits": {
+        "deliveries": 2
+      },
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [
+          "loop"
+        ],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "event.emit",
+          "event": "proof.signal",
+          "payload": {}
+        }
+      ],
+      "rules": [
+        {
+          "id": "loop",
+          "event": "proof.signal",
+          "guard": null,
+          "ops": [
+            {
+              "op": "event.emit",
+              "event": "proof.signal",
+              "payload": {}
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "kind": "fault",
+        "code": "budget_deliveries",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [
+            "loop"
+          ],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "budget-reaction-depth",
+      "description": "Shared reaction_depth cap of 2 on a self-reemitting rule: whole transaction fails, no partial state or events.",
+      "limits": {
+        "reaction_depth": 2
+      },
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [
+          "loop"
+        ],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "event.emit",
+          "event": "proof.signal",
+          "payload": {}
+        }
+      ],
+      "rules": [
+        {
+          "id": "loop",
+          "event": "proof.signal",
+          "guard": null,
+          "ops": [
+            {
+              "op": "event.emit",
+              "event": "proof.signal",
+              "payload": {}
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "kind": "fault",
+        "code": "budget_reaction_depth",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [
+            "loop"
+          ],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "budget-query-steps",
+      "description": "Shared query_steps cap of 2 on a self-reemitting rule: whole transaction fails, no partial state or events.",
+      "limits": {
+        "query_steps": 2
+      },
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [
+          "loop"
+        ],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "event.emit",
+          "event": "proof.signal",
+          "payload": {}
+        }
+      ],
+      "rules": [
+        {
+          "id": "loop",
+          "event": "proof.signal",
+          "guard": null,
+          "ops": [
+            {
+              "op": "event.emit",
+              "event": "proof.signal",
+              "payload": {}
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "kind": "fault",
+        "code": "budget_query_steps",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [
+            "loop"
+          ],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "budget-output-bytes",
+      "description": "Output cap is checked before publication: no partial events.",
+      "limits": {
+        "output_bytes": 20
+      },
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "event.emit",
+          "event": "proof.signal",
+          "payload": {
+            "text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+          }
+        }
+      ],
+      "rules": [],
+      "expected": {
+        "kind": "fault",
+        "code": "budget_output_bytes",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "integer-overflow",
+      "description": "Adding past 2^31-1 is a bounds failure, never a clamp.",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "fact.add",
+          "fact": "count",
+          "amount": 2147483647
+        },
+        {
+          "op": "fact.add",
+          "fact": "count",
+          "amount": 1
+        }
+      ],
+      "rules": [],
+      "expected": {
+        "kind": "fault",
+        "code": "resource_bounds",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "nonfuture-job",
+      "description": "A follow-up due at or before the advance target is refused.",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "job.schedule",
+          "id": "too_soon",
+          "due": 8
+        }
+      ],
+      "rules": [],
+      "advance_target": 19,
+      "expected": {
+        "kind": "fault",
+        "code": "nonfuture_job",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "budget-created-jobs",
+      "description": "Created-job cap of 1.",
+      "limits": {
+        "created_jobs": 1
+      },
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "job.schedule",
+          "id": "one",
+          "due": 7
+        },
+        {
+          "op": "job.schedule",
+          "id": "two",
+          "due": 8
+        }
+      ],
+      "rules": [],
+      "expected": {
+        "kind": "fault",
+        "code": "budget_created_jobs",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "budget-pending-jobs",
+      "description": "Pending-job cap of 1.",
+      "limits": {
+        "pending_jobs": 1
+      },
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "job.schedule",
+          "id": "one",
+          "due": 7
+        },
+        {
+          "op": "job.schedule",
+          "id": "two",
+          "due": 8
+        }
+      ],
+      "rules": [],
+      "expected": {
+        "kind": "fault",
+        "code": "budget_pending_jobs",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "duplicate-job",
+      "description": "Job identity is unique within a transaction.",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "job.schedule",
+          "id": "one",
+          "due": 7
+        },
+        {
+          "op": "job.schedule",
+          "id": "one",
+          "due": 7
+        }
+      ],
+      "rules": [],
+      "expected": {
+        "kind": "fault",
+        "code": "duplicate_job",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "unregistered-operation",
+      "description": "An operation outside the registry faults.",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "set_component",
+          "path": "inventory",
+          "value": 1
+        }
+      ],
+      "rules": [],
+      "expected": {
+        "kind": "fault",
+        "code": "unknown_operation",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "fact-set-boolean-value",
+      "description": "Facts hold integers: setting one to a boolean is an invalid value.",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "fact.set",
+          "fact": "flag",
+          "value": true
+        }
+      ],
+      "rules": [],
+      "expected": {
+        "kind": "fault",
+        "code": "invalid_value",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "guard-boolean-not-integer",
+      "description": "A guard comparing true does not match stored integer 1.",
+      "initial": {
+        "facts": {
+          "flag": 1,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [
+          "a"
+        ],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "event.emit",
+          "event": "proof.signal",
+          "payload": {}
+        }
+      ],
+      "rules": [
+        {
+          "id": "a",
+          "event": "proof.signal",
+          "guard": {
+            "source": "overlay",
+            "key": "flag",
+            "equals": true
+          },
+          "ops": []
+        }
+      ],
+      "expected": {
+        "kind": "accepted",
+        "code": "ok",
+        "state": {
+          "facts": {
+            "flag": 1,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [
+            "a"
+          ],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [
+          {
+            "type": "proof.signal",
+            "payload": {},
+            "position": 1,
+            "time": 6
+          }
+        ],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "advance-target-boolean",
+      "description": "A boolean advance target is invalid time.",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [],
+      "rules": [],
+      "advance_target": true,
+      "expected": {
+        "kind": "fault",
+        "code": "invalid_time",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "advance-target-string",
+      "description": "A string advance target is invalid time.",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [],
+      "rules": [],
+      "advance_target": "19",
+      "expected": {
+        "kind": "fault",
+        "code": "invalid_time",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "advance-target-past",
+      "description": "An advance target before the clock is invalid time.",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [],
+      "rules": [],
+      "advance_target": 5,
+      "expected": {
+        "kind": "fault",
+        "code": "invalid_time",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "enum-arithmetic",
+      "description": "Arithmetic on a non-integer fact is an invalid operation.",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "fact.add",
+          "fact": "flag",
+          "amount": 1
+        }
+      ],
+      "rules": [],
+      "expected": {
+        "kind": "fault",
+        "code": "invalid_operation",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "competing-transfers",
+      "description": "Two rules moving the same item to different places conflict; custody is never duplicated.",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [
+          "a",
+          "b"
+        ],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "event.emit",
+          "event": "proof.signal",
+          "payload": {}
+        }
+      ],
+      "rules": [
+        {
+          "id": "a",
+          "event": "proof.signal",
+          "guard": null,
+          "ops": [
+            {
+              "op": "item.transfer",
+              "item": "lantern",
+              "source": "hero",
+              "destination": "bag"
+            }
+          ]
+        },
+        {
+          "id": "b",
+          "event": "proof.signal",
+          "guard": null,
+          "ops": [
+            {
+              "op": "item.transfer",
+              "item": "lantern",
+              "source": "hero",
+              "destination": "room"
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "kind": "fault",
+        "code": "conflicting_write",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [
+            "a",
+            "b"
+          ],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [],
+        "deliveries": []
+      }
+    },
+    {
+      "id": "distinct-events-both-delivered",
+      "description": "Two identical emissions are two deliveries, not deduplicated.",
+      "initial": {
+        "facts": {
+          "flag": 0,
+          "seen": 0,
+          "count": 0
+        },
+        "locations": {
+          "lantern": "hero",
+          "stone": "room",
+          "bag": "hero"
+        },
+        "capacities": {
+          "bag": 1
+        },
+        "active": [
+          "observer"
+        ],
+        "clock": 6,
+        "jobs": {}
+      },
+      "root": [
+        {
+          "op": "event.emit",
+          "event": "proof.signal",
+          "payload": {}
+        },
+        {
+          "op": "event.emit",
+          "event": "proof.signal",
+          "payload": {}
+        }
+      ],
+      "rules": [
+        {
+          "id": "observer",
+          "event": "proof.signal",
+          "guard": null,
+          "ops": []
+        }
+      ],
+      "expected": {
+        "kind": "accepted",
+        "code": "ok",
+        "state": {
+          "facts": {
+            "flag": 0,
+            "seen": 0,
+            "count": 0
+          },
+          "locations": {
+            "lantern": "hero",
+            "stone": "room",
+            "bag": "hero"
+          },
+          "capacities": {
+            "bag": 1
+          },
+          "active": [
+            "observer"
+          ],
+          "clock": 6,
+          "jobs": {}
+        },
+        "events": [
+          {
+            "type": "proof.signal",
+            "payload": {},
+            "position": 1,
+            "time": 6
+          },
+          {
+            "type": "proof.signal",
+            "payload": {},
+            "position": 2,
+            "time": 6
+          }
+        ],
+        "deliveries": [
+          "1:observer",
+          "2:observer"
+        ]
+      }
+    }
+  ],
+  "lantern": [
+    {
+      "id": "early-possession",
+      "description": "Taking the lantern before the quest exists: activation credits current possession, not a replayed event.",
+      "prefix": {
+        "trace": "lantern-carry",
+        "from": 1,
+        "to": 8
+      },
+      "steps": [
+        {
+          "request": {
+            "id": "early-accept",
+            "actor": "hero",
+            "action": "activate"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "activated_with_possession",
+            "revision": 8,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 8,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": null,
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "talk",
+            "actor": "hero",
+            "action": "talk"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "choice_opened",
+            "revision": 9,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 9,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": "proof-choice:talk",
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "resolve",
+            "actor": "hero",
+            "action": "choose",
+            "input": {
+              "choice_id": "leave",
+              "continuation_id": "proof-choice:talk"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "resolved_leave",
+            "revision": 10,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 10,
+            "room": "landing",
+            "lantern": "bram",
+            "quest": "resolved",
+            "choice": null,
+            "search_plan": "party_led",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [
+              {
+                "id": "proof-choice:talk:outcome",
+                "text_key": "proof.leave",
+                "bindings": {
+                  "actor": "hero",
+                  "bram": "bram",
+                  "lantern": "lantern"
+                }
+              }
+            ],
+            "milestone": {
+              "key": "proof.terminal",
+              "occurrence": "proof-choice:talk",
+              "outcome": "leave"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "drop-after-choice-opened",
+      "description": "Dropping the lantern after the choice opens rejects the choice; closing it leaves the quest active.",
+      "prefix": {
+        "trace": "lantern-carry",
+        "from": 0,
+        "to": 9
+      },
+      "steps": [
+        {
+          "request": {
+            "id": "drop",
+            "actor": "hero",
+            "action": "drop"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "dropped",
+            "revision": 10,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 10,
+            "room": "landing",
+            "lantern": "landing",
+            "quest": "active",
+            "choice": "proof-choice:talk",
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "resolve",
+            "actor": "hero",
+            "action": "choose",
+            "input": {
+              "choice_id": "leave",
+              "continuation_id": "proof-choice:talk"
+            }
+          },
+          "result": {
+            "kind": "rejected",
+            "code": "not_owned",
+            "revision": 10,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 10,
+            "room": "landing",
+            "lantern": "landing",
+            "quest": "active",
+            "choice": "proof-choice:talk",
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "close",
+            "actor": "hero",
+            "action": "close_choice"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "choice_closed",
+            "revision": 11,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 11,
+            "room": "landing",
+            "lantern": "landing",
+            "quest": "active",
+            "choice": null,
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "moved-bram-rejects-new-choice",
+      "description": "After the schedule moves Bram away, a new choice is rejected and can be closed.",
+      "prefix": {
+        "trace": "lantern-carry",
+        "from": 0,
+        "to": 9
+      },
+      "steps": [
+        {
+          "request": {
+            "id": "wait",
+            "actor": "hero",
+            "action": "wait",
+            "input": {
+              "until": 19
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "waited",
+            "revision": 10,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 10,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": "proof-choice:talk",
+            "search_plan": "undecided",
+            "clock": 19,
+            "bram_room": "green",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "resolve",
+            "actor": "hero",
+            "action": "choose",
+            "input": {
+              "choice_id": "leave",
+              "continuation_id": "proof-choice:talk"
+            }
+          },
+          "result": {
+            "kind": "rejected",
+            "code": "not_present",
+            "revision": 10,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 10,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": "proof-choice:talk",
+            "search_plan": "undecided",
+            "clock": 19,
+            "bram_room": "green",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "close",
+            "actor": "hero",
+            "action": "close_choice"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "choice_closed",
+            "revision": 11,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 11,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": null,
+            "search_plan": "undecided",
+            "clock": 19,
+            "bram_room": "green",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "moved-bram-keeps-receipt",
+      "description": "A choice made before Bram moves still replays its receipt afterwards, without restoring the old view.",
+      "prefix": {
+        "trace": "lantern-carry",
+        "from": 0,
+        "to": 9
+      },
+      "steps": [
+        {
+          "request": {
+            "id": "resolve",
+            "actor": "hero",
+            "action": "choose",
+            "input": {
+              "choice_id": "leave",
+              "continuation_id": "proof-choice:talk"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "resolved_leave",
+            "revision": 10,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 10,
+            "room": "landing",
+            "lantern": "bram",
+            "quest": "resolved",
+            "choice": null,
+            "search_plan": "party_led",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [
+              {
+                "id": "proof-choice:talk:outcome",
+                "text_key": "proof.leave",
+                "bindings": {
+                  "actor": "hero",
+                  "bram": "bram",
+                  "lantern": "lantern"
+                }
+              }
+            ],
+            "milestone": {
+              "key": "proof.terminal",
+              "occurrence": "proof-choice:talk",
+              "outcome": "leave"
+            }
+          }
+        },
+        {
+          "request": {
+            "id": "wait",
+            "actor": "hero",
+            "action": "wait",
+            "input": {
+              "until": 19
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "waited",
+            "revision": 11,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 11,
+            "room": "landing",
+            "lantern": "bram",
+            "quest": "resolved",
+            "choice": null,
+            "search_plan": "party_led",
+            "clock": 19,
+            "bram_room": "green",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [
+              {
+                "id": "proof-choice:talk:outcome",
+                "text_key": "proof.leave",
+                "bindings": {
+                  "actor": "hero",
+                  "bram": "bram",
+                  "lantern": "lantern"
+                }
+              }
+            ],
+            "milestone": {
+              "key": "proof.terminal",
+              "occurrence": "proof-choice:talk",
+              "outcome": "leave"
+            }
+          }
+        },
+        {
+          "request": {
+            "id": "resolve",
+            "actor": "hero",
+            "action": "choose",
+            "input": {
+              "choice_id": "leave",
+              "continuation_id": "proof-choice:talk"
+            },
+            "view": "view:0"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "resolved_leave",
+            "revision": 10,
+            "delivery": "replay"
+          },
+          "state": {
+            "revision": 11,
+            "room": "landing",
+            "lantern": "bram",
+            "quest": "resolved",
+            "choice": null,
+            "search_plan": "party_led",
+            "clock": 19,
+            "bram_room": "green",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [
+              {
+                "id": "proof-choice:talk:outcome",
+                "text_key": "proof.leave",
+                "bindings": {
+                  "actor": "hero",
+                  "bram": "bram",
+                  "lantern": "lantern"
+                }
+              }
+            ],
+            "milestone": {
+              "key": "proof.terminal",
+              "occurrence": "proof-choice:talk",
+              "outcome": "leave"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "altered-choice",
+      "description": "Changing the ending under a used id conflicts; the original replays and narration is not repeated.",
+      "prefix": {
+        "trace": "lantern-carry",
+        "from": 0,
+        "to": 9
+      },
+      "steps": [
+        {
+          "request": {
+            "id": "resolve",
+            "actor": "hero",
+            "action": "choose",
+            "input": {
+              "choice_id": "leave",
+              "continuation_id": "proof-choice:talk"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "resolved_leave",
+            "revision": 10,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 10,
+            "room": "landing",
+            "lantern": "bram",
+            "quest": "resolved",
+            "choice": null,
+            "search_plan": "party_led",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [
+              {
+                "id": "proof-choice:talk:outcome",
+                "text_key": "proof.leave",
+                "bindings": {
+                  "actor": "hero",
+                  "bram": "bram",
+                  "lantern": "lantern"
+                }
+              }
+            ],
+            "milestone": {
+              "key": "proof.terminal",
+              "occurrence": "proof-choice:talk",
+              "outcome": "leave"
+            }
+          }
+        },
+        {
+          "request": {
+            "id": "resolve",
+            "actor": "hero",
+            "action": "choose",
+            "input": {
+              "choice_id": "carry",
+              "continuation_id": "proof-choice:talk"
+            }
+          },
+          "result": {
+            "kind": "rejected",
+            "code": "integrity_conflict",
+            "revision": 10,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 10,
+            "room": "landing",
+            "lantern": "bram",
+            "quest": "resolved",
+            "choice": null,
+            "search_plan": "party_led",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [
+              {
+                "id": "proof-choice:talk:outcome",
+                "text_key": "proof.leave",
+                "bindings": {
+                  "actor": "hero",
+                  "bram": "bram",
+                  "lantern": "lantern"
+                }
+              }
+            ],
+            "milestone": {
+              "key": "proof.terminal",
+              "occurrence": "proof-choice:talk",
+              "outcome": "leave"
+            }
+          }
+        },
+        {
+          "request": {
+            "id": "resolve",
+            "actor": "hero",
+            "action": "choose",
+            "input": {
+              "choice_id": "leave",
+              "continuation_id": "proof-choice:talk"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "resolved_leave",
+            "revision": 10,
+            "delivery": "replay"
+          },
+          "state": {
+            "revision": 10,
+            "room": "landing",
+            "lantern": "bram",
+            "quest": "resolved",
+            "choice": null,
+            "search_plan": "party_led",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [
+              {
+                "id": "proof-choice:talk:outcome",
+                "text_key": "proof.leave",
+                "bindings": {
+                  "actor": "hero",
+                  "bram": "bram",
+                  "lantern": "lantern"
+                }
+              }
+            ],
+            "milestone": {
+              "key": "proof.terminal",
+              "occurrence": "proof-choice:talk",
+              "outcome": "leave"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "choice-rollback",
+      "description": "A fault before COMMIT discards every choice consequence; the choice can then resolve.",
+      "prefix": {
+        "trace": "lantern-carry",
+        "from": 0,
+        "to": 9
+      },
+      "steps": [
+        {
+          "request": {
+            "id": "resolve",
+            "actor": "hero",
+            "action": "choose",
+            "input": {
+              "choice_id": "leave",
+              "continuation_id": "proof-choice:talk"
+            }
+          },
+          "options": {
+            "fault": "before_commit"
+          },
+          "result": {
+            "kind": "retryable",
+            "code": "rolled_back",
+            "revision": 9,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 9,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": "proof-choice:talk",
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "resolve",
+            "actor": "hero",
+            "action": "choose",
+            "input": {
+              "choice_id": "leave",
+              "continuation_id": "proof-choice:talk"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "resolved_leave",
+            "revision": 10,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 10,
+            "room": "landing",
+            "lantern": "bram",
+            "quest": "resolved",
+            "choice": null,
+            "search_plan": "party_led",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [
+              {
+                "id": "proof-choice:talk:outcome",
+                "text_key": "proof.leave",
+                "bindings": {
+                  "actor": "hero",
+                  "bram": "bram",
+                  "lantern": "lantern"
+                }
+              }
+            ],
+            "milestone": {
+              "key": "proof.terminal",
+              "occurrence": "proof-choice:talk",
+              "outcome": "leave"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "choice-unknown-commit-absent",
+      "description": "Unknown COMMIT of the choice, later known absent: retry runs new, one narration.",
+      "prefix": {
+        "trace": "lantern-carry",
+        "from": 0,
+        "to": 9
+      },
+      "steps": [
+        {
+          "request": {
+            "id": "resolve",
+            "actor": "hero",
+            "action": "choose",
+            "input": {
+              "choice_id": "leave",
+              "continuation_id": "proof-choice:talk"
+            }
+          },
+          "options": {
+            "fault": "commit_pending"
+          },
+          "result": {
+            "kind": "retryable",
+            "code": "commit_pending",
+            "revision": 9,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 9,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": "proof-choice:talk",
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "op": "recover",
+          "result": {
+            "kind": "retryable",
+            "code": "commit_pending",
+            "revision": 9,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 9,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": "proof-choice:talk",
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "other",
+            "actor": "hero",
+            "action": "wait",
+            "input": {
+              "until": 19
+            }
+          },
+          "result": {
+            "kind": "retryable",
+            "code": "commit_pending",
+            "revision": 9,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 9,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": "proof-choice:talk",
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "op": "settle",
+          "committed": false,
+          "result": null,
+          "state": {
+            "revision": 9,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": "proof-choice:talk",
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "op": "recover",
+          "result": {
+            "kind": "recovered",
+            "code": "recovered",
+            "revision": 9,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 9,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": "proof-choice:talk",
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "resolve",
+            "actor": "hero",
+            "action": "choose",
+            "input": {
+              "choice_id": "leave",
+              "continuation_id": "proof-choice:talk"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "resolved_leave",
+            "revision": 10,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 10,
+            "room": "landing",
+            "lantern": "bram",
+            "quest": "resolved",
+            "choice": null,
+            "search_plan": "party_led",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [
+              {
+                "id": "proof-choice:talk:outcome",
+                "text_key": "proof.leave",
+                "bindings": {
+                  "actor": "hero",
+                  "bram": "bram",
+                  "lantern": "lantern"
+                }
+              }
+            ],
+            "milestone": {
+              "key": "proof.terminal",
+              "occurrence": "proof-choice:talk",
+              "outcome": "leave"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "choice-unknown-commit-committed",
+      "description": "Unknown COMMIT of the choice, later known committed: retry replays, one narration.",
+      "prefix": {
+        "trace": "lantern-carry",
+        "from": 0,
+        "to": 9
+      },
+      "steps": [
+        {
+          "request": {
+            "id": "resolve",
+            "actor": "hero",
+            "action": "choose",
+            "input": {
+              "choice_id": "leave",
+              "continuation_id": "proof-choice:talk"
+            }
+          },
+          "options": {
+            "fault": "commit_pending"
+          },
+          "result": {
+            "kind": "retryable",
+            "code": "commit_pending",
+            "revision": 9,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 9,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": "proof-choice:talk",
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "op": "recover",
+          "result": {
+            "kind": "retryable",
+            "code": "commit_pending",
+            "revision": 9,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 9,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": "proof-choice:talk",
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "other",
+            "actor": "hero",
+            "action": "wait",
+            "input": {
+              "until": 19
+            }
+          },
+          "result": {
+            "kind": "retryable",
+            "code": "commit_pending",
+            "revision": 9,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 9,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": "proof-choice:talk",
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "op": "settle",
+          "committed": true,
+          "result": null,
+          "state": {
+            "revision": 9,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": "proof-choice:talk",
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          },
+          "durable": {
+            "revision": 10,
+            "room": "landing",
+            "lantern": "bram",
+            "quest": "resolved",
+            "choice": null,
+            "search_plan": "party_led",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [
+              {
+                "id": "proof-choice:talk:outcome",
+                "text_key": "proof.leave",
+                "bindings": {
+                  "actor": "hero",
+                  "bram": "bram",
+                  "lantern": "lantern"
+                }
+              }
+            ],
+            "milestone": {
+              "key": "proof.terminal",
+              "occurrence": "proof-choice:talk",
+              "outcome": "leave"
+            }
+          }
+        },
+        {
+          "op": "recover",
+          "result": {
+            "kind": "recovered",
+            "code": "recovered",
+            "revision": 10,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 10,
+            "room": "landing",
+            "lantern": "bram",
+            "quest": "resolved",
+            "choice": null,
+            "search_plan": "party_led",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [
+              {
+                "id": "proof-choice:talk:outcome",
+                "text_key": "proof.leave",
+                "bindings": {
+                  "actor": "hero",
+                  "bram": "bram",
+                  "lantern": "lantern"
+                }
+              }
+            ],
+            "milestone": {
+              "key": "proof.terminal",
+              "occurrence": "proof-choice:talk",
+              "outcome": "leave"
+            }
+          }
+        },
+        {
+          "request": {
+            "id": "resolve",
+            "actor": "hero",
+            "action": "choose",
+            "input": {
+              "choice_id": "leave",
+              "continuation_id": "proof-choice:talk"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "resolved_leave",
+            "revision": 10,
+            "delivery": "replay"
+          },
+          "state": {
+            "revision": 10,
+            "room": "landing",
+            "lantern": "bram",
+            "quest": "resolved",
+            "choice": null,
+            "search_plan": "party_led",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [
+              {
+                "id": "proof-choice:talk:outcome",
+                "text_key": "proof.leave",
+                "bindings": {
+                  "actor": "hero",
+                  "bram": "bram",
+                  "lantern": "lantern"
+                }
+              }
+            ],
+            "milestone": {
+              "key": "proof.terminal",
+              "occurrence": "proof-choice:talk",
+              "outcome": "leave"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "commit-before-display",
+      "description": "Committed before narration reached memory: recovery restores it once and the retry replays.",
+      "prefix": {
+        "trace": "lantern-carry",
+        "from": 0,
+        "to": 9
+      },
+      "steps": [
+        {
+          "request": {
+            "id": "resolve",
+            "actor": "hero",
+            "action": "choose",
+            "input": {
+              "choice_id": "leave",
+              "continuation_id": "proof-choice:talk"
+            }
+          },
+          "options": {
+            "fault": "after_commit_before_memory"
+          },
+          "result": {
+            "kind": "retryable",
+            "code": "commit_unknown",
+            "revision": 9,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 9,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": "proof-choice:talk",
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          },
+          "durable": {
+            "revision": 10,
+            "room": "landing",
+            "lantern": "bram",
+            "quest": "resolved",
+            "choice": null,
+            "search_plan": "party_led",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [
+              {
+                "id": "proof-choice:talk:outcome",
+                "text_key": "proof.leave",
+                "bindings": {
+                  "actor": "hero",
+                  "bram": "bram",
+                  "lantern": "lantern"
+                }
+              }
+            ],
+            "milestone": {
+              "key": "proof.terminal",
+              "occurrence": "proof-choice:talk",
+              "outcome": "leave"
+            }
+          }
+        },
+        {
+          "op": "recover",
+          "result": {
+            "kind": "recovered",
+            "code": "recovered",
+            "revision": 10,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 10,
+            "room": "landing",
+            "lantern": "bram",
+            "quest": "resolved",
+            "choice": null,
+            "search_plan": "party_led",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [
+              {
+                "id": "proof-choice:talk:outcome",
+                "text_key": "proof.leave",
+                "bindings": {
+                  "actor": "hero",
+                  "bram": "bram",
+                  "lantern": "lantern"
+                }
+              }
+            ],
+            "milestone": {
+              "key": "proof.terminal",
+              "occurrence": "proof-choice:talk",
+              "outcome": "leave"
+            }
+          }
+        },
+        {
+          "request": {
+            "id": "resolve",
+            "actor": "hero",
+            "action": "choose",
+            "input": {
+              "choice_id": "leave",
+              "continuation_id": "proof-choice:talk"
+            }
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "resolved_leave",
+            "revision": 10,
+            "delivery": "replay"
+          },
+          "state": {
+            "revision": 10,
+            "room": "landing",
+            "lantern": "bram",
+            "quest": "resolved",
+            "choice": null,
+            "search_plan": "party_led",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [
+              {
+                "id": "proof-choice:talk:outcome",
+                "text_key": "proof.leave",
+                "bindings": {
+                  "actor": "hero",
+                  "bram": "bram",
+                  "lantern": "lantern"
+                }
+              }
+            ],
+            "milestone": {
+              "key": "proof.terminal",
+              "occurrence": "proof-choice:talk",
+              "outcome": "leave"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "reading-has-no-effect",
+      "description": "Looking changes no time, RNG or game state.",
+      "prefix": {
+        "trace": "lantern-carry",
+        "from": 0,
+        "to": 9
+      },
+      "steps": [
+        {
+          "request": {
+            "id": "read-0",
+            "actor": "hero",
+            "action": "look"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "observed",
+            "revision": 9,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 9,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": "proof-choice:talk",
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "read-1",
+            "actor": "hero",
+            "action": "look"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "observed",
+            "revision": 9,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 9,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": "proof-choice:talk",
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "read-2",
+            "actor": "hero",
+            "action": "look"
+          },
+          "result": {
+            "kind": "accepted",
+            "code": "observed",
+            "revision": 9,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 9,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": "proof-choice:talk",
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "stale-choice-and-blocked-exit",
+      "description": "A new choice against an old view and an unavailable exit both leave state unchanged.",
+      "prefix": {
+        "trace": "lantern-carry",
+        "from": 0,
+        "to": 9
+      },
+      "steps": [
+        {
+          "request": {
+            "id": "resolve",
+            "actor": "hero",
+            "action": "choose",
+            "input": {
+              "choice_id": "leave",
+              "continuation_id": "proof-choice:talk"
+            },
+            "view": "view:0"
+          },
+          "result": {
+            "kind": "rejected",
+            "code": "stale_view",
+            "revision": 9,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 9,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": "proof-choice:talk",
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        },
+        {
+          "request": {
+            "id": "blocked",
+            "actor": "hero",
+            "action": "move",
+            "input": {
+              "direction": "west"
+            }
+          },
+          "result": {
+            "kind": "rejected",
+            "code": "exit_unavailable",
+            "revision": 9,
+            "delivery": "new"
+          },
+          "state": {
+            "revision": 9,
+            "room": "landing",
+            "lantern": "hero",
+            "quest": "active",
+            "choice": "proof-choice:talk",
+            "search_plan": "undecided",
+            "clock": 6,
+            "bram_room": "landing",
+            "rng": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "narration": [],
+            "milestone": null
+          }
+        }
+      ]
+    }
+  ]
+}

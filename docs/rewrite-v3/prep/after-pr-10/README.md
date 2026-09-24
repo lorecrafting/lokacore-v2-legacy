@@ -23,7 +23,7 @@ R0 approval or independent signoff. No A1 implementation is included here.
 
 | Stage | Must be ready first | What a pass does not establish |
 |---|---|---|
-| A1 | Accepted amended contract, all seven exact inputs, identified candidate/subject authors, genuinely independent expected-answer review, actual execution host and Node/TypeScript/Elixir/full-OTP versions, retained replayable locks/commands, independent A1 setup review | Hermes/BEAM Port/SQLite integration, physical-device qualification, A2 readiness, runtime selection or production |
+| A1 | Accepted amended contract, all eight exact inputs (ADR-069), identified candidate/subject authors, genuinely independent expected-answer review, actual execution host and Node/TypeScript/Elixir/full-OTP versions, retained replayable locks/commands, independent A1 setup review | Hermes/BEAM Port/SQLite integration, physical-device qualification, A2 readiness, runtime selection or production |
 | A2 | A1 plus complete native configuration/package/native locks, all fourteen tool identities, actual qualification phones, approved common host and new stage-bound setup review | Performance/persistence/fault results not yet executed |
 | R1 acceptance | All applicable original numerical/correctness/persistence/fault/load gates and independently reviewed retained results | R0, R2 production cutover, store approval or chapter release |
 
@@ -175,7 +175,7 @@ it. Full prior execution/provenance is in
 |---|---|---|
 | Owner | `r0-acceptance.pending.json`, accepted commit and source; setup's R0 binding | Done 2026-09-23: accepted `aaadaff`, recorded with the owner's words; setup binds it |
 | Setup preparer | `setup.pending.json`: host, authors, stage-required toolchain and `toolchain_lock`; later complete devices/native fields | Actual A1 environment/replayed locks first; native configuration and physical qualification inventory before A2. Preserve unknowns, owner-report provenance and explicit substitution decisions |
-| Independent expected-answer reviewer | `oracle-review.pending.json`: author separation, disposition, accepted revision and exact seven inputs | State/result bytes and adverse cases; numeric outputs AND next states; ordering/conflicts/invariants/budgets/receipts/rollback/unknown commit; both Lantern outcomes/early possession; documented scheduler and save-fork/restore limitations. Fable is nominated, not pre-approved |
+| Independent expected-answer reviewer | `oracle-review.pending.json`: author separation, disposition, accepted revision and exact eight inputs | State/result bytes and adverse cases; numeric outputs AND next states; ordering/conflicts/invariants/budgets/receipts/rollback/unknown commit; both Lantern outcomes/early possession; documented scheduler and save-fork/restore limitations. Fable is nominated, not pre-approved |
 | Independent setup reviewer | `setup-review.pending.json`: author separation, disposition and stage-specific digest | Actual stage-complete evidence and identity/provenance review. Reviewing A1 does not approve A2; preparing setup does not authorize self-review |
 
 ## Binding sequence and stage checks

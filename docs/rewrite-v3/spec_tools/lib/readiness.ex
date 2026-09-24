@@ -5,7 +5,7 @@ defmodule LokaSpec.Readiness do
   @type result :: :ok | {:error, String.t()}
   @root Path.expand("../..", __DIR__)
   @max_bytes 8 * 1024 * 1024
-  @inputs ~w(r1-acceptance-envelope.md conformance/numeric-profile.md conformance/numeric-vectors.json conformance/cases.json conformance/composition-profile.json conformance/composition-cases.json conformance/lantern-traces.json)
+  @inputs ~w(r1-acceptance-envelope.md conformance/numeric-profile.md conformance/numeric-vectors.json conformance/cases.json conformance/composition-profile.json conformance/composition-cases.json conformance/lantern-traces.json conformance/adverse-cases.json)
   @tools ~w(expo react_native hermes typescript node elixir otp sqlite sqlite_binding xcode ios_sdk android_sdk gradle jdk)
   @a1_tools ~w(typescript node elixir otp)
   @device ~w(qualification_class model sku soc installed_ram_gb os_version os_build architecture availability_record)

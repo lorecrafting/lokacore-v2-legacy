@@ -17,7 +17,7 @@ INPUTS = (
     'r1-acceptance-envelope.md', 'conformance/numeric-profile.md',
     'conformance/numeric-vectors.json', 'conformance/cases.json',
     'conformance/composition-profile.json', 'conformance/composition-cases.json',
-    'conformance/lantern-traces.json',
+    'conformance/lantern-traces.json', 'conformance/adverse-cases.json',
 )
 TOOLS = ('expo', 'react_native', 'hermes', 'typescript', 'node', 'elixir', 'otp',
          'sqlite', 'sqlite_binding', 'xcode', 'ios_sdk', 'android_sdk', 'gradle', 'jdk')
