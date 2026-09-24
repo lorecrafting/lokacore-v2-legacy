@@ -82,7 +82,10 @@ jobs:
           B="$RUNNER_TEMP/a2-android-evidence"
           cat > "$RUNNER_TEMP/report.gradle" <<'EOF'
           gradle.projectsEvaluated { g ->
-            def a = g.rootProject.project(':app').android
+            // Init scripts also run in included builds, which have no :app.
+            def app = g.rootProject.findProject(':app')
+            if (app == null) return
+            def a = app.android
             println "A2 compileSdk=${a.compileSdkVersion}"
             println "A2 buildToolsVersion=${a.buildToolsVersion}"
             println "A2 ndkVersion=${a.ndkVersion}"
