@@ -50,7 +50,7 @@ test('Python KeyError/TypeError shapes map to invalid_plan', () => {
   assert.equal(code({ initial: { ...initial, facts: { ...(initial.facts as JsonObject), count: 'x' } }, root: [{ op: 'fact.add', fact: 'count', amount: 1 }] }), 'invalid_plan');
   assert.equal(code({ initial: { ...initial, capacities: { bag: 'x' } } }), 'invalid_plan');
   assert.equal(code({ initial: { ...initial, locations: [1, 0], capacities: {} } }), 'containment_cycle'); // list indexing
-  assert.equal(code({ limits: { operations: 'x' }, root: [emit] }), 'invalid_plan');
+  assert.equal(code({ advance_target: null, root: [{ op: 'job.schedule', id: 'j', due: 7 }] }), 'ok'); // null = none
   assert.equal(code({ root: 'x' }), 'invalid_plan');
   assert.equal(code({ root: [{ op: 'job.schedule', id: '幻', due: 9 }] }), 'invalid_plan'); // non-ASCII key at output
 });

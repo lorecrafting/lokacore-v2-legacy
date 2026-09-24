@@ -1,5 +1,5 @@
 // Runner protocol dispatch (r1-spike/README.md). Pure: the Node runner only does I/O.
-import { Fault, canonical, has, isObject, obj, parse } from './codec.ts';
+import { Fault, canonical, has, isInt, isObject, obj, parse } from './codec.ts';
 import type { Json, JsonObject } from './codec.ts';
 import { divide, rngNext, uniform } from './numeric.ts';
 import { evaluate, PROFILE_LIMITS } from './composition.ts';
@@ -22,6 +22,11 @@ function out(pairs: { [k: string]: Json }): JsonObject {
   const o = obj();
   Object.assign(o, pairs);
   return o;
+}
+
+// Overrides must name profile limits and be positive integers (README edge rules).
+function validLimits(limits: Json): limits is JsonObject {
+  return isObject(limits) && Object.keys(limits).every((k) => has(PROFILE_LIMITS, k) && isInt(limits[k]) && (limits[k] as number) > 0);
 }
 
 function worldRun(req: JsonObject): Json {
@@ -53,7 +58,7 @@ export function handle(req: Json): Json {
       case 'world.run':
         return worldRun(req);
       case 'composition.evaluate': {
-        if (!fields(req, ['fn', 'limits', 'initial', 'root', 'rules'], ['advance_target']) || !isObject(req.limits)) return error(PROTOCOL_ERROR);
+        if (!fields(req, ['fn', 'limits', 'initial', 'root', 'rules'], ['advance_target']) || !validLimits(req.limits)) return error(PROTOCOL_ERROR);
         const limits = obj();
         Object.assign(limits, PROFILE_LIMITS, req.limits);
         return evaluate(limits, req.initial, req.root, req.rules, has(req, 'advance_target') ? req.advance_target : null);

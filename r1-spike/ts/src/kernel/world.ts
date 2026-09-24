@@ -162,7 +162,7 @@ export function lanternWorld(): World {
       const payload = (has(request, 'input') ? request.input : obj()) as JsonObject;
       const no = (code: string): Decision => ({ state: s, code, events: [], accepted: false });
       if (!Object.prototype.hasOwnProperty.call(ACTION_FIELDS_LANTERN, action) || !sameKeys(payload, ACTION_FIELDS_LANTERN[action])) return no('invalid_input');
-      if (action === 'look') return { state: s, code: 'observed', events: ['observed'], accepted: true };
+      if (action === 'look') return { state: s, code: 'observed', events: [], accepted: true };
       let code: string;
       if (action === 'activate') {
         if (s.quest !== 'absent' || s.room !== s.bram_room) return no('not_eligible');
