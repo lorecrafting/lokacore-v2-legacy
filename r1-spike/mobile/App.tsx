@@ -1,4 +1,5 @@
-// A2 native-evidence probe only: reports the running JS engine and SQLite, nothing else.
+// A2 native-evidence probe only: reports the running JS engine, SQLite and OS-visible memory, nothing else.
+import { requireNativeModule } from 'expo';
 import { openDatabaseSync } from 'expo-sqlite';
 import { Text, View } from 'react-native';
 
@@ -8,7 +9,9 @@ const hermes = typeof HermesInternal === 'object' ? HermesInternal?.getRuntimePr
 const sqlite = openDatabaseSync(':memory:').getFirstSync<{ v: string; s: string }>(
   'SELECT sqlite_version() AS v, sqlite_source_id() AS s',
 );
-const report = JSON.stringify({ hermes, sqlite }, null, 2);
+// Local module (modules/loka-memory): { api, bytes } from the platform API named in `api`.
+const memory = requireNativeModule<{ physicalMemory(): { api: string; bytes: string } }>('LokaMemory').physicalMemory();
+const report = JSON.stringify({ hermes, sqlite, memory }, null, 2);
 console.log('LOKA_A2_PROBE ' + report);
 
 export default function App() {

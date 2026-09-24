@@ -99,6 +99,8 @@ jobs:
           grep '^A2 ' "$B/gradle-build.log" | sed 's/^A2 //' | sort -u > "$B/native-config.txt"
           ./gradlew --no-daemon -PreactNativeArchitectures="$ABI" :app:dependencies \
             --configuration releaseRuntimeClasspath > "$B/release-runtime-classpath.txt"
+          # Buildscript classpath (Android Gradle Plugin version); not in the runtime classpath.
+          ./gradlew --no-daemon -PreactNativeArchitectures="$ABI" :app:buildEnvironment > "$B/build-environment.txt"
       - name: Record host, tools and APK facts
         working-directory: r1-spike/mobile/android
         run: |
