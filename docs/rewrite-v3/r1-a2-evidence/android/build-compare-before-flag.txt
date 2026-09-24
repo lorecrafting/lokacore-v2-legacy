@@ -1,0 +1,18 @@
+source_commit=314a129219b8153107895ea0091fe64c2d33b324 run_id=36019566499 run_attempt=1 ImageVersion=20260920.314.1 
+source_commit=314a129219b8153107895ea0091fe64c2d33b324 run_id=36019591785 run_attempt=1 ImageVersion=20260920.314.1 
+apk: 40a94dddcfed4e7bae28c91bfd2b1492b63355defc00188f735095974cb49a32 vs d53e47c2f90453ab6959a84a467971ae5e71e73e94ec188f4fe9a3aa73c6e33f
+--- JS bundle / Hermes bytecode / source maps (diff; empty means identical)
+(identical)
+--- APK entries whose sha256 differs
+< 7f9a95414d8673fbc0f9452f33648f0cb2a597dff6c0c47d6a67f461c4eb116f  ./resources.arsc
+> c68dcd4ae447aa32d9f52855dbb09d80ea231f85ad3f500bdecb2b87e7ad5f31  ./resources.arsc
+--- strings in resources.arsc that differ (unzip -p app-release.apk resources.arsc | strings)
+< 10.1.1.183
+> 10.1.1.170
+--- whole-file layout: zip entries before the APK Signing Block, the block's ID-value pairs, central directory + EOCD
+    (0x7109871a = v2 signature, 0x504b4453 = AGP dependency-info block, 0x42726577 = verity padding)
+zip entries [0, signing block): DIFFERENT bytes=27826720 013993733c8e274b7f01043157b04a9adcc8e193a15ab54c7ce0a50634054cf8 2b43fd007ce0308ea0fb57e6292aea7f5cb59b06c5fc539a64d65dac12324bcc
+central directory + EOCD: DIFFERENT bytes=79585 f855b774264149621317bbf8c212876879a8a84e2bd1852108832bfb4d1c0a9b e4b6a4d88863407d9fc29c05fea93fca4b8181e45c225484ac40d9aa84df315f
+signing block pair 0x7109871a: DIFFERENT bytes=1541 3fb799fcce9810c0ddcdaa4a3f4f4fd801b223e9443fa2d5f48bfc24fef0ac18 ce20f034ac6931a3e8dc681179fd5ef2fd78572b47e1501364c6426f8e853355
+signing block pair 0x504b4453: DIFFERENT bytes=7329 a49317d5ac070b7a4eb94d3d19e9b92a82c54e0ab8d74bd674d63678f6782171 b87b64f0ab295ed8b56d2d10e674a1af0784584fec6f3501725a68d803dfbd24
+signing block pair 0x42726577: same bytes=3350 8666bf4e7c362dbb4e61fd521ec47c8b13758425f80e10bdca5ace7162b8ec1b 8666bf4e7c362dbb4e61fd521ec47c8b13758425f80e10bdca5ace7162b8ec1b

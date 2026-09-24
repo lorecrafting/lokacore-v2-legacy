@@ -1,0 +1,16 @@
+observed_at_utc=2026-09-24T16:08:02Z
+source_commit=e61c52a32acaed915403cfbb2468d289e90da020
+event=workflow_dispatch
+repository=lorecrafting/lokacore
+workflow_ref=lorecrafting/lokacore/.github/workflows/r1-android-native.yml@refs/heads/r1-a2-mobile
+run_id=36024373520
+run_attempt=1
+runner_label=ubuntu-24.04
+ImageOS=ubuntu24
+ImageVersion=20260920.314.1
+RUNNER_ARCH=X64
+uname=Linux runnervmtr4k5 6.17.0-1022-azure #22-Ubuntu SMP Mon Jul 27 17:24:03 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+nproc=4
+mem_total_kib=16372440
+PRETTY_NAME="Ubuntu 24.04.5 LTS"
+VERSION_ID="24.04"

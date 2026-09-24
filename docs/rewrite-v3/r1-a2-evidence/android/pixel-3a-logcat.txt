@@ -1,0 +1,53 @@
+09-24 06:09:04.262  1541  1631 I ActivityManager: Start proc 16458:com.lorecrafting.lokar1a2/u0a240 for pre-top-activity {com.lorecrafting.lokar1a2/com.lorecrafting.lokar1a2.MainActivity}
+09-24 06:09:04.723 16458 16511 I ReactNativeJS: LOKA_A2_PROBE {"hermes":{"Bytecode Version":98,"Static Hermes":true,"Builtins Frozen":false,"VM Experiments":0,"Build":"Release","GC":"hades (concurrent)","OSS Release Version":"250829098.0.17","Debugger Enabled":false,"CommonJS Modules":"None"},"sqlite":{"version":"3.50.3","source_id":"2025-07-17 13:25:10 3ce993b8657d6d9deda380a93cdd6404a8c8ba1b185b2bc423703e41ae5f2543","journal_mode":"delete","synchronous":2},"memory":{"api":"ActivityManager.MemoryInfo.totalMem","bytes":"3766829056"}}
+09-24 06:09:04.724 16458 16511 I ReactNativeJS: Running "main"
+09-24 06:09:18.584 16458 16511 I ReactNativeJS: LOKA_A2_CASE 1/19 pre_decision raise
+09-24 06:09:18.660 16458 16511 I ReactNativeJS: LOKA_A2_CASE 2/19 pre_decision io_error
+09-24 06:09:18.724 16458 16511 I ReactNativeJS: LOKA_A2_CASE 3/19 pre_decision kill
+09-24 06:09:18.794  1541  1564 I ActivityManager: Process com.lorecrafting.lokar1a2 (pid 16458) has died: fg  TOP 
+09-24 06:09:20.655  1541  1631 I ActivityManager: Start proc 16740:com.lorecrafting.lokar1a2/u0a240 for pre-top-activity {com.lorecrafting.lokar1a2/com.lorecrafting.lokar1a2.MainActivity}
+09-24 06:09:21.065 16740 16766 I ReactNativeJS: LOKA_A2_PROBE {"hermes":{"Bytecode Version":98,"Static Hermes":true,"Builtins Frozen":false,"VM Experiments":0,"Build":"Release","GC":"hades (concurrent)","OSS Release Version":"250829098.0.17","Debugger Enabled":false,"CommonJS Modules":"None"},"sqlite":{"version":"3.50.3","source_id":"2025-07-17 13:25:10 3ce993b8657d6d9deda380a93cdd6404a8c8ba1b185b2bc423703e41ae5f2543","journal_mode":"delete","synchronous":2},"memory":{"api":"ActivityManager.MemoryInfo.totalMem","bytes":"3766829056"}}
+09-24 06:09:21.065 16740 16766 I ReactNativeJS: Running "main"
+09-24 06:09:21.241 16740 16766 I ReactNativeJS: LOKA_A2_CASE 3/19 pre_decision kill
+09-24 06:09:21.279 16740 16766 I ReactNativeJS: LOKA_A2_CASE 4/19 post_decision_pre_commit raise
+09-24 06:09:21.363 16740 16766 I ReactNativeJS: LOKA_A2_CASE 5/19 post_decision_pre_commit io_error
+09-24 06:09:21.468 16740 16766 I ReactNativeJS: LOKA_A2_CASE 6/19 post_decision_pre_commit kill
+09-24 06:09:21.582  1541  2966 I ActivityManager: Process com.lorecrafting.lokar1a2 (pid 16740) has died: fg  TOP 
+09-24 06:09:24.080  1541  1631 I ActivityManager: Start proc 16789:com.lorecrafting.lokar1a2/u0a240 for pre-top-activity {com.lorecrafting.lokar1a2/com.lorecrafting.lokar1a2.MainActivity}
+09-24 06:09:24.476 16789 16815 I ReactNativeJS: LOKA_A2_PROBE {"hermes":{"Bytecode Version":98,"Static Hermes":true,"Builtins Frozen":false,"VM Experiments":0,"Build":"Release","GC":"hades (concurrent)","OSS Release Version":"250829098.0.17","Debugger Enabled":false,"CommonJS Modules":"None"},"sqlite":{"version":"3.50.3","source_id":"2025-07-17 13:25:10 3ce993b8657d6d9deda380a93cdd6404a8c8ba1b185b2bc423703e41ae5f2543","journal_mode":"delete","synchronous":2},"memory":{"api":"ActivityManager.MemoryInfo.totalMem","bytes":"3766829056"}}
+09-24 06:09:24.477 16789 16815 I ReactNativeJS: Running "main"
+09-24 06:09:24.654 16789 16815 I ReactNativeJS: LOKA_A2_CASE 6/19 post_decision_pre_commit kill
+09-24 06:09:24.694 16789 16815 I ReactNativeJS: LOKA_A2_CASE 7/19 in_persistence raise
+09-24 06:09:24.779 16789 16815 I ReactNativeJS: LOKA_A2_CASE 8/19 in_persistence io_error
+09-24 06:09:24.871 16789 16815 I ReactNativeJS: LOKA_A2_CASE 9/19 in_persistence commit_unknown
+09-24 06:09:24.949 16789 16815 I ReactNativeJS: LOKA_A2_CASE 10/19 in_persistence kill
+09-24 06:09:25.053  1541  4742 I ActivityManager: Process com.lorecrafting.lokar1a2 (pid 16789) has died: fg  TOP 
+09-24 06:09:27.534  1541  1631 I ActivityManager: Start proc 16838:com.lorecrafting.lokar1a2/u0a240 for pre-top-activity {com.lorecrafting.lokar1a2/com.lorecrafting.lokar1a2.MainActivity}
+09-24 06:09:28.085 16838 16864 I ReactNativeJS: LOKA_A2_PROBE {"hermes":{"Bytecode Version":98,"Static Hermes":true,"Builtins Frozen":false,"VM Experiments":0,"Build":"Release","GC":"hades (concurrent)","OSS Release Version":"250829098.0.17","Debugger Enabled":false,"CommonJS Modules":"None"},"sqlite":{"version":"3.50.3","source_id":"2025-07-17 13:25:10 3ce993b8657d6d9deda380a93cdd6404a8c8ba1b185b2bc423703e41ae5f2543","journal_mode":"delete","synchronous":2},"memory":{"api":"ActivityManager.MemoryInfo.totalMem","bytes":"3766829056"}}
+09-24 06:09:28.086 16838 16864 I ReactNativeJS: Running "main"
+09-24 06:09:28.266 16838 16864 I ReactNativeJS: LOKA_A2_CASE 10/19 in_persistence kill
+09-24 06:09:28.306 16838 16864 I ReactNativeJS: LOKA_A2_CASE 11/19 post_commit_pre_adoption raise
+09-24 06:09:28.414 16838 16864 I ReactNativeJS: LOKA_A2_CASE 12/19 post_commit_pre_adoption io_error
+09-24 06:09:28.499 16838 16864 I ReactNativeJS: LOKA_A2_CASE 13/19 post_commit_pre_adoption kill
+09-24 06:09:28.603  1541  7340 I ActivityManager: Process com.lorecrafting.lokar1a2 (pid 16838) has died: fg  TOP 
+09-24 06:09:30.959  1541  1631 I ActivityManager: Start proc 16886:com.lorecrafting.lokar1a2/u0a240 for pre-top-activity {com.lorecrafting.lokar1a2/com.lorecrafting.lokar1a2.MainActivity}
+09-24 06:09:31.368 16886 16912 I ReactNativeJS: LOKA_A2_PROBE {"hermes":{"Bytecode Version":98,"Static Hermes":true,"Builtins Frozen":false,"VM Experiments":0,"Build":"Release","GC":"hades (concurrent)","OSS Release Version":"250829098.0.17","Debugger Enabled":false,"CommonJS Modules":"None"},"sqlite":{"version":"3.50.3","source_id":"2025-07-17 13:25:10 3ce993b8657d6d9deda380a93cdd6404a8c8ba1b185b2bc423703e41ae5f2543","journal_mode":"delete","synchronous":2},"memory":{"api":"ActivityManager.MemoryInfo.totalMem","bytes":"3766829056"}}
+09-24 06:09:31.368 16886 16912 I ReactNativeJS: Running "main"
+09-24 06:09:31.562 16886 16912 I ReactNativeJS: LOKA_A2_CASE 13/19 post_commit_pre_adoption kill
+09-24 06:09:31.597 16886 16912 I ReactNativeJS: LOKA_A2_CASE 14/19 post_adoption_pre_response raise
+09-24 06:09:31.693 16886 16912 I ReactNativeJS: LOKA_A2_CASE 15/19 post_adoption_pre_response io_error
+09-24 06:09:31.793 16886 16912 I ReactNativeJS: LOKA_A2_CASE 16/19 post_adoption_pre_response kill
+09-24 06:09:31.865  1541  4437 I ActivityManager: Process com.lorecrafting.lokar1a2 (pid 16886) has died: fg  TOP 
+09-24 06:09:34.417  1541  1631 I ActivityManager: Start proc 16936:com.lorecrafting.lokar1a2/u0a240 for pre-top-activity {com.lorecrafting.lokar1a2/com.lorecrafting.lokar1a2.MainActivity}
+09-24 06:09:34.821 16936 16962 I ReactNativeJS: LOKA_A2_PROBE {"hermes":{"Bytecode Version":98,"Static Hermes":true,"Builtins Frozen":false,"VM Experiments":0,"Build":"Release","GC":"hades (concurrent)","OSS Release Version":"250829098.0.17","Debugger Enabled":false,"CommonJS Modules":"None"},"sqlite":{"version":"3.50.3","source_id":"2025-07-17 13:25:10 3ce993b8657d6d9deda380a93cdd6404a8c8ba1b185b2bc423703e41ae5f2543","journal_mode":"delete","synchronous":2},"memory":{"api":"ActivityManager.MemoryInfo.totalMem","bytes":"3766829056"}}
+09-24 06:09:34.821 16936 16962 I ReactNativeJS: Running "main"
+09-24 06:09:35.007 16936 16962 I ReactNativeJS: LOKA_A2_CASE 16/19 post_adoption_pre_response kill
+09-24 06:09:35.041 16936 16962 I ReactNativeJS: LOKA_A2_CASE 17/19 post_response_pre_presentation raise
+09-24 06:09:35.134 16936 16962 I ReactNativeJS: LOKA_A2_CASE 18/19 post_response_pre_presentation io_error
+09-24 06:09:35.236 16936 16962 I ReactNativeJS: LOKA_A2_CASE 19/19 post_response_pre_presentation kill
+09-24 06:09:35.367  1541  7340 I ActivityManager: Process com.lorecrafting.lokar1a2 (pid 16936) has died: fg  TOP 
+09-24 06:09:37.924  1541  1631 I ActivityManager: Start proc 16984:com.lorecrafting.lokar1a2/u0a240 for pre-top-activity {com.lorecrafting.lokar1a2/com.lorecrafting.lokar1a2.MainActivity}
+09-24 06:09:38.326 16984 17010 I ReactNativeJS: LOKA_A2_PROBE {"hermes":{"Bytecode Version":98,"Static Hermes":true,"Builtins Frozen":false,"VM Experiments":0,"Build":"Release","GC":"hades (concurrent)","OSS Release Version":"250829098.0.17","Debugger Enabled":false,"CommonJS Modules":"None"},"sqlite":{"version":"3.50.3","source_id":"2025-07-17 13:25:10 3ce993b8657d6d9deda380a93cdd6404a8c8ba1b185b2bc423703e41ae5f2543","journal_mode":"delete","synchronous":2},"memory":{"api":"ActivityManager.MemoryInfo.totalMem","bytes":"3766829056"}}
+09-24 06:09:38.327 16984 17010 I ReactNativeJS: Running "main"
+09-24 06:09:38.519 16984 17010 I ReactNativeJS: LOKA_A2_CASE 19/19 post_response_pre_presentation kill
+09-24 06:09:38.735 16984 17010 I ReactNativeJS: LOKA_A2_DONE {"host":"phone-android","differential":{"host_mismatches":0,"lines":139,"sha256":"79abbb36af5086fb7737dc700bca03efd23db5fd16150c89faeca294b7ab69c3","world_runs":52},"faults":{"cases":19,"pass":19},"launches":7,"runtime":{"hermes":{"Bytecode Version":98,"Static Hermes":true,"Builtins Frozen":false,"VM Experiments":0,"Build":"Release","GC":"hades (concurrent)","OSS Release Version":"250829098.0.17","Debugger Enabled":false,"CommonJS Modules":"None"},"sqlite":{"version":"3.50.3","source_id":"2025-07-17 13:25:10 3ce993b8657d6d9deda380a93cdd6404a8c8ba1b185b2bc423703e41ae5f2543","journal_mode":"delete","synchronous":2},"memory":{"api":"ActivityManager.MemoryInfo.totalMem","bytes":"3766829056"}}}

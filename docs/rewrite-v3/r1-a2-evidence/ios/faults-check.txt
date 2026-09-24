@@ -1,0 +1,22 @@
+pre_decision raise tiny-event committed=false pass elixir_agrees=true
+pre_decision io_error tiny-state committed=false pass elixir_agrees=true
+pre_decision kill lantern committed=false pass elixir_agrees=true
+post_decision_pre_commit raise tiny-event committed=false pass elixir_agrees=true
+post_decision_pre_commit io_error tiny-state committed=false pass elixir_agrees=true
+post_decision_pre_commit kill lantern committed=false pass elixir_agrees=true
+in_persistence raise tiny-event committed=false pass elixir_agrees=true
+in_persistence io_error tiny-state committed=false pass elixir_agrees=true
+in_persistence commit_unknown lantern committed=true pass elixir_agrees=true
+in_persistence kill tiny-event committed=false pass elixir_agrees=true
+post_commit_pre_adoption raise tiny-state committed=true pass elixir_agrees=true
+post_commit_pre_adoption io_error lantern committed=true pass elixir_agrees=true
+post_commit_pre_adoption kill tiny-event committed=true pass elixir_agrees=true
+post_adoption_pre_response raise tiny-state committed=true pass elixir_agrees=true
+post_adoption_pre_response io_error lantern committed=true pass elixir_agrees=true
+post_adoption_pre_response kill tiny-event committed=true pass elixir_agrees=true
+post_response_pre_presentation raise tiny-state committed=true pass elixir_agrees=true
+post_response_pre_presentation io_error lantern committed=true pass elixir_agrees=true
+post_response_pre_presentation kill tiny-event committed=true pass elixir_agrees=true
+cases=19 failures=0
+exit=0
+symbolication: node node_modules/metro-symbolicate/src/index.js <build-2/main.jsbundle.map> < stack (scripts/check.mjs); xcrun atos -o LokaR1A2.app.dSYM/Contents/Resources/DWARF/LokaR1A2 -arch arm64 -l <base> <addr> (kill-stacks-symbolicated.txt)

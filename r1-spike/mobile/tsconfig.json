@@ -1,4 +1,5 @@
 {
   "extends": "expo/tsconfig.base.json",
-  "compilerOptions": { "strict": true }
+  "compilerOptions": { "strict": true, "noEmit": true, "allowImportingTsExtensions": true },
+  "exclude": ["node_modules", "scripts"]
 }
