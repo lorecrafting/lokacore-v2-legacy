@@ -51,6 +51,13 @@ accepted commit that still says R0 is pending is superseded by this record;
 change it only through a reviewed amendment. The exact fresh production
 URL/import commit is an R2 record, not needed now.
 
+Later on 2026-09-23 the independent oracle review found the seven inputs froze
+only success paths. The owner chose to add `conformance/adverse-cases.json` as an
+eighth input (ADR-069), and after Fable's approval of all eight accepted the
+amended contract `f5bef28a3094083fed67712c771504954d65d2de`. The R0 record now
+names that commit, and `oracle-review.pending.json` holds the approval, citing
+three review reports. The A1 setup review is next.
+
 ## Hardware and preview workflow
 
 | Device | Evidence currently available | Intended role / missing facts |

@@ -1,11 +1,15 @@
 {
-  "accepted_spec_commit": null,
-  "disposition": "pending",
-  "reviewer_id": null,
-  "independent_of_candidate_authorship": null,
-  "subject_author_ids": [],
-  "independent_of_subject_authorship": null,
-  "note": "Fable on Claude Code was nominated by the owner, and the owner confirmed on 2026-09-23 that a fresh Fable agent counts as independent. Its review of the seven inputs at 762a424 (reviews/2026-09-23-oracle-review.md) approved with notes; finding F1 added conformance/adverse-cases.json (ADR-069), so this receipt stays pending until the eight inputs are reviewed. The first review of the eighth input (reviews/2026-09-23-oracle-review-adverse.md) blocked on one value, A1, since corrected.",
+  "accepted_spec_commit": "f5bef28a3094083fed67712c771504954d65d2de",
+  "disposition": "approved",
+  "reviewer_id": "Fable reviewer: a fresh Claude Fable 5.1 agent on Claude Code (not a fork), nominated by the owner and launched by the implementing assistant on 2026-09-23 under the owner account lorecrafting; one agent session wrote all three reports",
+  "independent_of_candidate_authorship": true,
+  "subject_author_ids": [
+    "lorecrafting (author label of 3e0aff9: numeric profile, numeric vectors, cases)",
+    "Loka readiness assistant (author label of d3659ca: composition profile and cases, Lantern traces)",
+    "Claude Code implementing assistant, Claude Opus (envelope amendments b0eb3d6..aaadaff; adverse-cases.json and ADR-069 in PRs #22 and #24)"
+  ],
+  "independent_of_subject_authorship": true,
+  "note": "Approved with notes. Reports: reviews/2026-09-23-oracle-review.md (seven inputs at 762a424, APPROVE WITH NOTES; F1 led to ADR-069), reviews/2026-09-23-oracle-review-adverse.md (eighth input at 9b4b056, blocked on A1) and reviews/2026-09-23-oracle-recheck-adverse.md (all eight at 3e18cf8, APPROVE WITH NOTES). Open notes: A2 (authority revision appears in pre-authorization rejections) and the coverage limits listed in those reports. The owner confirmed on 2026-09-23 that a fresh Fable agent counts as independent. Disclosed: earlier fresh Fable agents reviewed the readiness-checker corrections and amendments; git history shows no Fable authorship of any expected answer. No R1 candidate exists yet; the reviewer must not author one.",
   "inputs": [
     {
       "path": "r1-acceptance-envelope.md",
