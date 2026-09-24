@@ -80,6 +80,7 @@ Accepted design direction is not R0 approval or implementation completion. Provi
 - [ADR-066 — Initial run lifetime and local recovery](#adr-066--initial-run-lifetime-and-local-recovery)
 - [ADR-067 — Bounded start, early representation review, no speculative expansion](#adr-067--bounded-start-early-representation-review-no-speculative-expansion)
 - [ADR-068 — Candidate C first, with randomized differential testing](#adr-068--candidate-c-first-with-randomized-differential-testing)
+- [ADR-069 — Adverse known answers are an eighth frozen input](#adr-069--adverse-known-answers-are-an-eighth-frozen-input)
 
 </details>
 <!-- packet-navigation:end -->
@@ -851,3 +852,9 @@ Close the readiness checklist, freeze oracles/A1 execution setup then native/phy
 The owner wants the online server to stay a single Elixir/OTP runtime, without a Node process beside the BEAM. R1 therefore tests C first: pure Elixir online and TypeScript on the phone, held to one semantic schema, the reviewed known-answer fixtures and randomized differential testing (`r1-acceptance-envelope.md` §3). If C fails a MUST row, evaluate B, a single Rust kernel with a declared BEAM boundary; if B fails, evaluate A. Numerical ceilings, stages and preparation gates are unchanged.
 
 A 2026-09-23 feasibility probe (`probes/elixir-wasm/`, not R1 evidence) found that the Hermes version in the retained lock has no WebAssembly, SharedArrayBuffer, Atomics or Worker, so an Elixir kernel cannot run in React Native's engine; the hidden-WebView alternative was declined by the owner. C accepts permanent two-implementation maintenance; differential testing and shared fixtures are its drift control, not a proof of correctness.
+
+## ADR-069 — Adverse known answers are an eighth frozen input
+
+**Status:** Proposed amendment to the accepted R0 contract `aaadaffff02e459dbf04e71d6ddc81d75eacf986`, 2026-09-23, chosen by the owner after the independent oracle review; expected-answer review and owner acceptance pending.
+
+The oracle review of the seven inputs (`reviews/2026-09-23-oracle-review.md`, finding F1) found that they freeze only success paths. Failed checks, rejections, conflicts, stale views, rollback, unknown COMMIT, response loss, budgets, bounds, rejection sampling and the adverse Lantern paths existed only as Python assertions, which no input hash binds; a candidate that restores the RNG after a failed check passed every frozen fixture. `conformance/adverse-cases.json` now freezes those answers as data, in the existing `cases.json`, `composition-cases.json` and `lantern-traces.json` shapes, and becomes the eighth input bound by both readiness checkers, the setup and oracle records and `spec_tools/preserved-inputs.json`. It records what the retained checks already asserted; it adds no behavior. Publication is frozen only where the contract requires it (nothing before COMMIT, no duplicate on response loss), because document 04 §2 permits but does not require fan-out of committed events after recovery. Selector overflow stays a model-level check: no registered operation reaches it.

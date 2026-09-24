@@ -82,6 +82,10 @@
     {
       "path": "conformance/lantern-traces.json",
       "sha256": "e5aaf947a7978520752f2aeee9665d171a917b97311952b3c347167faf392a89"
+    },
+    {
+      "path": "conformance/adverse-cases.json",
+      "sha256": "c4c780e3bbf13b15f17cff096c5f92f884efda00d71171cf0c4bbdd7911cc634"
     }
   ],
   "r0_acceptance": {
@@ -90,7 +94,7 @@
   },
   "oracle_review": {
     "path": "prep/after-pr-10/oracle-review.pending.json",
-    "sha256": "f5d40d6ae8b9bac15cc63a7e0c56c8050f7b27f8aa57ebd5aabfcb161cde1713"
+    "sha256": "5644f0b235bbb31f7840c5a2b8b3b6349943d2a461a6bf5534f8f2093f2acf7b"
   },
   "setup_review": {
     "path": "prep/after-pr-10/setup-review.pending.json",

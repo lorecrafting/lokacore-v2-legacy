@@ -21,6 +21,10 @@ No code or fixtures here are ported from legacy Lokacore. The only named externa
 
 `cases.json` fixes activation-before-credit, the no-retroactive-credit negative control, explicit state credit, matching retries, consumed choices and scheduled time. `checks/test_contracts.py` adds failed checks, changed intent, stale views, rollback and uncertain commit acknowledgement. The consumed-offer model is a separate narrow contract example, not a claim that the two-room YAML has been compiled or extended. Canonical projected states include revision, RNG state, quest/fact, and containment so visible success cannot hide divergence.
 
+`adverse-cases.json` (ADR-069) freezes those adverse answers as data, so a candidate is held to them rather than to Python assertions. `uniform` rows give a state, bound and draw budget with either the value and next state or the typed error. `tiny` cases use the `cases.json` step shape, with an optional `initial_state`. `lantern` cases first replay the requests of `lantern-traces.json` steps `from` up to (not including) `to`. Their steps add `op` (`invoke`, the default, or `recover` or `settle` with `committed`) and `options.fault` or `options.authorized: false`. `state` is memory after the step, `durable` appears only when storage differs, and `published` only where the contract fixes publication. `composition` cases use the `composition-cases.json` shape, with optional `limits` overrides and `advance_target`. `checks/test_adverse.py` runs the models against the file and shows that the restored-RNG mutant fails it.
+
+The fixture files are indented for reading. The canonical encoding in `numeric-profile.md` governs the state and result bytes a candidate compares, not the layout of these files. The composition registry runs rules in ordinal order of their `id` strings, whatever order the file lists them in (`canonical-registry-order`).
+
 `numeric-vectors.json` fixes RNG output **and next state**, signed division/remainder, and numeric edges under the proposed numeric profile. The algorithm is specified independently in `numeric-profile.md`; candidate implementations must match the frozen values, not merely each other.
 
 ## R1 adapters must supply the missing evidence
@@ -71,7 +75,7 @@ Required real candidate adapters still emit the full fixture files listed above,
 Both checkers accept `--stage A1` for the reviewed semantic execution setup and
 `--stage A2` for full native/physical preparation. Omitting it retains A2's
 strict requirements. Both permanent blank and actual pending records fail both.
-The existing schema/version, field set, seven inputs and author-separation rules
+The existing schema/version, field set, eight inputs (ADR-069) and author-separation rules
 remain. Unknown native/phone details may be null at A1, not A2; supplied details
 remain typed and included in the setup digest. A1 must still have actual host,
 Node/TypeScript/Elixir/full-OTP versions, retained reproducible locks and genuine
