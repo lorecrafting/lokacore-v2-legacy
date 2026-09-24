@@ -1,0 +1,29 @@
+## sw_vers
+ProductName:		macOS
+ProductVersion:		26.6.2
+BuildVersion:		25G83
+## sysctl hw.model hw.ncpu hw.memsize
+hw.model: MacBookAir10,1
+hw.ncpu: 8
+hw.memsize: 17179869184
+## elixir --version
+Erlang/OTP 28 [erts-16.3] [source] [64-bit] [smp:8:8] [ds:8:8:10] [async-threads:1] [jit]
+
+Elixir 1.20.4 (compiled with Erlang/OTP 28)
+## erlang OTP release
+28
+## mise --version
+2026.9.6 macos-arm64 (2026-09-12)
+mise WARN  mise version 2026.9.12 available
+mise WARN  self-update is disabled for this install, update mise the same way you installed it
+## cc --version (builds the exqlite NIF from source)
+Apple clang version 21.0.0 (clang-2100.3.34.2)
+Target: arm64-apple-darwin25.6.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+## exqlite and dependencies (mix.lock)
+"cc_precompiler": {:hex, :cc_precompiler, "0.1.11"
+"db_connection": {:hex, :db_connection, "2.10.2"
+"elixir_make": {:hex, :elixir_make, "0.10.0"
+"exqlite": {:hex, :exqlite, "0.40.0"
+"telemetry": {:hex, :telemetry, "1.4.2"

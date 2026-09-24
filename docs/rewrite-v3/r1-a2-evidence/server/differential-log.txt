@@ -1,0 +1,2 @@
+r1.diff generator=r1-gen-3 base_seed=20260924 regression=22 fresh=10000
+r1.diff result=pass sequences=10022 requests=20044 elapsed_ms=115781 fn_counts=%{"composition.evaluate" => 4865, "int.divide" => 796, "json.canonical" => 1488, "malformed" => 1099, "rng.next" => 816, "rng.uniform" => 786, "world.run" => 10194}

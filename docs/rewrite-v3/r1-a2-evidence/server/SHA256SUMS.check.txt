@@ -1,0 +1,9 @@
+differential-log.txt: OK
+differential-summary.json: OK
+faults-summary.txt: OK
+faults.jsonl: OK
+host-facts.txt: OK
+mutant-log.txt: OK
+mutant-summary.json: OK
+source-commit.txt: OK
+sqlite-identity.json: OK
