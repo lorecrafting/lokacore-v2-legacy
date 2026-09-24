@@ -1,0 +1,81 @@
+name: R1 spike (candidate C)
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'r1-spike/**'
+      - '.github/workflows/r1-spike.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'r1-spike/**'
+      - '.github/workflows/r1-spike.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  r1-spike:
+    name: R1 runners and differential test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124
+        with:
+          otp-version: '28.4'
+          elixir-version: '1.20.4'
+          version-type: strict
+          install-hex: false
+          install-rebar: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: '24.21.0'
+      - name: Pin npm
+        run: |
+          set -euo pipefail
+          npm install -g npm@11.19.0 --ignore-scripts --no-audit --no-fund
+          test "$(npm -v)" = 11.19.0
+      - name: Elixir runner format, compile and test
+        working-directory: r1-spike/elixir
+        run: |
+          set -euo pipefail
+          mix format --check-formatted
+          mix compile --warnings-as-errors
+          mix test
+      - name: TypeScript runner install, type check and test
+        working-directory: r1-spike/ts
+        run: |
+          set -euo pipefail
+          npm ci --ignore-scripts --no-audit --no-fund
+          node node_modules/typescript/bin/tsc -p .
+          node --test test/
+      - name: Harness format and test
+        working-directory: r1-spike/harness
+        run: |
+          set -euo pipefail
+          mix format --check-formatted
+          mix compile --warnings-as-errors
+          mix test
+      - name: Differential test (regression seeds + 10,000 fresh sequences)
+        working-directory: r1-spike/harness
+        run: |
+          set -euo pipefail
+          seed=$(( GITHUB_RUN_ID * 10 + GITHUB_RUN_ATTEMPT ))
+          echo "r1.diff base seed: $seed (run $GITHUB_RUN_ID attempt $GITHUB_RUN_ATTEMPT)"
+          # The runner must not compile while serving: mix output would corrupt stdout.
+          (cd ../elixir && mix compile)
+          mix r1.diff --sequences 10000 --seed "$seed" --report "$RUNNER_TEMP/r1-diff-summary.json"
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: r1-diff-summary
+          path: ${{ runner.temp }}/r1-diff-summary.json
+          if-no-files-found: warn
+          retention-days: 30
