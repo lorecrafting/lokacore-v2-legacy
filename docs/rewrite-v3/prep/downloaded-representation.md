@@ -1,6 +1,6 @@
 # PREP-03: downloaded representation / investment risk
 
-**Disposition: preparation reviewed; owner investment disposition PENDING.**
+**Disposition: preparation reviewed; owner investment disposition recorded 2026-09-24** ([option 1 plus the bundled fallback](owner-decision-prep-03-2026-09-24.md)).
 No exact-app review, App Store approval or production authorization is claimed.
 This is not a new marketplace, scripting language or commerce work package.
 
