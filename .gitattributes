@@ -1,3 +1,5 @@
 # Use bd merge for beads JSONL files
 .beads/issues.jsonl merge=beads
 *.mp3 filter=lfs diff=lfs merge=lfs -text
+# Retained raw tool output: bytes are hashed, so whitespace is never corrected.
+docs/rewrite-v3/prep/after-pr-10/a2-android-evidence/** -whitespace
