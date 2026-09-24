@@ -1,8 +1,8 @@
-# A2 probe only: local module reporting OS-visible physical memory.
+# A2 local module: OS-visible physical memory, evidence files and process death.
 Pod::Spec.new do |s|
   s.name           = 'LokaMemory'
   s.version        = '0.0.0'
-  s.summary        = 'A2 probe: OS-visible physical memory'
+  s.summary        = 'A2: memory probe, evidence files, process death'
   s.license        = 'UNLICENSED'
   s.author         = 'lorecrafting'
   s.homepage       = 'https://github.com/lorecrafting/lokacore'
