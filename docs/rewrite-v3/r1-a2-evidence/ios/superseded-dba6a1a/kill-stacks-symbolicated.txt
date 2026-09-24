@@ -1,8 +1,8 @@
-=== LokaR1A2-2026-09-24-061544.ips exception=EXC_CRASH SIGABRT
+=== LokaR1A2-2026-09-24-053908.000.ips exception=EXC_CRASH SIGABRT
  0 libsystem_kernel.dylib +0xb1d0  __pthread_kill
  1 libsystem_pthread.dylib +0x77dc  pthread_kill
  2 libsystem_c.dylib      +0x76fcc  abort
- 3 LokaR1A2               +0x114cbc  atos(dSYM uuid 3af1cfcf-af02-3f33-b877-0cd995e54042): closure #3 in LokaMemoryModule.definition() (in LokaR1A2) (LokaMemoryModule.swift:17)
+ 3 LokaR1A2               +0x114cbc  atos(dSYM uuid 717a4a7b-fd51-3705-b028-ab29de4bf275): closure #3 in LokaMemoryModule.definition() (in LokaR1A2) (LokaMemoryModule.swift:17)
  4 ExpoModulesCore        +0x254e4  thunk for @escaping @callee_guaranteed () -> (@out A, @error @owned Error)
  5 ExpoModulesCore        +0x27528  partial apply for thunk for @escaping @callee_guaranteed () -> (@out A, @error @owned Error)
  6 ExpoModulesCore        +0x8ecc4  SyncFunctionDefinition.runBody(_:in:this:arguments:)
@@ -39,11 +39,11 @@
 37 Foundation             +0x8e914  __NSThread__start__
 38 libsystem_pthread.dylib +0x4438  _pthread_start
 39 libsystem_pthread.dylib +0x8cc  thread_start
-=== LokaR1A2-2026-09-24-061548.ips exception=EXC_CRASH SIGABRT
+=== LokaR1A2-2026-09-24-053908.ips exception=EXC_CRASH SIGABRT
  0 libsystem_kernel.dylib +0xb1d0  __pthread_kill
  1 libsystem_pthread.dylib +0x77dc  pthread_kill
  2 libsystem_c.dylib      +0x76fcc  abort
- 3 LokaR1A2               +0x114cbc  atos(dSYM uuid 3af1cfcf-af02-3f33-b877-0cd995e54042): closure #3 in LokaMemoryModule.definition() (in LokaR1A2) (LokaMemoryModule.swift:17)
+ 3 LokaR1A2               +0x114cbc  atos(dSYM uuid 717a4a7b-fd51-3705-b028-ab29de4bf275): closure #3 in LokaMemoryModule.definition() (in LokaR1A2) (LokaMemoryModule.swift:17)
  4 ExpoModulesCore        +0x254e4  thunk for @escaping @callee_guaranteed () -> (@out A, @error @owned Error)
  5 ExpoModulesCore        +0x27528  partial apply for thunk for @escaping @callee_guaranteed () -> (@out A, @error @owned Error)
  6 ExpoModulesCore        +0x8ecc4  SyncFunctionDefinition.runBody(_:in:this:arguments:)
@@ -80,11 +80,11 @@
 37 Foundation             +0x8e914  __NSThread__start__
 38 libsystem_pthread.dylib +0x4438  _pthread_start
 39 libsystem_pthread.dylib +0x8cc  thread_start
-=== LokaR1A2-2026-09-24-061554.ips exception=EXC_CRASH SIGABRT
+=== LokaR1A2-2026-09-24-053914.ips exception=EXC_CRASH SIGABRT
  0 libsystem_kernel.dylib +0xb1d0  __pthread_kill
  1 libsystem_pthread.dylib +0x77dc  pthread_kill
  2 libsystem_c.dylib      +0x76fcc  abort
- 3 LokaR1A2               +0x114cbc  atos(dSYM uuid 3af1cfcf-af02-3f33-b877-0cd995e54042): closure #3 in LokaMemoryModule.definition() (in LokaR1A2) (LokaMemoryModule.swift:17)
+ 3 LokaR1A2               +0x114cbc  atos(dSYM uuid 717a4a7b-fd51-3705-b028-ab29de4bf275): closure #3 in LokaMemoryModule.definition() (in LokaR1A2) (LokaMemoryModule.swift:17)
  4 ExpoModulesCore        +0x254e4  thunk for @escaping @callee_guaranteed () -> (@out A, @error @owned Error)
  5 ExpoModulesCore        +0x27528  partial apply for thunk for @escaping @callee_guaranteed () -> (@out A, @error @owned Error)
  6 ExpoModulesCore        +0x8ecc4  SyncFunctionDefinition.runBody(_:in:this:arguments:)
@@ -128,11 +128,11 @@
 44 Foundation             +0x8e914  __NSThread__start__
 45 libsystem_pthread.dylib +0x4438  _pthread_start
 46 libsystem_pthread.dylib +0x8cc  thread_start
-=== LokaR1A2-2026-09-24-061558.ips exception=EXC_CRASH SIGABRT
+=== LokaR1A2-2026-09-24-053919.ips exception=EXC_CRASH SIGABRT
  0 libsystem_kernel.dylib +0xb1d0  __pthread_kill
  1 libsystem_pthread.dylib +0x77dc  pthread_kill
  2 libsystem_c.dylib      +0x76fcc  abort
- 3 LokaR1A2               +0x114cbc  atos(dSYM uuid 3af1cfcf-af02-3f33-b877-0cd995e54042): closure #3 in LokaMemoryModule.definition() (in LokaR1A2) (LokaMemoryModule.swift:17)
+ 3 LokaR1A2               +0x114cbc  atos(dSYM uuid 717a4a7b-fd51-3705-b028-ab29de4bf275): closure #3 in LokaMemoryModule.definition() (in LokaR1A2) (LokaMemoryModule.swift:17)
  4 ExpoModulesCore        +0x254e4  thunk for @escaping @callee_guaranteed () -> (@out A, @error @owned Error)
  5 ExpoModulesCore        +0x27528  partial apply for thunk for @escaping @callee_guaranteed () -> (@out A, @error @owned Error)
  6 ExpoModulesCore        +0x8ecc4  SyncFunctionDefinition.runBody(_:in:this:arguments:)
@@ -169,11 +169,11 @@
 37 Foundation             +0x8e914  __NSThread__start__
 38 libsystem_pthread.dylib +0x4438  _pthread_start
 39 libsystem_pthread.dylib +0x8cc  thread_start
-=== LokaR1A2-2026-09-24-061604.ips exception=EXC_CRASH SIGABRT
+=== LokaR1A2-2026-09-24-053924.ips exception=EXC_CRASH SIGABRT
  0 libsystem_kernel.dylib +0xb1d0  __pthread_kill
  1 libsystem_pthread.dylib +0x77dc  pthread_kill
  2 libsystem_c.dylib      +0x76fcc  abort
- 3 LokaR1A2               +0x114cbc  atos(dSYM uuid 3af1cfcf-af02-3f33-b877-0cd995e54042): closure #3 in LokaMemoryModule.definition() (in LokaR1A2) (LokaMemoryModule.swift:17)
+ 3 LokaR1A2               +0x114cbc  atos(dSYM uuid 717a4a7b-fd51-3705-b028-ab29de4bf275): closure #3 in LokaMemoryModule.definition() (in LokaR1A2) (LokaMemoryModule.swift:17)
  4 ExpoModulesCore        +0x254e4  thunk for @escaping @callee_guaranteed () -> (@out A, @error @owned Error)
  5 ExpoModulesCore        +0x27528  partial apply for thunk for @escaping @callee_guaranteed () -> (@out A, @error @owned Error)
  6 ExpoModulesCore        +0x8ecc4  SyncFunctionDefinition.runBody(_:in:this:arguments:)
@@ -210,11 +210,11 @@
 37 Foundation             +0x8e914  __NSThread__start__
 38 libsystem_pthread.dylib +0x4438  _pthread_start
 39 libsystem_pthread.dylib +0x8cc  thread_start
-=== LokaR1A2-2026-09-24-061609.ips exception=EXC_CRASH SIGABRT
+=== LokaR1A2-2026-09-24-053929.ips exception=EXC_CRASH SIGABRT
  0 libsystem_kernel.dylib +0xb1d0  __pthread_kill
  1 libsystem_pthread.dylib +0x77dc  pthread_kill
  2 libsystem_c.dylib      +0x76fcc  abort
- 3 LokaR1A2               +0x114cbc  atos(dSYM uuid 3af1cfcf-af02-3f33-b877-0cd995e54042): closure #3 in LokaMemoryModule.definition() (in LokaR1A2) (LokaMemoryModule.swift:17)
+ 3 LokaR1A2               +0x114cbc  atos(dSYM uuid 717a4a7b-fd51-3705-b028-ab29de4bf275): closure #3 in LokaMemoryModule.definition() (in LokaR1A2) (LokaMemoryModule.swift:17)
  4 ExpoModulesCore        +0x254e4  thunk for @escaping @callee_guaranteed () -> (@out A, @error @owned Error)
  5 ExpoModulesCore        +0x27528  partial apply for thunk for @escaping @callee_guaranteed () -> (@out A, @error @owned Error)
  6 ExpoModulesCore        +0x8ecc4  SyncFunctionDefinition.runBody(_:in:this:arguments:)

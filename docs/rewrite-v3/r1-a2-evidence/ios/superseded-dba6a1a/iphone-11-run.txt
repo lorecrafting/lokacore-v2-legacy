@@ -1,7 +1,7 @@
-2026-09-24T16:15:19Z
-host=M1 Air; DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer; git HEAD e0930bbbb2ab520a567a6b3ae76029735549f9fb
-app: build-2 (build-2.txt); executable sha256 723e2e6ca2fed642a7b52722d4b08c8435f1bf8e1ebd0ce5ed6a069236de05ef
-hermes_bytecode sha256 09dd5bb63ac8a7fd711deb6313126300279f6f35c93df1625c0c883e1c5fea8a
+2026-09-24T15:38:58Z
+host=M1 Air; DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer; git HEAD ab705f9728adb4d8ffec0b98c63c22794c25273c
+app: build-2 (build-2.txt); executable sha256 ca4d03359525f089ef6203641a0a34e5b1d30799a12590b7859f83df0d2dac1e
+hermes_bytecode sha256 bc417c6baad68f2dad5caec20444c6d77c0d38b35f2e7defffc9b24258228a81
 $ xcrun devicectl --version
 642.16
 $ xcrun devicectl device info details --device [redacted] (selected lines)
@@ -18,42 +18,42 @@ App uninstalled.
 $ xcrun devicectl device install app --device [redacted] build-2/LokaR1A2.app
 • launchServicesIdentifier: unknown
 • databaseUUID: [redacted-uuid]
-• databaseSequenceNumber: 2340
+• databaseSequenceNumber: 2332
 • options: 
 $ xcrun devicectl device process launch --console --terminate-existing --device [redacted] com.lorecrafting.lokar1a2  (launch 1)
-launch 1 ended after ~10 s; process console output (last lines):
+launch 1 ended after ~5 s; process console output (last lines):
 WARNING: Logging before InitGoogleLogging() is written to STDERR
-W0924 06:15:38.075057 1846898688 ReactInstance.cpp:267] ReactInstance: evaluateJavaScript() with JS bundle
+W0924 05:39:02.608662 1805365248 ReactInstance.cpp:267] ReactInstance: evaluateJavaScript() with JS bundle
 App terminated due to signal 6.
 $ xcrun devicectl device process launch --console --terminate-existing --device [redacted] com.lorecrafting.lokar1a2  (launch 2)
 launch 2 ended after ~5 s; process console output (last lines):
 WARNING: Logging before InitGoogleLogging() is written to STDERR
-W0924 06:15:47.258620 1877143552 ReactInstance.cpp:267] ReactInstance: evaluateJavaScript() with JS bundle
+W0924 05:39:07.565626 1841393664 ReactInstance.cpp:267] ReactInstance: evaluateJavaScript() with JS bundle
 App terminated due to signal 6.
 $ xcrun devicectl device process launch --console --terminate-existing --device [redacted] com.lorecrafting.lokar1a2  (launch 3)
 launch 3 ended after ~5 s; process console output (last lines):
 WARNING: Logging before InitGoogleLogging() is written to STDERR
-W0924 06:15:52.366159 1835823104 ReactInstance.cpp:267] ReactInstance: evaluateJavaScript() with JS bundle
+W0924 05:39:12.865787 1802596352 ReactInstance.cpp:267] ReactInstance: evaluateJavaScript() with JS bundle
 App terminated due to signal 6.
 $ xcrun devicectl device process launch --console --terminate-existing --device [redacted] com.lorecrafting.lokar1a2  (launch 4)
 launch 4 ended after ~5 s; process console output (last lines):
 WARNING: Logging before InitGoogleLogging() is written to STDERR
-W0924 06:15:57.733721 1803399168 ReactInstance.cpp:267] ReactInstance: evaluateJavaScript() with JS bundle
+W0924 05:39:18.115751 1811886080 ReactInstance.cpp:267] ReactInstance: evaluateJavaScript() with JS bundle
 App terminated due to signal 6.
 $ xcrun devicectl device process launch --console --terminate-existing --device [redacted] com.lorecrafting.lokar1a2  (launch 5)
 launch 5 ended after ~5 s; process console output (last lines):
 WARNING: Logging before InitGoogleLogging() is written to STDERR
-W0924 06:16:03.275920 1880436736 ReactInstance.cpp:267] ReactInstance: evaluateJavaScript() with JS bundle
+W0924 05:39:23.411178 1882238976 ReactInstance.cpp:267] ReactInstance: evaluateJavaScript() with JS bundle
 App terminated due to signal 6.
 $ xcrun devicectl device process launch --console --terminate-existing --device [redacted] com.lorecrafting.lokar1a2  (launch 6)
 launch 6 ended after ~5 s; process console output (last lines):
 WARNING: Logging before InitGoogleLogging() is written to STDERR
-W0924 06:16:08.558694 1870229504 ReactInstance.cpp:267] ReactInstance: evaluateJavaScript() with JS bundle
+W0924 05:39:28.677930 1815195648 ReactInstance.cpp:267] ReactInstance: evaluateJavaScript() with JS bundle
 App terminated due to signal 6.
 $ xcrun devicectl device process launch --console --terminate-existing --device [redacted] com.lorecrafting.lokar1a2  (launch 7)
 launch 7 ended after ~5 s; process console output (last lines):
 WARNING: Logging before InitGoogleLogging() is written to STDERR
-W0924 06:16:13.933019 1834905600 ReactInstance.cpp:267] ReactInstance: evaluateJavaScript() with JS bundle
+W0924 05:39:33.970175 1835429888 ReactInstance.cpp:267] ReactInstance: evaluateJavaScript() with JS bundle
 App terminated due to signal 15.
 launches=7 done=1
 $ xcrun devicectl device copy from --device [redacted] --domain-type appDataContainer --domain-identifier com.lorecrafting.lokar1a2 --source Documents/responses.jsonl --destination device/responses.jsonl

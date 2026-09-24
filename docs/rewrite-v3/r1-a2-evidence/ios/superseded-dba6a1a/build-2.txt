@@ -1,35 +1,17 @@
-observed_at_utc=2026-09-24T16:13:18Z
-composed by iphone-11.sh build 1; raw logs: build-1-pod-install.log, build-1-xcodebuild.log
-git rev-parse HEAD: e0930bbbb2ab520a567a6b3ae76029735549f9fb
+observed_at_utc=2026-09-24T15:29:25Z
+composed by iphone-11.sh build 2; raw logs: build-2-pod-install.log, build-2-xcodebuild.log
+git rev-parse HEAD: dba6a1ab8ffdcc6d60f17dec6058740e64801af5
 git status --porcelain (untracked prebuild output under r1-spike/mobile/ios is gitignored):
-  D  docs/rewrite-v3/r1-a2-evidence/ios/SHA256SUMS
-  D  docs/rewrite-v3/r1-a2-evidence/ios/SHA256SUMS.verify.txt
-  R  docs/rewrite-v3/r1-a2-evidence/ios/README.md -> docs/rewrite-v3/r1-a2-evidence/ios/superseded-dba6a1a/README.md
-  R  docs/rewrite-v3/r1-a2-evidence/ios/build-1-pod-install.log -> docs/rewrite-v3/r1-a2-evidence/ios/superseded-dba6a1a/build-1-pod-install.log
-  R  docs/rewrite-v3/r1-a2-evidence/ios/build-1-xcodebuild.log -> docs/rewrite-v3/r1-a2-evidence/ios/superseded-dba6a1a/build-1-xcodebuild.log
-  R  docs/rewrite-v3/r1-a2-evidence/ios/build-1.txt -> docs/rewrite-v3/r1-a2-evidence/ios/superseded-dba6a1a/build-1.txt
-  R  docs/rewrite-v3/r1-a2-evidence/ios/build-2-pod-install.log -> docs/rewrite-v3/r1-a2-evidence/ios/superseded-dba6a1a/build-2-pod-install.log
-  R  docs/rewrite-v3/r1-a2-evidence/ios/build-2-xcodebuild.log -> docs/rewrite-v3/r1-a2-evidence/ios/superseded-dba6a1a/build-2-xcodebuild.log
-  R  docs/rewrite-v3/r1-a2-evidence/ios/build-2.txt -> docs/rewrite-v3/r1-a2-evidence/ios/superseded-dba6a1a/build-2.txt
-  R  docs/rewrite-v3/r1-a2-evidence/ios/build-compare.txt -> docs/rewrite-v3/r1-a2-evidence/ios/superseded-dba6a1a/build-compare.txt
-  R  docs/rewrite-v3/r1-a2-evidence/ios/crash/LokaR1A2-2026-09-24-053908.000.ips -> docs/rewrite-v3/r1-a2-evidence/ios/superseded-dba6a1a/crash/LokaR1A2-2026-09-24-053908.000.ips
-  R  docs/rewrite-v3/r1-a2-evidence/ios/crash/LokaR1A2-2026-09-24-053908.ips -> docs/rewrite-v3/r1-a2-evidence/ios/superseded-dba6a1a/crash/LokaR1A2-2026-09-24-053908.ips
-  R  docs/rewrite-v3/r1-a2-evidence/ios/crash/LokaR1A2-2026-09-24-053914.ips -> docs/rewrite-v3/r1-a2-evidence/ios/superseded-dba6a1a/crash/LokaR1A2-2026-09-24-053914.ips
-  R  docs/rewrite-v3/r1-a2-evidence/ios/crash/LokaR1A2-2026-09-24-053919.ips -> docs/rewrite-v3/r1-a2-evidence/ios/superseded-dba6a1a/crash/LokaR1A2-2026-09-24-053919.ips
-  R  docs/rewrite-v3/r1-a2-evidence/ios/crash/LokaR1A2-2026-09-24-053924.ips -> docs/rewrite-v3/r1-a2-evidence/ios/superseded-dba6a1a/crash/LokaR1A2-2026-09-24-053924.ips
-  R  docs/rewrite-v3/r1-a2-evidence/ios/crash/LokaR1A2-2026-09-24-053929.ips -> docs/rewrite-v3/r1-a2-evidence/ios/superseded-dba6a1a/crash/LokaR1A2-2026-09-24-053929.ips
-  R  docs/rewrite-v3/r1-a2-evidence/ios/differential.txt -> docs/rewrite-v3/r1-a2-evidence/ios/superseded-dba6a1a/differential.txt
-  R  docs/rewrite-v3/r1-a2-evidence/ios/elixir-runner.jsonl -> docs/rewrite-v3/r1-a2-evidence/ios/superseded-dba6a1a/elixir-runner.jsonl
-  R  docs/rewrite-v3/r1-a2-evidence/ios/faults-check.txt -> docs/rewrite-v3/r1-a2-evidence/ios/superseded-dba6a1a/faults-check.txt
-  R  docs/rewrite-v3/r1-a2-evidence/ios/faults.device.jsonl -> docs/rewrite-v3/r1-a2-evidence/ios/superseded-dba6a1a/faults.device.jsonl
-  R  docs/rewrite-v3/r1-a2-evidence/ios/faults.jsonl -> docs/rewrite-v3/r1-a2-evidence/ios/superseded-dba6a1a/faults.jsonl
-  R  docs/rewrite-v3/r1-a2-evidence/ios/iphone-11-run.txt -> docs/rewrite-v3/r1-a2-evidence/ios/superseded-dba6a1a/iphone-11-run.txt
-  R  docs/rewrite-v3/r1-a2-evidence/ios/kill-stacks-symbolicated.txt -> docs/rewrite-v3/r1-a2-evidence/ios/superseded-dba6a1a/kill-stacks-symbolicated.txt
-  R  docs/rewrite-v3/r1-a2-evidence/ios/responses.jsonl -> docs/rewrite-v3/r1-a2-evidence/ios/superseded-dba6a1a/responses.jsonl
-  R  docs/rewrite-v3/r1-a2-evidence/ios/summary.json -> docs/rewrite-v3/r1-a2-evidence/ios/superseded-dba6a1a/summary.json
+  ?? docs/rewrite-v3/r1-a2-evidence/android/actions-compare.sh
+  ?? docs/rewrite-v3/r1-a2-evidence/android/actions-run-36019566499/
+  ?? docs/rewrite-v3/r1-a2-evidence/android/actions-run-36019591785/
+  ?? docs/rewrite-v3/r1-a2-evidence/android/build-compare.txt
   ?? docs/rewrite-v3/r1-a2-evidence/ios/build-1-pod-install.log
   ?? docs/rewrite-v3/r1-a2-evidence/ios/build-1-xcodebuild.log
   ?? docs/rewrite-v3/r1-a2-evidence/ios/build-1.txt
+  ?? docs/rewrite-v3/r1-a2-evidence/ios/build-2-pod-install.log
+  ?? docs/rewrite-v3/r1-a2-evidence/ios/build-2-xcodebuild.log
+  ?? docs/rewrite-v3/r1-a2-evidence/ios/build-2.txt
 --- end git status
 DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
 xcodebuild: Xcode 27.0 Build version 27A266a 
@@ -45,14 +27,14 @@ Podfile.lock sha256=4eb4d92f453558ab267c0df18da41c771811427dee455bba833694adb9e3
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - LokaMemory (from `../modules/loka-memory/ios`)
 --- hashes (sha256)
-metro_js_bundle (Release-iphoneos/main.jsbundle, before hermesc) 9fbe0d6e9fd4d2234943755171da49fe8f66e8d1504b6bd630ce242f28effb00
-hermes_bytecode (LokaR1A2.app/main.jsbundle) 09dd5bb63ac8a7fd711deb6313126300279f6f35c93df1625c0c883e1c5fea8a magic=c61fbc03c103191f
-composed_source_map (main.jsbundle.map) 71e16d29d8e85b94e23c79c993f16dc4956c262626be31c159963e3eae5d351c
-executable (LokaR1A2.app/LokaR1A2) 81fca1aa1d54b48552956a6002e6ed5b3740b42a66f18ca0064424789332694f
-dsym_dwarf (LokaR1A2.app.dSYM/Contents/Resources/DWARF/LokaR1A2) 1789bc0d75cad32e59753bcd452b1d93392bdfb6ab95566888a52ec7e760979a
+metro_js_bundle (Release-iphoneos/main.jsbundle, before hermesc) cac5f3dde34342817078e2e24c29987bc6f0da8a78ef55790e0c488a4a4489c9
+hermes_bytecode (LokaR1A2.app/main.jsbundle) bc417c6baad68f2dad5caec20444c6d77c0d38b35f2e7defffc9b24258228a81 magic=c61fbc03c103191f
+composed_source_map (main.jsbundle.map) 9678e3380c0413702b74859425f034d7ac0c80ef3357f4e3d137c310467c07d6
+executable (LokaR1A2.app/LokaR1A2) ca4d03359525f089ef6203641a0a34e5b1d30799a12590b7859f83df0d2dac1e
+dsym_dwarf (LokaR1A2.app.dSYM/Contents/Resources/DWARF/LokaR1A2) f52b791bad06669017fe554cd700aded123bae850657cd42a2d4aadb37f22417
 --- dwarfdump --uuid (executable, dSYM)
-UUID: 3AF1CFCF-AF02-3F33-B877-0CD995E54042 (arm64) ios/build/Build/Products/Release-iphoneos/LokaR1A2.app/LokaR1A2
-UUID: 3AF1CFCF-AF02-3F33-B877-0CD995E54042 (arm64) ios/build/Build/Products/Release-iphoneos/LokaR1A2.app.dSYM/Contents/Resources/DWARF/LokaR1A2
+UUID: 717A4A7B-FD51-3705-B028-AB29DE4BF275 (arm64) ios/build/Build/Products/Release-iphoneos/LokaR1A2.app/LokaR1A2
+UUID: 717A4A7B-FD51-3705-B028-AB29DE4BF275 (arm64) ios/build/Build/Products/Release-iphoneos/LokaR1A2.app.dSYM/Contents/Resources/DWARF/LokaR1A2
 lipo -archs: arm64
 Info.plist CFBundleIdentifier=com.lorecrafting.lokar1a2
 Info.plist DTSDKBuild=24A430
@@ -68,26 +50,26 @@ a08310ddd971eaad86cedb4a2e3c49e37778eccf254330979387a3816d6fcbcd  ./EXConstants.
 afe39d41076080a045a011b99d3853fa186c83c8eb0853146fd06dce20c9e30e  ./ExpoConstants_privacy.bundle/Info.plist
 2b2d8edb71d51c5b1f1ace4cdb28a94baf22fdde9bbf2e2bfc17d187ff7b5f47  ./ExpoConstants_privacy.bundle/PrivacyInfo.xcprivacy
 2c5eef93b024195bcc8af20caf9bb2b4319cfd4a14eb0032d35aa84d48f5b084  ./ExpoFileSystem_privacy.bundle/Info.plist
-ab330453eadf2c9b463a4fe0c529626d9c09fb653ef783d13d0b61e66271b4c0  ./Frameworks/ExpoFileSystem.framework/ExpoFileSystem
+94273d54a7ec89d3e024409f63aff32e7f2df6885553e3c3d19a3013ccdaa5b6  ./Frameworks/ExpoFileSystem.framework/ExpoFileSystem
 af9df02efddea68341f7392eeed17f3bc7f1b320d048781033a1a9b18a8676f5  ./Frameworks/ExpoFileSystem.framework/Info.plist
 a72605fc9c193fa319172954996a05ed5c4268eaaa30be5f561515011d01d179  ./Frameworks/ExpoFileSystem.framework/_CodeSignature/CodeResources
-22096ecacdb5db4526e573863e540a6e73da159fbecf5a2ba01a48a399a222f2  ./Frameworks/ExpoFont.framework/ExpoFont
+8d8feb2f4801b356deceab234deaca6a5488ab3c42d754275d41b5feb2d81273  ./Frameworks/ExpoFont.framework/ExpoFont
 cf38e3f590f49c661373e8e090100741d0f4e076ad4f613ce571c3c828c760e4  ./Frameworks/ExpoFont.framework/Info.plist
 a17bf2b26aee0f62297071b02c37265c1a82b3b5641784a0c2034f743df4d8f0  ./Frameworks/ExpoFont.framework/_CodeSignature/CodeResources
-78656f546fd000d8a157ab731d2ed0f61ffdfab22be720afe6476a2cf0c38be9  ./Frameworks/ExpoModulesCore.framework/ExpoModulesCore
+227b31704e9719e9999b0dbe8cc6f4a09606b8a7f4e26a9094b69690f5a5caa7  ./Frameworks/ExpoModulesCore.framework/ExpoModulesCore
 7dc4da64125013c15e9cfe49e2d800bef8654f5de07154dee412abb67825a8b3  ./Frameworks/ExpoModulesCore.framework/Info.plist
 95690b2acd9be026f300d4f97b983aad540b0116dc93ff878c3cc32d13fc87b2  ./Frameworks/ExpoModulesCore.framework/_CodeSignature/CodeResources
-4abcba0f9ca6835545145824cac9f20734f53cc7f6e03639d8dfbb9ebd47432e  ./Frameworks/ExpoModulesJSI.framework/ExpoModulesJSI
+4eb12b2a9ac5c0444e99600faac32c2de6ff992cf321a7ec8454a8528e9b412b  ./Frameworks/ExpoModulesJSI.framework/ExpoModulesJSI
 50d8270271ec029e5b3a22999263b092b3701f8812b84e812a5dce57575c6159  ./Frameworks/ExpoModulesJSI.framework/Info.plist
 adcac3cc36c3ac042c9685bfccf32d6a6ff15b65cc0f40867408e1ce23b3ce75  ./Frameworks/ExpoModulesJSI.framework/_CodeSignature/CodeResources
-5f51bfa30c71bdcc5cf505219e05d8deeeba874fcb4f5931b02eafef2d6562af  ./Frameworks/ExpoModulesWorklets.framework/ExpoModulesWorklets
+28eba538adedf5f89ee09dcbe5c73615f0a7e2900d4a93dcd49dfcfa7f573b89  ./Frameworks/ExpoModulesWorklets.framework/ExpoModulesWorklets
 a915005af4a566e40c63c4255948fc4363c93510118b9410e53b385fc657e187  ./Frameworks/ExpoModulesWorklets.framework/Info.plist
 04aceefd542ca8f104410da1e80946fd5e236236d17da15a8d9183b40e71a902  ./Frameworks/ExpoModulesWorklets.framework/_CodeSignature/CodeResources
 1885defbae4d7bf965b8758d5ce3165a0b9d24f21ad9b33060056d1a460f34c1  ./Frameworks/React.framework/Info.plist
-1ff159cdd9b3c804877ea50d09837c5672f243d212a5fc857d51beeefbf17b49  ./Frameworks/React.framework/React
+758c852f889bdc0728f11d595a458e3a472f41cc7ddf006725447c9b8abda7af  ./Frameworks/React.framework/React
 13a1a4142e510346393dacc1e69a449787afd914f96f3773e73e56d94bf416d3  ./Frameworks/React.framework/_CodeSignature/CodeResources
 e7403ae9c56e27876dba94266adf299efcb10870f59d563156141ba0b08c70d5  ./Frameworks/ReactNativeDependencies.framework/Info.plist
-619337283d0db3f497c3cd078b2a6764b84740725ed9d94af6f3c475e2ef1ea7  ./Frameworks/ReactNativeDependencies.framework/ReactNativeDependencies
+a03ba73e7c68d4aca2b69e1e642a212b8c5acf463cb1167840758b43c1965f18  ./Frameworks/ReactNativeDependencies.framework/ReactNativeDependencies
 bb122a68b3d32f7e32b3977c1d238d961cffaf03194062538de7218f8f670240  ./Frameworks/ReactNativeDependencies.framework/ReactNativeDependencies_boost.bundle/Info.plist
 d3559c988dff940d4f758f37a0ba1863208304e33ab0b97c0e3dd5d3762f5f1d  ./Frameworks/ReactNativeDependencies.framework/ReactNativeDependencies_boost.bundle/PrivacyInfo.xcprivacy
 28e1eb7d1cf65c2eadc03842eabc1a2e0e920e69b3d2a42a5800ff17a7deca2e  ./Frameworks/ReactNativeDependencies.framework/ReactNativeDependencies_folly.bundle/Info.plist
@@ -97,9 +79,9 @@ d3559c988dff940d4f758f37a0ba1863208304e33ab0b97c0e3dd5d3762f5f1d  ./Frameworks/R
 cc72421b4abd73be57ebd9603a2147eb6ff6147545cd58694bb8cfae4124624a  ./Frameworks/ReactNativeDependencies.framework/_CodeSignature/CodeResources
 81b2e6bbea3d54aae5301a238469675714d42d249605fc4e607f4cd03fbdf0cc  ./Frameworks/hermesvm.framework/Info.plist
 d38dce94295e9a3866ec44e21001bc4ca712d523d7b45056b72afc7b164bd3c5  ./Frameworks/hermesvm.framework/_CodeSignature/CodeResources
-505759c11dd7598a66e2c12e9ed64f091a719ea3e35bda1ec4af09c61c8af329  ./Frameworks/hermesvm.framework/hermesvm
+cc6600153f361ce65619a665537bc6692d25b23eb8e9cef8448c26aa36d674f0  ./Frameworks/hermesvm.framework/hermesvm
 7411e5eb37f55c3e73d9072067e2466d3a91aa6e2e5fc3f193ebe1f7b9c65045  ./Info.plist
-81fca1aa1d54b48552956a6002e6ed5b3740b42a66f18ca0064424789332694f  ./LokaR1A2
+ca4d03359525f089ef6203641a0a34e5b1d30799a12590b7859f83df0d2dac1e  ./LokaR1A2
 82502191c9484b04d685374f9879a0066069c49b8acae7a04b01d38d07e8eca0  ./PkgInfo
 06949f6d09a83cea00c3a4895bb7300f2580d52852c6ade1a9caa169934a1001  ./PrivacyInfo.xcprivacy
 f3f22164d9614702d01892b840d53c1a72826ed92e3e2569dc5f61ed61848ddd  ./React-Core_privacy.bundle/Info.plist
@@ -111,7 +93,7 @@ f3f22164d9614702d01892b840d53c1a72826ed92e3e2569dc5f61ed61848ddd  ./React-Core_p
 55e32476d2306023fb544ef0efed26ed4688e48c2703ddcfd2e39a8c1de4af67  ./SplashScreen.storyboardc/EXPO-VIEWCONTROLLER-1-view-EXPO-ContainerView.nib
 74dbceed6cf0a5e5c69834793328c9783ecab1de482d4954e257ca2132b743af  ./SplashScreen.storyboardc/Info.plist
 9c1a34c121d22479408cf0eaacb3491548ced16655799bae3b5f7f2380314ba8  ./SplashScreen.storyboardc/SplashScreenViewController.nib
-763ee17197c2837c03aca53ea8e92a9b8e639ab306148f3ec06668d61f2e60b8  ./_CodeSignature/CodeResources
+15fe1bc4c9b383084d2d9daf5ccce818fb4d6ba61f498e12c89cde0a0be6e5e8  ./_CodeSignature/CodeResources
 41e70f8b988439f165115d0dd7f0cabf0240af40ff18bbf3f3d53064cdb0d2c9  ./embedded.mobileprovision
-09dd5bb63ac8a7fd711deb6313126300279f6f35c93df1625c0c883e1c5fea8a  ./main.jsbundle
+bc417c6baad68f2dad5caec20444c6d77c0d38b35f2e7defffc9b24258228a81  ./main.jsbundle
 --- xcodebuild exit=0

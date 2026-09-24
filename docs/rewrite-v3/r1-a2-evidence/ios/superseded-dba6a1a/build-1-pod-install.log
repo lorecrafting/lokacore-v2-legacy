@@ -212,7 +212,7 @@ solutions to build the project.
 `yarn ios`
 =============================================================
 
-Pod install took 17 [s] to run
+Pod install took 16 [s] to run
 Integrating client project
 
 [!] Please close any current Xcode sessions and use `LokaR1A2.xcworkspace` for this project from now on.

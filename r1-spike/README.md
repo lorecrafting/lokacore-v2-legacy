@@ -247,7 +247,9 @@ every capture script's `redact()` covers them. iOS build scripts record
 Bundles: `docs/rewrite-v3/r1-a2-evidence/android/` and `…/ios/`. Each has a
 `SHA256SUMS` with its verify output beside it.
 
-- **iPhone 11** (iOS 26.6.2). The app was Release build 2 at `dba6a1a`, signed
+- **iPhone 11** (iOS 26.6.2). The app was Release build 2 at `e0930bb` (same app
+  source as the Pixel run; the earlier `dba6a1a` run is kept in
+  `ios/superseded-dba6a1a/`), signed
   by the free personal team. On-device differential: 139 request lines (22
   regression seeds' sequences and 95 fixture rows), all byte-identical to the
   Elixir runner. One altered line was reported as the only mismatch. Faults:
@@ -255,8 +257,6 @@ Bundles: `docs/rewrite-v3/r1-a2-evidence/android/` and `…/ios/`. Each has a
   process deaths, recovered on relaunch. JS stacks are symbolicated through the
   composed release source map. The crash reports' app frame is symbolicated
   with `atos` and the dSYM to `LokaMemoryModule.swift:17`.
-  That build predates the Android-only handle fix below (`e61c52a`); the iPhone
-  was not rerun on it.
 - **Pixel 3a** (Android 11). The app was the APK from Actions run 36024373520
   at `e61c52a`. Differential: 139/139 byte-identical, and the injected mismatch
   was caught. Faults: 19/19 pass, Elixir cross-check included. Six SIGKILL
