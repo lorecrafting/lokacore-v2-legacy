@@ -38,7 +38,7 @@ everything. By the owner's rule, this stops before R2.
   Measured outcomes, per model: 1,276 accepted (642 of which write the state),
   685 rejected, 39 replayed.
 - **Host agreement:** both hosts ended every model with the same state sha256, and
-  both hold 2,927 receipts.
+  both hold 2,916 receipts.
 - **Skew in the mix:** in the measured window every wait, activate and choose was
   rejected. The Lantern clock had already reached 23 during the warm-up, and the
   quest was never activated.

@@ -15,6 +15,8 @@ contract amendment; document 16 is not edited here. Evidence:
   [variant-touched-declaration.md](../r1-a3-quick-evidence/variant-touched-declaration.md)).
 - Save design: "idk i leave it up to you" (the owner delegated the persistence
   shape to the assistant; ADR-072 is the assistant's decision under that delegation).
+- Owner quotes of 2026-09-24 without their own file are retained in
+  [owner-decisions-2026-09-24.md](owner-decisions-2026-09-24.md).
 - Accept C with the checkpoint risk recorded: asked "Accept C with the checkpoint
   risk recorded, and proceed?", the owner answered "yes please go ahead".
 
@@ -36,21 +38,46 @@ decision.
 The stateless variant's failing results stay retained beside these. `touched-1`
 was declared before tuning (envelope §6).
 
-**Recorded failure, accepted as risk.** The phone checkpoint round trip (full
-canonical save, read back, validate) fails at Medium and Stress. Under ADR-072 a
-full checkpoint is an export or backup operation, not part of any player action,
-but the §7 row is unchanged and stays failed. It must be re-measured at R6P on the
-production save format, together with the 3 second cold restore ceiling.
-Structural sharing cannot reduce it; faster canonical parse/encode or a different
-export encoding may. A Rust candidate would still move the same bytes through
-SQLite, so this failure alone is not a reason to evaluate B.
+**This is not R1 acceptance.** Envelope §2 and §12 say a failed or unmeasured
+MUST row cannot pass. Selecting C with a failed row and many unmeasured rows
+overrides that procedure by owner decision; it is recorded here as accepted risk,
+not as a pass. ADR-004/005 outcome: C (dual Elixir/TypeScript implementations
+held to the shared fixtures and differential testing), `touched-1` boundary.
 
-**Deferred to R6P and R10 (unmeasured, not passed):** iPhone timing, three runs of
-10,000 inputs per device, memory and retention (§8), UI responsiveness (§5), cold
-restore (§7), the 100-instance server load and scheduler impact (§6), reaction and
-scene decision work, faults under load, and the R1-A2 review carry-overs (a failed
-COMMIT on the phone, stale-view duplicate delivery as a scheduled fault, one
-defined outbox durability rule), which become R2 production tests.
+**Recorded failure, accepted as risk.** The phone checkpoint round trip (full
+canonical save, read back, validate) fails at Medium and Stress. The timers also
+leave out the first save encoding, so the true round trip is higher (inferred:
+about 34 ms Medium, 130 ms Stress; review R1-A3 quick). Under ADR-072 a full
+checkpoint is an export or backup operation, not part of any player action, but
+the §7 row is unchanged and stays failed. The round trip was not split into write,
+read, parse and encode. Inference, not measured: much of it is Hermes string work
+that a native (Rust, candidate B) implementation might do faster, so whether B
+would pass this row is unknown. It must be re-measured, split, at R6P on the
+production save format, together with the 3 second cold restore ceiling.
+
+**Deferred to R6P and R10 (unmeasured, not passed):**
+- iPhone timing and an iOS build of the `touched-1` host;
+- the R1-A2 on-device differential, fault cases and an on-device mutant check with
+  the `touched-1` host (they ran on Node only, although the declaration asked for
+  them; A2 review F9);
+- three runs of 10,000 inputs per device; large dirty sets; reaction and scene
+  decision work (the synthetic padding is never touched by ordinary steps; the one
+  step that touches the large list took 46 ms Medium and 143 ms Stress p99-class);
+- memory and retention (§8), UI responsiveness (§5), cold restore (§7), integrity
+  hashing time and receipt/trace/job sizes (§7);
+- the 100-instance server load and scheduler impact (§6), faults under load;
+- kernel upgrade and save compatibility (§10), and the §10/§11 maintenance and
+  fault-containment comparison for C;
+- server fault records' initial snapshot (A2 F3) and a server SQLite field in
+  the result manifest;
+- the R1-A2 carry-overs that become R2 production tests: a failed COMMIT on the
+  phone, stale-view duplicate delivery as a scheduled fault, one defined outbox
+  durability rule.
+
+**Deviation from the declaration.** The codec speed-ups (the encoder and strict
+parser copy plain strings in one piece) were not declared in advance. They change
+speed only; output bytes are identical and every fixture and differential check
+passes.
 
 **Reopens if** an R6P or R10 measurement of a deferred row fails and the cause is
 in the TypeScript-on-Hermes kernel rather than host I/O; then B is evaluated as
