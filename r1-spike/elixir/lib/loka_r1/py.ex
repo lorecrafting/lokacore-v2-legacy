@@ -3,7 +3,8 @@ defmodule LokaR1.Py do
   The few Python value semantics the models rely on, over decoded JSON.
 
   Where the Python model would raise, these raise `LokaR1.Py.Error` with the
-  Python exception class: `:key_error`, `:type_error` or `:value_error`.
+  Python exception class: `:key_error`, `:type_error`, `:value_error` or
+  `:attribute_error`.
   """
 
   defmodule Error do
@@ -50,6 +51,21 @@ defmodule LokaR1.Py do
   @doc "`x in {str, ...}` for a set of strings: lists and dicts are unhashable."
   def in_set?(v, _set) when is_list(v) or is_map(v), do: raise!(:type_error)
   def in_set?(v, set), do: is_binary(v) and v in set
+
+  @doc "`key in container` for a string key: dict keys, list items or a substring."
+  def contains?(container, key) when is_map(container), do: Map.has_key?(container, key)
+  def contains?(container, key) when is_list(container), do: key in container
+  def contains?(container, key) when is_binary(container), do: String.contains?(container, key)
+  def contains?(_, _), do: raise!(:type_error)
+
+  @doc "The members of `set(value)`."
+  def set_members(value) when is_list(value) do
+    if Enum.any?(value, &(is_list(&1) or is_map(&1))), do: raise!(:type_error), else: value
+  end
+
+  def set_members(value) when is_map(value), do: Map.keys(value)
+  def set_members(value) when is_binary(value), do: String.codepoints(value)
+  def set_members(_), do: raise!(:type_error)
 
   @doc """
   `str(value)` for scalars. Lists and dicts return `nil` (their Python repr is

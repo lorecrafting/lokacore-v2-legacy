@@ -1,3 +1,7 @@
+# The runner's stdout carries only response lines: silence Mix's own messages
+# (such as "Compiling N files") when the command is `mix r1.runner`.
+if List.first(System.argv()) == "r1.runner", do: Mix.shell(Mix.Shell.Quiet)
+
 defmodule LokaR1.MixProject do
   use Mix.Project
 

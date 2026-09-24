@@ -53,7 +53,10 @@ defmodule LokaR1.Runner do
   defp handle(%{"fn" => "composition.evaluate", "limits" => limits} = r)
        when is_map(limits) and is_map_key(r, "initial") and is_map_key(r, "root") and
               is_map_key(r, "rules") do
-    if Map.keys(r) -- ~w(fn limits initial root rules advance_target) == [] do
+    if Map.keys(r) -- ~w(fn limits initial root rules advance_target) == [] and
+         Enum.all?(limits, fn {k, v} ->
+           is_map_key(@profile_limits, k) and is_integer(v) and v > 0
+         end) do
       limits = Map.merge(@profile_limits, limits)
       Composition.evaluate(limits, r["initial"], r["root"], r["rules"], r["advance_target"])
     else

@@ -4,9 +4,10 @@ defmodule LokaR1.Composition do
   proposal, all-or-nothing. A fault returns the unchanged input state.
 
   As in the model, a KeyError or TypeError (a missing key, an unhashable value,
-  a non-numeric comparison) is the fault `invalid_plan`. State containers the
-  model indexes (`facts`, `locations`, `capacities`, `jobs`, `active`) must have
-  their JSON type when used, otherwise `invalid_plan` (see NOTES.md).
+  a non-numeric comparison) is the fault `invalid_plan`. So is the model's
+  uncaught AttributeError (a dict or list method on another type), per the
+  README's edge rules. One approximation: a `locations` value that is not an
+  object is `invalid_plan` in the final containment walk (see NOTES.md).
   """
   import LokaR1.Py, only: [get: 2, num: 1, in_set?: 2, raise!: 1]
   alias LokaR1.{Codec, Py}
@@ -42,6 +43,11 @@ defmodule LokaR1.Composition do
 
   defp fault!(code), do: throw({:fault, code})
 
+  # A dict method (`.get`, `.items`, `.values`) on another type.
+  defp dict!(v) when is_map(v), do: v
+  defp dict!(_), do: raise!(:attribute_error)
+
+  # `container[key] = value` or containment indexing on a non-dict.
   defp obj!(v) when is_map(v), do: v
   defp obj!(_), do: raise!(:type_error)
 
@@ -60,10 +66,8 @@ defmodule LokaR1.Composition do
     ordered = Enum.sort_by(rules, & &1["id"])
     Enum.each(ordered, &check_rule(&1, ids))
 
-    active = get(state, "active")
-    if not is_list(active), do: raise!(:type_error)
-    if Enum.any?(active, &(is_list(&1) or is_map(&1))), do: raise!(:type_error)
-    if Enum.any?(active, &(&1 not in ids)), do: fault!("unknown_subscription")
+    if Enum.any?(Py.set_members(get(state, "active")), &(&1 not in ids)),
+      do: fault!("unknown_subscription")
 
     Enum.each(root, &check_op(&1, ids))
 
@@ -81,6 +85,7 @@ defmodule LokaR1.Composition do
 
     c = c |> sequence(root, "root", 0) |> drain()
     state = c.state
+    # ponytail: a list or string `locations` is invalid_plan here; Python sorts and indexes it.
     locations = obj!(get(state, "locations"))
 
     c =
@@ -92,7 +97,7 @@ defmodule LokaR1.Composition do
     c =
       state
       |> get("capacities")
-      |> obj!()
+      |> dict!()
       # ponytail: key order, not Python's insertion order; same for canonical requests.
       |> Enum.sort()
       |> Enum.reduce(c, fn {container, capacity}, c ->
@@ -214,7 +219,10 @@ defmodule LokaR1.Composition do
 
     # Lifecycle eligibility is snapshotted at EMISSION, not delivery.
     eligible =
-      Enum.filter(c.ordered, &(&1["event"] == name and &1["id"] in get(c.state, "active")))
+      Enum.filter(
+        c.ordered,
+        &(&1["event"] == name and Py.contains?(get(c.state, "active"), &1["id"]))
+      )
 
     c = spend(c, "query_steps", length(c.ordered))
     events = c.events ++ [event]
@@ -248,12 +256,17 @@ defmodule LokaR1.Composition do
   defp operation(c, %{"op" => "subscription.activate", "rule" => rule}, group, _depth) do
     c = write(c, {"subscription", rule}, group)
     active = get(c.state, "active")
-    if rule in active, do: c, else: put_state(c, "active", Enum.sort([rule | active]))
+
+    cond do
+      Py.contains?(active, rule) -> c
+      is_list(active) -> put_state(c, "active", Enum.sort([rule | active]))
+      true -> raise!(:attribute_error)
+    end
   end
 
   defp operation(c, %{"op" => "item.transfer", "item" => item} = op, group, depth) do
     c = write(c, {"item", item}, group)
-    locations = obj!(get(c.state, "locations"))
+    locations = dict!(get(c.state, "locations"))
     if Map.get(locations, item) !== op["source"], do: fault!("not_owned")
 
     if op["destination"] not in ["hero", "room"] and
@@ -270,10 +283,10 @@ defmodule LokaR1.Composition do
     clock = num(get(c.state, "clock"))
     barrier = if c.at == nil, do: clock, else: max(clock, c.at)
     if due <= barrier, do: fault!("nonfuture_job")
-    jobs = obj!(get(c.state, "jobs"))
-    if Map.has_key?(jobs, id), do: fault!("duplicate_job")
+    jobs = get(c.state, "jobs")
+    if Py.contains?(jobs, id), do: fault!("duplicate_job")
     c = spend(c, "created_jobs")
-    jobs = Map.put(jobs, id, due)
+    jobs = Map.put(obj!(jobs), id, due)
     if map_size(jobs) > limit(c, "pending_jobs"), do: fault!("budget_pending_jobs")
     put_state(c, "jobs", jobs)
   end
@@ -305,8 +318,8 @@ defmodule LokaR1.Composition do
   end
 
   defp guard_holds?(c, event, %{"source" => source, "key" => key, "equals" => equals}) do
-    source = if source == "overlay", do: obj!(get(c.state, "facts")), else: event["payload"]
-    Map.has_key?(source, key) and source[key] === equals
+    source = if source == "overlay", do: get(c.state, "facts"), else: event["payload"]
+    Py.contains?(source, key) and get(source, key) === equals
   end
 
   defp walk(c, locations, cursor, visited) do
