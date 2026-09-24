@@ -1,0 +1,1 @@
+gradle_flags=-PreactNativeArchitectures=arm64-v8a -PreactNativeDevServerIp=localhost

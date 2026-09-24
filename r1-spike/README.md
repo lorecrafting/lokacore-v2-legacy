@@ -36,6 +36,9 @@ checking.
    difference in this README.
 3. **Kernels are stateless.** Each call takes the whole state value and returns a new
    one. No process state, clock, global RNG, filesystem or network inside a kernel.
+   Since touched-1 (2026-09-24) the TypeScript kernel's new value shares every
+   untouched sub-value with its input, and neither value is ever mutated
+   (`ts/test/sharing.test.ts` runs every fixture sequence on deeply frozen input).
 4. **Implementations stay independent.** Whoever writes one implementation does not
    read the other's source. Both are written from the contracts, fixtures and models.
 
@@ -233,7 +236,10 @@ when a diagnostic path is set (fault runs), not in the differential runs.
   so `published` is also read back from SQLite. The kernel publishes only on
   adoption, so the outbox always equals the model's `published`. `memory` and
   `in_doubt` stay in process memory. A restart sets `memory = durable` and
-  `in_doubt = (pending row exists)`.
+  `in_doubt = (pending row exists)`. Since touched-1 (2026-09-24) the durable
+  state is stored as rows: one `mem` row per top-level memory key, and one
+  `mem_items` row per element of a list-valued key (marker `*` in `mem`). A step
+  writes only the rows whose value changed; `pending` stays one row.
 - *`before_commit`.* The model discards the proposal. The host writes the
   no-fault proposal and then issues a real `ROLLBACK`. This happens only when
   the faulted step would otherwise write nothing: a stale-view receipt is still

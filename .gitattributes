@@ -6,3 +6,6 @@ docs/rewrite-v3/prep/after-pr-10/a2-android-evidence/** -whitespace
 docs/rewrite-v3/prep/after-pr-10/a2-device-evidence/** -whitespace
 docs/rewrite-v3/r1-a2-evidence/** -whitespace
 r1-spike/mobile/requests.jsonl -whitespace
+docs/rewrite-v3/r1-a3-quick-evidence/** -whitespace
+r1-spike/mobile/scale.jsonl -whitespace
+r1-spike/mobile/scale.gen.ts -whitespace

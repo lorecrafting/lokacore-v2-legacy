@@ -1,0 +1,63 @@
+2026-09-24T18:57:29Z
+git rev-parse HEAD: 9f84063439a824e861378b0cd9cef5e484372e08
+git status --porcelain (begin)
+?? docs/rewrite-v3/r1-a3-quick-evidence/touched-1/checks/a2-local-summary.json
+?? docs/rewrite-v3/r1-a3-quick-evidence/touched-1/checks/checks-run.txt
+?? docs/rewrite-v3/r1-a3-quick-evidence/touched-1/checks/r1-diff-summary.json
+?? docs/rewrite-v3/r1-a3-quick-evidence/touched-1/m1-node/m1-node-run.txt
+(end)
+$ sw_vers
+ProductName:		macOS
+ProductVersion:		26.6.2
+BuildVersion:		25G83
+exit=0
+$ sysctl hw.model hw.ncpu hw.memsize machdep.cpu.brand_string
+hw.model: MacBookAir10,1
+hw.ncpu: 8
+hw.memsize: 17179869184
+machdep.cpu.brand_string: Apple M1
+exit=0
+$ mise exec elixir@1.20.4 erlang@28.4 node@24.21.0 -- node --version
+v24.21.0
+exit=0
+--- before
+$ pmset -g batt
+Now drawing from 'AC Power'
+ -InternalBattery-0 (id=[redacted])	100%; charged; 0:00 remaining present: true
+exit=0
+$ uptime
+ 8:57  up 19 days, 15:50, 4 users, load averages: 2.75 2.53 2.11
+exit=0
+$ mise exec elixir@1.20.4 erlang@28.4 node@24.21.0 -- mix r1.scale --version r1-scale-1 --out [scratch]
+tiny: initial_state_canonical_bytes=188
+medium: initial_state_canonical_bytes=192594
+stress: initial_state_canonical_bytes=729921
+r1.scale version=r1-scale-1 seed=20260924 out=[scratch]
+exit=0
+$ cmp [scratch] [root]/r1-spike/mobile/scale.jsonl
+exit=0
+$ mise exec elixir@1.20.4 erlang@28.4 node@24.21.0 -- mix r1.scale --version r1-scale-2 --out [scratch]
+tiny: initial_state_canonical_bytes=188
+medium: initial_state_canonical_bytes=192594
+stress: initial_state_canonical_bytes=729921
+r1.scale version=r1-scale-2 seed=20260924 out=[scratch]
+exit=0
+$ cmp [scratch] [root]/r1-spike/mobile/scale-2.jsonl
+exit=0
+$ shasum -a 256 [root]/r1-spike/mobile/scale.jsonl [root]/r1-spike/mobile/scale-2.jsonl
+8591d2120e18992f2f686c28314e19299d1dc112f89853037cc8331f49e4cb52  [root]/r1-spike/mobile/scale.jsonl
+8feab2218bb7c423241decb5d0f58e15b26083e29f9882427b3df11dda0c4991  [root]/r1-spike/mobile/scale-2.jsonl
+exit=0
+$ node scripts/scale-local.mjs scale-2.jsonl [scratch] (progress lines omitted)
+LOKA_A3_MODEL {"checkpoint_round_trip_us":[325,292,296,314,290,288,284,281,286,277,339,336,296,291,308,300,298,284,271,1836],"final_narration_entries":1,"final_state_bytes":386,"final_state_sha256":"63fc23d5030a6c3a54a11d20d790874fa352032dbcfa1b76b6a2565247efca6b","initial_state_bytes":188,"model":"tiny","receipts":2916,"seed":20260924,"sqlite":{"journal_mode":"delete","synchronous":2},"state_rows":{"mem":11,"mem_items":5},"steps":3000,"version":"r1-scale-2","warmup":1000}
+LOKA_A3_MODEL {"checkpoint_round_trip_us":[4419,4637,4778,4555,4819,4064,3930,3794,3908,3922,3823,3803,3790,3832,3937,3806,3988,4355,3883,3799],"final_narration_entries":501,"final_state_bytes":192793,"final_state_sha256":"68d50f5c6e6dcd6c86822d16cc0aad048550932341f242e80579319db054c5bf","initial_state_bytes":192594,"model":"medium","receipts":2916,"seed":20260924,"sqlite":{"journal_mode":"delete","synchronous":2},"state_rows":{"mem":11,"mem_items":505},"steps":3000,"version":"r1-scale-2","warmup":1000}
+LOKA_A3_MODEL {"checkpoint_round_trip_us":[17371,14911,14082,14823,14050,13902,14606,14012,13964,14119,14495,13922,13953,14510,13972,13998,14464,14124,13980,14764],"final_narration_entries":2201,"final_state_bytes":730120,"final_state_sha256":"10166b23652fff80a320e24d9f34a67d197f7e359eb8faaf1d84711dac49095f","initial_state_bytes":729921,"model":"stress","receipts":2916,"seed":20260924,"sqlite":{"journal_mode":"delete","synchronous":2},"state_rows":{"mem":11,"mem_items":2205},"steps":3000,"version":"r1-scale-2","warmup":1000}
+exit=0
+--- after
+$ pmset -g batt
+Now drawing from 'AC Power'
+ -InternalBattery-0 (id=[redacted])	100%; charged; 0:00 remaining present: true
+exit=0
+$ uptime
+ 8:58  up 19 days, 15:51, 4 users, load averages: 2.20 2.41 2.08
+exit=0

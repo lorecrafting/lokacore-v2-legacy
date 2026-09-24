@@ -1,5 +1,5 @@
 // R1-A2 phone durable host (r1-spike/README.md, "R1-A2 durable-host contract").
-// Host code, not kernel: the unchanged kernel decides; this file makes each
+// Host code, not kernel: the kernel decides; this file makes each
 // accepted attempt durable in SQLite and reads durable/receipts/pending/published
 // back from SQLite for every step record.
 //
@@ -8,7 +8,7 @@
 // first write, after COMMIT returns, or discard COMMIT's result. expo-sqlite's
 // `withTransactionSync` / `withExclusiveTransactionAsync` issue COMMIT themselves
 // after the callback, so they cannot express `commit_unknown`.
-import { canonical, clone, has, isObject, parse } from '../ts/src/kernel/codec.ts';
+import { canonical, clone, equal, has, isObject, parse } from '../ts/src/kernel/codec.ts';
 import type { Json, JsonObject } from '../ts/src/kernel/codec.ts';
 import { obj } from '../ts/src/kernel/codec.ts';
 import { step } from '../ts/src/kernel/world.ts';
@@ -32,19 +32,58 @@ export type Inject = (point: string) => void | 'discard_commit';
 /** COMMIT was issued and its result discarded: the host does not know the disposition. */
 export class CommitUnknown extends Error {}
 
+// Durable state as rows (touched-1): one `mem` row per top-level memory key, holding its
+// canonical value; a list-valued key holds the marker '*' and one `mem_items` row per
+// element instead, so appending to a large collection writes one row.
 const SCHEMA = `
 CREATE TABLE IF NOT EXISTS kv(k TEXT PRIMARY KEY, v TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS mem(k TEXT PRIMARY KEY, v TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS mem_items(k TEXT NOT NULL, i INTEGER NOT NULL, v TEXT NOT NULL, PRIMARY KEY(k, i));
 CREATE TABLE IF NOT EXISTS receipts(id TEXT PRIMARY KEY, receipt TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS outbox(seq INTEGER PRIMARY KEY, event TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS diag(seq INTEGER PRIMARY KEY, record TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS ballast(b BLOB);`;
 
+export type Write = [string, ...Array<string | number>];
+
+/** Row writes that turn stored durable state `a` into `b`. Values `b` shares with `a` (same identity) are skipped unencoded. */
+export function stateWrites(a: JsonObject, b: JsonObject): Write[] {
+  const w: Write[] = [];
+  for (const k of Object.keys(b)) {
+    const x = has(a, k) ? a[k] : undefined;
+    const y = b[k];
+    if (x === y) continue;
+    if (!Array.isArray(y)) {
+      if (x !== undefined && equal(x, y)) continue;
+      w.push(['INSERT OR REPLACE INTO mem VALUES (?, ?)', k, canonical(y)]);
+      if (Array.isArray(x)) w.push(['DELETE FROM mem_items WHERE k = ?', k]);
+      continue;
+    }
+    const old = Array.isArray(x) ? x : [];
+    if (old !== x) w.push(['INSERT OR REPLACE INTO mem VALUES (?, ?)', k, '*']);
+    y.forEach((v, i) => {
+      if (i >= old.length || (old[i] !== v && !equal(old[i], v))) w.push(['INSERT OR REPLACE INTO mem_items VALUES (?, ?, ?)', k, i, canonical(v)]);
+    });
+    if (old.length > y.length) w.push(['DELETE FROM mem_items WHERE k = ? AND i >= ?', k, y.length]);
+  }
+  return w;
+}
+
+/** The durable state rebuilt from its rows. */
+export function loadState(db: Db): JsonObject {
+  const s = obj();
+  for (const r of db.all('SELECT k, v FROM mem ORDER BY k')) s[r.k as string] = r.v === '*' ? [] : parse(r.v as string);
+  for (const r of db.all('SELECT k, v FROM mem_items ORDER BY k, i')) (s[r.k as string] as Json[]).push(parse(r.v as string));
+  return s;
+}
+
 /** Empty the store and make `memory` the durable state (one world.run's starting point). */
 export function reset(db: Db, memory: JsonObject): void {
   db.exec(SCHEMA);
   db.exec('BEGIN IMMEDIATE');
-  db.exec('DELETE FROM kv; DELETE FROM receipts; DELETE FROM outbox; DELETE FROM diag; DELETE FROM ballast');
-  db.all('INSERT INTO kv VALUES (?, ?), (?, ?)', 'durable', canonical(memory), 'pending', 'null');
+  db.exec('DELETE FROM kv; DELETE FROM mem; DELETE FROM mem_items; DELETE FROM receipts; DELETE FROM outbox; DELETE FROM diag; DELETE FROM ballast');
+  for (const [sql, ...params] of stateWrites(obj(), memory)) db.all(sql, ...params);
+  db.all('INSERT INTO kv VALUES (?, ?)', 'pending', 'null');
   db.exec('COMMIT');
 }
 
@@ -52,19 +91,15 @@ type Stored = Pick<Host, 'durable' | 'receipts' | 'pending' | 'published'>;
 
 /** What SQLite holds now. */
 export function readBack(db: Db): Stored {
-  const kv = obj();
-  for (const r of db.all('SELECT k, v FROM kv')) kv[r.k as string] = parse(r.v as string);
+  const pending = parse(db.all("SELECT v FROM kv WHERE k = 'pending'")[0].v as string) as Host['pending'];
   const receipts = obj();
   for (const r of db.all('SELECT id, receipt FROM receipts')) receipts[r.id as string] = parse(r.receipt as string);
   const published = db.all('SELECT event FROM outbox ORDER BY seq').map((r) => parse(r.event as string));
-  return { durable: kv.durable as JsonObject, receipts, pending: kv.pending as Host['pending'], published };
+  return { durable: loadState(db), receipts, pending, published };
 }
 
-type Write = [string, ...Array<string | number>];
-
 function writes(a: Stored, b: Stored): Write[] {
-  const w: Write[] = [];
-  if (canonical(a.durable) !== canonical(b.durable)) w.push(['UPDATE kv SET v = ? WHERE k = ?', canonical(b.durable), 'durable']);
+  const w: Write[] = stateWrites(a.durable, b.durable);
   for (const id of Object.keys(b.receipts)) {
     const v = canonical(b.receipts[id]);
     if (!has(a.receipts, id) || canonical(a.receipts[id]) !== v) w.push(['INSERT OR REPLACE INTO receipts VALUES (?, ?)', id, v]);

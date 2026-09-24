@@ -1,0 +1,948 @@
+{
+  "host": "phone-android",
+  "percentile_method": "nearest rank: ceil(p/100*n)-th smallest, 1-based",
+  "verdict_rule": "pass: every gated percentile < threshold/2; close: some >= threshold/2, none over; fail: some > threshold",
+  "wall_ms": 3678194,
+  "runtime": {
+    "hermes": {
+      "Build": "Release",
+      "Builtins Frozen": false,
+      "Bytecode Version": 98,
+      "CommonJS Modules": "None",
+      "Debugger Enabled": false,
+      "GC": "hades (concurrent)",
+      "OSS Release Version": "250829098.0.17",
+      "Static Hermes": true,
+      "VM Experiments": 0
+    },
+    "memory": {
+      "api": "ActivityManager.MemoryInfo.totalMem",
+      "bytes": "3766829056"
+    },
+    "sqlite": {
+      "journal_mode": "delete",
+      "source_id": "2025-07-17 13:25:10 3ce993b8657d6d9deda380a93cdd6404a8c8ba1b185b2bc423703e41ae5f2543",
+      "synchronous": 2,
+      "version": "3.50.3"
+    }
+  },
+  "models": [
+    {
+      "model": "tiny",
+      "initial_state_bytes": 188,
+      "final_state_bytes": 189,
+      "final_state_sha256": "26fc477bb6f15b2800c4a1db22cad7c04db537f874821a89848be8d5d29fdae8",
+      "measured_steps": 2000,
+      "outcome_counts": {
+        "all": 2000,
+        "accepted": 1276,
+        "accepted_state_write": 642,
+        "rejected": 685,
+        "replayed": 39
+      },
+      "action_outcome_counts": {
+        "activate:rejected": 95,
+        "choose:rejected": 90,
+        "close_choice:accepted": 6,
+        "close_choice:rejected": 17,
+        "drop:accepted": 36,
+        "drop:rejected": 11,
+        "drop:replayed": 18,
+        "look:accepted": 634,
+        "move:accepted": 554,
+        "move:rejected": 99,
+        "take:accepted": 36,
+        "take:rejected": 89,
+        "take:replayed": 21,
+        "talk:accepted": 10,
+        "talk:rejected": 106,
+        "wait:rejected": 178
+      },
+      "stats_ms": {
+        "all": {
+          "admission_ms": {
+            "n": 2000,
+            "p50": 0.6627,
+            "p95": 0.9489,
+            "p99": 1.2007,
+            "max": 3.3805
+          },
+          "decision_ms": {
+            "n": 2000,
+            "p50": 0.5151,
+            "p95": 0.6044,
+            "p99": 0.7143,
+            "max": 2.1566
+          },
+          "encode_ms": {
+            "n": 2000,
+            "p50": 0.0823,
+            "p95": 0.1852,
+            "p99": 0.2426,
+            "max": 1.6094
+          },
+          "commit_ms": {
+            "n": 2000,
+            "p50": 3.6763,
+            "p95": 4.8325,
+            "p99": 6.0452,
+            "max": 24.8182
+          },
+          "projection_ms": {
+            "n": 2000,
+            "p50": 0.1426,
+            "p95": 0.1875,
+            "p99": 0.2333,
+            "max": 1.6587
+          },
+          "e2e_ms": {
+            "n": 2000,
+            "p50": 5.1216,
+            "p95": 6.5581,
+            "p99": 8.2289,
+            "max": 26.203
+          }
+        },
+        "accepted": {
+          "admission_ms": {
+            "n": 1276,
+            "p50": 0.6574,
+            "p95": 0.8898,
+            "p99": 1.1125,
+            "max": 3.3805
+          },
+          "decision_ms": {
+            "n": 1276,
+            "p50": 0.5174,
+            "p95": 0.6056,
+            "p99": 0.7252,
+            "max": 2.1566
+          },
+          "encode_ms": {
+            "n": 1276,
+            "p50": 0.1637,
+            "p95": 0.1946,
+            "p99": 0.2442,
+            "max": 1.5614
+          },
+          "commit_ms": {
+            "n": 1276,
+            "p50": 3.9633,
+            "p95": 5.0033,
+            "p99": 7.4723,
+            "max": 24.8182
+          },
+          "projection_ms": {
+            "n": 1276,
+            "p50": 0.1486,
+            "p95": 0.1927,
+            "p99": 0.2363,
+            "max": 0.3095
+          },
+          "e2e_ms": {
+            "n": 1276,
+            "p50": 5.4582,
+            "p95": 6.8099,
+            "p99": 9.1194,
+            "max": 26.203
+          }
+        },
+        "accepted_state_write": {
+          "admission_ms": {
+            "n": 642,
+            "p50": 0.6572,
+            "p95": 0.8697,
+            "p99": 1.1358,
+            "max": 3.3805
+          },
+          "decision_ms": {
+            "n": 642,
+            "p50": 0.5278,
+            "p95": 0.6289,
+            "p99": 0.7374,
+            "max": 1.7686
+          },
+          "encode_ms": {
+            "n": 642,
+            "p50": 0.1713,
+            "p95": 0.2141,
+            "p99": 0.3771,
+            "max": 1.5614
+          },
+          "commit_ms": {
+            "n": 642,
+            "p50": 4.3624,
+            "p95": 5.2209,
+            "p99": 7.4723,
+            "max": 23.0835
+          },
+          "projection_ms": {
+            "n": 642,
+            "p50": 0.1589,
+            "p95": 0.2004,
+            "p99": 0.267,
+            "max": 0.3095
+          },
+          "e2e_ms": {
+            "n": 642,
+            "p50": 5.8879,
+            "p95": 7.1018,
+            "p99": 9.1359,
+            "max": 24.6159
+          }
+        },
+        "rejected": {
+          "admission_ms": {
+            "n": 685,
+            "p50": 0.6615,
+            "p95": 0.8829,
+            "p99": 1.2274,
+            "max": 2.3715
+          },
+          "decision_ms": {
+            "n": 685,
+            "p50": 0.5123,
+            "p95": 0.6037,
+            "p99": 0.6974,
+            "max": 1.7947
+          },
+          "encode_ms": {
+            "n": 685,
+            "p50": 0.0816,
+            "p95": 0.094,
+            "p99": 0.1651,
+            "max": 1.6094
+          },
+          "commit_ms": {
+            "n": 685,
+            "p50": 3.4575,
+            "p95": 4.1725,
+            "p99": 4.5565,
+            "max": 8.764
+          },
+          "projection_ms": {
+            "n": 685,
+            "p50": 0.1306,
+            "p95": 0.1696,
+            "p99": 0.2263,
+            "max": 1.6587
+          },
+          "e2e_ms": {
+            "n": 685,
+            "p50": 4.8496,
+            "p95": 5.8971,
+            "p99": 6.6835,
+            "max": 10.621
+          }
+        },
+        "replayed": {
+          "admission_ms": {
+            "n": 39,
+            "p50": 1.0585,
+            "p95": 1.463,
+            "p99": 1.5519,
+            "max": 1.5519
+          },
+          "decision_ms": {
+            "n": 39,
+            "p50": 0.4283,
+            "p95": 0.5364,
+            "p99": 1.6256,
+            "max": 1.6256
+          },
+          "encode_ms": {
+            "n": 39,
+            "p50": 0.0021,
+            "p95": 0.0031,
+            "p99": 0.0031,
+            "max": 0.0031
+          },
+          "commit_ms": {
+            "n": 39,
+            "p50": 0.0005,
+            "p95": 0.0009,
+            "p99": 0.0009,
+            "max": 0.0009
+          },
+          "projection_ms": {
+            "n": 39,
+            "p50": 0.0591,
+            "p95": 0.0876,
+            "p99": 0.1099,
+            "max": 0.1099
+          },
+          "e2e_ms": {
+            "n": 39,
+            "p50": 1.5515,
+            "p95": 2.162,
+            "p99": 2.6925,
+            "max": 2.6925
+          }
+        }
+      },
+      "checkpoint_round_trip_ms": {
+        "n": 20,
+        "p50": 4.914,
+        "p95": 5.765,
+        "p99": 5.878,
+        "max": 5.878,
+        "samples_ms": [
+          5.878,
+          5.218,
+          5.138,
+          4.837,
+          4.917,
+          4.474,
+          4.547,
+          4.753,
+          5.197,
+          4.803,
+          4.887,
+          4.733,
+          5.765,
+          4.944,
+          4.79,
+          4.578,
+          5.495,
+          4.938,
+          4.914,
+          5.272
+        ]
+      },
+      "gates": {
+        "decision_accepted": {
+          "thresholds_ms": {
+            "p50": 2,
+            "p95": 5,
+            "p99": 10
+          },
+          "verdict": "pass"
+        },
+        "checkpoint_round_trip_max": {
+          "threshold_ms": 10,
+          "observed_max_ms": 5.878,
+          "verdict": "close"
+        }
+      },
+      "sqlite": {
+        "journal_mode": "delete",
+        "synchronous": 2
+      },
+      "receipts": 2916
+    },
+    {
+      "model": "medium",
+      "initial_state_bytes": 192594,
+      "final_state_bytes": 192595,
+      "final_state_sha256": "32648759ed0e4b58048fa79c008707cc2eb0bbf0872d8ee19bf078391c26eac8",
+      "measured_steps": 2000,
+      "outcome_counts": {
+        "all": 2000,
+        "accepted": 1276,
+        "accepted_state_write": 642,
+        "rejected": 685,
+        "replayed": 39
+      },
+      "action_outcome_counts": {
+        "activate:rejected": 95,
+        "choose:rejected": 90,
+        "close_choice:accepted": 6,
+        "close_choice:rejected": 17,
+        "drop:accepted": 36,
+        "drop:rejected": 11,
+        "drop:replayed": 18,
+        "look:accepted": 634,
+        "move:accepted": 554,
+        "move:rejected": 99,
+        "take:accepted": 36,
+        "take:rejected": 89,
+        "take:replayed": 21,
+        "talk:accepted": 10,
+        "talk:rejected": 106,
+        "wait:rejected": 178
+      },
+      "stats_ms": {
+        "all": {
+          "admission_ms": {
+            "n": 2000,
+            "p50": 0.9582,
+            "p95": 1.2739,
+            "p99": 1.6358,
+            "max": 2.3385
+          },
+          "decision_ms": {
+            "n": 2000,
+            "p50": 215.8117,
+            "p95": 219.624,
+            "p99": 222.1584,
+            "max": 265.3737
+          },
+          "encode_ms": {
+            "n": 2000,
+            "p50": 0.1434,
+            "p95": 94.258,
+            "p99": 95.6834,
+            "max": 102.6181
+          },
+          "commit_ms": {
+            "n": 2000,
+            "p50": 10.0831,
+            "p95": 16.8668,
+            "p99": 18.6173,
+            "max": 38.7746
+          },
+          "projection_ms": {
+            "n": 2000,
+            "p50": 0.1949,
+            "p95": 0.2754,
+            "p99": 0.3645,
+            "max": 0.9757
+          },
+          "e2e_ms": {
+            "n": 2000,
+            "p50": 228.2535,
+            "p95": 328.7898,
+            "p99": 332.7762,
+            "max": 376.5247
+          }
+        },
+        "accepted": {
+          "admission_ms": {
+            "n": 1276,
+            "p50": 0.9563,
+            "p95": 1.2074,
+            "p99": 1.6717,
+            "max": 2.0884
+          },
+          "decision_ms": {
+            "n": 1276,
+            "p50": 215.8654,
+            "p95": 219.6815,
+            "p99": 222.7159,
+            "max": 265.3737
+          },
+          "encode_ms": {
+            "n": 1276,
+            "p50": 90.9072,
+            "p95": 94.7697,
+            "p99": 96.2003,
+            "max": 102.6181
+          },
+          "commit_ms": {
+            "n": 1276,
+            "p50": 13.0951,
+            "p95": 17.1518,
+            "p99": 23.0995,
+            "max": 38.7746
+          },
+          "projection_ms": {
+            "n": 1276,
+            "p50": 0.203,
+            "p95": 0.2833,
+            "p99": 0.4021,
+            "max": 0.5294
+          },
+          "e2e_ms": {
+            "n": 1276,
+            "p50": 319.6141,
+            "p95": 329.9129,
+            "p99": 336.2093,
+            "max": 376.5247
+          }
+        },
+        "accepted_state_write": {
+          "admission_ms": {
+            "n": 642,
+            "p50": 0.9544,
+            "p95": 1.2182,
+            "p99": 1.7817,
+            "max": 2.0464
+          },
+          "decision_ms": {
+            "n": 642,
+            "p50": 215.8641,
+            "p95": 219.8675,
+            "p99": 222.6672,
+            "max": 265.3737
+          },
+          "encode_ms": {
+            "n": 642,
+            "p50": 92.9989,
+            "p95": 95.3521,
+            "p99": 96.8371,
+            "max": 102.6181
+          },
+          "commit_ms": {
+            "n": 642,
+            "p50": 15.8258,
+            "p95": 17.7373,
+            "p99": 27.1189,
+            "max": 37.8748
+          },
+          "projection_ms": {
+            "n": 642,
+            "p50": 0.2314,
+            "p95": 0.3107,
+            "p99": 0.4188,
+            "max": 0.5294
+          },
+          "e2e_ms": {
+            "n": 642,
+            "p50": 326.0466,
+            "p95": 331.7908,
+            "p99": 344.9521,
+            "max": 376.5247
+          }
+        },
+        "rejected": {
+          "admission_ms": {
+            "n": 685,
+            "p50": 0.951,
+            "p95": 1.2569,
+            "p99": 1.6097,
+            "max": 2.2194
+          },
+          "decision_ms": {
+            "n": 685,
+            "p50": 215.8149,
+            "p95": 219.6273,
+            "p99": 221.7315,
+            "max": 250.3164
+          },
+          "encode_ms": {
+            "n": 685,
+            "p50": 0.1385,
+            "p95": 0.1972,
+            "p99": 0.3416,
+            "max": 0.3839
+          },
+          "commit_ms": {
+            "n": 685,
+            "p50": 9.6694,
+            "p95": 10.8012,
+            "p99": 11.3764,
+            "max": 25.2939
+          },
+          "projection_ms": {
+            "n": 685,
+            "p50": 0.1856,
+            "p95": 0.2536,
+            "p99": 0.3386,
+            "max": 0.9757
+          },
+          "e2e_ms": {
+            "n": 685,
+            "p50": 226.7076,
+            "p95": 230.9535,
+            "p99": 234.297,
+            "max": 261.2695
+          }
+        },
+        "replayed": {
+          "admission_ms": {
+            "n": 39,
+            "p50": 1.4175,
+            "p95": 1.7286,
+            "p99": 2.3385,
+            "max": 2.3385
+          },
+          "decision_ms": {
+            "n": 39,
+            "p50": 196.5831,
+            "p95": 199.9384,
+            "p99": 200.4328,
+            "max": 200.4328
+          },
+          "encode_ms": {
+            "n": 39,
+            "p50": 0.0103,
+            "p95": 0.0142,
+            "p99": 0.1061,
+            "max": 0.1061
+          },
+          "commit_ms": {
+            "n": 39,
+            "p50": 0.0009,
+            "p95": 0.002,
+            "p99": 0.0408,
+            "max": 0.0408
+          },
+          "projection_ms": {
+            "n": 39,
+            "p50": 0.1071,
+            "p95": 0.1379,
+            "p99": 0.1517,
+            "max": 0.1517
+          },
+          "e2e_ms": {
+            "n": 39,
+            "p50": 198.0107,
+            "p95": 201.4569,
+            "p99": 201.7868,
+            "max": 201.7868
+          }
+        }
+      },
+      "checkpoint_round_trip_ms": {
+        "n": 20,
+        "p50": 216.943,
+        "p95": 222.39,
+        "p99": 242.334,
+        "max": 242.334,
+        "samples_ms": [
+          210.782,
+          213.778,
+          216.501,
+          216.943,
+          220.388,
+          216.931,
+          242.334,
+          221.319,
+          217.665,
+          219.914,
+          217.176,
+          219.806,
+          215.375,
+          215.579,
+          221.432,
+          216.765,
+          216.706,
+          222.39,
+          219.211,
+          214.568
+        ]
+      },
+      "gates": {
+        "decision_accepted": {
+          "thresholds_ms": {
+            "p50": 5,
+            "p95": 15,
+            "p99": 30
+          },
+          "verdict": "fail"
+        },
+        "e2e_accepted": {
+          "thresholds_ms": {
+            "p50": null,
+            "p95": 100,
+            "p99": 200
+          },
+          "verdict": "fail"
+        },
+        "checkpoint_round_trip_max": {
+          "threshold_ms": 50,
+          "observed_max_ms": 242.334,
+          "verdict": "fail"
+        }
+      },
+      "sqlite": {
+        "journal_mode": "delete",
+        "synchronous": 2
+      },
+      "receipts": 2916
+    },
+    {
+      "model": "stress",
+      "initial_state_bytes": 729921,
+      "final_state_bytes": 729922,
+      "final_state_sha256": "f4ac6e99d0620379cefbdd381ef768de5d0801bbc5870743ad0536c5f5084fad",
+      "measured_steps": 2000,
+      "outcome_counts": {
+        "all": 2000,
+        "accepted": 1276,
+        "accepted_state_write": 642,
+        "rejected": 685,
+        "replayed": 39
+      },
+      "action_outcome_counts": {
+        "activate:rejected": 95,
+        "choose:rejected": 90,
+        "close_choice:accepted": 6,
+        "close_choice:rejected": 17,
+        "drop:accepted": 36,
+        "drop:rejected": 11,
+        "drop:replayed": 18,
+        "look:accepted": 634,
+        "move:accepted": 554,
+        "move:rejected": 99,
+        "take:accepted": 36,
+        "take:rejected": 89,
+        "take:replayed": 21,
+        "talk:accepted": 10,
+        "talk:rejected": 106,
+        "wait:rejected": 178
+      },
+      "stats_ms": {
+        "all": {
+          "admission_ms": {
+            "n": 2000,
+            "p50": 0.8555,
+            "p95": 1.1916,
+            "p99": 1.4558,
+            "max": 7.4125
+          },
+          "decision_ms": {
+            "n": 2000,
+            "p50": 821.7957,
+            "p95": 831.0184,
+            "p99": 835.4363,
+            "max": 852.8332
+          },
+          "encode_ms": {
+            "n": 2000,
+            "p50": 0.1398,
+            "p95": 354.0047,
+            "p99": 363.3341,
+            "max": 406.8195
+          },
+          "commit_ms": {
+            "n": 2000,
+            "p50": 9.2682,
+            "p95": 31.6234,
+            "p99": 42.8538,
+            "max": 73.5053
+          },
+          "projection_ms": {
+            "n": 2000,
+            "p50": 0.1797,
+            "p95": 0.2748,
+            "p99": 0.3609,
+            "max": 0.6736
+          },
+          "e2e_ms": {
+            "n": 2000,
+            "p50": 835.1703,
+            "p95": 1213.1981,
+            "p99": 1229.5962,
+            "max": 1309.0526
+          }
+        },
+        "accepted": {
+          "admission_ms": {
+            "n": 1276,
+            "p50": 0.8483,
+            "p95": 1.1379,
+            "p99": 1.3905,
+            "max": 7.4125
+          },
+          "decision_ms": {
+            "n": 1276,
+            "p50": 821.9354,
+            "p95": 831.1108,
+            "p99": 835.0601,
+            "max": 840.0701
+          },
+          "encode_ms": {
+            "n": 1276,
+            "p50": 343.5405,
+            "p95": 356.2832,
+            "p99": 370.7364,
+            "max": 406.8195
+          },
+          "commit_ms": {
+            "n": 1276,
+            "p50": 24.7763,
+            "p95": 32.8094,
+            "p99": 50.2578,
+            "max": 73.5053
+          },
+          "projection_ms": {
+            "n": 1276,
+            "p50": 0.192,
+            "p95": 0.2814,
+            "p99": 0.363,
+            "max": 0.576
+          },
+          "e2e_ms": {
+            "n": 1276,
+            "p50": 1184.1479,
+            "p95": 1216.5878,
+            "p99": 1238.2607,
+            "max": 1309.0526
+          }
+        },
+        "accepted_state_write": {
+          "admission_ms": {
+            "n": 642,
+            "p50": 0.8529,
+            "p95": 1.1393,
+            "p99": 1.2435,
+            "max": 7.4125
+          },
+          "decision_ms": {
+            "n": 642,
+            "p50": 821.7592,
+            "p95": 831.3993,
+            "p99": 834.1018,
+            "max": 838.1394
+          },
+          "encode_ms": {
+            "n": 642,
+            "p50": 349.6016,
+            "p95": 360.6269,
+            "p99": 379.1508,
+            "max": 406.8195
+          },
+          "commit_ms": {
+            "n": 642,
+            "p50": 29.7201,
+            "p95": 39.126,
+            "p99": 52.0908,
+            "max": 73.5053
+          },
+          "projection_ms": {
+            "n": 642,
+            "p50": 0.223,
+            "p95": 0.2967,
+            "p99": 0.363,
+            "max": 0.4839
+          },
+          "e2e_ms": {
+            "n": 642,
+            "p50": 1203.0214,
+            "p95": 1223.7503,
+            "p99": 1250.4029,
+            "max": 1309.0526
+          }
+        },
+        "rejected": {
+          "admission_ms": {
+            "n": 685,
+            "p50": 0.8606,
+            "p95": 1.2226,
+            "p99": 1.5096,
+            "max": 1.9102
+          },
+          "decision_ms": {
+            "n": 685,
+            "p50": 821.8421,
+            "p95": 830.9867,
+            "p99": 835.5856,
+            "max": 852.8332
+          },
+          "encode_ms": {
+            "n": 685,
+            "p50": 0.1328,
+            "p95": 0.1577,
+            "p99": 0.2726,
+            "max": 0.3504
+          },
+          "commit_ms": {
+            "n": 685,
+            "p50": 8.824,
+            "p95": 10.0369,
+            "p99": 11.1501,
+            "max": 23.1064
+          },
+          "projection_ms": {
+            "n": 685,
+            "p50": 0.1731,
+            "p95": 0.2633,
+            "p99": 0.3692,
+            "max": 0.6736
+          },
+          "e2e_ms": {
+            "n": 685,
+            "p50": 831.9584,
+            "p95": 841.7985,
+            "p99": 845.6063,
+            "max": 863.0761
+          }
+        },
+        "replayed": {
+          "admission_ms": {
+            "n": 39,
+            "p50": 1.238,
+            "p95": 1.6461,
+            "p99": 1.6499,
+            "max": 1.6499
+          },
+          "decision_ms": {
+            "n": 39,
+            "p50": 747.4158,
+            "p95": 756.9708,
+            "p99": 757.3721,
+            "max": 757.3721
+          },
+          "encode_ms": {
+            "n": 39,
+            "p50": 0.0079,
+            "p95": 0.0119,
+            "p99": 0.0122,
+            "max": 0.0122
+          },
+          "commit_ms": {
+            "n": 39,
+            "p50": 0.0007,
+            "p95": 0.0011,
+            "p99": 0.0011,
+            "max": 0.0011
+          },
+          "projection_ms": {
+            "n": 39,
+            "p50": 0.0958,
+            "p95": 0.1132,
+            "p99": 0.1282,
+            "max": 0.1282
+          },
+          "e2e_ms": {
+            "n": 39,
+            "p50": 748.8963,
+            "p95": 758.7439,
+            "p99": 759.0392,
+            "max": 759.0392
+          }
+        }
+      },
+      "checkpoint_round_trip_ms": {
+        "n": 20,
+        "p50": 789.51,
+        "p95": 802.271,
+        "p99": 821.445,
+        "max": 821.445,
+        "samples_ms": [
+          789.51,
+          789.246,
+          795.832,
+          802.271,
+          788.418,
+          785.677,
+          784.083,
+          790.056,
+          788.609,
+          785.212,
+          791.492,
+          796.731,
+          791.398,
+          791.108,
+          788.471,
+          784.75,
+          797.953,
+          792.545,
+          785.257,
+          821.445
+        ]
+      },
+      "gates": {
+        "decision_accepted": {
+          "thresholds_ms": {
+            "p50": 15,
+            "p95": 40,
+            "p99": 80
+          },
+          "verdict": "fail"
+        },
+        "checkpoint_round_trip_max": {
+          "threshold_ms": 200,
+          "observed_max_ms": 821.445,
+          "verdict": "fail"
+        }
+      },
+      "sqlite": {
+        "journal_mode": "delete",
+        "synchronous": 2
+      },
+      "receipts": 2916
+    }
+  ]
+}
