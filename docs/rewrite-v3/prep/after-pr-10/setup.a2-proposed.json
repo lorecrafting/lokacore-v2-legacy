@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "status": "a2_proposed_not_reviewed",
+  "candidate": "C",
+  "accepted_spec_commit": "f5bef28a3094083fed67712c771504954d65d2de",
+  "candidate_author_ids": [
+    "Claude Code implementing assistant, Claude Opus (R1-A1 candidate author)"
+  ],
+  "devices": {
+    "ios": {
+      "qualification_class": "iphone-11",
+      "model": "iPhone 11 (ProductType iPhone12,1, HardwareModel N104AP)",
+      "sku": "MH8Y3LL/A",
+      "soc": null,
+      "installed_ram_gb": null,
+      "os_version": "26.6.2",
+      "os_build": "23G90",
+      "architecture": "arm64e",
+      "availability_record": "Inspected 2026-09-24T03:09:35Z with ideviceinfo 1.4.0: prep/after-pr-10/a2-device-evidence/iphone-11-ideviceinfo.txt sha256 f3ff213470db6bf76ba93b3bb9f0202176806239b076cbe9db8a27a7f45a853f"
+    },
+    "android": {
+      "qualification_class": null,
+      "model": "Google Pixel 3a (ro.product.device sargo)",
+      "sku": "G020G",
+      "soc": "sdm710 (ro.board.platform)",
+      "installed_ram_gb": null,
+      "os_version": "11",
+      "os_build": "RQ2A.210505.002",
+      "architecture": "arm64-v8a",
+      "availability_record": "Inspected 2026-09-24T03:08:17Z with adb 1.0.41: prep/after-pr-10/a2-device-evidence/pixel-3a-adb.txt sha256 a7f1b86aed3dd36189e28b9038a2d8c25f36d1ba1fe5ce361eef0f2778505bc0"
+    }
+  },
+  "server": {
+    "model": "MacBook Air MacBookAir10,1, Apple M1, arm64",
+    "os_build": "macOS 26.6.2 (25G83)",
+    "cores": 8,
+    "ram_gb": 16
+  },
+  "toolchain": {
+    "expo": "57.0.24",
+    "react_native": "0.86.3",
+    "hermes": "250829098.0.17",
+    "typescript": "6.0.3",
+    "node": "24.21.0",
+    "elixir": "1.20.4",
+    "otp": "28.4",
+    "sqlite": "3.50.3",
+    "sqlite_binding": "57.0.3",
+    "xcode": null,
+    "ios_sdk": null,
+    "android_sdk": "36",
+    "gradle": "9.3.1",
+    "jdk": "17.0.20+8"
+  },
+  "toolchain_lock": {
+    "path": null,
+    "sha256": null
+  },
+  "inputs": [
+    {
+      "path": "r1-acceptance-envelope.md",
+      "sha256": "11a81f8e4ce4d9c8d4614e08a99469c4f28d086452c87015066516a2889dd5f6"
+    },
+    {
+      "path": "conformance/numeric-profile.md",
+      "sha256": "2fad2bfcb6fe0840b58e9fdcce049b4d441a1be4b9d9d2e82e0879a24c69aa1f"
+    },
+    {
+      "path": "conformance/numeric-vectors.json",
+      "sha256": "85472ae4e7626ca7326b881766e21ae23dd253c82b5c9d4c8d0c86f89ee168c9"
+    },
+    {
+      "path": "conformance/cases.json",
+      "sha256": "fa4969066ed86de5c26c10d23c069d7928f90e8b5064ff751597d30c0c787bcb"
+    },
+    {
+      "path": "conformance/composition-profile.json",
+      "sha256": "f812bf42c97c8b9731da8783dce1ade1e6f6c9fea9b6eab5beb297d4bab5dcdd"
+    },
+    {
+      "path": "conformance/composition-cases.json",
+      "sha256": "26a9fe8f84125477a0c4e340f19355eaf0c3422c2b1c215b370f5dcd435f22ee"
+    },
+    {
+      "path": "conformance/lantern-traces.json",
+      "sha256": "e5aaf947a7978520752f2aeee9665d171a917b97311952b3c347167faf392a89"
+    },
+    {
+      "path": "conformance/adverse-cases.json",
+      "sha256": "1b699cf2ce71181a2b09a596ed2253c06caa435aad4b5eb8a8ea9601fbadf5b1"
+    }
+  ],
+  "r0_acceptance": {
+    "path": "prep/after-pr-10/r0-acceptance.pending.json",
+    "sha256": "ceb006ce826ec0765594d226c9d6517520637a4a6b7acd622459d96e425066b5"
+  },
+  "oracle_review": {
+    "path": "prep/after-pr-10/oracle-review.pending.json",
+    "sha256": "30036a8bb3d92637967aa043a760bf696629afa98dd3a98d4f37db4444612f80"
+  },
+  "setup_review": {
+    "path": null,
+    "sha256": null
+  }
+}
