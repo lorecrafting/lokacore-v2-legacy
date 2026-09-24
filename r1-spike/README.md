@@ -295,7 +295,7 @@ Bundles: `docs/rewrite-v3/r1-a2-evidence/android/` and `…/ios/`. Each has a
   - AGP 8.12.0 (root `buildEnvironment`).
   - iOS: two clean builds. The Metro bundle, Hermes bytecode and source map are
     identical. The Mach-O files are identical once their code signatures are
-    removed. The dSYM differs in 2 DWARF bytes, and the UUID is the same.
+    removed. The dSYM differs in 1 DWARF byte in the tested pair (2 in an earlier pair), and the UUID is the same.
 - **Not here:** latency, memory ceilings, load (R1-A3).
 
 ## Known gaps (A1 scope)
