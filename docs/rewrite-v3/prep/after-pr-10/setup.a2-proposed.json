@@ -11,23 +11,23 @@
       "qualification_class": "iphone-11",
       "model": "iPhone 11 (ProductType iPhone12,1, HardwareModel N104AP)",
       "sku": "MH8Y3LL/A",
-      "soc": null,
-      "installed_ram_gb": null,
+      "soc": "A13 Bionic (Apple product page for iPhone12,1, cited in prep/after-pr-10/README.md; not tool-inspected)",
+      "installed_ram_gb": 4,
       "os_version": "26.6.2",
       "os_build": "23G90",
-      "architecture": "arm64e",
-      "availability_record": "Inspected 2026-09-24T03:09:35Z with ideviceinfo 1.4.0: prep/after-pr-10/a2-device-evidence/iphone-11-ideviceinfo.txt sha256 f3ff213470db6bf76ba93b3bb9f0202176806239b076cbe9db8a27a7f45a853f"
+      "architecture": "arm64",
+      "availability_record": "Inspected 2026-09-24T07:04:17Z with ideviceinfo 1.4.0: prep/after-pr-10/a2-device-evidence/iphone-11-ideviceinfo.txt sha256 51a12c7ce3dc9feff1254f6274ab76536d63ba90b7d3088d0ac0d703769d4a60; CPUArchitecture arm64e (ideviceinfo), recorded as class arm64; installed RAM 4 GB is the class figure (not published by Apple; not inspected); physicalMemory 4039901184 bytes read on device (ProcessInfo.processInfo.physicalMemory, prep/after-pr-10/a2-device-evidence/iphone-11-probe.txt sha256 83aa25444c4bc970126a7a43df24ea16c62674d74c860e5f0b91a79cf658a35d)"
     },
     "android": {
-      "qualification_class": null,
+      "qualification_class": "galaxy-a14-4gb",
       "model": "Google Pixel 3a (ro.product.device sargo)",
       "sku": "G020G",
       "soc": "sdm710 (ro.board.platform)",
-      "installed_ram_gb": null,
+      "installed_ram_gb": 4,
       "os_version": "11",
       "os_build": "RQ2A.210505.002",
-      "architecture": "arm64-v8a",
-      "availability_record": "Inspected 2026-09-24T03:08:17Z with adb 1.0.41: prep/after-pr-10/a2-device-evidence/pixel-3a-adb.txt sha256 a7f1b86aed3dd36189e28b9038a2d8c25f36d1ba1fe5ce361eef0f2778505bc0"
+      "architecture": "arm64",
+      "availability_record": "Inspected 2026-09-24T06:45:02Z with adb 1.0.41: prep/after-pr-10/a2-device-evidence/pixel-3a-adb.txt sha256 f236e75c68b1d39d93a13e7f439d4deb9c7365ad9f5d3957564f34e5efc5a08d; ro.product.cpu.abi arm64-v8a (adb), APK native-code arm64-v8a, recorded as class arm64; substitutes for the galaxy-a14-4gb class per prep/after-pr-10/owner-decision-a2-2026-09-23.md sha256 40b33035646008135795c4e8d10f487397fb138e55df88397aa15b6246b68f2a (ADR-070 proposed); installed RAM 4 GB is the class figure (Google product specification, not inspected); kernel MemTotal 3678544 kB; totalMem 3766829056 bytes read on device (ActivityManager.MemoryInfo.totalMem, prep/after-pr-10/a2-device-evidence/pixel-3a-probe.txt sha256 fe68621d2a0909bc5c6c32971c1a155a14e854c89426943b6a32cb58408906de)"
     }
   },
   "server": {
@@ -53,8 +53,8 @@
     "jdk": "17.0.20+8"
   },
   "toolchain_lock": {
-    "path": null,
-    "sha256": null
+    "path": "prep/after-pr-10/a2-toolchain-lock.SHA256SUMS",
+    "sha256": "8a755fac33140e6179ffe5408929acc8145b34d7f5ef7c0d957bf1ba54cecd5b"
   },
   "inputs": [
     {
