@@ -2,8 +2,10 @@
   "schema_version": 1,
   "status": "preparation_pending",
   "candidate": "C",
-  "accepted_spec_commit": "aaadaffff02e459dbf04e71d6ddc81d75eacf986",
-  "candidate_author_ids": [],
+  "accepted_spec_commit": "f5bef28a3094083fed67712c771504954d65d2de",
+  "candidate_author_ids": [
+    "Claude Code implementing assistant, Claude Opus (R1-A1 candidate author)"
+  ],
   "devices": {
     "ios": {
       "qualification_class": "iphone-11",
@@ -90,11 +92,11 @@
   ],
   "r0_acceptance": {
     "path": "prep/after-pr-10/r0-acceptance.pending.json",
-    "sha256": "93d18d1d992454c7bfaa2aa875b711c3e2d87af5387f9f86f6a1c1c563f26f38"
+    "sha256": "ceb006ce826ec0765594d226c9d6517520637a4a6b7acd622459d96e425066b5"
   },
   "oracle_review": {
     "path": "prep/after-pr-10/oracle-review.pending.json",
-    "sha256": "2bd7533acb353dcc9220d2b57db38d24d069e3a3634d4da4c95a7106fdcdaaf0"
+    "sha256": "30036a8bb3d92637967aa043a760bf696629afa98dd3a98d4f37db4444612f80"
   },
   "setup_review": {
     "path": "prep/after-pr-10/setup-review.pending.json",
