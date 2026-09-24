@@ -149,4 +149,16 @@ defmodule LokaR1HarnessTest do
     assert summary["result"] == "mismatch"
     assert length(JSON.decode!(summary["failure"]["minimized"]["request"])["commands"]) == 1
   end
+
+  test "scale inputs: deterministic, envelope volumes, one shared command stream" do
+    alias LokaR1Harness.Scale
+    assert Scale.lines(7) == Scale.lines(7)
+    [tiny, medium, stress] = Enum.map(Scale.models(), &Scale.input(&1, 7))
+    assert Enum.map([tiny, medium, stress], &length(&1["initial"]["narration"])) == [0, 500, 2200]
+    assert tiny["commands"] == stress["commands"]
+    ids = Enum.map(tiny["commands"], & &1["request"]["id"])
+    assert length(ids) == 3000
+    # Duplicate deliveries and altered intents reuse earlier ids on purpose.
+    assert length(Enum.uniq(ids)) < 3000
+  end
 end
