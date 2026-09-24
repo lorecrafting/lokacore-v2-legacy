@@ -14,6 +14,9 @@ Evidence: [device and M1 host](a2-device-evidence/) (raw `sysctl`/`sw_vers`,
 Each bundle has a `SHA256SUMS` index with its verify output beside it, outside
 the index. The BOOX Palma2 output is supplementary only: not a qualification
 device and not in the setup record.
+At the owner's request the two `adb` device serials were replaced with
+`[redacted]` after capture (2026-09-24); nothing else in those files changed.
+The serials remain in this branch's earlier commits.
 
 ## Fourteen toolchain fields
 
@@ -32,8 +35,8 @@ re-resolved); **null** = not observed.
 | otp | 28.4 | inspected | `OTP_VERSION` file (Actions); `erl -eval` reading it (M1) | Actions and M1 | proposed |
 | sqlite | 3.50.3 | inspected (Android APK) | `strings` on `lib/arm64-v8a/libexpo-sqlite.so`: version string and source id `2025-07-17 13:25:10 3ce993b8…` | Actions | proposed; on-device `sqlite_version()` and iOS pending |
 | sqlite_binding | 57.0.3 | lock | as expo | Actions | proposed |
-| xcode | null | — | `xcodebuild -version` (today: Command Line Tools only, exit 1) | M1 | **pending owner Xcode install** |
-| ios_sdk | null | — | `xcodebuild -showsdks`; `xcrun --sdk iphoneos --show-sdk-version` | M1 | **pending owner Xcode install** |
+| xcode | 27.0+27A266a | inspected | `xcodebuild -version` with `DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer` (a2-device-evidence/m1-xcode.txt) | M1 | observed 2026-09-24 |
+| ios_sdk | 27.0+24A430 | inspected | `xcodebuild -showsdks`; `xcrun --sdk iphoneos --show-sdk-version` / `--show-sdk-build-version` (m1-xcode.txt) | M1 | observed 2026-09-24 |
 | android_sdk | 36 | inspected | Gradle init report `compileSdk=android-36`, `targetSdk=36`; platform `Pkg.Revision=2`; `aapt2 dump badging` | Actions | proposed |
 | gradle | 9.3.1 | inspected | `./gradlew --version` | Actions | proposed |
 | jdk | 17.0.20+8 | inspected | `java -version` (Temurin, pinned by `actions/setup-java`) | Actions | proposed |

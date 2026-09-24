@@ -1,0 +1,36 @@
+2026-09-24T05:42:20Z
+DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
+Xcode 27.0
+Build version 27A266a
+DriverKit SDKs:
+	DriverKit 27.0                	-sdk driverkit27.0
+
+iOS SDKs:
+	iOS 27.0                      	-sdk iphoneos27.0
+
+iOS Simulator SDKs:
+	Simulator - iOS 27.0          	-sdk iphonesimulator27.0
+
+macOS SDKs:
+	macOS 27.0                    	-sdk macosx27.0
+	macOS 27.0                    	-sdk macosx27.0
+
+tvOS SDKs:
+	tvOS 27.0                     	-sdk appletvos27.0
+
+tvOS Simulator SDKs:
+	Simulator - tvOS 27.0         	-sdk appletvsimulator27.0
+
+visionOS SDKs:
+	visionOS 27.0                 	-sdk xros27.0
+
+visionOS Simulator SDKs:
+	Simulator - visionOS 27.0     	-sdk xrsimulator27.0
+
+watchOS SDKs:
+	watchOS 27.0                  	-sdk watchos27.0
+
+watchOS Simulator SDKs:
+	Simulator - watchOS 27.0      	-sdk watchsimulator27.0
+
+iphoneos sdk: 27.0 build 24A430

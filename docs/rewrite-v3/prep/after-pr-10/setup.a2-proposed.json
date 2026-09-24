@@ -46,8 +46,8 @@
     "otp": "28.4",
     "sqlite": "3.50.3",
     "sqlite_binding": "57.0.3",
-    "xcode": null,
-    "ios_sdk": null,
+    "xcode": "27.0+27A266a",
+    "ios_sdk": "27.0+24A430",
     "android_sdk": "36",
     "gradle": "9.3.1",
     "jdk": "17.0.20+8"
