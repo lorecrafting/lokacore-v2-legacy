@@ -17,6 +17,7 @@ setup must not author code here.
 | `elixir/` | Mix project `loka_r1`: kernel, runner, fixture tests. No dependencies. |
 | `ts/` | TypeScript kernel (runs on Hermes later, so no Node APIs in `src/kernel/`), Node runner, fixture tests. Only dev dependency: `typescript` 6.0.3, locked with the retained integrity hash. |
 | `harness/` | Mix project: seeded generator, differential runner, minimizer, CI entry point. |
+| `server/` | Mix project `loka_r1_server`: the A2 durable host (GenServer per world instance, SQLite through `exqlite` 0.40.0, raw SQL), `mix r1.durable_runner`, `mix r1.faults`, `mix r1.sqlite_identity`. |
 
 Toolchain: Elixir 1.20.4 / OTP 28.4, Node 24.21.0 (it runs `.ts` directly by
 stripping types, so write only erasable TypeScript), TypeScript 6.0.3 for type
@@ -202,6 +203,23 @@ identifiers, home or scratchpad paths, or app-container/LaunchServices UUIDs;
 every capture script's `redact()` covers them. iOS build scripts record
 `git rev-parse HEAD` and `git status --porcelain`.
 
+**Server notes (readings taken by the server host, 2026-09-24; not contract text).**
+(1) `step` is the 0-based index into the `world.run` commands, and a fault fires
+only if that command reaches the point; the fault runs use a fresh identity so it
+always does. (2) `io_error` applies only at `in_persistence`, the one point with a
+write in flight. The hook pins `PRAGMA max_page_count` to the current page count
+and inserts a 1 MiB blob in the open transaction, so SQLite returns SQLITE_FULL
+and the host rolls back; the failing statement is the hook's, not the receipt
+insert. (3) After any real fault, raised or killed, the host rebuilds from SQLite
+alone: `memory` is the durable state, `in_doubt` is whether a pending row exists,
+and `published` is empty, because the outbox isn't durable. The expected HOST is
+the model host at the disposition SQLite shows, after the model's `recover`, with
+`published` empty. (4) A caught fault answers `retryable` with `rolled_back`, or
+with `response_lost` if the receipt row exists. `commit_unknown` answers
+`retryable commit_unknown` with `in_doubt: true`, and the host reconciles before
+it takes the next command. (5) The per-attempt diagnostic line is written only
+when a diagnostic path is set (fault runs), not in the differential runs.
+
 ## Known gaps (A1 scope)
 
 - Selector cardinality is only a model helper, and no operation reaches it.
@@ -217,3 +235,25 @@ every capture script's `redact()` covers them. iOS build scripts record
 - **Coverage:** in 2,000 generated composition plans, the Python model reaches every one of its 30 fault codes, and about 70% of plans pass validation. The harness self-test enforces this.
 - **Sensitivity:** CI alters one output byte of the real TypeScript runner and requires a mismatch. Locally, that divergence was caught within 23 sequences and minimized to two commands.
 - **Limits:** agreement between the two is not correctness; the fixtures stay authoritative. None of this is Hermes, device, SQLite, timing or load evidence.
+
+### A2 server evidence (2026-09-24)
+
+Bundle: [`docs/rewrite-v3/r1-a2-evidence/server/`](../docs/rewrite-v3/r1-a2-evidence/server/),
+produced at `2fc0fb3` on an M1 MacBook Air (MacBookAir10,1, macOS 26.6.2), with
+`SHA256SUMS` and its check output.
+
+- **Engine:** SQLite 3.53.4 (source id `2026-07-24 19:02:57 bf7c7f30…`), from the
+  amalgamation bundled with `exqlite` 0.40.0 and built from source by Apple clang 21
+  (`force_build`). `sqlite-identity.json` lists the compile options.
+- **Oracle differential:** `mix r1.diff` with the durable runner in place of the
+  TypeScript one. Generator `r1-gen-3`, base seed 20260924, the 22 regression seeds
+  plus 10,000 fresh sequences (10,194 `world.run` requests), zero mismatches, 116 s.
+- **Sensitivity:** a SQLite trigger that rewrites stored failed-roll receipts
+  (`test/support/mutated_durable_runner.sh`). It only changes what the host reads back
+  from SQLite, and it was caught at sequence 23 and minimized to two commands.
+- **Real faults:** `mix r1.faults --seeds 6` gives 252 records: 14 point × kind pairs
+  × 3 worlds × 6 seeds. All 252 pass, 18 per pair. That covers `raise` and `kill` at
+  all six points, and `io_error` and `commit_unknown` at `in_persistence`. Each
+  `kill` halted a child VM with status 137, and a fresh VM recovered from the file.
+- **Not measured here:** timings, memory and load (R1-A3). Kills are VM halts, not
+  power loss, so fsync durability isn't exercised.
