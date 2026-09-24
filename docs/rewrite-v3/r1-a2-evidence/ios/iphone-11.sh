@@ -193,15 +193,15 @@ $SERIAL"
   : > "$EV/kill-stacks-symbolicated.txt"
   find "$D/crash" -name 'LokaR1A2-*.ips' | LC_ALL=C sort | while read -r ips; do
     b=$(basename "$ips")
-    redact < "$ips" > "$EV/crash/$b"
-    python3 - "$ips" "$K/LokaR1A2.app.dSYM" "$since" >> "$EV/kill-stacks-symbolicated.txt" <<'PY'
+    python3 - "$ips" "$K/LokaR1A2.app.dSYM" "$since" > "$T/sym.txt" <<'PY'
 import json, subprocess, sys
 path, dsym, since = sys.argv[1:4]
 raw = open(path).read()
 head, body = raw.split('\n', 1)
 h, r = json.loads(head), json.loads(body)
-if h.get('timestamp', '') and h['timestamp'][:10] < since[:10]:
-    sys.exit(0)
+from datetime import datetime
+if datetime.strptime(h['timestamp'], '%Y-%m-%d %H:%M:%S.%f %z') < datetime.fromisoformat(since.replace('Z', '+00:00')):
+    sys.exit(0)  # an earlier run's report
 imgs = r['usedImages']
 t = next(t for t in r['threads'] if t.get('triggered'))
 print('=== ' + path.rsplit('/', 1)[1] + ' exception=' + r['exception']['type'] + ' ' + r['exception'].get('signal', ''))
@@ -210,7 +210,9 @@ for i, f in enumerate(t['frames']):
     name = img.get('name', '?')
     line = '%2d %-22s +0x%x' % (i, name, f['imageOffset'])
     if name == 'LokaR1A2':
-        addr = img['base'] + f['imageOffset']
+        # Caller frames hold return addresses; after a noreturn call (abort) that is past the
+        # function's end, so look up the call instruction (address - 1), as symbolicators do.
+        addr = img['base'] + f['imageOffset'] - (1 if i > 0 else 0)
         sym = subprocess.run(['xcrun', 'atos', '-o', dsym + '/Contents/Resources/DWARF/LokaR1A2', '-arch', 'arm64',
                               '-l', hex(img['base']), hex(addr)], capture_output=True, text=True).stdout.strip()
         line += '  atos(dSYM uuid ' + img['uuid'] + '): ' + sym
@@ -218,6 +220,7 @@ for i, f in enumerate(t['frames']):
         line += '  ' + f['symbol']
     print(line)
 PY
+    [ -s "$T/sym.txt" ] && cat "$T/sym.txt" >> "$EV/kill-stacks-symbolicated.txt" && redact < "$ips" > "$EV/crash/$b"
   done
   redact < "$EV/kill-stacks-symbolicated.txt" > "$T/k" && mv "$T/k" "$EV/kill-stacks-symbolicated.txt"
   cd "$APP" || exit 1
