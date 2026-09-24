@@ -76,9 +76,11 @@ jobs:
         working-directory: r1-spike/harness
         run: |
           set -uo pipefail
+          set +e  # the mutant run must exit non-zero; check it explicitly
           out=$(mix r1.diff --sequences 2000 --seed 7 --report "$RUNNER_TEMP/r1-diff-mutant.json" \
             --ts "$PWD/test/support/mutated_ts_runner.sh" 2>&1)
           status=$?
+          set -e
           echo "$out" | tail -5
           test "$status" -ne 0
           grep -q 'result=mismatch' <<< "$out"
