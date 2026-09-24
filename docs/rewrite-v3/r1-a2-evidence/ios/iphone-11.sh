@@ -45,7 +45,7 @@ redact() {
     s/(Apple(?:\\)? Development:).*?\\?\([A-Z0-9]{10}\\?\)/$1 [redacted]/g;
     s/\b([0-9a-f]{2}:){5}[0-9a-f]{2}\b/[redacted]/gi; s/(Tunnel IP Address: ).*/$1\[redacted]/;
     s/("(?:crashReporterKey|incident|incident_id|sessionID|deviceIdentifierForVendor|bootSessionUUID)"\s*:\s*)"[^"]*"/$1"[redacted]"/g;
-    s/\b([0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12})\b/$k{uc $1}?$1:"[redacted-uuid]"/ge'
+    s/(?<![0-9A-Fa-f])([0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12})(?![0-9A-Fa-f])/$k{uc $1}?$1:"[redacted-uuid]"/ge'
 }
 
 build() {
@@ -113,7 +113,16 @@ compare() {
       echo "$k: $([ "$a" = "$b" ] && echo same || echo DIFFERENT) $a $b"
     done
     echo "--- app files whose hashes differ"
-    diff <(sed -n '/^--- app files/,/^--- xcodebuild/p' "$EV/build-1.txt") <(sed -n '/^--- app files/,/^--- xcodebuild/p' "$EV/build-2.txt") | grep '^[<>]' || echo "(none)"
+    { diff <(sed -n '/^--- app files/,/^--- xcodebuild/p' "$EV/build-1.txt") <(sed -n '/^--- app files/,/^--- xcodebuild/p' "$EV/build-2.txt"); true; } | grep '^[<>]' || echo "(none)"
+    echo "--- the same Mach-O files with their code signatures removed (codesign --remove-signature on copies)"
+    local T; T=$(mktemp -d)
+    for f in LokaR1A2 Frameworks/React.framework/React Frameworks/hermesvm.framework/hermesvm Frameworks/ExpoModulesCore.framework/ExpoModulesCore; do
+      for n in 1 2; do cp "$KEEP/build-$n/LokaR1A2.app/$f" "$T/$n"; codesign --remove-signature "$T/$n"; done
+      echo "$f: $([ "$(shasum -a 256 < "$T/1")" = "$(shasum -a 256 < "$T/2")" ] && echo same || echo DIFFERENT) $(shasum -a 256 < "$T/1" | cut -d' ' -f1)"
+    done
+    echo "--- dSYM DWARF: differing bytes (cmp -l offset, octal build-1, octal build-2); Mach-O UUIDs above are equal"
+    cmp -l "$KEEP/build-1/LokaR1A2.app.dSYM/Contents/Resources/DWARF/LokaR1A2" "$KEEP/build-2/LokaR1A2.app.dSYM/Contents/Resources/DWARF/LokaR1A2"
+    grep -h '^UUID' "$EV/build-1.txt" "$EV/build-2.txt"
   } > "$EV/build-compare.txt"
   cat "$EV/build-compare.txt"
 }
@@ -162,6 +171,7 @@ $SERIAL"
       kill $LP 2>/dev/null; wait $LP 2>/dev/null
       echo "launch $launches ended after ~$((t * 5)) s; process console output (last lines):"
       tail -3 "$T/launch-$launches.txt"
+      grep -q 'BSErrorCodeDescription = Locked' "$T/launch-$launches.txt" && { echo "device locked: stopping"; break; }
     done
     echo "launches=$launches done=$done"
     for f in responses.jsonl faults.jsonl summary.json; do
@@ -172,6 +182,7 @@ $SERIAL"
     echo "\$ xcrun devicectl device copy from --device [redacted] --domain-type systemCrashLogs --source / --destination crash/"
     xcrun devicectl device copy from --device "$CDID" --domain-type systemCrashLogs --source / --destination "$D/crash" 2>&1 | tail -1
   } 2>&1 | redact > "$EV/iphone-11-run.txt"
+  [ -f "$D/summary.json" ] || { echo "no summary.json: run incomplete (see iphone-11-run.txt)" >&2; exit 1; }
   cp "$D/responses.jsonl" "$EV/responses.jsonl"; redact < "$D/summary.json" > "$EV/summary.json"
   redact < "$D/faults.jsonl" > "$EV/faults.device.jsonl"
   # Crash reports of this app from this run (newest per kill case), redacted, and their app frames symbolicated.

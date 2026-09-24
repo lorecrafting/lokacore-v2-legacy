@@ -1,0 +1,11 @@
+source_commit=314a129219b8153107895ea0091fe64c2d33b324 run_id=36019566499 run_attempt=1 ImageVersion=20260920.314.1 
+source_commit=314a129219b8153107895ea0091fe64c2d33b324 run_id=36019591785 run_attempt=1 ImageVersion=20260920.314.1 
+apk: 40a94dddcfed4e7bae28c91bfd2b1492b63355defc00188f735095974cb49a32 vs d53e47c2f90453ab6959a84a467971ae5e71e73e94ec188f4fe9a3aa73c6e33f
+--- JS bundle / Hermes bytecode / source maps (diff; empty means identical)
+(identical)
+--- APK entries whose sha256 differs
+< 7f9a95414d8673fbc0f9452f33648f0cb2a597dff6c0c47d6a67f461c4eb116f  ./resources.arsc
+> c68dcd4ae447aa32d9f52855dbb09d80ea231f85ad3f500bdecb2b87e7ad5f31  ./resources.arsc
+--- strings in resources.arsc that differ (unzip -p app-release.apk resources.arsc | strings)
+< 10.1.1.183
+> 10.1.1.170

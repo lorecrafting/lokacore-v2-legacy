@@ -23,7 +23,7 @@ T=$(mktemp -d)
 redact() {
   S="$SERIAL" perl -pe 's/\Q$ENV{S}\E/[redacted]/g; s/\Q$ENV{HOME}\E/~/g;
     s#(?:/private)?/(?:tmp|var/folders)/[^\s"'"'"':,)\]]*#[tmp]#g;
-    s/\b[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}\b/[redacted-uuid]/g'
+    s/(?<![0-9A-Fa-f])[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}(?![0-9A-Fa-f])/[redacted-uuid]/g'
 }
 run() { echo "\$ $*"; "$@" 2>&1 | tr -d '\r'; echo "exit=${PIPESTATUS[0]}"; }
 {
