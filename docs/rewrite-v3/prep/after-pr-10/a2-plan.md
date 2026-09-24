@@ -135,8 +135,8 @@ follow ADR-069; the register is not edited here):
 
 ## What the owner still must do
 
-1. Install Xcode on the M1 Air, then run `xcodebuild -version` and
-   `xcodebuild -showsdks` and keep the output.
+1. ~~Install Xcode~~ Done 2026-09-24: Xcode 27.0 (27A266a), iOS SDK 27.0
+   (24A430), retained in `a2-device-evidence/m1-xcode.txt`.
 2. Sideload the `app-release-apk` artifact of run 35951344446 onto the Pixel 3a
    (`adb install app-release.apk`), open it, and keep
    `adb logcat -d | grep LOKA_A2_PROBE` (on-device Hermes and SQLite). Keep
