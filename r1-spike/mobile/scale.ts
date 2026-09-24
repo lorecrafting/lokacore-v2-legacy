@@ -1,27 +1,34 @@
-// Quick R1-A3 timing (owner decision 2026-09-24): the unchanged TypeScript kernel
-// behind a durable SQLite host, at Tiny/Medium/Stress state size. Platform-free:
-// App.tsx supplies expo-sqlite, performance.now() and file output on the phone;
-// scripts/scale-local.mjs runs the same code on node:sqlite (a pre-phone check, not evidence).
+// Quick R1-A3 timing (owner decision 2026-09-24), boundary variant touched-1
+// (docs/rewrite-v3/r1-a3-quick-evidence/variant-touched-declaration.md): the TypeScript
+// kernel with structural sharing behind a durable SQLite host that writes changed rows,
+// at Tiny/Medium/Stress state size. Platform-free: App.tsx supplies expo-sqlite,
+// performance.now() and file output on the phone; scripts/scale-local.mjs runs the same
+// code on node:sqlite (the M1 preview, not phone evidence).
 //
 // Per step (one fresh `invoke` command, no faults):
 //   admission   the receipt row for this request id (SELECT by primary key), and the kernel HOST
 //               value built from process memory: memory, that one receipt (if any), no pending,
 //               empty published. Receipts are host storage, not world state, so only the
 //               admission-relevant one crosses into the kernel.
-//   decision    kernel `step` (world.ts): whole-HOST clone, envelope checks, decide, delta, record.
+//   decision    kernel `step` (world.ts): shallow HOST copy, envelope checks, decide (new objects
+//               only along changed paths), delta from the replaced keys, record.
 //               In-process on Hermes: there is no further boundary encode/decode.
-//   encode      canonical encoding of the durable state (only when the revision changed), the new
-//               receipt and the new events.
-//   commit      BEGIN IMMEDIATE; UPDATE durable; INSERT receipt; INSERT outbox events; COMMIT.
+//   encode      canonical encoding of the changed state rows (host.ts stateWrites: one row per
+//               replaced top-level key, one per changed list element), the new receipt and events.
+//   commit      BEGIN IMMEDIATE; the changed state rows; INSERT receipt; INSERT outbox events; COMMIT.
 //   projection  adopt the new memory and encode the player response {result, events, delta}.
 //   e2e         admission + decision + encode + commit + projection.
+// Outside e2e: bytes_written (UTF-8 bytes of the text bound in the transaction) and
+// host_encode_ms (canonical encoding of the step record's full HOST, which only the runner
+// protocol and the differential need).
 import { canonical, has, obj, parse } from '../ts/src/kernel/codec.ts';
 import type { Json, JsonObject } from '../ts/src/kernel/codec.ts';
 import { sha256Hex } from '../ts/src/kernel/sha256.ts';
 import { utf8 } from '../ts/src/kernel/codec.ts';
 import { WORLDS, step, validMemory } from '../ts/src/kernel/world.ts';
 import type { Host } from '../ts/src/kernel/world.ts';
-import type { Db } from './host.ts';
+import { loadState, stateWrites } from './host.ts';
+import type { Db, Write } from './host.ts';
 
 export type ScaleEnv = {
   host: string;
@@ -31,16 +38,18 @@ export type ScaleEnv = {
   log(line: string): void;
 };
 
-export const CSV_HEADER = 'host,model,i,action,outcome,code,state_write,admission_ms,decision_ms,encode_ms,commit_ms,projection_ms,e2e_ms';
+export const CSV_HEADER = 'host,model,i,action,outcome,code,state_write,admission_ms,decision_ms,encode_ms,commit_ms,projection_ms,e2e_ms,bytes_written,host_encode_ms';
 const CHECKPOINTS = 20;
 
 const SCHEMA = `
-CREATE TABLE IF NOT EXISTS kv(k TEXT PRIMARY KEY, v TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS mem(k TEXT PRIMARY KEY, v TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS mem_items(k TEXT NOT NULL, i INTEGER NOT NULL, v TEXT NOT NULL, PRIMARY KEY(k, i));
 CREATE TABLE IF NOT EXISTS receipts(id TEXT PRIMARY KEY, receipt TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS outbox(seq INTEGER PRIMARY KEY, event TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS checkpoint(k TEXT PRIMARY KEY, v TEXT NOT NULL);`;
 
 const f = (ms: number): string => ms.toFixed(4);
+const bytes = (params: Array<string | number>): number => params.reduce<number>((n, p) => n + (typeof p === 'string' ? utf8(p).length : 0), 0);
 
 /** Runs one model; returns its CSV rows (measured steps only) and summary facts. */
 export function runModel(env: ScaleEnv, input: JsonObject): { rows: string[]; facts: JsonObject } {
@@ -51,12 +60,12 @@ export function runModel(env: ScaleEnv, input: JsonObject): { rows: string[]; fa
   const db = env.open('a3-' + model + '.db');
   db.exec(SCHEMA);
   db.exec('BEGIN IMMEDIATE');
-  db.exec('DELETE FROM kv; DELETE FROM receipts; DELETE FROM outbox; DELETE FROM checkpoint');
-  db.all('INSERT INTO kv VALUES (?, ?)', 'durable', canonical(initial));
+  db.exec('DELETE FROM mem; DELETE FROM mem_items; DELETE FROM receipts; DELETE FROM outbox; DELETE FROM checkpoint');
+  for (const [sql, ...params] of stateWrites(obj(), initial)) db.all(sql, ...params);
   db.exec('COMMIT');
   const pragmas = { ...db.all('PRAGMA journal_mode')[0], ...db.all('PRAGMA synchronous')[0] };
 
-  let memory = parse(db.all("SELECT v FROM kv WHERE k = 'durable'")[0].v as string) as JsonObject;
+  let memory = loadState(db);
   const commands = input.commands as JsonObject[];
   const warmup = input.warmup as number;
   const rows: string[] = [];
@@ -75,15 +84,13 @@ export function runModel(env: ScaleEnv, input: JsonObject): { rows: string[]; fa
     const t2 = env.now();
     const fresh = !found.length && has(after.receipts, id);
     const stateWrite = fresh && after.durable.revision !== memory.revision;
-    const durableText = stateWrite ? canonical(after.durable) : null;
-    const receiptText = fresh ? canonical(after.receipts[id]) : null;
-    const eventTexts = after.published.map((e) => canonical(e));
+    const writes: Write[] = fresh ? stateWrites(memory, after.durable) : [];
+    if (fresh) writes.push(['INSERT INTO receipts VALUES (?, ?)', id, canonical(after.receipts[id])]);
+    for (const e of after.published) writes.push(['INSERT INTO outbox VALUES (?, ?)', ++outboxSeq, canonical(e)]);
     const t3 = env.now();
     if (fresh) {
       db.exec('BEGIN IMMEDIATE');
-      if (durableText !== null) db.all("UPDATE kv SET v = ? WHERE k = 'durable'", durableText);
-      db.all('INSERT INTO receipts VALUES (?, ?)', id, receiptText as string);
-      for (const e of eventTexts) db.all('INSERT INTO outbox VALUES (?, ?)', ++outboxSeq, e);
+      for (const [sql, ...params] of writes) db.all(sql, ...params);
       db.exec('COMMIT');
     }
     const t4 = env.now();
@@ -92,9 +99,15 @@ export function runModel(env: ScaleEnv, input: JsonObject): { rows: string[]; fa
     const t5 = env.now();
     const result = record.result as JsonObject;
     if (i >= warmup) {
+      // Outside every phase above: the full HOST encoding the runner protocol and the
+      // differential need (test output, not part of the phone's step), timed on its own.
+      const t6 = env.now();
+      canonical(record.state);
+      const t7 = env.now();
       const outcome = result.delivery === 'replay' ? 'replayed' : (result.kind as string);
       rows.push([env.host, model, i, request.action, outcome, result.code, stateWrite ? 1 : 0,
-        f(t1 - t0), f(t2 - t1), f(t3 - t2), f(t4 - t3), f(t5 - t4), f(t5 - t0)].join(','));
+        f(t1 - t0), f(t2 - t1), f(t3 - t2), f(t4 - t3), f(t5 - t4), f(t5 - t0),
+        fresh ? writes.reduce((n, [, ...p]) => n + bytes(p), 0) : 0, f(t7 - t6)].join(','));
     }
     if (response.length === 0) throw new Error('empty response');
     if ((i + 1) % 250 === 0) env.log(`LOKA_A3_PROGRESS ${model} ${i + 1}/${commands.length}`);
@@ -113,8 +126,7 @@ export function runModel(env: ScaleEnv, input: JsonObject): { rows: string[]; fa
     if (back !== pre) throw new Error(model + ': checkpoint round trip changed the canonical state');
     checkpoints.push(Math.round((t1 - t0) * 1000));
   }
-  const durable = db.all("SELECT v FROM kv WHERE k = 'durable'")[0].v as string;
-  if (durable !== pre) throw new Error(model + ': durable row differs from memory at the end');
+  if (canonical(loadState(db)) !== pre) throw new Error(model + ': durable rows differ from memory at the end');
   const facts = Object.assign(obj(), {
     model,
     version: input.version as Json,
@@ -126,6 +138,10 @@ export function runModel(env: ScaleEnv, input: JsonObject): { rows: string[]; fa
     final_state_sha256: sha256Hex(utf8(pre)),
     final_narration_entries: (memory.narration as Json[]).length,
     receipts: db.all('SELECT count(*) AS n FROM receipts')[0].n as number,
+    state_rows: Object.assign(obj(), {
+      mem: db.all('SELECT count(*) AS n FROM mem')[0].n as number,
+      mem_items: db.all('SELECT count(*) AS n FROM mem_items')[0].n as number,
+    }),
     sqlite: pragmas as JsonObject,
     checkpoint_round_trip_us: checkpoints,
   });

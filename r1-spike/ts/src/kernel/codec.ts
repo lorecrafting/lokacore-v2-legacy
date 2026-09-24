@@ -46,6 +46,15 @@ export function clone<T extends Json>(v: T): T {
   return v;
 }
 
+/** Value equality, equivalent to comparing canonical encodings; shared (identical) sub-values short-circuit. */
+export function equal(a: Json, b: Json): boolean {
+  if (a === b) return true;
+  if (Array.isArray(a)) return Array.isArray(b) && a.length === b.length && a.every((v, i) => equal(v, b[i]));
+  if (!isObject(a) || !isObject(b)) return false;
+  const keys = Object.keys(a);
+  return keys.length === Object.keys(b).length && keys.every((k) => has(b, k) && equal(a[k], b[k]));
+}
+
 /** Keys in insertion order, as a Python dict built from the same JSON would iterate. */
 export function pyKeys(o: JsonObject): string[] {
   const order = (o as { [KEY_ORDER]?: string[] })[KEY_ORDER];
@@ -82,15 +91,18 @@ export function parse(text: string): Json {
   const str = (): string => {
     i++; // opening quote
     let out = '';
+    let run = i; // start of the pending run of literal characters, copied with one slice
     for (;;) {
       if (i >= n) fail();
       const c = text.charCodeAt(i);
       if (c === 0x22) {
+        out += text.slice(run, i);
         i++;
         return out;
       }
       if (c < 0x20) fail();
       if (c === 0x5c) {
+        out += text.slice(run, i);
         const e = text[i + 1];
         i += 2;
         if (e === '"' || e === '\\' || e === '/') out += e;
@@ -111,16 +123,16 @@ export function parse(text: string): Json {
             out += String.fromCharCode(u, lo);
           } else out += String.fromCharCode(u);
         } else fail();
+        run = i;
         continue;
       }
       if (c >= 0xd800 && c <= 0xdfff) {
         const lo = text.charCodeAt(i + 1);
         if (c > 0xdbff || !(lo >= 0xdc00 && lo <= 0xdfff)) fail();
-        out += text[i] + text[i + 1];
         i += 2;
         continue;
       }
-      out += text[i++];
+      i++;
     }
   };
   const num = (): number => {
@@ -216,7 +228,12 @@ export function parse(text: string): Json {
   }
 }
 
+// Characters quote() must escape or check; a string without any is copied as is.
+const SPECIAL = /["\\\u0000-\u001f\ud800-\udfff]/;
+const NON_ASCII = /[^\u0000-\u007f]/;
+
 function quote(s: string): string {
+  if (!SPECIAL.test(s)) return '"' + s + '"';
   let out = '"';
   for (let i = 0; i < s.length; i++) {
     const c = s.charCodeAt(i);
@@ -251,7 +268,7 @@ export function canonical(v: Json): string {
   if (Array.isArray(v)) return '[' + v.map(canonical).join(',') + ']';
   if (isObject(v)) {
     const keys = Object.keys(v);
-    for (const k of keys) for (let j = 0; j < k.length; j++) if (k.charCodeAt(j) > 0x7f) throw new Fault('invalid_canonical');
+    for (const k of keys) if (NON_ASCII.test(k)) throw new Fault('invalid_canonical');
     keys.sort(); // ASCII-only keys: UTF-16 order equals code-point order
     return '{' + keys.map((k) => quote(k) + ':' + canonical(v[k])).join(',') + '}';
   }

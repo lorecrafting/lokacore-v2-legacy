@@ -160,5 +160,12 @@ defmodule LokaR1HarnessTest do
     assert length(ids) == 3000
     # Duplicate deliveries and altered intents reuse earlier ids on purpose.
     assert length(Enum.uniq(ids)) < 3000
+    # r1-scale-2 keeps every command class and id; only the skew fix changes requests.
+    old = Scale.input("tiny", 7, 1000, 2000, "r1-scale-1")["commands"]
+
+    assert Enum.map(old, & &1["request"]["action"]) ==
+             Enum.map(tiny["commands"], & &1["request"]["action"])
+
+    assert Scale.lines(7, "r1-scale-1") != Scale.lines(7)
   end
 end
