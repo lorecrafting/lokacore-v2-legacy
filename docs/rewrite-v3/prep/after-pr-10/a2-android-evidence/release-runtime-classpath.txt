@@ -1,23 +1,23 @@
 To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.3.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
 Daemon will be stopped at the end of the build 
-> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
-> Task :gradle-plugin:shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :gradle-plugin:settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :gradle-plugin:shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :expo-gradle-plugin:expo-autolinking-plugin-shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :gradle-plugin:settings-plugin:pluginDescriptors UP-TO-DATE
 > Task :expo-gradle-plugin:expo-autolinking-settings-plugin:pluginDescriptors UP-TO-DATE
 > Task :gradle-plugin:settings-plugin:processResources UP-TO-DATE
 > Task :expo-gradle-plugin:expo-autolinking-settings-plugin:processResources UP-TO-DATE
-> Task :gradle-plugin:shared:compileKotlin UP-TO-DATE
 > Task :expo-gradle-plugin:expo-autolinking-plugin-shared:compileKotlin UP-TO-DATE
+> Task :gradle-plugin:shared:compileKotlin UP-TO-DATE
 > Task :expo-gradle-plugin:expo-autolinking-plugin-shared:compileJava NO-SOURCE
-> Task :gradle-plugin:shared:compileJava NO-SOURCE
 > Task :expo-gradle-plugin:expo-autolinking-plugin-shared:processResources NO-SOURCE
-> Task :gradle-plugin:shared:processResources NO-SOURCE
 > Task :expo-gradle-plugin:expo-autolinking-plugin-shared:classes UP-TO-DATE
+> Task :gradle-plugin:shared:compileJava NO-SOURCE
+> Task :gradle-plugin:shared:processResources NO-SOURCE
 > Task :gradle-plugin:shared:classes UP-TO-DATE
-> Task :gradle-plugin:shared:jar UP-TO-DATE
 > Task :expo-gradle-plugin:expo-autolinking-plugin-shared:jar UP-TO-DATE
+> Task :gradle-plugin:shared:jar UP-TO-DATE
 > Task :expo-gradle-plugin:expo-autolinking-settings-plugin:compileKotlin UP-TO-DATE
 > Task :expo-gradle-plugin:expo-autolinking-settings-plugin:compileJava NO-SOURCE
 > Task :expo-gradle-plugin:expo-autolinking-settings-plugin:classes UP-TO-DATE
@@ -27,22 +27,22 @@ Daemon will be stopped at the end of the build
 > Task :gradle-plugin:settings-plugin:classes UP-TO-DATE
 > Task :gradle-plugin:settings-plugin:jar UP-TO-DATE
 > Task :gradle-plugin:react-native-gradle-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
-> Task :expo-gradle-plugin:expo-autolinking-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :expo-gradle-plugin:expo-max-sdk-override-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-gradle-plugin:expo-autolinking-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :expo-module-gradle-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :expo-module-gradle-plugin:pluginDescriptors UP-TO-DATE
 > Task :expo-module-gradle-plugin:processResources UP-TO-DATE
 > Task :expo-gradle-plugin:expo-max-sdk-override-plugin:compileKotlin UP-TO-DATE
 > Task :expo-gradle-plugin:expo-max-sdk-override-plugin:compileJava NO-SOURCE
 > Task :expo-gradle-plugin:expo-autolinking-plugin:compileKotlin UP-TO-DATE
-> Task :expo-gradle-plugin:expo-autolinking-plugin:compileJava NO-SOURCE
 > Task :expo-gradle-plugin:expo-max-sdk-override-plugin:pluginDescriptors UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin:compileJava NO-SOURCE
 > Task :expo-gradle-plugin:expo-autolinking-plugin:pluginDescriptors UP-TO-DATE
 > Task :expo-gradle-plugin:expo-max-sdk-override-plugin:processResources UP-TO-DATE
 > Task :expo-gradle-plugin:expo-max-sdk-override-plugin:classes UP-TO-DATE
-> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:jar UP-TO-DATE
 > Task :expo-gradle-plugin:expo-autolinking-plugin:processResources UP-TO-DATE
 > Task :expo-gradle-plugin:expo-autolinking-plugin:classes UP-TO-DATE
+> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:jar UP-TO-DATE
 > Task :expo-gradle-plugin:expo-autolinking-plugin:jar UP-TO-DATE
 > Task :gradle-plugin:react-native-gradle-plugin:compileKotlin UP-TO-DATE
 > Task :gradle-plugin:react-native-gradle-plugin:compileJava NO-SOURCE
@@ -75,6 +75,7 @@ Using expo modules
   - [32mexpo-log-box[0m (57.0.4)
   - [32mexpo-constants[0m (57.0.19)
   - [32mexpo-modules-core[0m (57.0.18)
+  - [32mloka-memory[0m (0.0.0)
   - [33m[📦][0m [32mexpo-dom-webview[0m (57.0.1)
   - [33m[📦][0m [32mexpo-asset[0m (57.0.18)
   - [33m[📦][0m [32mexpo-file-system[0m (57.0.7)
@@ -525,6 +526,10 @@ releaseRuntimeClasspath - Runtime classpath of '/release'.
 |    |    |    \--- androidx.tracing:tracing:1.2.0 (c)
 |    |    +--- com.facebook.react:react-android -> 0.86.3 (*)
 |    |    \--- io.github.lukmccall.pika:pika-api:0.3.2 (*)
+|    +--- project :loka-memory
+|    |    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.1.20 (*)
+|    |    +--- org.jetbrains:annotations:23.0.0
+|    |    \--- io.github.lukmccall.pika:pika-api:0.3.2 (*)
 |    +--- expo.modules.webview:expo.modules.webview:57.0.1
 |    |    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.1.20 (*)
 |    |    +--- org.jetbrains:annotations:23.0.0
@@ -628,5 +633,5 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/9.3.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD SUCCESSFUL in 14s
+BUILD SUCCESSFUL in 17s
 29 actionable tasks: 1 executed, 28 up-to-date

@@ -1,15 +1,15 @@
 To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.3.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
 Daemon will be stopped at the end of the build 
 > Task :gradle-plugin:settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :expo-gradle-plugin:expo-autolinking-plugin-shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :gradle-plugin:shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
-> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :expo-gradle-plugin:expo-autolinking-settings-plugin:pluginDescriptors
 > Task :gradle-plugin:settings-plugin:pluginDescriptors
-> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:processResources
 > Task :gradle-plugin:settings-plugin:processResources
-> Task :expo-gradle-plugin:expo-autolinking-plugin-shared:processResources NO-SOURCE
+> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:processResources
 > Task :gradle-plugin:shared:processResources NO-SOURCE
+> Task :expo-gradle-plugin:expo-autolinking-plugin-shared:processResources NO-SOURCE
 > Task :gradle-plugin:shared:compileKotlin
 > Task :gradle-plugin:shared:compileJava NO-SOURCE
 > Task :gradle-plugin:shared:classes UP-TO-DATE
@@ -26,26 +26,26 @@ Daemon will be stopped at the end of the build
 > Task :expo-gradle-plugin:expo-autolinking-settings-plugin:compileJava NO-SOURCE
 > Task :expo-gradle-plugin:expo-autolinking-settings-plugin:classes
 > Task :expo-gradle-plugin:expo-autolinking-settings-plugin:jar
-> Task :gradle-plugin:react-native-gradle-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :expo-gradle-plugin:expo-autolinking-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :expo-module-gradle-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :expo-gradle-plugin:expo-max-sdk-override-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :gradle-plugin:react-native-gradle-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :expo-module-gradle-plugin:pluginDescriptors
 > Task :expo-module-gradle-plugin:processResources
-> Task :expo-gradle-plugin:expo-autolinking-plugin:pluginDescriptors
-> Task :expo-gradle-plugin:expo-autolinking-plugin:processResources
 > Task :expo-gradle-plugin:expo-max-sdk-override-plugin:pluginDescriptors
 > Task :expo-gradle-plugin:expo-max-sdk-override-plugin:processResources
+> Task :expo-gradle-plugin:expo-autolinking-plugin:pluginDescriptors
+> Task :expo-gradle-plugin:expo-autolinking-plugin:processResources
 > Task :expo-gradle-plugin:expo-max-sdk-override-plugin:compileKotlin
 > Task :expo-gradle-plugin:expo-max-sdk-override-plugin:compileJava NO-SOURCE
 > Task :expo-gradle-plugin:expo-max-sdk-override-plugin:classes
 > Task :expo-gradle-plugin:expo-max-sdk-override-plugin:jar
-> Task :gradle-plugin:react-native-gradle-plugin:pluginDescriptors
-> Task :gradle-plugin:react-native-gradle-plugin:processResources
 > Task :expo-gradle-plugin:expo-autolinking-plugin:compileKotlin
 > Task :expo-gradle-plugin:expo-autolinking-plugin:compileJava NO-SOURCE
 > Task :expo-gradle-plugin:expo-autolinking-plugin:classes
 > Task :expo-gradle-plugin:expo-autolinking-plugin:jar
+> Task :gradle-plugin:react-native-gradle-plugin:pluginDescriptors
+> Task :gradle-plugin:react-native-gradle-plugin:processResources
 > Task :gradle-plugin:react-native-gradle-plugin:compileKotlin
 > Task :gradle-plugin:react-native-gradle-plugin:compileJava NO-SOURCE
 > Task :gradle-plugin:react-native-gradle-plugin:classes
@@ -85,6 +85,7 @@ Using expo modules
   - [32mexpo-log-box[0m (57.0.4)
   - [32mexpo-constants[0m (57.0.19)
   - [32mexpo-modules-core[0m (57.0.18)
+  - [32mloka-memory[0m (0.0.0)
   - [33m[📦][0m [32mexpo-dom-webview[0m (57.0.1)
   - [33m[📦][0m [32mexpo-asset[0m (57.0.18)
   - [33m[📦][0m [32mexpo-file-system[0m (57.0.7)
@@ -100,6 +101,7 @@ A2 targetSdk=36
 
 > Task :expo-log-box:preBuild UP-TO-DATE
 > Task :expo-modules-core:preBuild UP-TO-DATE
+> Task :loka-memory:preBuild UP-TO-DATE
 > Task :expo-log-box:preReleaseBuild UP-TO-DATE
 > Task :expo:generatePackagesList
 > Task :expo:preBuild
@@ -117,26 +119,30 @@ The NODE_ENV environment variable is required but was not specified. Ensure the 
 > Task :expo-constants:preBuild
 > Task :app:preBuild
 > Task :app:preReleaseBuild
-> Task :expo:mergeReleaseJniLibFolders
-> Task :expo:mergeReleaseNativeLibs NO-SOURCE
 > Task :expo-log-box:mergeReleaseJniLibFolders
+> Task :expo:mergeReleaseJniLibFolders
 > Task :expo-constants:preReleaseBuild
-> Task :expo:copyReleaseJniLibsProjectOnly
-> Task :expo-log-box:mergeReleaseNativeLibs NO-SOURCE
+> Task :expo:mergeReleaseNativeLibs NO-SOURCE
 > Task :expo-constants:mergeReleaseJniLibFolders
-> Task :expo-log-box:copyReleaseJniLibsProjectOnly
-> Task :expo:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :expo-constants:mergeReleaseNativeLibs NO-SOURCE
-> Task :expo:generateReleaseBuildConfig
+> Task :expo:copyReleaseJniLibsProjectOnly
 > Task :expo-constants:copyReleaseJniLibsProjectOnly
+> Task :expo-log-box:mergeReleaseNativeLibs NO-SOURCE
+> Task :loka-memory:preReleaseBuild UP-TO-DATE
+> Task :expo-log-box:copyReleaseJniLibsProjectOnly
+> Task :loka-memory:mergeReleaseJniLibFolders
+> Task :expo:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :loka-memory:mergeReleaseNativeLibs NO-SOURCE
+> Task :loka-memory:copyReleaseJniLibsProjectOnly
 > Task :expo-constants:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :expo-constants:generateReleaseBuildConfig
-> Task :expo:generateReleaseResValues
+> Task :expo:generateReleaseBuildConfig
 > Task :expo-constants:generateReleaseResValues
-> Task :expo:generateReleaseResources
+> Task :expo:generateReleaseResValues
 > Task :expo-constants:generateReleaseResources
-> Task :expo:packageReleaseResources
+> Task :expo:generateReleaseResources
 > Task :expo-constants:packageReleaseResources
+> Task :expo:packageReleaseResources
 
 > Task :expo-modules-core:configureCMakeRelWithDebInfo[arm64-v8a]
 Checking the license for package CMake 3.22.1 in /usr/local/lib/android/sdk/licenses
@@ -147,6 +153,8 @@ Installing CMake 3.22.1 in /usr/local/lib/android/sdk/cmake/3.22.1
 "Install CMake 3.22.1 v.3.22.1" complete.
 "Install CMake 3.22.1 v.3.22.1" finished.
 
+> Task :expo-constants:parseReleaseLocalResources
+> Task :expo-constants:generateReleaseRFile
 > Task :expo:parseReleaseLocalResources
 > Task :expo:generateReleaseRFile
 > Task :expo-log-box:checkKotlinGradlePluginConfigurationErrors SKIPPED
@@ -154,61 +162,85 @@ Installing CMake 3.22.1 in /usr/local/lib/android/sdk/cmake/3.22.1
 > Task :expo-log-box:generateReleaseResValues
 > Task :expo-log-box:generateReleaseResources
 > Task :expo-log-box:packageReleaseResources
+> Task :expo-constants:javaPreCompileRelease
 > Task :expo-log-box:parseReleaseLocalResources
 > Task :expo-log-box:generateReleaseRFile
-> Task :expo-constants:parseReleaseLocalResources
-> Task :expo-constants:javaPreCompileRelease
-> Task :expo-constants:generateReleaseRFile
+> Task :loka-memory:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :loka-memory:generateReleaseBuildConfig
+> Task :loka-memory:generateReleaseResValues
+> Task :loka-memory:generateReleaseResources
+> Task :loka-memory:packageReleaseResources
 > Task :expo-log-box:javaPreCompileRelease
+> Task :loka-memory:parseReleaseLocalResources
+> Task :loka-memory:javaPreCompileRelease
 > Task :expo:javaPreCompileRelease
+> Task :loka-memory:generateReleaseRFile
 > Task :expo:writeReleaseAarMetadata
 > Task :expo-constants:writeReleaseAarMetadata
+> Task :expo-log-box:writeReleaseAarMetadata
 > Task :expo:extractDeepLinksRelease
 > Task :expo:processReleaseManifest
 > Task :expo-constants:extractDeepLinksRelease
-> Task :expo-log-box:writeReleaseAarMetadata
+> Task :loka-memory:writeReleaseAarMetadata
 > Task :expo-log-box:extractDeepLinksRelease
 > Task :expo-constants:processReleaseManifest
-> Task :expo:compileReleaseLibraryResources
+> Task :loka-memory:extractDeepLinksRelease
+> Task :loka-memory:processReleaseManifest
 > Task :expo-log-box:processReleaseManifest
 > Task :expo-constants:compileReleaseLibraryResources
+> Task :expo-log-box:compileReleaseLibraryResources
+> Task :expo:compileReleaseLibraryResources
 > Task :expo:prepareReleaseArtProfile
 > Task :expo-constants:prepareReleaseArtProfile
 > Task :expo-log-box:prepareReleaseArtProfile
-> Task :expo-log-box:compileReleaseLibraryResources
+> Task :loka-memory:prepareReleaseArtProfile
+> Task :loka-memory:compileReleaseLibraryResources
 > Task :expo-constants:mergeReleaseShaders
 > Task :expo-constants:compileReleaseShaders NO-SOURCE
 > Task :expo-constants:generateReleaseAssets UP-TO-DATE
-> Task :expo-constants:mergeReleaseAssets
 > Task :expo:mergeReleaseShaders
 > Task :expo:compileReleaseShaders NO-SOURCE
 > Task :expo:generateReleaseAssets UP-TO-DATE
+> Task :expo-constants:mergeReleaseAssets
+> Task :expo:mergeReleaseAssets
+> Task :loka-memory:mergeReleaseShaders
+> Task :loka-memory:compileReleaseShaders NO-SOURCE
+> Task :loka-memory:generateReleaseAssets UP-TO-DATE
 > Task :expo-log-box:mergeReleaseShaders
 > Task :expo-log-box:compileReleaseShaders NO-SOURCE
 > Task :expo-log-box:generateReleaseAssets UP-TO-DATE
-> Task :expo:mergeReleaseAssets
+> Task :loka-memory:mergeReleaseAssets
 > Task :expo:extractProguardFiles
 > Task :expo-constants:extractProguardFiles
 > Task :expo-constants:prepareLintJarForPublish
-> Task :expo:prepareLintJarForPublish
-> Task :expo:stripReleaseDebugSymbols NO-SOURCE
-> Task :expo:copyReleaseJniLibsProjectAndLocalJars
-> Task :expo:extractDeepLinksForAarRelease
-> Task :expo-constants:stripReleaseDebugSymbols NO-SOURCE
+> Task :loka-memory:extractProguardFiles
 > Task :expo-log-box:mergeReleaseAssets
 > Task :expo-log-box:extractProguardFiles
-> Task :expo-constants:copyReleaseJniLibsProjectAndLocalJars
+> Task :expo-log-box:prepareLintJarForPublish
+> Task :loka-memory:prepareLintJarForPublish
+> Task :expo:stripReleaseDebugSymbols NO-SOURCE
+> Task :expo:prepareLintJarForPublish
+> Task :expo:extractDeepLinksForAarRelease
 > Task :expo-log-box:stripReleaseDebugSymbols NO-SOURCE
-> Task :expo-log-box:copyReleaseJniLibsProjectAndLocalJars
+> Task :expo:copyReleaseJniLibsProjectAndLocalJars
 > Task :expo-log-box:extractDeepLinksForAarRelease
+> Task :expo-constants:stripReleaseDebugSymbols NO-SOURCE
+> Task :expo-log-box:copyReleaseJniLibsProjectAndLocalJars
 > Task :expo-constants:extractDeepLinksForAarRelease
+> Task :loka-memory:stripReleaseDebugSymbols NO-SOURCE
+> Task :expo-constants:copyReleaseJniLibsProjectAndLocalJars
+> Task :loka-memory:extractDeepLinksForAarRelease
 > Task :expo-constants:writeReleaseLintModelMetadata
 > Task :expo-log-box:writeReleaseLintModelMetadata
+> Task :loka-memory:writeReleaseLintModelMetadata
 > Task :expo:writeReleaseLintModelMetadata
 > Task :expo-constants:mapReleaseSourceSetPaths
 > Task :expo-constants:mergeReleaseResources
-> Task :expo-log-box:prepareLintJarForPublish
 > Task :expo-constants:verifyReleaseResources
+> Task :loka-memory:copyReleaseJniLibsProjectAndLocalJars
+> Task :loka-memory:mapReleaseSourceSetPaths
+> Task :loka-memory:mergeReleaseResources
+> Task :loka-memory:verifyReleaseResources
 > Task :expo-log-box:mapReleaseSourceSetPaths
 > Task :expo-log-box:mergeReleaseResources
 > Task :app:configureCMakeRelWithDebInfo[arm64-v8a]
@@ -223,11 +255,6 @@ Installing CMake 3.22.1 in /usr/local/lib/android/sdk/cmake/3.22.1
 > Task :app:createBundleReleaseJsAndAssets
 Starting Metro Bundler
 
-Android Bundled 14401ms node_modules/expo/AppEntry.js (610 modules)
-Writing bundle output to: /home/runner/work/lokacore/lokacore/r1-spike/mobile/android/app/build/generated/assets/react/release/index.android.bundle
-Writing sourcemap output to: /home/runner/work/lokacore/lokacore/r1-spike/mobile/android/app/build/intermediates/sourcemaps/react/release/index.android.bundle.packager.map
-Done writing bundle output
-Done writing sourcemap output
 
 > Task :expo-modules-core:buildCMakeRelWithDebInfo[arm64-v8a]
 C/C++: ninja: Entering directory `/home/runner/work/lokacore/lokacore/r1-spike/mobile/node_modules/expo-modules-core/android/.cxx/RelWithDebInfo/j6u8173o/arm64-v8a'
@@ -239,52 +266,62 @@ C/C++:    31 |   [[deprecated]] explicit RawPropsParser(bool /* ignored */) : Ra
 C/C++:       |     ^
 C/C++: 1 warning generated.
 
+> Task :app:createBundleReleaseJsAndAssets
+Android Bundled 19854ms node_modules/expo/AppEntry.js (610 modules)
+Writing bundle output to: /home/runner/work/lokacore/lokacore/r1-spike/mobile/android/app/build/generated/assets/react/release/index.android.bundle
+Writing sourcemap output to: /home/runner/work/lokacore/lokacore/r1-spike/mobile/android/app/build/intermediates/sourcemaps/react/release/index.android.bundle.packager.map
+Done writing bundle output
+Done writing sourcemap output
+
 > Task :expo-modules-core:mergeReleaseJniLibFolders
 > Task :expo-modules-core:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :expo-modules-core:generateReleaseBuildConfig
 > Task :expo-modules-core:generateReleaseResValues
 > Task :expo-modules-core:generateReleaseResources
 > Task :expo-modules-core:packageReleaseResources
-> Task :expo-modules-core:mergeReleaseNativeLibs
 > Task :expo-modules-core:parseReleaseLocalResources
 > Task :expo-modules-core:generateReleaseRFile
-> Task :expo-modules-core:copyReleaseJniLibsProjectOnly
+> Task :expo-modules-core:mergeReleaseNativeLibs
 > Task :expo:mapReleaseSourceSetPaths
 > Task :expo:mergeReleaseResources
-> Task :app:generateReleaseResValues
-> Task :app:mapReleaseSourceSetPaths
-> Task :app:generateReleaseResources
-> Task :app:mergeReleaseNativeLibs
 > Task :expo-modules-core:javaPreCompileRelease
 > Task :expo-modules-core:writeReleaseAarMetadata
 > Task :expo-modules-core:extractDeepLinksRelease
+> Task :app:generateReleaseResValues
+> Task :expo-modules-core:copyReleaseJniLibsProjectOnly
+> Task :expo-modules-core:compileReleaseLibraryResources
+> Task :expo-modules-core:prepareReleaseArtProfile
+> Task :expo-modules-core:mergeReleaseShaders
 
 > Task :expo-modules-core:processReleaseManifest
 /home/runner/work/lokacore/lokacore/r1-spike/mobile/node_modules/expo-modules-core/android/src/main/AndroidManifest.xml:8:9-11:45 Warning:
 	meta-data#com.facebook.soloader.enabled@android:value was tagged at AndroidManifest.xml:8 to replace other declarations but no other declaration present
 
-> Task :expo-modules-core:compileReleaseLibraryResources
-> Task :expo-modules-core:prepareReleaseArtProfile
-> Task :expo-modules-core:mergeReleaseShaders
-> Task :app:mergeReleaseResources
-> Task :app:stripReleaseDebugSymbols
 > Task :expo-modules-core:compileReleaseShaders NO-SOURCE
 > Task :expo-modules-core:generateReleaseAssets UP-TO-DATE
+> Task :app:checkReleaseAarMetadata
 > Task :expo-modules-core:mergeReleaseAssets
 > Task :expo-modules-core:extractProguardFiles
 > Task :expo-modules-core:prepareLintJarForPublish
 > Task :expo-modules-core:stripReleaseDebugSymbols
-> Task :app:checkReleaseAarMetadata
+> Task :app:mergeReleaseNativeLibs
 > Task :expo-modules-core:copyReleaseJniLibsProjectAndLocalJars
+> Task :expo-modules-core:extractDeepLinksForAarRelease
+> Task :app:mapReleaseSourceSetPaths
+> Task :expo-modules-core:writeReleaseLintModelMetadata
+> Task :expo-modules-core:mapReleaseSourceSetPaths
+> Task :app:stripReleaseDebugSymbols
+> Task :app:generateReleaseResources
+> Task :app:extractReleaseNativeSymbolTables
+> Task :expo:verifyReleaseResources
+> Task :expo-modules-core:mergeReleaseResources
+> Task :app:mergeReleaseNativeDebugMetadata
 > Task :app:packageReleaseResources
 > Task :app:parseReleaseLocalResources
 > Task :app:createReleaseCompatibleScreenManifests
-> Task :app:extractReleaseNativeSymbolTables
 > Task :app:extractDeepLinksRelease
-> Task :expo-modules-core:extractDeepLinksForAarRelease
-> Task :expo-modules-core:writeReleaseLintModelMetadata
-> Task :expo-modules-core:mapReleaseSourceSetPaths
-> Task :expo:verifyReleaseResources
+> Task :app:mergeReleaseResources
+> Task :expo-modules-core:verifyReleaseResources
 
 > Task :app:processReleaseMainManifest
 /home/runner/work/lokacore/lokacore/r1-spike/mobile/android/app/src/main/AndroidManifest.xml Warning:
@@ -296,15 +333,11 @@ C/C++: 1 warning generated.
 [33m--------------------------------------------------[0m
 
 > Task :app:processReleaseManifest
-> Task :app:processReleaseManifestForPackage
-> Task :expo-modules-core:mergeReleaseResources
-> Task :app:mergeReleaseNativeDebugMetadata
 > Task :app:javaPreCompileRelease
 > Task :app:desugarReleaseFileDependencies
 > Task :app:mergeReleaseStartupProfile
 > Task :expo-modules-core:compileReleaseKotlin
-> Task :app:processReleaseResources
-> Task :expo-modules-core:verifyReleaseResources
+> Task :app:processReleaseManifestForPackage
 > Task :app:mergeExtDexRelease
 
 > Task :expo-modules-core:compileReleaseKotlin
@@ -327,36 +360,44 @@ w: file:///home/runner/work/lokacore/lokacore/r1-spike/mobile/node_modules/expo-
 Note: Some input files use or override a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
 
+> Task :app:mergeReleaseArtProfile
+> Task :app:mergeReleaseShaders
+> Task :app:compileReleaseShaders NO-SOURCE
+> Task :app:generateReleaseAssets UP-TO-DATE
+> Task :app:mergeReleaseAssets
 > Task :expo-modules-core:bundleLibCompileToJarRelease
-> Task :expo-modules-core:bundleLibRuntimeToJarRelease
 > Task :expo-modules-core:bundleLibRuntimeToDirRelease
+> Task :app:processReleaseResources
+> Task :loka-memory:compileReleaseKotlin
 
 > Task :expo-constants:compileReleaseKotlin
 w: file:///home/runner/work/lokacore/lokacore/r1-spike/mobile/node_modules/expo/node_modules/expo-constants/android/src/main/java/expo/modules/constants/ConstantsModule.kt:13:5 'fun Constants(legacyConstantsProvider: () -> Map<String, Any?>): Unit' is deprecated. Use `Constant` or `Property` instead.
 
 > Task :expo-constants:compileReleaseJavaWithJavac
 > Task :expo-constants:bundleLibCompileToJarRelease
+> Task :loka-memory:compileReleaseJavaWithJavac
+> Task :loka-memory:bundleLibCompileToJarRelease
 > Task :expo-constants:bundleLibRuntimeToDirRelease
+> Task :loka-memory:bundleLibRuntimeToDirRelease
+> Task :expo-modules-core:bundleLibRuntimeToJarRelease
 > Task :expo-log-box:compileReleaseKotlin
-> Task :app:mergeReleaseArtProfile
 > Task :expo-log-box:compileReleaseJavaWithJavac
 > Task :expo-log-box:bundleLibCompileToJarRelease
 > Task :expo-log-box:bundleLibRuntimeToDirRelease
 > Task :expo-log-box:bundleLibRuntimeToJarRelease
 > Task :expo-constants:bundleLibRuntimeToJarRelease
-> Task :app:mergeReleaseShaders
-> Task :app:compileReleaseShaders NO-SOURCE
-> Task :app:generateReleaseAssets UP-TO-DATE
+> Task :loka-memory:bundleLibRuntimeToJarRelease
+> Task :app:compressReleaseAssets
+> Task :app:extractReleaseVersionControlInfo
+> Task :app:extractProguardFiles
 > Task :expo-constants:processReleaseJavaRes
 > Task :expo-constants:createFullJarRelease
 > Task :expo-modules-core:processReleaseJavaRes
 > Task :expo-modules-core:createFullJarRelease
-> Task :app:mergeReleaseAssets
-> Task :app:compressReleaseAssets
-> Task :app:extractReleaseVersionControlInfo
-> Task :app:extractProguardFiles
 > Task :expo-log-box:processReleaseJavaRes
 > Task :expo-log-box:createFullJarRelease
+> Task :loka-memory:processReleaseJavaRes
+> Task :loka-memory:createFullJarRelease
 
 > Task :expo:compileReleaseKotlin
 w: file:///home/runner/work/lokacore/lokacore/r1-spike/mobile/node_modules/expo/android/src/main/java/expo/modules/ExpoModulesPackage.kt:34:16 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
@@ -371,49 +412,57 @@ w: file:///home/runner/work/lokacore/lokacore/r1-spike/mobile/node_modules/expo/
 > Task :expo:compileReleaseJavaWithJavac
 > Task :expo:bundleLibRuntimeToDirRelease
 > Task :expo:bundleLibCompileToJarRelease
-> Task :app:compileReleaseKotlin
-> Task :app:compileReleaseJavaWithJavac
 > Task :expo-modules-core:generateReleaseLintModel
 > Task :expo:bundleLibRuntimeToJarRelease
-> Task :app:dexBuilderRelease
-> Task :app:mergeReleaseGlobalSynthetics
+> Task :app:compileReleaseKotlin
 > Task :expo:processReleaseJavaRes
 > Task :expo:createFullJarRelease
-> Task :expo-log-box:extractReleaseAnnotations
+> Task :loka-memory:generateReleaseLintModel
+> Task :app:compileReleaseJavaWithJavac
 > Task :expo-constants:extractReleaseAnnotations
 > Task :expo:extractReleaseAnnotations
+> Task :expo-log-box:extractReleaseAnnotations
 > Task :expo:mergeReleaseGeneratedProguardFiles
 > Task :expo:mergeReleaseConsumerProguardFiles
+> Task :app:dexBuilderRelease
 > Task :expo-constants:generateReleaseLintModel
 > Task :expo-modules-core:extractReleaseAnnotations
+> Task :expo:mergeReleaseJavaResource
+> Task :app:mergeReleaseGlobalSynthetics
 > Task :expo-modules-core:mergeReleaseGeneratedProguardFiles
 > Task :expo-modules-core:mergeReleaseConsumerProguardFiles
-> Task :expo-modules-core:mergeReleaseJavaResource
-> Task :expo:mergeReleaseJavaResource
 > Task :expo:syncReleaseLibJars
 > Task :expo:bundleReleaseLocalLintAar
+> Task :expo-modules-core:mergeReleaseJavaResource
 > Task :expo-constants:mergeReleaseGeneratedProguardFiles
 > Task :expo-constants:mergeReleaseConsumerProguardFiles
 > Task :expo-constants:mergeReleaseJavaResource
 > Task :expo-constants:syncReleaseLibJars
 > Task :expo-constants:bundleReleaseLocalLintAar
-> Task :expo-constants:generateReleaseLintVitalModel
-> Task :app:processReleaseJavaRes
+> Task :loka-memory:extractReleaseAnnotations
+> Task :loka-memory:mergeReleaseGeneratedProguardFiles
 > Task :expo-log-box:generateReleaseLintModel
-> Task :expo-modules-core:syncReleaseLibJars
+> Task :loka-memory:mergeReleaseConsumerProguardFiles
 > Task :expo-log-box:mergeReleaseGeneratedProguardFiles
 > Task :expo-log-box:mergeReleaseConsumerProguardFiles
 > Task :expo-log-box:mergeReleaseJavaResource
 > Task :expo-log-box:syncReleaseLibJars
-> Task :expo:generateReleaseLintModel
 > Task :expo-log-box:bundleReleaseLocalLintAar
+> Task :loka-memory:mergeReleaseJavaResource
+> Task :loka-memory:syncReleaseLibJars
+> Task :loka-memory:bundleReleaseLocalLintAar
+> Task :expo-constants:generateReleaseLintVitalModel
+> Task :expo-log-box:generateReleaseLintVitalModel
+> Task :loka-memory:generateReleaseLintVitalModel
+> Task :app:processReleaseJavaRes
+> Task :expo-modules-core:syncReleaseLibJars
 > Task :expo-modules-core:bundleReleaseLocalLintAar
-> Task :expo:generateReleaseLintVitalModel
+> Task :expo:generateReleaseLintModel
 > Task :app:mergeDexRelease
 > Task :app:compileReleaseArtProfile
 > Task :app:mergeReleaseJavaResource
 > Task :app:generateReleaseLintVitalReportModel
-> Task :expo-log-box:generateReleaseLintVitalModel
+> Task :expo:generateReleaseLintVitalModel
 > Task :expo-modules-core:generateReleaseLintVitalModel
 > Task :app:optimizeReleaseResources
 > Task :app:collectReleaseDependencies
@@ -429,8 +478,11 @@ w: file:///home/runner/work/lokacore/lokacore/r1-spike/mobile/node_modules/expo/
 > Task :expo-log-box:assembleRelease
 > Task :expo-modules-core:bundleReleaseAar
 > Task :expo-modules-core:assembleRelease
+> Task :loka-memory:bundleReleaseAar
+> Task :loka-memory:assembleRelease
 > Task :expo-constants:lintVitalAnalyzeRelease
 > Task :expo-log-box:lintVitalAnalyzeRelease
+> Task :loka-memory:lintVitalAnalyzeRelease
 > Task :expo:lintVitalAnalyzeRelease
 > Task :expo-modules-core:lintVitalAnalyzeRelease
 > Task :app:lintVitalAnalyzeRelease
@@ -448,5 +500,5 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/9.3.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD SUCCESSFUL in 5m 23s
-256 actionable tasks: 256 executed
+BUILD SUCCESSFUL in 5m 29s
+297 actionable tasks: 297 executed

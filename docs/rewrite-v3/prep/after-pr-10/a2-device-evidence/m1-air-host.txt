@@ -1,11 +1,17 @@
-2026-09-24T03:08:18Z
+2026-09-24T06:45:11Z
+$ sysctl hw.model machdep.cpu.brand_string hw.ncpu hw.perflevel0.physicalcpu hw.perflevel1.physicalcpu hw.memsize
 hw.model: MacBookAir10,1
 machdep.cpu.brand_string: Apple M1
 hw.ncpu: 8
 hw.perflevel0.physicalcpu: 4
 hw.perflevel1.physicalcpu: 4
 hw.memsize: 17179869184
+exit=0
+$ sw_vers
 ProductName:		macOS
 ProductVersion:		26.6.2
 BuildVersion:		25G83
+exit=0
+$ uname -m
 arm64
+exit=0

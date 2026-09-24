@@ -1,4 +1,5 @@
 apk-facts.txt: OK
+build-environment.txt: OK
 comparison.txt: OK
 gradle-build.log: OK
 gradle-version.txt: OK

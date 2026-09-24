@@ -1,26 +1,49 @@
-observed_at_utc=2026-09-24T06:02:35Z
-host=M1 Air (m1-air-host.txt); DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
-xcodebuild: Xcode 27.0 Build version 27A266a
-cocoapods=1.17.0 (brew install cocoapods; formula 1.17.0)
-ruby=ruby 4.0.7 (2026-09-15 revision 229531a6cf) +PRISM [arm64-darwin25]
+observed_at_utc=2026-09-24T06:54:11Z
+composed by iphone-11-build.sh; raw logs: iphone-11-pod-install.log, iphone-11-xcodebuild.log
+DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
+xcodebuild: Xcode 27.0 Build version 27A266a 
+cocoapods=1.17.0
+pod env: Ruby : ruby 4.0.7 (2026-09-15 revision 229531a6cf) +PRISM [arm64-darwin25]
 node=v24.21.0 npm=11.19.0
-install: npm_config_engine_strict=true npm ci --ignore-scripts (retained lock; package.json and package-lock.json cmp-equal to dependency-evidence before and after prebuild)
-template=expo-template-bare-minimum@57.0.26 sha256=6b19d4235ab57c66fac699de7a2c57fe0ea277bf8a355ed45b2a37258bd93366
+install: npm_config_engine_strict=true npm ci --ignore-scripts (package.json and package-lock.json cmp-equal to dependency-evidence before and after prebuild)
+template=expo-template-bare-minimum@57.0.26 sha256=6b19d4235ab57c66fac699de7a2c57fe0ea277bf8a355ed45b2a37258bd93366 (verified)
 prebuild: expo prebuild --platform ios --no-install --template <that tgz>; then pod install in ios/
-Podfile.lock sha256=a529d0aa077190f2d97f50937b4e3646078a7b45286456d8576275b19d094e63 (retained as iphone-11-Podfile.lock)
---- Podfile.lock: hermes, sqlite, cocoapods
+Podfile.lock sha256=004d6bb1388c423848161a5650437cd6759ae0f8eee0b09f6a1da8a0605b4bff (retained as iphone-11-Podfile.lock)
+--- Podfile.lock: hermes, sqlite, local memory module, cocoapods
   - ExpoSQLite (57.0.3):
   - hermes-engine (250829098.0.17):
   - hermes-engine/Pre-built (250829098.0.17)
+  - LokaMemory (0.0.0):
   - React-Core-prebuilt (0.86.3):
   - ReactNativeDependencies (0.86.3)
   - ExpoSQLite (from `../node_modules/expo-sqlite/ios`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
+  - LokaMemory (from `../modules/loka-memory/ios`)
   - React-Core-prebuilt (from `../node_modules/react-native/React-Core-prebuilt.podspec`)
   - ReactNativeDependencies (from `../node_modules/react-native/third-party-podspecs/ReactNativeDependencies.podspec`)
+PODFILE CHECKSUM: 78dd5900acf5854fb281ca71b7030fb34694cfa9
 COCOAPODS: 1.17.0
 --- pod install: hermes artifact
 [Hermes] Using release tarball from URL: https://repo1.maven.org/maven2/com/facebook/hermes/hermes-ios/250829098.0.17/hermes-ios-250829098.0.17-hermes-ios-debug.tar.gz
+[Hermes] Verifying checksum for cached hermes-ios-250829098.0.17-debug.tar.gz...
+[Hermes] SHA1 verified for hermes-ios-250829098.0.17-debug.tar.gz
+[Hermes] Cache hit: copying hermes-ios-250829098.0.17-debug.tar.gz from shared cache (~/Library/Caches/ReactNative)
+[Hermes] Verifying checksum for cached hermes-ios-250829098.0.17-release.tar.gz...
+[Hermes] SHA1 verified for hermes-ios-250829098.0.17-release.tar.gz
+[Hermes] Cache hit: copying hermes-ios-250829098.0.17-release.tar.gz from shared cache (~/Library/Caches/ReactNative)
+--- xcodebuild: Hermes replacement build phase (script output lines)
+PhaseScriptExecution [CP-User]\ [Hermes]\ Replace\ Hermes\ for\ the\ right\ configuration,\ if\ needed ~/dev/l
+Preparing the final location
+Extracting the tarball
+Done replacing hermes-engine
+--- app ios/build/Build/Products/Release-iphoneos/LokaR1A2.app (Release, development signing by the free personal team; no IPA)
+executable sha256=0673995bccb9087ae053ce09d4a957ff363306dd9de7ad47f3c07f0dad7d59f9
+main.jsbundle sha256=9977396ef7cfab6f4506d8a1842c5658edaa6b6ba7644d8d10480ee286ddd281
+lipo -archs: arm64
+Info.plist CFBundleIdentifier=com.lorecrafting.lokar1a2
+Info.plist DTSDKBuild=24A430
+Info.plist DTXcodeBuild=27A266a
+Info.plist MinimumOSVersion=16.4
 --- Pods/Headers/Public/ExpoSQLite/sqlite3.h (vendored sqlite3, not SQLCipher)
 #define SQLITE_VERSION        "3.50.3"
 #define SQLITE_SOURCE_ID      "2025-07-17 13:25:10 3ce993b8657d6d9deda380a93cdd6404a8c8ba1b185b2bc423703e41ae5f2543"
@@ -31,3 +54,5 @@ COCOAPODS: 1.17.0
   "expo.inlineModules.watchedDirectories": "[]",
   "expo.inlineModules.xcodeProjectTargets": "{\"mainTarget\":\"LokaR1A2\",\"targets\":[]}"
 }
+
+--- xcodebuild exit=0

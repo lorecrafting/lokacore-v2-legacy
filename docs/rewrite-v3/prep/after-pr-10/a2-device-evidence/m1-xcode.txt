@@ -1,7 +1,13 @@
-2026-09-24T05:42:20Z
+2026-09-24T06:45:19Z
 DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
+$ env -u DEVELOPER_DIR xcode-select -p
+/Library/Developer/CommandLineTools
+exit=0
+$ xcodebuild -version
 Xcode 27.0
 Build version 27A266a
+exit=0
+$ xcodebuild -showsdks
 DriverKit SDKs:
 	DriverKit 27.0                	-sdk driverkit27.0
 
@@ -33,4 +39,10 @@ watchOS SDKs:
 watchOS Simulator SDKs:
 	Simulator - watchOS 27.0      	-sdk watchsimulator27.0
 
-iphoneos sdk: 27.0 build 24A430
+exit=0
+$ xcrun --sdk iphoneos --show-sdk-version
+27.0
+exit=0
+$ xcrun --sdk iphoneos --show-sdk-build-version
+24A430
+exit=0

@@ -1,29 +1,41 @@
-2026-09-24T06:13:01Z
+2026-09-24T07:03:44Z
 host=M1 Air (m1-air-host.txt); DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
-xcodebuild: Xcode 27.0 Build version 27A266a
-devicectl: 642.16
-idevicesyslog: idevicesyslog 1.4.0
-cocoapods=1.17.0; node=v24.21.0; lock evidence: iphone-11-pods.txt, iphone-11-Podfile.lock
-build: xcodebuild -workspace LokaR1A2.xcworkspace -scheme LokaR1A2 -configuration Release -destination 'platform=iOS,id=[redacted]' -allowProvisioningUpdates build (BUILD SUCCEEDED)
-signing: automatic, free personal team (team ID [redacted]); development signing, not store signing; no IPA produced
-app LokaR1A2.app: executable sha256=aaf4decaaa39644fa9e84880502d41c321dad40fd93f0a56730fb12a1054a9e7
-app LokaR1A2.app: main.jsbundle sha256=d231671da9226c132150b0a522c3f2378dbf0e4625bcd4a62fd80935749f986b
-app Info.plist: CFBundleIdentifier=com.lorecrafting.lokar1a2 DTSDKBuild=24A430 DTXcodeBuild=27A266a MinimumOSVersion=16.4
-config change for Xcode 27: none (generated Info.plist has no UIApplicationSceneManifest; app launched on iOS 26.6.2)
---- xcrun devicectl device info details (hardware/software excerpt)
+$ xcrun devicectl --version
+642.16
+exit=0
+$ idevicesyslog --version
+idevicesyslog 1.4.0
+exit=0
+app: ~/dev/lokacore-a2/r1-spike/mobile/ios/build/Build/Products/Release-iphoneos/LokaR1A2.app (built by iphone-11-build.sh; facts in iphone-11-pods.txt)
+executable sha256=0673995bccb9087ae053ce09d4a957ff363306dd9de7ad47f3c07f0dad7d59f9
+main.jsbundle sha256=9977396ef7cfab6f4506d8a1842c5658edaa6b6ba7644d8d10480ee286ddd281
+lipo -archs: arm64
+--- xcrun devicectl device info details --device [redacted] > iphone-11-devicectl.txt (hardware/software lines)
     • CPU Count: 6 cores (6 logical, 1 package(s))
     • CPU Type: arm64e
-    • Internal Storage Capacity: 64000000000
     • Marketing Name: iPhone 11
     • Product Type: iPhone12,1
+    ▿ Supported CPU Types:
+    • Thinning Product Type: iPhone12,1
     • OS Build Update: 23G90
     • OS Version: 26.6.2
     • Developer Mode Status: Enabled (1)
-installed/physical RAM: not reported by devicectl device info details or ideviceinfo (null)
---- install: xcrun devicectl device install app --device [redacted] LokaR1A2.app (rc=0)
---- launch: xcrun devicectl device process launch --device [redacted] com.lorecrafting.lokar1a2 (rc=0)
---- idevicesyslog -p LokaR1A2, probe lines (JS console.log goes to os_log in Release, not to --console stdout)
-Sep 23 20:12:32.325022 LokaR1A2(React)[26778] <Info>: LOKA_A2_PROBE {
+    • Send Memory Warning to Process (com.apple.coredevice.feature.sendmemorywarningtoprocess)
+$ xcrun devicectl device install app --device [redacted] ~/dev/lokacore-a2/r1-spike/mobile/ios/build/Build/Products/Release-iphoneos/LokaR1A2.app
+App installed:
+• bundleID: com.lorecrafting.lokar1a2
+• installationURL: file:///private/var/containers/Bundle/Application/90C820EB-6576-4BA7-A69D-76AB02A0453E/LokaR1A2.app/
+• launchServicesIdentifier: unknown
+• databaseUUID: 08A1F34D-BC25-43AA-B639-866E388FD292
+• databaseSequenceNumber: 2284
+• options: 
+exit=0
+$ xcrun devicectl device process launch --terminate-existing --device [redacted] com.lorecrafting.lokar1a2
+Launched application with com.lorecrafting.lokar1a2 bundle identifier.
+exit=0
+$ idevicesyslog -u [redacted] -p LokaR1A2 --no-colors > iphone-11-syslog.txt (started before launch, stopped 15 s after)
+--- probe lines of iphone-11-syslog.txt (JS console.log goes to os_log in Release)
+Sep 23 21:03:50.055927 LokaR1A2(React)[27671] <Info>: LOKA_A2_PROBE {
   "hermes": {
     "Bytecode Version": 98,
     "Static Hermes": true,
@@ -38,6 +50,9 @@ Sep 23 20:12:32.325022 LokaR1A2(React)[26778] <Info>: LOKA_A2_PROBE {
   "sqlite": {
     "v": "3.50.3",
     "s": "2025-07-17 13:25:10 3ce993b8657d6d9deda380a93cdd6404a8c8ba1b185b2bc423703e41ae5f2543"
+  },
+  "memory": {
+    "api": "ProcessInfo.processInfo.physicalMemory",
+    "bytes": "4039901184"
   }
 }
-Sep 23 20:12:32.326559 LokaR1A2(React)[26778] <Info>: Running "main"

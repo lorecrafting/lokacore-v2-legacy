@@ -1,4 +1,4 @@
-apk=app-release.apk sha256=f15267fce0b3cb4f6a9783283a3bef29d03e8d91ce4c27b15d7b5611bfae6c1b bytes=27733981
+apk=app-release.apk sha256=c0d65fbaae69e8d79f6969225b6d2dd61108496223cb2bdf36aad4f0feea72a7 bytes=27734061
 signing=template debug.keystore (public debug key), not store signing
 debug_keystore_sha256=221e0a3106aa4c3ccc154e0a418b55020b3f9ea6e84f92e8749cd9e2f39f5e58
 aapt2: package: name='com.lorecrafting.lokar1a2' versionCode='1' versionName='0.0.0' platformBuildVersionName='16' platformBuildVersionCode='36' compileSdkVersion='36' compileSdkVersionCodename='16'

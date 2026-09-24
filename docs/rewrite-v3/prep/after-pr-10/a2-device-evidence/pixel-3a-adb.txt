@@ -1,19 +1,54 @@
-2026-09-24T03:08:17Z
-adb Android Debug Bridge version 1.0.41
+2026-09-24T06:45:02Z
+$ adb version
+Android Debug Bridge version 1.0.41
+Version 37.0.1-15733141
+Installed as /opt/homebrew/bin/adb
+Running on Darwin 25.6.0 (arm64)
+exit=0
+$ adb devices -l
 List of devices attached
-[redacted]             device usb:1048576X product:sargo model:Pixel_3a device:sargo transport_id:6
+[redacted]             device usb:17825792X product:sargo model:Pixel_3a device:sargo transport_id:9
 
-ro.product.model: Pixel 3a
-ro.product.device: sargo
-ro.product.manufacturer: Google
-ro.hardware: sargo
-ro.board.platform: sdm710
-ro.product.cpu.abi: arm64-v8a
-ro.build.version.release: 11
-ro.build.version.sdk: 30
-ro.build.id: RQ2A.210505.002
-ro.build.fingerprint: google/sargo/sargo:11/RQ2A.210505.002/7246365:user/release-keys
-ro.build.version.security_patch: 2021-05-05
-ro.boot.hardware.sku: G020G
+exit=0
+$ adb shell getprop ro.product.model
+Pixel 3a
+exit=0
+$ adb shell getprop ro.product.device
+sargo
+exit=0
+$ adb shell getprop ro.product.manufacturer
+Google
+exit=0
+$ adb shell getprop ro.hardware
+sargo
+exit=0
+$ adb shell getprop ro.board.platform
+sdm710
+exit=0
+$ adb shell getprop ro.product.cpu.abi
+arm64-v8a
+exit=0
+$ adb shell getprop ro.build.version.release
+11
+exit=0
+$ adb shell getprop ro.build.version.sdk
+30
+exit=0
+$ adb shell getprop ro.build.id
+RQ2A.210505.002
+exit=0
+$ adb shell getprop ro.build.fingerprint
+google/sargo/sargo:11/RQ2A.210505.002/7246365:user/release-keys
+exit=0
+$ adb shell getprop ro.build.version.security_patch
+2021-05-05
+exit=0
+$ adb shell getprop ro.boot.hardware.sku
+G020G
+exit=0
+$ adb shell grep MemTotal /proc/meminfo
 MemTotal:        3678544 kB
+exit=0
+$ adb shell uname -m
 aarch64
+exit=0
