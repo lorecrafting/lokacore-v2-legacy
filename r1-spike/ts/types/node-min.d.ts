@@ -38,4 +38,5 @@ declare module 'node:assert/strict' {
 }
 declare class URL {
   constructor(url: string, base?: string | URL);
+  pathname: string;
 }
