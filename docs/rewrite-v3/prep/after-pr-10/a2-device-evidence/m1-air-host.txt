@@ -1,0 +1,11 @@
+2026-09-24T03:08:18Z
+hw.model: MacBookAir10,1
+machdep.cpu.brand_string: Apple M1
+hw.ncpu: 8
+hw.perflevel0.physicalcpu: 4
+hw.perflevel1.physicalcpu: 4
+hw.memsize: 17179869184
+ProductName:		macOS
+ProductVersion:		26.6.2
+BuildVersion:		25G83
+arm64

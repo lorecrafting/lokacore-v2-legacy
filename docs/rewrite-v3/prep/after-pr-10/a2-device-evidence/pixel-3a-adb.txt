@@ -1,0 +1,19 @@
+2026-09-24T03:08:17Z
+adb Android Debug Bridge version 1.0.41
+List of devices attached
+[redacted]             device usb:1048576X product:sargo model:Pixel_3a device:sargo transport_id:6
+
+ro.product.model: Pixel 3a
+ro.product.device: sargo
+ro.product.manufacturer: Google
+ro.hardware: sargo
+ro.board.platform: sdm710
+ro.product.cpu.abi: arm64-v8a
+ro.build.version.release: 11
+ro.build.version.sdk: 30
+ro.build.id: RQ2A.210505.002
+ro.build.fingerprint: google/sargo/sargo:11/RQ2A.210505.002/7246365:user/release-keys
+ro.build.version.security_patch: 2021-05-05
+ro.boot.hardware.sku: G020G
+MemTotal:        3678544 kB
+aarch64

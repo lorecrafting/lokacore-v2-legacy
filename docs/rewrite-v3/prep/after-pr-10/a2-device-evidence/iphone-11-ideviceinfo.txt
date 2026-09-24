@@ -1,0 +1,9 @@
+2026-09-24T03:09:35Z
+libimobiledevice ideviceinfo 1.4.0
+ProductType: iPhone12,1
+ModelNumber: MH8Y3
+RegionInfo: LL/A
+HardwareModel: N104AP
+CPUArchitecture: arm64e
+ProductVersion: 26.6.2
+BuildVersion: 23G90
