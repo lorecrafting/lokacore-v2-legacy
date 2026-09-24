@@ -1,0 +1,28 @@
+2026-09-24T05:56:20Z
+adb Android Debug Bridge version 1.0.41
+apk sha256 f15267fce0b3cb4f6a9783283a3bef29d03e8d91ce4c27b15d7b5611bfae6c1b (artifact app-release-apk, run 35951344446)
+device fingerprint: google/sargo/sargo:11/RQ2A.210505.002/7246365:user/release-keys
+installed package:  versionName=0.0.0
+ lastUpdateTime=2026-09-23 19:56:02
+--- adb logcat -d, ReactNativeJS probe lines ---
+09-23 19:56:07.033  7725  7823 I ReactNativeJS: LOKA_A2_PROBE {
+09-23 19:56:07.033  7725  7823 I ReactNativeJS:   "hermes": {
+09-23 19:56:07.033  7725  7823 I ReactNativeJS:     "Bytecode Version": 98,
+09-23 19:56:07.033  7725  7823 I ReactNativeJS:     "Static Hermes": true,
+09-23 19:56:07.033  7725  7823 I ReactNativeJS:     "Builtins Frozen": false,
+09-23 19:56:07.033  7725  7823 I ReactNativeJS:     "VM Experiments": 0,
+09-23 19:56:07.033  7725  7823 I ReactNativeJS:     "Build": "Release",
+09-23 19:56:07.033  7725  7823 I ReactNativeJS:     "GC": "hades (concurrent)",
+09-23 19:56:07.033  7725  7823 I ReactNativeJS:     "OSS Release Version": "250829098.0.17",
+09-23 19:56:07.033  7725  7823 I ReactNativeJS:     "Debugger Enabled": false,
+09-23 19:56:07.033  7725  7823 I ReactNativeJS:     "CommonJS Modules": "None"
+09-23 19:56:07.033  7725  7823 I ReactNativeJS:   },
+09-23 19:56:07.033  7725  7823 I ReactNativeJS:   "sqlite": {
+09-23 19:56:07.033  7725  7823 I ReactNativeJS:     "v": "3.50.3",
+09-23 19:56:07.033  7725  7823 I ReactNativeJS:     "s": "2025-07-17 13:25:10 3ce993b8657d6d9deda380a93cdd6404a8c8ba1b185b2bc423703e41ae5f2543"
+09-23 19:56:07.033  7725  7823 I ReactNativeJS:   }
+09-23 19:56:07.033  7725  7823 I ReactNativeJS: }
+09-23 19:56:07.036  7725  7823 I ReactNativeJS: Running "main"
+--- adb shell dumpsys meminfo (totals) ---
+Total RAM: 3,678,544K (status normal)
+MemTotal:        3678544 kB

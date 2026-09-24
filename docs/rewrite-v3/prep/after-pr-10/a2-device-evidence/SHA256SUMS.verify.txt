@@ -4,4 +4,5 @@ m1-tools.txt: OK
 m1-xcode.txt: OK
 iphone-11-ideviceinfo.txt: OK
 pixel-3a-adb.txt: OK
+pixel-3a-probe.txt: OK
 boox-palma-adb.txt: OK

@@ -137,10 +137,11 @@ follow ADR-069; the register is not edited here):
 
 1. ~~Install Xcode~~ Done 2026-09-24: Xcode 27.0 (27A266a), iOS SDK 27.0
    (24A430), retained in `a2-device-evidence/m1-xcode.txt`.
-2. Sideload the `app-release-apk` artifact of run 35951344446 onto the Pixel 3a
-   (`adb install app-release.apk`), open it, and keep
-   `adb logcat -d | grep LOKA_A2_PROBE` (on-device Hermes and SQLite). Keep
-   the Pixel's OS un-updated.
+2. ~~Sideload the APK on the Pixel 3a~~ Done 2026-09-24: APK f15267fc… from run
+   35951344446 ran on the Pixel 3a (Android 11) and reported Hermes "OSS Release
+   Version" 250829098.0.17, Build "Release", and SQLite 3.50.3
+   (`a2-device-evidence/pixel-3a-probe.txt`). `dumpsys meminfo` Total RAM equals
+   MemTotal (3,678,544 kB): OS-visible, not installed RAM.
 3. After Xcode: build and run the iOS probe on the iPhone 11 with a free
    personal team; keep the console `LOKA_A2_PROBE` line and `Podfile.lock`.
 4. Run the RAM probe on both phones once the module above is added.
