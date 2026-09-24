@@ -142,6 +142,66 @@ fixed regression seeds plus at least 10,000 fresh sequences. It records the
 generator version, seeds, sequence count and length distribution. Agreement
 between the two is not correctness: the fixture suites stay authoritative.
 
+## R1-A2 durable-host contract (both hosts; set 2026-09-24)
+
+A2 puts each kernel behind a real durable host: the Elixir server adapter
+(`server/`, BEAM + SQLite through `exqlite`, raw `BEGIN`/`COMMIT`, no Ecto) and the
+phone app (`mobile/`, Hermes release build + `expo-sqlite`). The kernels are
+unchanged. The authors of the two hosts do not read each other's host code
+(rule 4). Physical schemas may differ (ADR-006); behavior may not.
+
+**Oracle.** The in-memory model host (`LokaR1.World` / `ts/src/kernel/world.ts`)
+is the expected behavior. With no real fault injected, a durable host's step
+records for a `world.run` request are byte-identical to the model host's. The
+`HOST` object's `durable`, `receipts` and `pending` are read back from SQLite,
+not from process memory. The four model `fault` options stay accepted and mean
+the same thing, now realized as real events (for example `before_commit` issues a
+real `ROLLBACK` after the writes).
+
+**Real injected faults.** A durable host additionally accepts a fault schedule
+`{"step":n,"point":P,"kind":K}` outside the runner protocol (test/app input, never
+player input).
+
+| `point` | Where |
+|---|---|
+| `pre_decision` | after admission, before the kernel call |
+| `post_decision_pre_commit` | proposal in memory, no SQL issued |
+| `in_persistence` | inside the transaction, after at least one write |
+| `post_commit_pre_adoption` | COMMIT returned, memory not yet updated |
+| `post_adoption_pre_response` | memory updated, response not yet returned |
+| `post_response_pre_presentation` | response built, not yet shown or sent |
+
+| `kind` | Meaning |
+|---|---|
+| `raise` | a caught exception in the host at that point |
+| `io_error` | the SQLite write fails (disk full / I/O error), transaction rolls back |
+| `commit_unknown` | COMMIT is issued but its result is discarded (only `in_persistence`) |
+| `kill` | the whole process dies (BEAM VM halt; app process killed), then restarts |
+
+Required behavior is envelope §9. After every fault the host recovers from
+SQLite only, and the recovered `HOST` must equal the model host's state for the
+commit disposition that SQLite actually shows (committed iff the receipt row
+exists). An unknown COMMIT fences new decisions until reconciled from storage; it
+is never re-run. A definite rollback leaves no RNG advance. The next command after
+recovery must produce a coherent continuation (same identity replays or retries).
+
+**Fault evidence record** (one JSONL line per injected run): `host`, `world`,
+`seed`, initial-state SHA-256, ordered `commands`, `fault`, the pre-fault durable
+diagnostic record, recovered `HOST`, the next step record, `expected` (model),
+and `verdict` (`pass`/`fail`). JS faults also retain the raw stack and the stack
+symbolicated through the release source map (and dSYM on iOS).
+
+**On-device differential.** The phone app runs a bundled JSONL of runner requests
+(regression seeds and fixture rows, produced by `harness/`) through the kernel on
+Hermes in the release build and writes one response line per request to a file.
+The file is pulled to the M1 and compared byte for byte with the Elixir runner's
+lines. One deliberately altered response line must be reported as a mismatch.
+
+**Hygiene.** Never print or commit adb serials, UDID, ECID, team ID, certificate
+identifiers, home or scratchpad paths, or app-container/LaunchServices UUIDs;
+every capture script's `redact()` covers them. iOS build scripts record
+`git rev-parse HEAD` and `git status --porcelain`.
+
 ## Known gaps (A1 scope)
 
 - Selector cardinality is only a model helper, and no operation reaches it.
