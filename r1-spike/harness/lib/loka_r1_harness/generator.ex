@@ -14,7 +14,7 @@ defmodule LokaR1Harness.Generator do
   import Bitwise
   alias LokaR1Harness.Canonical
 
-  @version "r1-gen-2"
+  @version "r1-gen-3"
   @max_safe 9_007_199_254_740_991
   @u32 4_294_967_295
 
@@ -1016,198 +1016,327 @@ defmodule LokaR1Harness.Generator do
   end
 
   # -------------------------------------------------------- composition.evaluate
+  #
+  # Every plan starts valid: a guarded reaction chain c0..c(d-1) on proof.signal,
+  # optionally a fan-out to proof.followup, an item transfer watched through
+  # engine.item_transferred, and a future job. About 30% stay as built, 40% get a
+  # runtime twist aimed at one fault (budgets, conflicts, cycles, capacity, jobs,
+  # advance targets, bounds) and 30% get one validation defect.
 
-  @rule_ids ~w(alpha beta chain observe relay)
-  @limit_keys ~w(operations query_steps events deliveries reaction_depth created_jobs pending_jobs output_bytes)
+  @doc "Composition plans alone (request objects), for the model self-test."
+  def composition_plans(seed, n) do
+    {plans, _} =
+      Enum.map_reduce(1..n//1, :rand.seed_s(:exsss, seed), fn _, r -> composition(r) end)
+
+    Enum.map(plans, fn {:json, req} -> req end)
+  end
 
   defp composition(r) do
     {initial, r} = comp_initial(r)
-    {n_rules, r} = int(r, 0, 4)
-    {ids, r} = Enum.map_reduce(1..n_rules//1, r, fn _, r -> rule_id(r) end)
-    known = Enum.filter(ids, &is_binary/1)
-    {rules, r} = Enum.map_reduce(ids, r, fn id, r -> rule(id, known, initial, r) end)
-    {active, r} = active(known, r)
-    initial = Map.put(initial, "active", active)
-    {n_root, r} = int(r, 0, 6)
-    {root, r} = Enum.map_reduce(1..n_root//1, r, fn _, r -> op(known, initial, r) end)
-    {limits, r} = limits(r)
+    {kind, r} = int(r, 1, 100)
+    {plan, r} = valid_plan(initial, if(kind <= 30, do: 1, else: 3), r)
+
+    {plan, r} =
+      cond do
+        kind <= 30 -> {plan, r}
+        kind <= 70 -> twist(plan, r)
+        true -> defect(plan, r)
+      end
+
+    {rules, r} = shuffle(plan.rules, r)
 
     req = %{
       "fn" => "composition.evaluate",
-      "limits" => limits,
-      "initial" => initial,
-      "root" => root,
+      "limits" => plan.limits,
+      "initial" => plan.initial,
+      "root" => plan.root,
       "rules" => rules
     }
 
-    {kind, r} = int(r, 1, 10)
-    {target, r} = int(r, initial["clock"] - 1, initial["clock"] + 10)
-
     req =
-      cond do
-        kind <= 7 -> req
-        kind <= 9 -> Map.put(req, "advance_target", target)
-        true -> Map.put(req, "advance_target", "soon")
-      end
+      if Map.has_key?(plan, :advance), do: Map.put(req, "advance_target", plan.advance), else: req
 
     {{:json, req}, r}
   end
 
-  defp rule_id(r) do
-    {bad, r} = chance(r, 5)
-    if bad, do: pick(r, ["Bad", "9x", "", 5]), else: pick(r, @rule_ids)
-  end
-
-  defp active(known, r) do
-    {ids, r} =
-      Enum.reduce(known, {[], r}, fn id, {acc, r} ->
-        {yes, r} = chance(r, 60)
-        {if(yes, do: [id | acc], else: acc), r}
+  defp shuffle(list, r) do
+    {keyed, r} =
+      Enum.map_reduce(list, r, fn x, r ->
+        {k, r} = int(r, 0, 1 <<< 30)
+        {{k, x}, r}
       end)
 
-    {unknown, r} = chance(r, 4)
-    {Enum.sort(Enum.uniq(if(unknown, do: ["ghost" | ids], else: ids))), r}
+    {keyed |> Enum.sort_by(&elem(&1, 0)) |> Enum.map(&elem(&1, 1)), r}
   end
+
+  defp crule(id, event, guard, ops),
+    do: %{"id" => id, "event" => event, "guard" => guard, "ops" => ops}
+
+  defp emit(event, payload), do: %{"op" => "event.emit", "event" => event, "payload" => payload}
+
+  defp transfer(item, source, dest),
+    do: %{"op" => "item.transfer", "item" => item, "source" => source, "destination" => dest}
+
+  defp job(id, due), do: %{"op" => "job.schedule", "id" => id, "due" => due}
+  defp event_guard(key, value), do: %{"source" => "event", "key" => key, "equals" => value}
 
   defp comp_initial(r) do
     {flag, r} = int(r, 0, 2)
     {seen, r} = int(r, 0, 2)
-    {count, r} = pick(r, [0, 0, 1, -1, 2_147_483_647, -2_147_483_648, 2_147_483_646])
-    {in_bag, r} = chance(r, 20)
-    {cap, r} = pick(r, [1, 1, 2, 0])
+    {count, r} = pick(r, [0, 0, 1, -1, 100])
     {clock, r} = pick(r, [6, 6, 0, 10, 23])
-    {jobs, r} = pick(r, [%{}, %{}, %{"j1" => clock + 5}])
 
     {%{
        "facts" => %{"flag" => flag, "seen" => seen, "count" => count},
-       "locations" => %{
-         "lantern" => if(in_bag, do: "bag", else: "hero"),
-         "stone" => "room",
-         "bag" => "hero"
-       },
-       "capacities" => %{"bag" => cap},
+       "locations" => %{"lantern" => "hero", "stone" => "room", "bag" => "hero"},
+       "capacities" => %{"bag" => 1},
        "active" => [],
        "clock" => clock,
-       "jobs" => jobs
+       "jobs" => %{}
      }, r}
   end
 
-  defp rule(id, known, initial, r) do
-    {event, r} =
-      pick(r, ["proof.signal", "proof.signal", "proof.followup", "engine.item_transferred"])
+  defp valid_plan(initial, min_depth, r) do
+    {depth, r} = int(r, min_depth, 5)
+    {broken, r} = chance(r, 15)
+    {break_at, r} = int(r, 0, depth - 1)
 
-    {guard, r} = guard(r)
-    {n, r} = int(r, 0, 3)
-    {ops, r} = Enum.map_reduce(1..n//1, r, fn _, r -> op(known, initial, r) end)
-    rule = %{"id" => id, "event" => event, "guard" => guard, "ops" => ops}
-    {bad, r} = chance(r, 4)
+    chain =
+      for k <- 0..(depth - 1) do
+        ops =
+          if k == depth - 1,
+            do: [%{"op" => "fact.add", "fact" => "count", "amount" => 1}],
+            else: [emit("proof.signal", %{"value" => k + 1})]
 
-    if bad do
+        equals = if broken and k == break_at, do: k + 10, else: k
+        crule("c#{k}", "proof.signal", event_guard("value", equals), ops)
+      end
+
+    {fan, r} = chance(r, 50)
+
+    {fan_guard, r} =
       pick(r, [
-        Map.delete(rule, "guard"),
-        Map.put(rule, "extra", 1),
-        Map.put(rule, "event", "proof.unknown"),
-        Map.put(rule, "ops", %{})
+        event_guard("value", 0),
+        event_guard("value", 0),
+        %{"source" => "overlay", "key" => "flag", "equals" => initial["facts"]["flag"]}
       ])
-    else
-      {rule, r}
+
+    {seen, r} = int(r, 0, 2)
+
+    fan_rules =
+      if fan,
+        do: [
+          crule("fan", "proof.signal", fan_guard, [emit("proof.followup", %{"value" => 1})]),
+          crule("follow", "proof.followup", event_guard("value", 1), [
+            %{"op" => "fact.set", "fact" => "seen", "value" => seen}
+          ])
+        ],
+        else: []
+
+    {watch, r} = chance(r, 45)
+
+    {moved, r} =
+      pick(r, [
+        transfer("stone", "room", "hero"),
+        transfer("lantern", "hero", "room"),
+        transfer("lantern", "hero", "bag")
+      ])
+
+    {to, r} = pick(r, ["hero", "room", "bag"])
+
+    watch_rules =
+      if watch,
+        do: [
+          crule("watch", "engine.item_transferred", event_guard("to", to), [
+            %{"op" => "fact.set", "fact" => "flag", "value" => 1}
+          ])
+        ],
+        else: []
+
+    {with_job, r} = chance(r, 30)
+    {due, r} = int(r, 1, 10)
+    rules = chain ++ fan_rules ++ watch_rules
+    ids = Enum.map(rules, & &1["id"])
+    {late_fan, r} = chance(r, 15)
+    late = if fan and late_fan, do: ["fan"], else: []
+
+    root =
+      Enum.map(late, &%{"op" => "subscription.activate", "rule" => &1}) ++
+        if(watch, do: [moved], else: []) ++
+        [emit("proof.signal", %{"value" => 0})] ++
+        if(with_job, do: [job("j1", initial["clock"] + due)], else: [])
+
+    plan = %{
+      initial: Map.put(initial, "active", Enum.sort(ids -- late)),
+      root: root,
+      rules: rules,
+      limits: %{}
+    }
+
+    {plan, r}
+  end
+
+  @twists ~w(operations query_steps events deliveries reaction_depth output_bytes created_jobs
+             pending_jobs conflict cycle capacity not_owned destination nonfuture duplicate
+             advance invalid_time bounds loop)a
+
+  defp twist(plan, r) do
+    {t, r} = pick(r, @twists)
+    clock = plan.initial["clock"]
+    {n, r} = int(r, 1, 5)
+
+    case t do
+      :operations ->
+        {limit(plan, "operations", 1), r}
+
+      :query_steps ->
+        {limit(plan, "query_steps", n), r}
+
+      :events ->
+        {limit(plan, "events", 1), r}
+
+      :deliveries ->
+        {limit(plan, "deliveries", 1), r}
+
+      :reaction_depth ->
+        {limit(plan, "reaction_depth", rem(n, 2) + 1), r}
+
+      :output_bytes ->
+        {limit(plan, "output_bytes", 40 + n * 50), r}
+
+      :created_jobs ->
+        {plan |> limit("created_jobs", 1) |> root([job("j2", clock + 3), job("j3", clock + 4)]),
+         r}
+
+      :pending_jobs ->
+        {plan
+         |> limit("pending_jobs", 1)
+         |> put_jobs(%{"j0" => clock + 50})
+         |> root([job("j2", clock + n)]), r}
+
+      :conflict ->
+        wa =
+          crule("wa", "proof.signal", nil, [%{"op" => "fact.set", "fact" => "seen", "value" => 1}])
+
+        wb =
+          crule("wb", "proof.signal", nil, [%{"op" => "fact.set", "fact" => "seen", "value" => 2}])
+
+        {add_rules(plan, [wa, wb]), r}
+
+      :cycle ->
+        {root(plan, [transfer("lantern", "hero", "bag"), transfer("bag", "hero", "lantern")]), r}
+
+      :capacity ->
+        {root(plan, [transfer("lantern", "hero", "bag"), transfer("stone", "room", "bag")]), r}
+
+      :not_owned ->
+        {root(plan, [transfer("stone", "hero", "room")]), r}
+
+      :destination ->
+        {root(plan, [transfer("stone", "room", "moon")]), r}
+
+      :nonfuture ->
+        {root(plan, [job("j2", clock - rem(n, 3))]), r}
+
+      :duplicate ->
+        {plan |> put_jobs(%{"j2" => clock + 20}) |> root([job("j2", clock + n)]), r}
+
+      :advance ->
+        {future, r} = chance(r, 50)
+        due = if future, do: clock + n + 1, else: clock + n
+        {plan |> Map.put(:advance, clock + n) |> root([job("j2", due)]), r}
+
+      :invalid_time ->
+        {Map.put(plan, :advance, clock - 1), r}
+
+      :bounds ->
+        {pick_bounds, r} = chance(r, 50)
+
+        if pick_bounds,
+          do: {root(plan, [%{"op" => "fact.set", "fact" => "flag", "value" => 3}]), r},
+          else: {put_in(plan.initial["facts"]["count"], 2_147_483_647), r}
+
+      :loop ->
+        loop = crule("loop", "proof.followup", nil, [emit("proof.followup", %{})])
+        {plan |> add_rules([loop]) |> root([emit("proof.followup", %{})]), r}
     end
   end
 
-  defp guard(r) do
+  defp limit(plan, key, v), do: put_in(plan.limits[key], v)
+  defp root(plan, ops), do: %{plan | root: plan.root ++ ops}
+  defp put_jobs(plan, jobs), do: put_in(plan.initial["jobs"], jobs)
+
+  defp add_rules(plan, rules) do
+    active = Enum.sort(plan.initial["active"] ++ Enum.map(rules, & &1["id"]))
+    %{plan | rules: plan.rules ++ rules, initial: Map.put(plan.initial, "active", active)}
+  end
+
+  @bad_ops [
+    %{"op" => "nope"},
+    "fact.set",
+    %{"op" => "fact.set", "fact" => "flag"},
+    %{"op" => "fact.set", "fact" => "flag", "value" => 1, "x" => 1},
+    %{"op" => "fact.add", "fact" => "flag", "amount" => 1},
+    %{"op" => "fact.set", "fact" => "mood", "value" => 1},
+    %{"op" => "fact.set", "fact" => "flag", "value" => "1"},
+    %{"op" => "event.emit", "event" => "engine.item_transferred", "payload" => %{}},
+    %{"op" => "event.emit", "event" => "proof.other", "payload" => %{}},
+    %{"op" => "event.emit", "event" => "proof.signal", "payload" => []},
+    %{"op" => "event.emit", "event" => "proof.signal", "payload" => %{"é" => 1}},
+    %{"op" => "subscription.activate", "rule" => "ghost"},
+    %{"op" => "item.transfer", "item" => "", "source" => "hero", "destination" => "room"},
+    %{"op" => "item.transfer", "item" => 1, "source" => "hero", "destination" => "room"},
+    %{"op" => "job.schedule", "id" => "", "due" => 99},
+    %{"op" => "job.schedule", "id" => "j9", "due" => "99"}
+  ]
+
+  @bad_guards [
+    %{"source" => "world", "key" => "flag", "equals" => 1},
+    %{"source" => "overlay", "key" => "mood", "equals" => 1},
+    %{"source" => "overlay", "key" => "flag"},
+    %{"source" => "event", "key" => 5, "equals" => 1},
+    "always"
+  ]
+
+  defp defect(plan, r) do
     {kind, r} = int(r, 1, 10)
-    {equals, r} = pick(r, [0, 1, 2, "hero", "bag", true, nil])
+    [first | others] = plan.rules
 
-    cond do
-      kind <= 5 ->
-        {nil, r}
+    case kind do
+      k when k <= 5 ->
+        {op, r} = pick(r, @bad_ops)
+        {in_rule, r} = chance(r, 40)
 
-      kind <= 7 ->
-        {key, r} = pick(r, ["flag", "seen", "count"])
-        {%{"source" => "overlay", "key" => key, "equals" => equals}, r}
+        if in_rule,
+          do: {%{plan | rules: [%{first | "ops" => first["ops"] ++ [op]} | others]}, r},
+          else: {root(plan, [op]), r}
 
-      kind <= 9 ->
-        {key, r} = pick(r, ["value", "item", "to", "from"])
-        {%{"source" => "event", "key" => key, "equals" => equals}, r}
+      6 ->
+        {guard, r} = pick(r, @bad_guards)
+        {%{plan | rules: [%{first | "guard" => guard} | others]}, r}
 
-      true ->
-        pick(r, [
-          %{"source" => "world", "key" => "flag", "equals" => 1},
-          %{"source" => "overlay", "key" => "mood", "equals" => 1},
-          %{"source" => "overlay", "key" => "flag"},
-          "always"
-        ])
+      7 ->
+        {id, r} = pick(r, ["Bad", "9x", "", "a.b", 5, first["id"]])
+        {%{plan | rules: plan.rules ++ [crule(id, "proof.signal", nil, [])]}, r}
+
+      8 ->
+        {bad, r} =
+          pick(r, [
+            Map.put(first, "extra", 1),
+            Map.delete(first, "guard"),
+            %{first | "event" => "proof.unknown"},
+            %{first | "ops" => %{}},
+            Map.delete(first, "id")
+          ])
+
+        {%{plan | rules: [bad | others]}, r}
+
+      9 ->
+        {put_in(plan.initial["active"], Enum.sort(["ghost" | plan.initial["active"]])), r}
+
+      _ ->
+        {target, r} = pick(r, ["soon", true, [1], plan.initial["clock"] - 3])
+        {Map.put(plan, :advance, target), r}
     end
-  end
-
-  defp op(known, initial, r) do
-    {kind, r} = int(r, 1, 100)
-    clock = initial["clock"]
-    items = ["lantern", "stone", "bag"]
-    places = ["hero", "room", "bag", "lantern"]
-
-    cond do
-      kind <= 18 ->
-        {fact, r} = pick(r, ["flag", "flag", "seen", "count"])
-        {v, r} = pick(r, [0, 1, 2, 2, 3, -1, 2_147_483_647])
-        {%{"op" => "fact.set", "fact" => fact, "value" => v}, r}
-
-      kind <= 30 ->
-        {fact, r} = pick(r, ["count", "count", "count", "flag"])
-        {v, r} = pick(r, [1, 1, -1, 2, 2_147_483_647, -2_147_483_648])
-        {%{"op" => "fact.add", "fact" => fact, "amount" => v}, r}
-
-      kind <= 50 ->
-        {event, r} =
-          pick(r, ["proof.signal", "proof.signal", "proof.followup", "engine.item_transferred"])
-
-        {v, r} = int(r, 0, 2)
-        {payload, r} = pick(r, [%{"value" => v}, %{"value" => v}, %{}, %{"item" => "bag"}])
-        {%{"op" => "event.emit", "event" => event, "payload" => payload}, r}
-
-      kind <= 60 ->
-        {rule, r} = pick(r, known ++ ["ghost"])
-        {%{"op" => "subscription.activate", "rule" => rule}, r}
-
-      kind <= 78 ->
-        {item, r} = pick(r, items)
-        {source, r} = pick(r, ["hero", "hero", "room", "bag", "lantern"])
-        {dest, r} = pick(r, places ++ ["moon", ""])
-        {%{"op" => "item.transfer", "item" => item, "source" => source, "destination" => dest}, r}
-
-      kind <= 90 ->
-        {id, r} = pick(r, ["j1", "j2", "j2", "j3", ""])
-        {due, r} = int(r, clock - 1, clock + 30)
-        {%{"op" => "job.schedule", "id" => id, "due" => due}, r}
-
-      true ->
-        pick(r, [
-          %{"op" => "nope"},
-          %{"op" => "fact.set", "fact" => "flag"},
-          %{"op" => "fact.set", "fact" => "flag", "value" => 1, "x" => 1},
-          %{"op" => "fact.set", "fact" => "mood", "value" => 1},
-          %{"op" => "fact.set", "fact" => "flag", "value" => "1"},
-          %{"op" => "event.emit", "event" => "proof.signal", "payload" => []},
-          %{"op" => "job.schedule", "id" => 5, "due" => 99},
-          %{"op" => "item.transfer", "item" => 1, "source" => "hero", "destination" => "room"},
-          "fact.set"
-        ])
-    end
-  end
-
-  defp limits(r) do
-    {n, r} = pick(r, [0, 0, 0, 0, 1, 1, 2, 3])
-    {keys, r} = Enum.map_reduce(1..n//1, r, fn _, r -> pick(r, @limit_keys) end)
-
-    Enum.reduce(keys, {%{}, r}, fn key, {acc, r} ->
-      {v, r} =
-        case key do
-          "output_bytes" -> int(r, 50, 2000)
-          "query_steps" -> int(r, 1, 60)
-          _ -> int(r, 1, 5)
-        end
-
-      {Map.put(acc, key, v), r}
-    end)
   end
 end

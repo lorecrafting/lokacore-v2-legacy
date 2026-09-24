@@ -62,6 +62,36 @@ sequences cover every rejection code, the four faults, the retryable codes,
 `invalid_options`, `unknown_fault`, `invalid_commit_disposition` and
 `invalid_command`.
 
+## Composition coverage (r1-gen-3)
+
+Every plan starts out valid. It has a guarded reaction chain, `c0`..`c(d-1)` on
+`proof.signal`, 1 to 5 rules deep. It may also have a fan-out to `proof.followup`,
+an item transfer that a rule on `engine.item_transferred` watches, and a future
+job. The rules are shuffled, and all of them are active except sometimes `fan`,
+which the root activates. Of all plans:
+
+- about 30% stay valid;
+- about 40% get one runtime twist: a small limits override for each budget, two
+  rules writing the same fact, a containment cycle, capacity overflow,
+  `not_owned`, an unknown destination, a non-future or duplicate job, the
+  created-jobs and pending-jobs caps, an advance target, an out-of-bounds fact, or
+  an unguarded `proof.followup` loop;
+- about 30% get one validation defect.
+
+`test/support/composition_tally.py` runs the plans through `composition_model.py`.
+A self-test asserts that 2,000 plans hit every fault code in the model, with the
+vocabulary read from the model's source, and at least one accepted result with 3
+or more deliveries. Tally for seed 1: ok 567, of which 407 have 3 or more
+deliveries; conflicting_write 124; invalid_time 106; unknown_subscription 86;
+not_owned 80; budget_reaction_depth 77; invalid_registry 64; nonfuture_job 60;
+budget_created_jobs 51; unknown_policy 49; invalid_operation 46; invalid_rule 45;
+budget_operations 44; budget_deliveries 44; budget_query_steps 42;
+budget_pending_jobs 42; duplicate_job 42; invalid_job 42; invalid_plan 41;
+resource_bounds 41; budget_output_bytes 39; invalid_target 39; forbidden_event 35;
+unknown_destination 35; unknown_operation 32; budget_events 28;
+containment_cycle 26; capacity_exceeded 23; invalid_event 22; invalid_value 14;
+unknown_fact 14.
+
 ## Retaining a failure
 
 A mismatch writes the `--report` summary before minimization and again after it.

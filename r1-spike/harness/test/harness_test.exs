@@ -50,6 +50,30 @@ defmodule LokaR1HarnessTest do
              ~s({"a":["\\b\\t\\n\\f\\r\\u0001\\u001f\u007f","é😀\\"\\\\"],"b":1})
   end
 
+  test "composition plans reach every model fault code and deep accepted chains" do
+    checks = Path.expand("../../../docs/rewrite-v3/checks", __DIR__)
+
+    profile =
+      Path.expand("../../../docs/rewrite-v3/conformance/composition-profile.json", __DIR__)
+
+    plans = Path.join(System.tmp_dir!(), "r1-plans-#{System.unique_integer([:positive])}.ndjson")
+
+    File.write!(
+      plans,
+      Enum.map(Generator.composition_plans(1, 2000), &[Canonical.encode(&1), ?\n])
+    )
+
+    script = Path.expand("support/composition_tally.py", __DIR__)
+    {out, 0} = System.cmd("python3", [script, checks, profile, plans])
+    File.rm!(plans)
+    %{"vocabulary" => vocabulary, "tally" => tally, "deep_accepted" => deep} = JSON.decode!(out)
+
+    assert length(vocabulary) >= 30
+    assert vocabulary -- Map.keys(tally) == []
+    assert tally["ok"] > 0
+    assert deep > 0
+  end
+
   defp runner(name, args \\ ""), do: {name, "python3 #{@fake} #{args}", "."}
 
   test "identical runners agree" do
