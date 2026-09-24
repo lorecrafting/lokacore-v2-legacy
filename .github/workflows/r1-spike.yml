@@ -72,6 +72,16 @@ jobs:
           # The runner must not compile while serving: mix output would corrupt stdout.
           (cd ../elixir && mix compile)
           mix r1.diff --sequences 10000 --seed "$seed" --report "$RUNNER_TEMP/r1-diff-summary.json"
+      - name: Differential test catches an injected divergence in the real TypeScript runner
+        working-directory: r1-spike/harness
+        run: |
+          set -uo pipefail
+          out=$(mix r1.diff --sequences 2000 --seed 7 --report "$RUNNER_TEMP/r1-diff-mutant.json" \
+            --ts "$PWD/test/support/mutated_ts_runner.sh" 2>&1)
+          status=$?
+          echo "$out" | tail -5
+          test "$status" -ne 0
+          grep -q 'result=mismatch' <<< "$out"
       - if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:

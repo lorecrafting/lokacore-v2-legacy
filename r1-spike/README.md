@@ -148,3 +148,11 @@ between the two is not correctness: the fixture suites stay authoritative.
   beyond the in-memory `published` list.
 - There is no Hermes, native Elixir adapter, SQLite, timing or device evidence here.
   All of that is A2 and later.
+
+## Evidence so far (2026-09-23)
+
+- **Fixture suites:** the Elixir suite has 32 tests and the TypeScript suite 89. Each covers every row of the six frozen fixture files, after checking their hashes.
+- **Differential runs:** generator `r1-gen-3`, five local runs of the 22 regression seeds plus 10,000 fresh sequences each, base seeds 2–6. There were zero mismatches, and each run took about 45 s. The CI run (`r1-spike.yml`) uses a fresh seed every time and uploads its summary.
+- **Coverage:** in 2,000 generated composition plans, the Python model reaches every one of its 30 fault codes, and about 70% of plans pass validation. The harness self-test enforces this.
+- **Sensitivity:** CI alters one output byte of the real TypeScript runner and requires a mismatch. Locally, that divergence was caught within 23 sequences and minimized to two commands.
+- **Limits:** agreement between the two is not correctness; the fixtures stay authoritative. None of this is Hermes, device, SQLite, timing or load evidence.
