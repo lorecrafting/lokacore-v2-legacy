@@ -208,9 +208,11 @@ for stage in A1 A2; do
 done
 ```
 
-Since the A1 setup approval (2026-09-23, `reviews/2026-09-23-a1-setup-review.md`),
-the actual setup passes `--stage A1` in both languages and must still reject A2 and the
-default; all four blank-template probes must reject. Omitting `--stage` remains strict A2. No weak default or synthetic receipt
+Since the A2 setup approval (2026-09-23, `reviews/2026-09-23-a2-setup-recheck.md`),
+the actual setup passes `--stage A2` and the default in both languages and must reject
+A1, because an A2-bound receipt cannot cross-bind (the A1 approval,
+`reviews/2026-09-23-a1-setup-review.md`, stands as a record at main `40ab191`);
+all four blank-template probes must reject. Omitting `--stage` remains strict A2. No weak default or synthetic receipt
 is introduced. Only truthful A1 approval-backed readiness unlocks semantic work;
 only full reviewed A2 preparation unlocks actual-host integration. A1 success is
 not a documented C failure and cannot authorize B/A or production.

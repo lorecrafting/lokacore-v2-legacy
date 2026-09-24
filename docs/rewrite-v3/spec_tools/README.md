@@ -23,7 +23,7 @@ mix format --check-formatted
 mix compile --warnings-as-errors
 mix test
 mix loka.readiness --check-template
-# Both MUST fail until their real stage-specific records/approvals exist:
+# A1 fails by design (A2-bound receipt); A2 passes since the A2 setup approval:
 mix loka.readiness --require-ready ../prep/after-pr-10/setup.pending.json --evidence-root .. --stage A1
 mix loka.readiness --require-ready ../prep/after-pr-10/setup.pending.json --evidence-root .. --stage A2
 # Temporary comparison ratchet, additionally requires Python 3:

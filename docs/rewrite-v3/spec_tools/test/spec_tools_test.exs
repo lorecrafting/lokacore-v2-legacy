@@ -358,10 +358,11 @@ defmodule LokaSpec.ReadinessTest do
     for stage <- ~w(A1 A2),
         do: assert({:error, _} = Readiness.validate(template, Readiness.root(), stage))
 
-    # The real setup holds genuine A1 approvals (2026-09-23); it must still fail A2.
+    # The real setup holds the genuine A2 approval (2026-09-23 recheck); the A2-bound
+    # receipt cannot cross-bind, so it must fail A1.
     real = Readiness.read_json(Path.join(Readiness.root(), "prep/after-pr-10/setup.pending.json"))
-    assert :ok = Readiness.validate(real, Readiness.root(), "A1")
-    assert {:error, _} = Readiness.validate(real, Readiness.root(), "A2")
+    assert :ok = Readiness.validate(real, Readiness.root(), "A2")
+    assert {:error, _} = Readiness.validate(real, Readiness.root(), "A1")
   end
 
   @tag :comparison

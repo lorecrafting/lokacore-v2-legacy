@@ -6,8 +6,9 @@ phone. Both are held to the eight frozen inputs and to each other through
 randomized differential testing ([envelope §3](../docs/rewrite-v3/r1-acceptance-envelope.md)).
 
 This is throwaway R1 code, not production. R2 starts a fresh repository and
-reimplements deliberately. The A1 gate passed on 2026-09-23 (main `f9ac1b5`;
-`setup.pending.json` passes `--stage A1`). Candidate author: the Claude Code
+reimplements deliberately. The A1 gate passed on 2026-09-23 (main `f9ac1b5`);
+since the A2 setup approval (PR #30), `setup.pending.json` passes `--stage A2`
+instead. Candidate author: the Claude Code
 implementing assistant (Claude Opus). The reviewers of the frozen inputs and the
 setup must not author code here.
 

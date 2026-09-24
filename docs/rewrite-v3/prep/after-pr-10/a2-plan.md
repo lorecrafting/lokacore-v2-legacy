@@ -1,10 +1,15 @@
 # PREP-02 A2 preparation plan — 2026-09-24
 
-**Status: proposal by the candidate author (Claude Code implementing assistant,
-Claude Opus). Not a review, not an approval, not A2 readiness.** The A1 record
-`setup.pending.json` is unchanged; its approved A1 digest binds every field.
-Proposed A2 values live in [setup.a2-proposed.json](setup.a2-proposed.json),
-whose status `a2_proposed_not_reviewed` both readiness checkers reject.
+**Status: A2 setup approved with notes** by an independent recheck
+([reviews/2026-09-23-a2-setup-recheck.md](../../reviews/2026-09-23-a2-setup-recheck.md),
+head `6b73803`, A2 digest `fef848f9…2d1a`). The proposal text below is by the
+candidate author (Claude Code implementing assistant, Claude Opus). The
+reviewed `setup.a2-proposed.json` bytes, plus `status: setup_reviewed` and the
+receipt pointer, are now [setup.pending.json](setup.pending.json), and the A2
+receipt is [setup-review.pending.json](setup-review.pending.json) (recheck N3).
+Both checkers pass `--stage A2` and the default and reject A1 by design. The A1
+approval (digest `95d454b7…530ae`) stands as a record at main `40ab191`.
+Mentions of `setup.a2-proposed.json` below refer to those reviewed bytes.
 
 This revision applies the independent A2 setup review
 ([reviews/2026-09-23-a2-setup-review.md](../../reviews/2026-09-23-a2-setup-review.md),
@@ -197,9 +202,12 @@ recorded with that label in each `availability_record`, beside the inspected
 OS-visible reading from the phone itself. Both readings are consistent with the
 4 GB class and inconsistent with the neighbouring 3 GB and 6 GB classes. They are
 not available memory. Nothing in any later measurement may treat 4 GB as
-available memory. Both readings come from one app revision (source `c4d2059`:
-the Android APK from run 35966206296, sha256 `c0d65fba…ea72a7`, and the iOS
-Release build from the same tree), per owner decision OD2.
+available memory. Both readings are intended to come from one app revision,
+per owner decision OD2: the Android APK from run 35966206296 (sha256
+`c0d65fba…ea72a7`) records source `c4d2059`; the iOS Release build's source
+revision is inferred, not recorded (build time after `c4d2059`, `r1-spike/mobile`
+unchanged since), because `iphone-11-build.sh` logged no `git rev-parse` or
+`git status` (A2 recheck N1; record both in the next iOS build).
 
 ## Reviewer rulings applied (were open decisions)
 
