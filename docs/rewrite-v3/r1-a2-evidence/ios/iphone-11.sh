@@ -162,16 +162,19 @@ $SERIAL"
       echo "\$ xcrun devicectl device process launch --console --terminate-existing --device [redacted] $BUNDLE_ID  (launch $launches)"
       xcrun devicectl device process launch --console --terminate-existing --device "$CDID" "$BUNDLE_ID" > "$T/launch-$launches.txt" 2>&1 &
       local LP=$! t=0
-      while [ $t -lt 60 ]; do
+      while [ $t -lt 24 ]; do # at most 120 s per launch
         sleep 5; t=$((t + 1))
         if xcrun devicectl device copy from --device "$CDID" --domain-type appDataContainer --domain-identifier "$BUNDLE_ID" \
           --source Documents/summary.json --destination "$D/summary.json" >/dev/null 2>&1; then done=1; break; fi
         kill -0 $LP 2>/dev/null || break
       done
+      local stuck=0
+      [ $done = 0 ] && kill -0 $LP 2>/dev/null && stuck=1 # alive after 120 s without finishing
       kill $LP 2>/dev/null; wait $LP 2>/dev/null
       echo "launch $launches ended after ~$((t * 5)) s; process console output (last lines):"
       tail -3 "$T/launch-$launches.txt"
       grep -q 'BSErrorCodeDescription = Locked' "$T/launch-$launches.txt" && { echo "device locked: stopping"; break; }
+      [ $stuck = 1 ] && { echo "STOPPED: no progress within 120 s; run incomplete (fail)"; break; }
     done
     echo "launches=$launches done=$done"
     for f in responses.jsonl faults.jsonl summary.json; do

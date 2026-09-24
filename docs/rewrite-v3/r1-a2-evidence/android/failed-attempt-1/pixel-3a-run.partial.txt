@@ -1,0 +1,32 @@
+2026-09-24T15:52:02Z
+git HEAD 3525fdcdbe0164d5c1e7771031f131dbb71f5f42
+$ adb version
+Android Debug Bridge version 1.0.41
+Version 37.0.1-15733141
+Installed as /opt/homebrew/bin/adb
+Running on Darwin 25.6.0 (arm64)
+exit=0
+apk sha256 7e248aab199aab9fa5233c45af39b5e629a4b12e9675b09f029301a1557acadf bytes 27918593 (artifact app-release-apk, run 36022268988)
+source map sha256 d4ec04f3e64af06e950f3b3c82a4ca151f8351f894ff0fdc2bac00ed29ff8c8e (index.android.bundle.map in artifact a2-android-evidence, run 36022268988)
+$ adb shell getprop ro.build.fingerprint
+google/sargo/sargo:11/RQ2A.210505.002/7246365:user/release-keys
+exit=0
+$ adb install -r [tmp]
+Performing Streamed Install
+Success
+exit=0
+$ adb shell am force-stop com.lorecrafting.lokar1a2
+exit=0
+$ adb shell pm clear com.lorecrafting.lokar1a2
+Success
+exit=0
+$ adb logcat -c
+exit=0
+$ adb shell am start -n com.lorecrafting.lokar1a2/.MainActivity
+Starting: Intent { cmp=com.lorecrafting.lokar1a2/.MainActivity }
+exit=0
+launch 1: done=0 after ~300 s (process alive)
+$ adb shell am start -n com.lorecrafting.lokar1a2/.MainActivity
+Starting: Intent { cmp=com.lorecrafting.lokar1a2/.MainActivity }
+Warning: Activity not started, intent has been delivered to currently running top-most instance.
+exit=0

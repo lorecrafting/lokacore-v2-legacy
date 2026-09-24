@@ -1,11 +1,15 @@
-source_commit=314a129219b8153107895ea0091fe64c2d33b324 run_id=36019566499 run_attempt=1 ImageVersion=20260920.314.1 
-source_commit=314a129219b8153107895ea0091fe64c2d33b324 run_id=36019591785 run_attempt=1 ImageVersion=20260920.314.1 
-apk: 40a94dddcfed4e7bae28c91bfd2b1492b63355defc00188f735095974cb49a32 vs d53e47c2f90453ab6959a84a467971ae5e71e73e94ec188f4fe9a3aa73c6e33f
+source_commit=3525fdcdbe0164d5c1e7771031f131dbb71f5f42 run_id=36022268988 run_attempt=1 ImageVersion=20260920.314.1 
+source_commit=3525fdcdbe0164d5c1e7771031f131dbb71f5f42 run_id=36022290115 run_attempt=1 ImageVersion=20260920.314.1 
+apk: 7e248aab199aab9fa5233c45af39b5e629a4b12e9675b09f029301a1557acadf vs 27fef3b3f25b662e5cea054f46c8d0708421c1f7f0e35d3c60d011a57acc8640
 --- JS bundle / Hermes bytecode / source maps (diff; empty means identical)
 (identical)
 --- APK entries whose sha256 differs
-< 7f9a95414d8673fbc0f9452f33648f0cb2a597dff6c0c47d6a67f461c4eb116f  ./resources.arsc
-> c68dcd4ae447aa32d9f52855dbb09d80ea231f85ad3f500bdecb2b87e7ad5f31  ./resources.arsc
+(none)
 --- strings in resources.arsc that differ (unzip -p app-release.apk resources.arsc | strings)
-< 10.1.1.183
-> 10.1.1.170
+--- whole-file layout: zip entries before the APK Signing Block, the block's ID-value pairs, central directory + EOCD
+    (0x7109871a = v2 signature, 0x504b4453 = AGP dependency-info block, 0x42726577 = verity padding)
+zip entries [0, signing block): same bytes=27826720 b4badebfa80b4b16e9d95dbf9b37ec47300261c482c631cd1f6eb9467068904f b4badebfa80b4b16e9d95dbf9b37ec47300261c482c631cd1f6eb9467068904f
+central directory + EOCD: same bytes=79585 6f89a5c966decb3721d6d9beb476e701bfe89f718455551ae9f4db40a9a92321 6f89a5c966decb3721d6d9beb476e701bfe89f718455551ae9f4db40a9a92321
+signing block pair 0x7109871a: same bytes=1541 b963a9af79631be84d147fef6918791c297ef3ce360a16c2d89d9e46ee8764de b963a9af79631be84d147fef6918791c297ef3ce360a16c2d89d9e46ee8764de
+signing block pair 0x504b4453: DIFFERENT bytes=7329 eaf672fe91a5e36d47aef603dcb784d6b210826d79b5198f96ed4ff7cd5d1d7f 8e46d4e4d2fc9780923c65da2d74c1d71086e9fca8278353e6fdf975e4b1a70c
+signing block pair 0x42726577: same bytes=3350 8666bf4e7c362dbb4e61fd521ec47c8b13758425f80e10bdca5ace7162b8ec1b 8666bf4e7c362dbb4e61fd521ec47c8b13758425f80e10bdca5ace7162b8ec1b

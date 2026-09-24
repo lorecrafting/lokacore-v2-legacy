@@ -41,13 +41,16 @@ run() { echo "\$ $*"; "$@" 2>&1 | tr -d '\r'; echo "exit=${PIPESTATUS[0]}"; }
   while [ $launches -lt 12 ] && [ $done = 0 ]; do
     launches=$((launches + 1))
     run adb shell am start -n "$PKG/.MainActivity"
-    t=0
-    while [ $t -lt 100 ]; do
+    t=0 alive=1 err=0
+    while [ $t -lt 40 ]; do # at most 120 s per launch
       sleep 3; t=$((t + 1))
       if adb shell ls "$FILES/summary.json" >/dev/null 2>&1; then done=1; break; fi
-      adb shell pidof "$PKG" >/dev/null 2>&1 || break
+      adb logcat -d ReactNativeJS:V '*:S' | grep -q LOKA_A2_ERROR && { err=1; break; }
+      adb shell pidof "$PKG" >/dev/null 2>&1 || { alive=0; break; }
     done
-    echo "launch $launches: done=$done after ~$((t * 3)) s (process $(adb shell pidof "$PKG" >/dev/null 2>&1 && echo alive || echo gone))"
+    echo "launch $launches: done=$done after ~$((t * 3)) s (process $([ $alive = 1 ] && echo alive || echo gone); app error=$err)"
+    # An app error, or a live process that neither finished nor died within 120 s, ends the run as a failure.
+    [ $done = 0 ] && { [ $err = 1 ] || [ $alive = 1 ]; } && { echo "STOPPED: app error or no progress; run incomplete (fail)"; break; }
   done
   echo "launches=$launches done=$done"
   for f in responses.jsonl faults.jsonl summary.json; do run adb pull "$FILES/$f" "$T/$f"; done
@@ -57,6 +60,7 @@ run() { echo "\$ $*"; "$@" 2>&1 | tr -d '\r'; echo "exit=${PIPESTATUS[0]}"; }
   grep -E "Process $PKG .*has died|Killing .*$PKG" "$T/logcat.txt"
 } 2>&1 | redact > "$EV/pixel-3a-run.txt"
 redact < "$T/logcat.txt" > "$EV/pixel-3a-logcat.txt"
+[ -f "$T/summary.json" ] || { echo "no summary.json: run incomplete, see pixel-3a-run.txt and pixel-3a-logcat.txt" >&2; exit 1; }
 cp "$T/responses.jsonl" "$EV/responses.jsonl"; cp "$T/summary.json" "$EV/summary.json"; cp "$T/faults.jsonl" "$EV/faults.device.jsonl"
 cd "$APP" || exit 1
 (cd ../elixir && mise exec elixir@1.20.4 erlang@28.4 -- mix r1.runner < ../mobile/requests.jsonl) > "$EV/elixir-runner.jsonl"

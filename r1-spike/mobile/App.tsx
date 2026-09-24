@@ -20,9 +20,17 @@ const native = requireNativeModule<{
   kill(): void;
 }>('LokaMemory');
 
+// One handle per database for the life of the process. On Android, expo-sqlite 57.0.3 hands a second
+// openDatabaseSync of the same path the same cached native database, and garbage collection of either
+// JS handle closes it (NativeDatabase.sharedObjectDidRelease -> ref.close(), refCount ignored), so the
+// other handle's next call fails with a NullPointerException (Pixel 3a, failed-attempt-1 evidence).
+const handles: { [name: string]: Db } = {};
 const open = (name: string): Db => {
-  const d = openDatabaseSync(name);
-  return { exec: (s) => d.execSync(s), all: (s, ...p) => d.getAllSync(s, p) as Array<{ [k: string]: unknown }> };
+  if (!handles[name]) {
+    const d = openDatabaseSync(name);
+    handles[name] = { exec: (s) => d.execSync(s), all: (s, ...p) => d.getAllSync(s, p) as Array<{ [k: string]: unknown }> };
+  }
+  return handles[name];
 };
 
 function base64(bytes: Uint8Array): string {
