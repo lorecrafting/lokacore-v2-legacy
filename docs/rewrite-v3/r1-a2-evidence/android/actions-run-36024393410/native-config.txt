@@ -1,0 +1,5 @@
+buildToolsVersion=36.0.0
+compileSdk=android-36
+minSdk=24
+ndkVersion=27.1.12297006
+targetSdk=36

@@ -1,0 +1,70 @@
+2026-09-24T16:08:59Z
+git HEAD e61c52a32acaed915403cfbb2468d289e90da020
+$ adb version
+Android Debug Bridge version 1.0.41
+Version 37.0.1-15733141
+Installed as /opt/homebrew/bin/adb
+Running on Darwin 25.6.0 (arm64)
+exit=0
+apk sha256 f5d512b81f1dff00865ef042fb5ed656e478692b8b300af4bc8c9b0cbec8659c bytes 27918629 (artifact app-release-apk, run 36024373520)
+source map sha256 c5f086df99a3adc584e990030b4c4e3b8f1d5a92a0b3dde26ff5708fe05c1234 (index.android.bundle.map in artifact a2-android-evidence, run 36024373520)
+$ adb shell getprop ro.build.fingerprint
+google/sargo/sargo:11/RQ2A.210505.002/7246365:user/release-keys
+exit=0
+$ adb install -r [tmp]
+Performing Streamed Install
+Success
+exit=0
+$ adb shell am force-stop com.lorecrafting.lokar1a2
+exit=0
+$ adb shell pm clear com.lorecrafting.lokar1a2
+Success
+exit=0
+$ adb logcat -c
+exit=0
+$ adb shell am start -n com.lorecrafting.lokar1a2/.MainActivity
+Starting: Intent { cmp=com.lorecrafting.lokar1a2/.MainActivity }
+exit=0
+launch 1: done=0 after ~15 s (process gone; app error=0)
+$ adb shell am start -n com.lorecrafting.lokar1a2/.MainActivity
+Starting: Intent { cmp=com.lorecrafting.lokar1a2/.MainActivity }
+exit=0
+launch 2: done=0 after ~3 s (process gone; app error=0)
+$ adb shell am start -n com.lorecrafting.lokar1a2/.MainActivity
+Starting: Intent { cmp=com.lorecrafting.lokar1a2/.MainActivity }
+exit=0
+launch 3: done=0 after ~3 s (process gone; app error=0)
+$ adb shell am start -n com.lorecrafting.lokar1a2/.MainActivity
+Starting: Intent { cmp=com.lorecrafting.lokar1a2/.MainActivity }
+exit=0
+launch 4: done=0 after ~3 s (process gone; app error=0)
+$ adb shell am start -n com.lorecrafting.lokar1a2/.MainActivity
+Starting: Intent { cmp=com.lorecrafting.lokar1a2/.MainActivity }
+exit=0
+launch 5: done=0 after ~3 s (process gone; app error=0)
+$ adb shell am start -n com.lorecrafting.lokar1a2/.MainActivity
+Starting: Intent { cmp=com.lorecrafting.lokar1a2/.MainActivity }
+exit=0
+launch 6: done=0 after ~3 s (process gone; app error=0)
+$ adb shell am start -n com.lorecrafting.lokar1a2/.MainActivity
+Starting: Intent { cmp=com.lorecrafting.lokar1a2/.MainActivity }
+exit=0
+launch 7: done=1 after ~3 s (process alive; app error=0)
+launches=7 done=1
+$ adb pull /sdcard/Android/data/com.lorecrafting.lokar1a2/files/responses.jsonl [tmp]
+/sdcard/Android/data/com.lorecrafting.lokar1a2/files/responses.jsonl: 1 file pulled, 0 skipped. 30.1 MB/s (1583900 bytes in 0.050s)
+exit=0
+$ adb pull /sdcard/Android/data/com.lorecrafting.lokar1a2/files/faults.jsonl [tmp]
+/sdcard/Android/data/com.lorecrafting.lokar1a2/files/faults.jsonl: 1 file pulled, 0 skipped. 21.0 MB/s (113833 bytes in 0.005s)
+exit=0
+$ adb pull /sdcard/Android/data/com.lorecrafting.lokar1a2/files/summary.json [tmp]
+/sdcard/Android/data/com.lorecrafting.lokar1a2/files/summary.json: 1 file pulled, 0 skipped. 0.3 MB/s (699 bytes in 0.002s)
+exit=0
+$ adb logcat -d -v threadtime ReactNativeJS:V ActivityManager:I '*:S' > pixel-3a-logcat.txt
+--- process deaths in the log (ActivityManager)
+09-24 06:09:18.794  1541  1564 I ActivityManager: Process com.lorecrafting.lokar1a2 (pid 16458) has died: fg  TOP 
+09-24 06:09:21.582  1541  2966 I ActivityManager: Process com.lorecrafting.lokar1a2 (pid 16740) has died: fg  TOP 
+09-24 06:09:25.053  1541  4742 I ActivityManager: Process com.lorecrafting.lokar1a2 (pid 16789) has died: fg  TOP 
+09-24 06:09:28.603  1541  7340 I ActivityManager: Process com.lorecrafting.lokar1a2 (pid 16838) has died: fg  TOP 
+09-24 06:09:31.865  1541  4437 I ActivityManager: Process com.lorecrafting.lokar1a2 (pid 16886) has died: fg  TOP 
+09-24 06:09:35.367  1541  7340 I ActivityManager: Process com.lorecrafting.lokar1a2 (pid 16936) has died: fg  TOP 

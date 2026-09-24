@@ -1,0 +1,83 @@
+npm warn deprecated uuid@7.0.3: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+
+added 468 packages in 9s
+npm notice
+npm notice 📦  expo-template-bare-minimum@57.0.26
+npm notice Tarball Contents
+npm notice 16B .gitattributes
+npm notice 454B App.js
+npm notice 1.1kB LICENSE
+npm notice 8.2kB android/app/build.gradle
+npm notice 2.3kB android/app/debug.keystore
+npm notice 562B android/app/proguard-rules.pro
+npm notice 374B android/app/src/debug/AndroidManifest.xml
+npm notice 374B android/app/src/debugOptimized/AndroidManifest.xml
+npm notice 1.8kB android/app/src/main/AndroidManifest.xml
+npm notice 2.2kB android/app/src/main/java/com/helloworld/MainActivity.kt
+npm notice 1.5kB android/app/src/main/java/com/helloworld/MainApplication.kt
+npm notice 20.8kB android/app/src/main/res/drawable-hdpi/splashscreen_logo.png
+npm notice 12.9kB android/app/src/main/res/drawable-mdpi/splashscreen_logo.png
+npm notice 29.1kB android/app/src/main/res/drawable-xhdpi/splashscreen_logo.png
+npm notice 47.1kB android/app/src/main/res/drawable-xxhdpi/splashscreen_logo.png
+npm notice 66.5kB android/app/src/main/res/drawable-xxxhdpi/splashscreen_logo.png
+npm notice 245B android/app/src/main/res/drawable/ic_launcher_background.xml
+npm notice 1.9kB android/app/src/main/res/drawable/rn_edit_text_material.xml
+npm notice 5.0kB android/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp
+npm notice 3.1kB android/app/src/main/res/mipmap-hdpi/ic_launcher.webp
+npm notice 2.9kB android/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp
+npm notice 2.1kB android/app/src/main/res/mipmap-mdpi/ic_launcher.webp
+npm notice 7.1kB android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp
+npm notice 4.6kB android/app/src/main/res/mipmap-xhdpi/ic_launcher.webp
+npm notice 10.7kB android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp
+npm notice 6.5kB android/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp
+npm notice 15.5kB android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp
+npm notice 9.3kB android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp
+npm notice 136B android/app/src/main/res/values/colors.xml
+npm notice 85B android/app/src/main/res/values/strings.xml
+npm notice 337B android/app/src/main/res/values/styles.xml
+npm notice 556B android/build.gradle
+npm notice 183B android/gitignore
+npm notice 2.5kB android/gradle.properties
+npm notice 46.2kB android/gradle/wrapper/gradle-wrapper.jar
+npm notice 252B android/gradle/wrapper/gradle-wrapper.properties
+npm notice 8.6kB android/gradlew
+npm notice 3.1kB android/gradlew.bat
+npm notice 1.3kB android/settings.gradle
+npm notice 103B app.json
+npm notice 389B gitignore
+npm notice 307B index.js
+npm notice 482B ios/.xcode.env
+npm notice 321B ios/gitignore
+npm notice 17.3kB ios/HelloWorld.xcodeproj/project.pbxproj
+npm notice 135B ios/HelloWorld.xcodeproj/project.xcworkspace/contents.xcworkspacedata
+npm notice 238B ios/HelloWorld.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+npm notice 3.3kB ios/HelloWorld.xcodeproj/xcshareddata/xcschemes/HelloWorld.xcscheme
+npm notice 2.2kB ios/HelloWorld/AppDelegate.swift
+npm notice 102B ios/HelloWorld/HelloWorld-Bridging-Header.h
+npm notice 175B ios/HelloWorld/Images.xcassets/AppIcon.appiconset/Contents.json
+npm notice 62B ios/HelloWorld/Images.xcassets/Contents.json
+npm notice 1.6kB ios/HelloWorld/Info.plist
+npm notice 3.5kB ios/HelloWorld/SplashScreen.storyboard
+npm notice 188B ios/HelloWorld/Supporting/Expo.plist
+npm notice 2.8kB ios/Podfile
+npm notice 77B ios/Podfile.properties.json
+npm notice 245B metro.config.js
+npm notice 591B package.json
+npm notice Tarball Details
+npm notice name: expo-template-bare-minimum
+npm notice version: 57.0.26
+npm notice filename: expo-template-bare-minimum-57.0.26.tgz
+npm notice package size: 297.9 kB
+npm notice unpacked size: 361.4 kB
+npm notice shasum: 8e2e05b8f439828cbbb5b029a193878439b79665
+npm notice integrity: sha512-LIm7Bzz2wzy6d[...]hq7nWofm37YHA==
+npm notice total files: 59
+npm notice
+expo-template-bare-minimum-57.0.26.tgz
+/home/runner/work/_temp/expo-template-bare-minimum-57.0.26.tgz: OK
+- Creating native directory (./android)
+✔ Created native directory
+- Updating package.json
+✔ Updated package.json | no changes
+- Running prebuild
+✔ Finished prebuild

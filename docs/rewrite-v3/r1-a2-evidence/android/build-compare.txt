@@ -1,6 +1,6 @@
-source_commit=3525fdcdbe0164d5c1e7771031f131dbb71f5f42 run_id=36022268988 run_attempt=1 ImageVersion=20260920.314.1 
-source_commit=3525fdcdbe0164d5c1e7771031f131dbb71f5f42 run_id=36022290115 run_attempt=1 ImageVersion=20260920.314.1 
-apk: 7e248aab199aab9fa5233c45af39b5e629a4b12e9675b09f029301a1557acadf vs 27fef3b3f25b662e5cea054f46c8d0708421c1f7f0e35d3c60d011a57acc8640
+source_commit=e61c52a32acaed915403cfbb2468d289e90da020 run_id=36024373520 run_attempt=1 ImageVersion=20260920.314.1 
+source_commit=e61c52a32acaed915403cfbb2468d289e90da020 run_id=36024393410 run_attempt=1 ImageVersion=20260920.314.1 
+apk: f5d512b81f1dff00865ef042fb5ed656e478692b8b300af4bc8c9b0cbec8659c vs 6415452bfc526478829d316571cd6ab43819a0d93f770da8b8eae550c2154f01
 --- JS bundle / Hermes bytecode / source maps (diff; empty means identical)
 (identical)
 --- APK entries whose sha256 differs
@@ -8,8 +8,8 @@ apk: 7e248aab199aab9fa5233c45af39b5e629a4b12e9675b09f029301a1557acadf vs 27fef3b
 --- strings in resources.arsc that differ (unzip -p app-release.apk resources.arsc | strings)
 --- whole-file layout: zip entries before the APK Signing Block, the block's ID-value pairs, central directory + EOCD
     (0x7109871a = v2 signature, 0x504b4453 = AGP dependency-info block, 0x42726577 = verity padding)
-zip entries [0, signing block): same bytes=27826720 b4badebfa80b4b16e9d95dbf9b37ec47300261c482c631cd1f6eb9467068904f b4badebfa80b4b16e9d95dbf9b37ec47300261c482c631cd1f6eb9467068904f
-central directory + EOCD: same bytes=79585 6f89a5c966decb3721d6d9beb476e701bfe89f718455551ae9f4db40a9a92321 6f89a5c966decb3721d6d9beb476e701bfe89f718455551ae9f4db40a9a92321
-signing block pair 0x7109871a: same bytes=1541 b963a9af79631be84d147fef6918791c297ef3ce360a16c2d89d9e46ee8764de b963a9af79631be84d147fef6918791c297ef3ce360a16c2d89d9e46ee8764de
-signing block pair 0x504b4453: DIFFERENT bytes=7329 eaf672fe91a5e36d47aef603dcb784d6b210826d79b5198f96ed4ff7cd5d1d7f 8e46d4e4d2fc9780923c65da2d74c1d71086e9fca8278353e6fdf975e4b1a70c
+zip entries [0, signing block): same bytes=27826756 44edc1b39df44c7dde4568094b19d2129afdc25ae9cc7ae84db32bca9609c97a 44edc1b39df44c7dde4568094b19d2129afdc25ae9cc7ae84db32bca9609c97a
+central directory + EOCD: same bytes=79585 dc658e36d31eca6113ccd425852a321323c99e63fbf9208eb5d6f2618abad610 dc658e36d31eca6113ccd425852a321323c99e63fbf9208eb5d6f2618abad610
+signing block pair 0x7109871a: same bytes=1541 810c328ad91c8912f5de56c42fbe712c9cfeef32706c11738850dbc110c99a9f 810c328ad91c8912f5de56c42fbe712c9cfeef32706c11738850dbc110c99a9f
+signing block pair 0x504b4453: DIFFERENT bytes=7329 ad48e22749917576b0df54dc2ec1bacc06c4a9a4ef73d2f1f8f7dc39dfb73abc e7892694612d2ccbcfcc1ef1e47fb5797ed54b3eca65f5e815dc564ceed7ba6d
 signing block pair 0x42726577: same bytes=3350 8666bf4e7c362dbb4e61fd521ec47c8b13758425f80e10bdca5ace7162b8ec1b 8666bf4e7c362dbb4e61fd521ec47c8b13758425f80e10bdca5ace7162b8ec1b

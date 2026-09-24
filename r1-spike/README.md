@@ -16,7 +16,8 @@ setup must not author code here.
 |---|---|
 | `elixir/` | Mix project `loka_r1`: kernel, runner, fixture tests. No dependencies. |
 | `ts/` | TypeScript kernel (runs on Hermes later, so no Node APIs in `src/kernel/`), Node runner, fixture tests. Only dev dependency: `typescript` 6.0.3, locked with the retained integrity hash. |
-| `harness/` | Mix project: seeded generator, differential runner, minimizer, CI entry point. |
+| `harness/` | Mix project: seeded generator, differential runner, minimizer, CI entry point. `mix r1.requests` writes the on-device differential input. |
+| `mobile/` | Expo app (release builds on Hermes): the phone durable host (`host.ts`, expo-sqlite), the on-device differential and fault cases (`device.ts`), the local module `modules/loka-memory` (memory probe, evidence files, process death), and M1 checks in `scripts/`. It bundles the unchanged `ts/src/kernel` through Metro `watchFolders`. |
 
 Toolchain: Elixir 1.20.4 / OTP 28.4, Node 24.21.0 (it runs `.ts` directly by
 stripping types, so write only erasable TypeScript), TypeScript 6.0.3 for type
@@ -201,6 +202,83 @@ lines. One deliberately altered response line must be reported as a mismatch.
 identifiers, home or scratchpad paths, or app-container/LaunchServices UUIDs;
 every capture script's `redact()` covers them. iOS build scripts record
 `git rev-parse HEAD` and `git status --porcelain`.
+
+**Phone notes (readings by the `mobile/` author, 2026-09-24; the contract above is unchanged).**
+
+- *Transactions.* The phone host issues `BEGIN IMMEDIATE` / `COMMIT` / `ROLLBACK`
+  itself with `execSync` on one connection per database. expo-sqlite's
+  `withTransactionSync` and `withExclusiveTransactionAsync` issue COMMIT inside
+  the helper, so the host could not own the COMMIT point or discard its result.
+- *What is durable.* Each step persists the difference between the kernel's
+  `HOST` before and after the step in one transaction: durable state, new
+  receipts, `pending`, and newly published events. Events go to an outbox table,
+  so `published` is also read back from SQLite. The kernel publishes only on
+  adoption, so the outbox always equals the model's `published`. `memory` and
+  `in_doubt` stay in process memory. A restart sets `memory = durable` and
+  `in_doubt = (pending row exists)`.
+- *`before_commit`.* The model discards the proposal. The host writes the
+  no-fault proposal and then issues a real `ROLLBACK`. This happens only when
+  the faulted step would otherwise write nothing: a stale-view receipt is still
+  committed, as in the model.
+- *Expected state after a fault.* The model host runs the prefix, then the
+  faulted command without a fault if SQLite shows its receipt, then `recover`,
+  then the next command (the same request again). "Recovered `HOST`" is the
+  state after that `recover`.
+- *`io_error`.* At the point, the host clamps `PRAGMA max_page_count` to the
+  current `page_count` and then issues a write that must grow the file. SQLite
+  returns a real `SQLITE_FULL` ("database or disk is full") on the host's
+  connection. In `in_persistence` that write is inside the host's open
+  transaction, so the host's `ROLLBACK` discards its earlier writes. Clamping
+  alone would fail only whichever write next needs a page, which is not
+  deterministic.
+- *`commit_unknown`.* COMMIT really succeeds and its result is discarded. So
+  SQLite always shows "committed", and the not-committed branch of an unknown
+  COMMIT is not exercised. The fenced attempt is retained as `fenced`.
+- *`kill`.* Android: `Process.killProcess` (SIGKILL). iOS: `abort()` (SIGABRT),
+  which leaves a crash report for dSYM symbolication. The M1 script relaunches
+  the app. The recovery record carries `launch_before` < `launch_after`.
+- *Fault cases.* 19 cases: 6 points × `raise` / `io_error` / `kill`, plus
+  `commit_unknown` in `in_persistence`. The worlds rotate. The faulted command
+  is an accepted, state-changing `take` (with an RNG draw, both outcomes) or a
+  Lantern `move`. The cases do not cover duplicate delivery with stale views.
+
+## A2 phone evidence (2026-09-24)
+
+Bundles: `docs/rewrite-v3/r1-a2-evidence/android/` and `…/ios/`. Each has a
+`SHA256SUMS` with its verify output beside it.
+
+- **iPhone 11** (iOS 26.6.2). The app was Release build 2 at `dba6a1a`, signed
+  by the free personal team. On-device differential: 139 request lines (22
+  regression seeds' sequences and 95 fixture rows), all byte-identical to the
+  Elixir runner. One altered line was reported as the only mismatch. Faults:
+  19/19 pass, each also cross-checked against the Elixir runner. Six real
+  process deaths, recovered on relaunch. JS stacks are symbolicated through the
+  composed release source map. The crash reports' app frame is symbolicated
+  with `atos` and the dSYM to `LokaMemoryModule.swift:17`.
+  That build predates the Android-only handle fix below (`e61c52a`); the iPhone
+  was not rerun on it.
+- **Pixel 3a** (Android 11). The app was the APK from Actions run 36024373520
+  at `e61c52a`. Differential: 139/139 byte-identical, and the injected mismatch
+  was caught. Faults: 19/19 pass, Elixir cross-check included. Six SIGKILL
+  deaths were logged by ActivityManager and recovered on relaunch. JS stacks are
+  symbolicated through the Hermes composed source map.
+  `android/failed-attempt-1/` keeps the first attempt. It failed before any
+  fault case with a real host bug: two JS handles shared one expo-sqlite
+  database, and garbage collection closed it. Fixed by opening each database
+  once.
+- **Builds.**
+  - Android: two Actions builds per source commit. The Metro bundle, Hermes
+    bytecode and source map are identical across builds.
+  - Before `-PreactNativeDevServerIp=localhost`, `resources.arsc` embedded the
+    runner's IP address.
+  - After it, every zip entry, the v2 signature and the central directory are
+    identical. Only AGP's dependency-info block (`0x504b4453`, stored encrypted
+    with fresh randomness per build) differs.
+  - AGP 8.12.0 (root `buildEnvironment`).
+  - iOS: two clean builds. The Metro bundle, Hermes bytecode and source map are
+    identical. The Mach-O files are identical once their code signatures are
+    removed. The dSYM differs in 2 DWARF bytes, and the UUID is the same.
+- **Not here:** latency, memory ceilings, load (R1-A3).
 
 ## Known gaps (A1 scope)
 
